@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href='{% static "css/main.css" %}' />
+
+
+    <script src='{% static "js/jquery.min.js" %}' ></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="open-edu lang_ru js">
+<div class="site content-wrapper" id="content">
+
+{% block content %}
+{% endblock %}
+</div>
+
+</body>
+</html>

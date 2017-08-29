@@ -1,0 +1,94 @@
+.article  p{
+	text-align:justify;
+}
+
+.article ul{
+	text-align:justify;
+}
+
+.article ol{
+	text-align:justify;
+}
+
+.sr {
+    border: 0px none;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0px;
+    position: absolute;
+    width: 1px;
+}
+
+
+.open-edu .widget-event .media img {
+width: 288px;
+}
+
+/*Картинка с подписью
+пример:
+<figure>
+   <img src="/files/content/IOET.pu.Ma-0068/images/07.001-004.svg" alt="Скульптура" height="" width="100%">
+   <figcaption>Рис. 1 - Рис. 4</figcaption>
+</figure>
+*/
+ol figure{margin: 30px -20px 24px -48px;}
+figure {
+    margin: 30px -20px 24px;
+    padding: 20px 20px 24px;
+    background: #F7F7F4 none repeat scroll 0% 0%;
+    font-size: 18px;
+    font-family: "open_sanslight_italic";
+}
+
+figure img{
+    display:block;
+    margin:0 auto;
+}
+
+figure figcaption{
+    text-align: center;
+}
+
+/*Настройки курсива*/
+/*.article p em,*/
+.article p i,
+.article ol em li,
+.article ol i li,
+.article ol li em,
+.article ol li i {
+    font-style: normal;
+    font-family: "open_sansitalic";
+}
+
+/*Показать ответ*/
+.article p[hidden],
+.article div[hidden]{    
+    margin: 30px -20px 24px;
+    padding: 20px 20px 24px;
+    background: #FFF4F9 none repeat scroll 0% 0%;
+    font-size: 18px;
+    font-family: "open_sanslight_italic";}
+
+
+.article div[hidden] ol li,
+.article div[hidden] ul li {
+    font-family: "open_sanslight_italic";
+}
+
+#videoplay{
+text-align: center;
+display: block;
+margin: -242px auto 80px;
+width: 165px;
+opacity: 0.6;
+}
+a:hover #videoplay{
+    opacity: 0.8;
+    
+}
+/* Маркер на втором уровне */
+.article ol ul li {
+    padding: 0 0 0 30px;
+}

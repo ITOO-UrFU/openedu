@@ -1,0 +1,41 @@
+<%inherit file="../base.html"/>
+<div class="for-footer">
+
+    <div class="section">
+        <div class="widget-title">
+            Онлайн-курсы
+        </div>
+        <p>access_token: ${ access_token }</p>
+        <p>id_token: ${ id_token[:32] }...</p>
+        <p>token_type: ${ token_type }</p>
+
+        <p><strong>${ msg }</strong></p>
+
+
+        % if len(courses) > 0:
+        <div class="section">
+            <% i = 0 %>
+            % for course in courses:
+            % if i % 3 == 0:
+            <div class="row">
+                % endif
+                <%include file="course.html" args="course=course" />
+                % if i % 3 == 2:
+            </div>
+            % endif
+            <% i += 1 %>
+            % endfor
+            %if len(courses) % 3 == 1:
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+
+        %elif len(courses) % 3 == 2:
+        <div class="col"></div>
+
+        %endif
+    </div>
+    %endif
+
+
+</div>

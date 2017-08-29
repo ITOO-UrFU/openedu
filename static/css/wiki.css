@@ -1,0 +1,142 @@
+
+
+
+.row .col2 .article-wrapper .main-article .form-horizontal div #div_id_title .controls {
+
+}
+
+
+.row .col2 .article-wrapper .main-article .form-horizontal div #div_id_title .controls #id_title,
+.row .col2 .main-article .form-horizontal #div_id_title .controls #id_title{
+width: 94%;
+height: 28px;
+padding-left: 15px;
+border-radius: 4px;
+border:1px solid gray;
+}
+
+.row .col2 .article-wrapper .main-article .form-horizontal div #div_id_content .controls .CodeMirror,
+.row .col2 .main-article .form-horizontal #div_id_content .controls .CodeMirror{
+padding-left: 10px;
+height: 390px;
+border-radius: 4px;
+border:1px solid gray;
+}
+
+.row .col2 .article-wrapper .main-article .form-horizontal div #div_id_summary .controls #id_summary,
+.row .col2 .main-article .form-horizontal  #div_id_summary .controls #id_summary{
+width: 94%;
+height: 28px;
+padding-left: 15px;
+border-radius: 4px;
+border:1px solid gray;
+}
+
+.row .col2 .main-article .form-horizontal #div_id_slug .controls .input-prepend #id_slug{
+width: 93.4%;
+height: 28px;
+padding-left: 15px;
+border-radius: 4px;
+border:1px solid gray;
+}
+
+
+#hint_id_summary, #hint_id_slug{
+font-size: 70%;
+}
+
+.row .col2 .article-wrapper .main-article .form-horizontal #previewModal, section#cheatsheetModal{
+display: none;
+position: absolute;
+opacity: 1;
+z-index: 11000;
+left: 50%;
+margin-left: -170px;
+top: 120px;	
+background-color: #FFF;
+padding: 0 25px 25px;
+box-shadow: 0 0 15px gray;
+}
+.row .col2 .article-wrapper .main-article .form-horizontal #previewModal .modal-body iframe{
+	width: 800px;
+	height:600px;
+	border-radius: 4px;
+border:1px solid gray;
+}
+
+.row .col2 .article-wrapper .main-article .form-horizontal #cheatsheetModal{
+display: none;
+position: absolute;
+opacity: 1;
+z-index: 11000;
+left: 50%;
+margin-left: -170px;
+top: 120px;	
+}
+
+.wiki-article pre {
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: Monaco, monospace;
+    margin: 15px 0;
+}
+
+.wiki-article p {
+    margin: 15px 0 0 0;
+}
+
+.wiki-article p code {
+	color: black;
+	background-color: #f9f9f9;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	padding: 1px 4px;
+}
+
+.modal-preview .container {
+	width: 600px !important;
+	margin:0 auto;
+	padding: 0 10px;
+	background-color:#FFF;
+}
+.modal-preview{min-width: 700px;}
+
+#preview-title .sr{
+	display: none
+}
+
+/* Загрузка файлов */
+input#id_description{
+width: 94%;
+height: 28px;
+padding-left: 15px;
+border-radius: 4px;
+border:1px solid gray;
+}
+
+input#id_query{
+width: 94%;
+height: 28px;
+padding-left: 15px;
+border-radius: 4px;
+border:1px solid gray;
+}
+
+#search-file-modal form button.btn.btn-primary{
+margin-left: -60px;
+}
+
+.alert-success{
+    background: wheat;
+    padding: 5px;
+    margin-left: -20px;
+    margin-right: 0px;
+}
+.alert-success .close{
+    color: rgb(229, 0, 121);
+    text-decoration: none;
+    font-weight: bold;
+}

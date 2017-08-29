@@ -1,0 +1,618 @@
+textarea{
+overflow: auto;
+vertical-align: top;
+resize: vertical;
+}
+.wmd-preview-container {
+overflow: auto;
+}
+.xmodule_display.xmodule_SequenceModule .block-link, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol a, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav a, div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule a{
+
+
+display:block
+}
+
+.xmodule_display.xmodule_SequenceModule .block-link:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol a:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav a:hover, div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule a:hover, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4, div.book-wrapper .book nav div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule div.info-wrapper section.handouts ol li div.book-wrapper .book nav div.hitarea:hover+h4, div.info-wrapper section.handouts ol li div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4, div.book-wrapper .book nav div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule div.info-wrapper section.handouts ol li div.book-wrapper .book nav div.hitarea:focus+h4, div.info-wrapper section.handouts ol li div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule .block-link:focus, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol a:focus, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav a:focus, div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule a:focus{
+background:0
+}
+
+.xmodule_display.xmodule_SequenceModule .topbar, .xmodule_display.xmodule_SequenceModule nav.sequence-nav{
+border-bottom:1px solid #c8c8c8
+}
+
+.xmodule_display.xmodule_SequenceModule .topbar:after, .xmodule_display.xmodule_SequenceModule nav.sequence-nav:after{
+content:"";
+display:table;
+clear:both
+}
+
+@media print{
+.xmodule_display.xmodule_SequenceModule .topbar, .xmodule_display.xmodule_SequenceModule nav.sequence-nav{
+display:none
+}
+
+
+}
+
+.xmodule_display.xmodule_SequenceModule .topbar a.block-link, .xmodule_display.xmodule_SequenceModule nav.sequence-nav a.block-link, .xmodule_display.xmodule_SequenceModule .topbar nav.sequence-nav ol a, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol .topbar a, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol a, .xmodule_display.xmodule_SequenceModule .topbar div.book-wrapper .book nav a, div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule .topbar a, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav.sequence-nav a, div.book-wrapper .book .xmodule_display.xmodule_SequenceModule nav.sequence-nav a{
+border-left:1px solid #e2e2e2;
+display:block
+}
+
+.xmodule_display.xmodule_SequenceModule .topbar a.block-link:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav a.block-link:hover, .xmodule_display.xmodule_SequenceModule .topbar nav.sequence-nav ol a:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol .topbar a:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol a:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule .topbar div.info-wrapper section.handouts ol li div.hitarea:hover+h4.block-link, div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule .topbar div.hitarea:hover+h4.block-link, div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.hitarea:hover+h4.block-link, .xmodule_display.xmodule_SequenceModule .topbar div.info-wrapper section.handouts ol li div.hitarea:focus+h4.block-link, div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule .topbar div.hitarea:focus+h4.block-link, div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.hitarea:focus+h4.block-link, .xmodule_display.xmodule_SequenceModule .topbar div.book-wrapper .book nav a:hover, div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule .topbar a:hover, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav.sequence-nav a:hover, div.book-wrapper .book .xmodule_display.xmodule_SequenceModule nav.sequence-nav a:hover, .xmodule_display.xmodule_SequenceModule .topbar div.book-wrapper .book nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4, div.book-wrapper .book nav div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule .topbar div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule .topbar div.info-wrapper section.handouts ol li div.book-wrapper .book nav div.hitarea:hover+h4, div.info-wrapper section.handouts ol li div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule .topbar div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule div.info-wrapper section.handouts ol li div.book-wrapper .book nav.sequence-nav div.hitarea:hover+h4, div.info-wrapper section.handouts ol li div.book-wrapper .book .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule .topbar div.book-wrapper .book nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4, div.book-wrapper .book nav div.info-wrapper section.handouts ol li .xmodule_display.xmodule_SequenceModule .topbar div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule .topbar div.info-wrapper section.handouts ol li div.book-wrapper .book nav div.hitarea:focus+h4, div.info-wrapper section.handouts ol li div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule .topbar div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule div.info-wrapper section.handouts ol li div.book-wrapper .book nav.sequence-nav div.hitarea:focus+h4, div.info-wrapper section.handouts ol li div.book-wrapper .book .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule .topbar a.block-link:focus, .xmodule_display.xmodule_SequenceModule nav.sequence-nav a.block-link:focus, .xmodule_display.xmodule_SequenceModule .topbar nav.sequence-nav ol a:focus, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol .topbar a:focus, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol a:focus, .xmodule_display.xmodule_SequenceModule .topbar div.book-wrapper .book nav a:focus, div.book-wrapper .book nav .xmodule_display.xmodule_SequenceModule .topbar a:focus, .xmodule_display.xmodule_SequenceModule div.book-wrapper .book nav.sequence-nav a:focus, div.book-wrapper .book .xmodule_display.xmodule_SequenceModule nav.sequence-nav a:focus{
+background:0
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav{
+margin:-4px 0 30px;
+position:relative;
+border-bottom:0
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav .left-shadow{
+position:absolute;
+top:0;
+left:0;
+z-index:9999;
+width:20px;
+height:46px;
+background-color:rgba(0, 0, 0, 0.2);
+background-image:-webkit-linear-gradient(left, rgba(0, 0, 0, 0.2), transparent);
+background-image:linear-gradient(to right, rgba(0, 0, 0, 0.2), transparent);
+background-color:transparent;
+pointer-events:none
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav .right-shadow{
+position:absolute;
+top:0;
+right:0;
+z-index:9999;
+width:20px;
+height:46px;
+background-color:rgba(0, 0, 0, 0.2);
+background-image:-webkit-linear-gradient(right, rgba(0, 0, 0, 0.2), transparent);
+background-image:linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent);
+background-color:transparent;
+pointer-events:none
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav .sequence-list-wrapper{
+position:relative;
+z-index:99;
+height:44px;
+margin:0 30px;
+background-color:#fcfcfc;
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol{
+position:absolute;
+top:0;
+left:0;
+-webkit-box-sizing:border-box;
+-moz-box-sizing:border-box;
+box-sizing:border-box;
+display:table;
+height:100%;
+margin:0;
+padding:0 10px;
+width:100%
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li{
+display:table-cell;
+min-width:20px
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a{
+width:100%;
+height:42px;
+margin:0;
+background-position:center 14px;
+background-repeat:no-repeat;
+border:1px solid transparent;
+cursor:pointer;
+display:block;
+padding:0;
+position:relative;
+-webkit-transition:none;
+-moz-transition:none;
+transition:none
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:hover+h4, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:focus+h4, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a:focus{
+background-color:#dfdfdf;
+background-repeat:no-repeat;
+background-position:center 14px
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.active, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_video.active{
+background-color:#f5f5f5;
+
+z-index:9
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.active:hover, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4.active, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:hover+h4.active, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4.active, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:focus+h4.active, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.active:focus{
+background-color:#dfdfdf;
+background-repeat:no-repeat;
+background-position:center 14px
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_video.inactive{
+background-image:url("/static/images/sequence-nav/video-icon-normal.544113ee0b54.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_video.visited{
+background-image:url("/static/images/sequence-nav/video-icon-visited.b4ad47f7cf7e.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_video.active{
+background-image:url("/static/images/sequence-nav/video-icon-current.d3b52a7b056e.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_other.inactive{
+background-image:url("/static/images/sequence-nav/document-icon-normal.ea2ce01c2824.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_other.visited{
+background-image:url("/static/images/sequence-nav/document-icon-visited.aa6105a5fcf4.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_other.active{
+background-image:url("/static/images/sequence-nav/document-icon-current.6f1ba090b144.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_vertical.inactive, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_problem.inactive{
+background-image:url("/static/images/sequence-nav/list-icon-normal.5826a2e2e41b.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_vertical.visited, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_problem.visited{
+background-image:url("/static/images/sequence-nav/list-icon-visited.bab58990d5c7.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_vertical.active, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_problem.active{
+background-image:url("/static/images/sequence-nav/list-icon-current.82c18e11bd80.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_vertical.progress-none, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_problem.progress-none{
+background-image:url("/static/images/sequence-nav/list-unstarted.1894b282cc30.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_vertical.progress-some, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_vertical.progress-in_progress, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_problem.progress-some, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_problem.progress-in_progress{
+background-image:url("/static/images/sequence-nav/list-unfinished.4c398bdf29ff.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_vertical.progress-done, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a.seq_problem.progress-done{
+background-image:url("/static/images/sequence-nav/list-finished.3f92e1e9ea74.png")
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a p{
+background:#333;
+color:#fff;
+font-family:"Open Sans", Verdana, Geneva, sans-serif, sans-serif;
+line-height:1.41575em;
+left:0;
+opacity:.0;
+padding:6px;
+position:absolute;
+top:48px;
+text-shadow:0 -1px 0 #000;
+-webkit-transition:all .1s cubic-bezier(0.77, 0, 0.175, 1) 0s;
+-moz-transition:all .1s cubic-bezier(0.77, 0, 0.175, 1) 0s;
+transition:all .1s cubic-bezier(0.77, 0, 0.175, 1) 0s;
+white-space:pre;
+z-index:99;
+visibility:hidden;
+pointer-events:none
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a p:empty{
+background:0
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a p:empty::after{
+display:none
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a p::after{
+background:#333;
+content:" ";
+display:block;
+height:10px;
+left:18px;
+position:absolute;
+top:-5px;
+-webkit-transform:rotate(45deg);
+-moz-transform:rotate(45deg);
+-ms-transform:rotate(45deg);
+-o-transform:rotate(45deg);
+transform:rotate(45deg);
+width:10px
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a:hover p, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4 p, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:hover+h4 p, .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4 p, div.info-wrapper section.handouts .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:focus+h4 p, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a:focus p{
+display:block;
+margin-top:4px;
+opacity:1.0;
+visibility:visible
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul{
+position:absolute;
+top:0;
+list-style:none !important;
+height:100%;
+right:0;
+top:0;
+width:100%;
+margin:0;
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li{
+position:absolute;
+margin-bottom:0;
+height:44px;
+width:70px;
+list-style-type:none;
+background:#f3f3f3;
+
+box-shadow:0 1px 0 rgba(255, 255, 255, 0.7) inset;
+z-index:1
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.prev a, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.next a{
+background-position:center;
+background-repeat:no-repeat;
+display:block;
+height:100%;
+width:40px;
+text-indent:-9999px;
+-webkit-transition:all .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s;
+-moz-transition:all .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s;
+transition:all .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s
+z-index:2
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.prev a.disabled, .xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.next a.disabled{
+cursor:normal;
+opacity:.4
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.prev{
+left:-10px;
+
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.prev a{
+background-image:url("/static/images/sequence-nav/previous-icon.png");
+background-position:center 15px;
+margin-left: -30px;
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.next{
+right:-10px;
+
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav ul li.next a{
+margin-left:30px;
+background-image:url("/static/images/sequence-nav/next-icon.9eef03b25294.png");
+background-position:center 15px
+}
+
+body.touch-based-device .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li a:hover p, body.touch-based-device .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:hover+h4 p, div.info-wrapper section.handouts body.touch-based-device .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:hover+h4 p, body.touch-based-device .xmodule_display.xmodule_SequenceModule nav.sequence-nav div.info-wrapper section.handouts ol li div.hitarea:focus+h4 p, div.info-wrapper section.handouts body.touch-based-device .xmodule_display.xmodule_SequenceModule nav.sequence-nav ol li div.hitarea:focus+h4 p{
+display:none
+}
+
+.xmodule_display.xmodule_SequenceModule .seq_contents{
+display:none
+}
+
+## Адов костыль
+.sequence-bottom {
+border-bottom-color: rgb(34, 34, 34);
+border-bottom-style: none;
+border-bottom-width: 0px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(34, 34, 34);
+border-left-style: none;
+border-left-width: 0px;
+border-right-color: rgb(34, 34, 34);
+border-right-style: none;
+border-right-width: 0px;
+border-top-color: rgb(34, 34, 34);
+border-top-style: none;
+border-top-width: 0px;
+color: rgb(34, 34, 34);
+display: inline-block;
+font-family: open_sansregular;
+font-size: 16px;
+font-style: normal;
+height: 53px;
+line-height: 25.6000003814697px;
+margin: 3em auto;
+padding-bottom: 0px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 0px;
+vertical-align: baseline;
+width: 103px;
+}
+.sequence-bottom ul li.next {
+
+background-color: rgb(238, 238, 238);
+background-image: linear-gradient(rgb(238, 238, 238), rgb(221, 221, 221));
+border-bottom-color: rgb(204, 204, 204);
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 35px;
+border-bottom-style: solid;
+border-bottom-width: 1px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(34, 34, 34);
+border-left-style: none;
+border-left-width: 0px;
+border-right-color: rgb(204, 204, 204);
+border-right-style: solid;
+border-right-width: 1px;
+border-top-color: rgb(204, 204, 204);
+border-top-left-radius: 0px;
+border-top-right-radius: 35px;
+border-top-style: solid;
+border-top-width: 1px;
+box-shadow: rgba(255, 255, 255, 0.701961) 0px 1px 0px 0px inset;
+color: rgb(34, 34, 34);
+display: list-item;
+float: left;
+font-family: open_sansregular;
+font-size: 16px;
+font-style: normal;
+height: 44px;
+line-height: 25.6000003814697px;
+list-style-image: none;
+list-style-position: outside;
+list-style-type: none;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+padding-bottom: 0px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 0px;
+text-align: center;
+vertical-align: baseline;
+width: 50px;
+zoom: 1;
+}
+
+.sequence-bottom ul li.prev {
+background-color: rgb(238, 238, 238);
+background-image: linear-gradient(rgb(238, 238, 238), rgb(221, 221, 221));
+border-bottom-color: rgb(204, 204, 204);
+border-bottom-left-radius: 35px;
+border-bottom-right-radius: 0px;
+border-bottom-style: solid;
+border-bottom-width: 1px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(204, 204, 204);
+border-left-style: solid;
+border-left-width: 1px;
+border-right-color: rgb(204, 204, 204);
+border-right-style: solid;
+border-right-width: 1px;
+border-top-color: rgb(204, 204, 204);
+border-top-left-radius: 35px;
+border-top-right-radius: 0px;
+border-top-style: solid;
+border-top-width: 1px;
+box-shadow: rgba(255, 255, 255, 0.701961) 0px 1px 0px 0px inset;
+color: rgb(34, 34, 34);
+display: list-item;
+float: left;
+font-family: open_sansregular;
+font-size: 16px;
+font-style: normal;
+height: 44px;
+line-height: 25.6000003814697px;
+list-style-image: none;
+list-style-position: outside;
+list-style-type: none;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+padding-bottom: 0px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 0px;
+text-align: center;
+vertical-align: baseline;
+width: 50px;
+zoom: 1;
+  }
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-bottom ul li.prev a, .xmodule_display.xmodule_SequenceModule nav.sequence-bottom ul li.next a {
+
+background-position: 50% 15px;
+background-repeat: no-repeat;
+border-bottom-color: rgb(29, 157, 217);
+border-bottom-style: none;
+border-bottom-width: 0px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(29, 157, 217);
+border-left-style: none;
+border-left-width: 0px;
+border-right-color: rgb(29, 157, 217);
+border-right-style: none;
+border-right-width: 0px;
+border-top-color: rgb(29, 157, 217);
+border-top-style: none;
+border-top-width: 0px;
+color: rgb(29, 157, 217);
+cursor: auto;
+display: block;
+font-family: 'Open Sans', Verdana, Geneva, sans-serif, sans-serif;
+font-size: 16px;
+font-stretch: normal;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+height: 16px;
+line-height: 16px;
+list-style-image: none;
+list-style-position: outside;
+list-style-type: none;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+outline-color: rgb(29, 157, 217);
+outline-style: none;
+outline-width: 0px;
+padding-bottom: 11.3260803222656px;
+padding-left: 4px;
+padding-right: 4px;
+padding-top: 11.3260803222656px;
+text-align: left;
+text-decoration: none;
+text-indent: -9999px;
+transition-delay: 0s;
+transition-duration: 0.2s;
+transition-property: all;
+transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+vertical-align: baseline;
+width: 42px;
+zoom: 1;
+
+}
+
+.xmodule_display.xmodule_SequenceModule .xmodule_VerticalModule div.vert-mod>div ul.sequence-nav-buttons{
+list-style:none !important
+}
+
+.xmodule_display.xmodule_ConditionalModule h2{
+margin-top:0;
+margin-bottom:15px
+}
+
+.xmodule_display.xmodule_ConditionalModule h2.problem-header{
+display:inline-block
+}
+
+.xmodule_display.xmodule_ConditionalModule h2.problem-header section.staff{
+margin-top:30px;
+font-size:80%
+}
+
+nav div ul li a p{
+font-size: 80%;
+}
+
+.course-index div#accordion ul.ui-accordion-content li a p.subtitle {
+  color: #888;
+  font-size: 12px;
+  font-weight: normal;
+  display: block;
+  margin: 0;
+}
+
+.course-index div#accordion ul.ui-accordion-content li {
+
+  border-bottom: 0;
+  margin-bottom: 4px;
+  padding: 8px;
+
+  }
+.ui-accordion .ui-accordion-content {
+  padding: 0;
+  border-top: 0;
+  overflow: auto;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-br, .ui-accordion .ui-accordion-header {
+    border-radius: 0px;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background:  #f9f9f9;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    background:#e6e6e6;
+}
+
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: 1px solid #e5017a;
+    background: #e6e6e6;
+    color: #212121;
+}
+
+.course-index div#accordion ul.ui-accordion-content li a {
+  text-decoration: none;
+}
+
+.course-index div#accordion ul.ui-accordion-content li.active {
+
+
+  border: 1px solid #e6e6e6;
+  background-color: #f5f5f5;
+}
+
+.sr {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-nav {
+
+  margin: -4px 0 30px;
+  position: relative;
+  border-bottom: 20px;
+  display: block;
+  border-spacing: 0px 0px;
+}
+
+.xmodule_display.xmodule_SequenceModule nav.sequence-bottom {
+
+  display: block;
+  border-spacing: 0px 0px;
+}
+.xmodule_display.xmodule_SequenceModule nav.sequence-bottom ul li.prev a {
+background-image: url(/static/images/sequence-nav/previous-icon.png);
+}
+.xmodule_display.xmodule_SequenceModule nav.sequence-bottom ul li.next a {
+background-image: url(/static/images/sequence-nav/next-icon.png);
+}
+
+div.col2 {
+  width: 75%;
+}
+
+

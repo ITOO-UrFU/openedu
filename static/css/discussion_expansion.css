@@ -1,0 +1,77 @@
+.container .discussion-body, 
+.container .discussion-module, 
+.container .discussion-user-threads{
+border-spacing: 0px 0px;
+}
+
+.discussion-module .post-actions-list .actions-item,
+.discussion-module .response-actions-list .actions-item,
+.discussion-module .comment-actions-list .actions-item {
+    background: none repeat scroll 0% 0% transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.post-actions-list .actions-item a.action-button, 
+.response-actions-list .actions-item a.action-button,
+.comment-actions-list .actions-item a.action-button {
+	height: 24px;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.discussion.container .actions-dropdown .action-list-item,
+.discussion-module .actions-dropdown .action-list-item,
+.discussion-user-threads .actions-dropdown .action-list-item {
+	text-decoration: none;
+}
+
+.forum-nav-search-ff-position-fix input[type="text"], 
+.forum-nav-browse-filter input[type="text"]{
+    background: none repeat scroll 0% 0% #FFF;
+    border: 1px solid #C8C8C8;
+    border-radius: 0px;
+    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.6), 0px 0px 3px 0px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    font: 1em "Open Sans",Verdana,Geneva,sans-serif,sans-serif;
+    height: 35px;
+    padding: 5px 12px;
+    vertical-align: top;}
+
+.forum-new-post-form,
+.edit-post-form {
+  min-width:100%;
+}
+.discussion-module .wmd-panel, .discussion-user-threads .wmd-panel {
+   min-width: 100%;
+}
+
+.forum-nav a{
+	text-decoration: none;
+}
+.forum-nav-browse-menu a{
+	font-size: 12px;
+}
+
+.sr, .verification-process .carousel #wrapper-review .review-task-contribution .list-fields .field-group-other .contribution-option-other1 label, .verification-process .carousel #wrapper-review .review-task-contribution .list-fields .field-group-other .contribution-option-other2 label, .midcourse-reverification-process .carousel #wrapper-review .review-task-contribution .list-fields .field-group-other .contribution-option-other1 label, .midcourse-reverification-process .carousel #wrapper-review .review-task-contribution .list-fields .field-group-other .contribution-option-other2 label, .verification-process.step-select-track .sts-track, .midcourse-reverification-process.step-select-track .sts-track, .verification-process.step-select-track .contribution-options .field-group-other .contribution-option-other1 label, .verification-process.step-select-track .contribution-options .field-group-other .contribution-option-other2 label, .midcourse-reverification-process.step-select-track .contribution-options .field-group-other .contribution-option-other1 label, .midcourse-reverification-process.step-select-track .contribution-options .field-group-other .contribution-option-other2 label, .forum-new-post-form .post-type-input, .edit-post-form .post-type-input {
+    border: 0px none;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0px;
+    position: absolute;
+    width: 1px;}
+
+.container .discussion-body .blank-slate, .container .discussion-module .blank-slate, 
+.container .discussion-user-threads .blank-slate {
+    padding: 30px 15px 10px;
+}
+
+body.discussion .comments .response-body, .discussion-module .comments .response-body, .discussion-user-threads .comments .response-body {
+    width: 77%;
+}
+
+body.discussion .comments .comment-actions-list, .discussion-module .comments .comment-actions-list, .discussion-user-threads .comments .comment-actions-list {
+    width: 22%;
+}

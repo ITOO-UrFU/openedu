@@ -1,0 +1,31 @@
+<%!
+    import datetime
+    now = datetime.datetime.now()
+%>
+<%page args="course" />
+<div class="col widget-event">
+
+    <div class="media">
+        <a href="${LMS_BASE}/courses/${course.id}/about">
+            <img src="${course.media["image"]["small"]}" alt="${course}">
+        </a>
+    </div>
+    <div class="text">
+        <p class="date">
+            ${course.org},
+            % if course.end and datetime.datetime.strptime(course.end, "%Y-%m-%dT%H:%M:%SZ") > now:
+                Курс завершен&nbsp;${course.end}
+            % elif datetime.datetime.strptime(course.start, "%Y-%m-%dT%H:%M:%SZ") > now:
+                Курс начался&nbsp;${course.start}
+            ${"Открыта регистрация"}
+            % else:
+                Курс начнется&nbsp;${course.start}
+            % endif
+        </p>
+        <p class="title"><a href="${LMS_BASE}/courses/${course.id}/about">${ course.name }</a></p>
+        <div class="snippet">
+            <p>${course.short_description}</p>
+        </div>
+    </div>
+
+</div>

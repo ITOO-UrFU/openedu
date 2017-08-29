@@ -1,0 +1,6 @@
+{% extends "../base.html" %}
+{% block content %}
+{% for content in page.contents.all %}
+  {{ content.content | safe }}
+{% endfor %}
+{% endblock %}

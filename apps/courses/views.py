@@ -23,7 +23,7 @@ from django.conf import settings
 
 def courses(request):
 
-    return redirect('https://openedu.urfu.ru:33020/')
+    return redirect('http://openedu.urfu.ru:33020/')
     # LMS_BASE = settings.LMS
     # LMS_API_COURSES = f"{LMS_BASE}{settings.LMS_API_COURSES}"
     # courses = []

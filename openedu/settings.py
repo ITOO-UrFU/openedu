@@ -26,7 +26,7 @@ SECRET_KEY = 'vc1*izx9a4y+d-jnz%$8k*d8o4^q00!)quyr&-mi(oo-ro2yb_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["212.193.82.110", ]
+ALLOWED_HOSTS = ["212.193.82.110", "openedu.urfu.ru"]
 
 # Application definition
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'smuggler',
     'minors',
     'home',
 ]
@@ -97,8 +98,11 @@ WSGI_APPLICATION = 'openedu.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': "django.db.backends.mysql",
+        'NAME': "itoo",
+        'PORT': 3306,
+        'USER': "itoouser",
+        'PASSWORD': "ye;yj,jkmitrjlfmysql"
     }
 }
 
@@ -136,12 +140,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/files/openedu_static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+MEDIA_URL = 'uploads/'
 
 LMS = "https://212.193.82.110/"
 LMS_API_COURSES = "api/courses/v1/courses/"

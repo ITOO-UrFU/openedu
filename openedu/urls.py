@@ -22,7 +22,9 @@ from django.views.static import serve
 urlpatterns = [
     url(r'^' + settings.STATIC_URL[1:] + '(?P<path>.*)$', serve,
         {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+    url(r'^admin/', include('smuggler.urls')),
     url(r'^admin/', admin.site.urls),
+
     # url(r'^minors/', include('minors.urls', namespace="minors")),
     url(r'^courses/', include('courses.urls', namespace="courses")),
     url(r'^', include('home.urls')),

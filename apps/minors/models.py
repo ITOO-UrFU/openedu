@@ -7,7 +7,7 @@ class Author(models.Model):
     regalia = models.CharField(_("Регалии"), max_length=1024)
     achievements = models.CharField(_("Достижения"), max_length=1024, blank=True)
     description = models.CharField(_("Описание"), max_length=1024, blank=True)
-    image = models.ImageField(_("Фото"), upload_to='../uploads/authors/', null=True, blank=True)
+    image = models.ImageField(_("Фото"), upload_to='authors/', null=True, blank=True)
 
     def __str__(self):
         return u"{}".format(self.name)
@@ -29,7 +29,7 @@ class Minor(models.Model):
     author_about = models.TextField(_("Об авторе"), max_length=4096, null=True)
     startdate = models.DateTimeField(_("Дата начала"), null=True)
     enddate = models.DateTimeField(_("Дата завершения"), null=True)
-    image = models.ImageField(_("Изображение"), upload_to='../uploads/minors/', null=True)
+    image = models.ImageField(_("Изображение"), upload_to='minors/', null=True)
     schedule = models.CharField(_("Расписание"), max_length=64, blank=True)
 
     published = models.BooleanField(_("Опубликовано"), default=False)

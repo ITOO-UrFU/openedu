@@ -18,6 +18,7 @@ class MinorsListView(ListView):
         context['now'] = timezone.now()
         return context
 
+
 mainpage = MinorsListView.as_view()
 # def detail(request, pk):
 #     context = {}

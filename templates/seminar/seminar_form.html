@@ -139,11 +139,23 @@
                 altFormat: "dd.mm.yyyy"
             });
 
+
+               if($('#id_type_of_participation input[type=radio]:checked').val() == 'internally_cert'){
+                    $("#add_docs_block").css("display", "block");
+                    $("#id_diploma_scan").attr('required', true);
+                    $("#id_education_bid").attr('required', true);
+               }
+               else{
+                    $("#add_docs_block").css("display", "none");
+                    $("#id_diploma_scan").removeAttr("required");
+                    $("#id_education_bid").removeAttr("required");
+               }
+
             $('#id_type_of_participation input[type=radio]').change(function(){
                if($(this).val() == 'internally_cert'){
-                $("#add_docs_block").css("display", "block");
-                $("#id_diploma_scan").attr('required', true);
-                $("#id_education_bid").attr('required', true);
+                    $("#add_docs_block").css("display", "block");
+                    $("#id_diploma_scan").attr('required', true);
+                    $("#id_education_bid").attr('required', true);
                }
                else{
                     $("#add_docs_block").css("display", "none");
@@ -205,7 +217,6 @@
             box-shadow: 0 0 5px 0 gray;
             cursor: pointer;
             padding: 16px 4px !important;
-            height: 70px;
             -moz-user-select: all;
             -moz-user-select: text;
             -moz-user-select: none;

@@ -47,7 +47,7 @@ class PersonalDataAdmin(AdminAdvancedFiltersMixin, VersionAdmin):
 @admin.register(SeminarData)
 class SeminarDataAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
-    list_display = ('last_name', 'first_name', 'second_name', "email", "type_of_participation", "job", "position")
+    list_display = ('last_name', 'first_name', 'second_name', "email", "type_of_participation", "job", "position", "created_at")
     search_fields = ('last_name', 'first_name', 'second_name', "email")
     list_filter = ('type_of_participation',)
 

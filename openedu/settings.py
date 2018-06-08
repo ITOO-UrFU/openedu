@@ -21,13 +21,6 @@ djcelery.setup_loader()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'vc1*izx9a4y+d-jnz%$8k*d8o4^q00!)quyr&-mi(oo-ro2yb_'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["212.193.82.110", "openedu.urfu.ru", "*"]
@@ -128,15 +121,6 @@ WSGI_APPLICATION = 'openedu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': "django.db.backends.mysql",
-        'NAME': "itoo",
-        'PORT': 3306,
-        'USER': "itoouser",
-        'PASSWORD': "ye;yj,jkmitrjlfmysql"
-    }
-}
 
 CACHES = {
     'default': {
@@ -222,17 +206,6 @@ LMS_API_COURSES = "api/courses/v1/courses/"
 
 DEFAULT_FROM_EMAIL = "openedu@urfu.ru"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.urfu.ru'
-EMAIL_HOST_USER = 'a.s.chernikov@urfu.ru'
-EMAIL_HOST_PASSWORD = '15Ch3Ent_'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-BID_ADMINS = ["mastergowen@gmail.com", "vv.tashlykov@gmail.com", "igrikwork@gmail.com"]
-
-SOCIAL_AUTH_EDX_OAUTH2_KEY = "db5efbb405209b984867"
-SOCIAL_AUTH_EDX_OAUTH2_SECRET = "4385ed7ca4682a532b22884e0b7d5dbde278fe27"
 SOCIAL_AUTH_EDX_OAUTH2_ENDPOINT = "https://courses.openedu.urfu.ru/oauth2"
 
 SOCIAL_AUTH_STRATEGY = 'auth_backends.strategies.EdxDjangoStrategy'
@@ -249,3 +222,5 @@ GRAPHENE = {
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 200000  # тут поменьше сделать
 LOGIN_URL = '/admin/login'
+
+from openedu import *

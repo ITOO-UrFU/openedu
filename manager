@@ -2,14 +2,17 @@
 
 case "$1" in
   "restart")
+    cd /usr/local/itoo/apps/openedu;
     git pull;
     /edx/bin/supervisorctl restart openedu
     ;;
   "migrate")
+    cd /usr/local/itoo/apps/openedu;
     /usr/local/itoo/envs/openedu/bin/python manage.py makemigrations
     /usr/local/itoo/envs/openedu/bin/python manage.py makemigrations
     ;;
   "push")
+    cd /usr/local/itoo/apps/openedu;
     git add -A;
     git commit;
     git push;

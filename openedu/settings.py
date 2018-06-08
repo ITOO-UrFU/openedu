@@ -9,10 +9,8 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
 import os
 import sys
-from openedu import *
 import djcelery
 
 djcelery.setup_loader()
@@ -20,8 +18,7 @@ djcelery.setup_loader()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
-SECRET_KEY = 'vc1*izx9a4y+d-jnz%$8k*d8o4^q00!)quyr&-mi(oo-ro2yb_'
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["212.193.82.110", "openedu.urfu.ru", "*"]
 
@@ -222,3 +219,6 @@ GRAPHENE = {
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 200000  # тут поменьше сделать
 LOGIN_URL = '/admin/login'
+
+
+

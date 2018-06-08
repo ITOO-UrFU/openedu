@@ -9,6 +9,11 @@ case "$1" in
     /usr/local/itoo/envs/openedu/bin/python manage.py makemigrations
     /usr/local/itoo/envs/openedu/bin/python manage.py makemigrations
     ;;
+  "push")
+    git add -A;
+    git commit;
+    git push;
+    ;;
   *)
     echo "You have failed to specify what to do correctly."
     exit 1

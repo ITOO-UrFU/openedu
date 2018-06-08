@@ -60,11 +60,12 @@
     color: bisque;
 }
                     -->
-                    <p>
-                         <label>Тип участия<span class="red">*</span>:</label>
+                    <p><label>Тип участия<span class="red">*</span>:</label></p>
+                    <p style="text-align: center;">
+
                          <input name="type_of_participation" type="radio" value="internally_cert" id="type_of_participation_internally_cert" checked><label for="type_of_participation_internally_cert">ОЧНО<br />с повышением квалификации</label>
                          <input name="type_of_participation" type="radio" value="internally" id="type_of_participation_internally"><label for="type_of_participation_internally">ОЧНО<br />без повышения квалификации</label>
-                         <input name="type_of_participation" type="radio" value="away" id="type_of_participation_away"><label for="type_of_participation_away">ЗАОЧНО<br /> (онлайн-трансляция) без повышения квалификации</label>
+                         <input name="type_of_participation" type="radio" value="away" id="type_of_participation_away"><label for="type_of_participation_away">ЗАОЧНО (онлайн-трансляция)<br /> без повышения квалификации</label>
                     </p>
                     <p>* Удостоверение о повышении квалификации выдается только при ОЧНОМ участии и успешном освоении
                         программы ДПО.</p>
@@ -190,8 +191,7 @@
         input[name="type_of_participation"]:checked + label {
             background: #4caf50;
             color: white;
-            font-weight: 600;
-
+            /*font-weight: 600;*/
         }
 
         input[name="type_of_participation"] + label {
@@ -203,6 +203,9 @@
             cursor: pointer;
             padding: 0 !important;
             height: 70px;
+            -moz-user-select: all;
+            -moz-user-select: text;
+            -moz-user-select: none;
         }
 
         input[type=email], input[type=tel], input[type=text], select, textarea {

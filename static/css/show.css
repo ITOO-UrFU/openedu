@@ -1,0 +1,354 @@
+.column-pd-program-courseId {
+    min-width: 126px;
+}
+.column-pd-fio {
+    min-width: 150px;
+}
+.column-pd-email {
+    min-width: 250px;
+}
+.column-pd-phone {
+    min-width: 130px;
+}
+.column-pd-birthDate {
+    min-width: 100px;
+}
+.column-pd-city {
+    min-width: 120px;
+}
+.column-pd-job {
+    min-width: 206px;
+}
+.column-pd-quote{
+    min-width: 100px;
+}
+.column-pd-createdAt{
+    min-width: 100px;
+}
+.column-pd-updatedAt{
+    min-width: 100px;
+}
+
+.column-pd-user_docs{
+    min-width: 140px;
+}
+
+.column-pd-educationLevel{
+    min-width: 100px;
+}
+.column-pd-inQuote{
+    min-width: 94px;
+}
+.column-pd-paid{
+    min-width: 94px;
+}
+
+.column-pd-allDocs{
+    min-width: 140px;
+}
+.column-pd-allScans{
+    min-width: 140px;
+}
+.column-pd-allValid{
+    min-width: 140px;
+}
+.column-pd-possibleId{
+    min-width: 94px;
+}
+
+.users-filter-block {
+        text-align: left;
+    /* display: none; */
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    -webkit-box-shadow: 0px 2px 7px 2px rgba(0, 0, 0, 0.92);
+    -moz-box-shadow: 0px 2px 7px 2px rgba(0, 0, 0, 0.92);
+    box-shadow: 0px 2px 7px 2px rgba(0, 0, 0, 0.92);
+}
+
+.users-filter-block .buttons {
+    text-align: center;
+    padding: 6px 0px;
+}
+
+.users-filter-block .links{
+    text-align: center;
+    padding: 4px 0px;
+    cursor: pointer;
+}
+
+
+.filter-icon, .sort-icon  {
+    background: #9fc2e0;
+       padding: 0.3em 0;
+
+   }
+
+.filter-icon i, .sort-icon i{
+       /*padding-bottom: 0.3em;*/
+       cursor: pointer;
+        color: darkslategrey;
+   }
+
+.filter-icon i:hover, .sort-icon i:hover{
+        color: white;
+   }
+
+
+.filter-program-item label {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+.filter-program-iteminput {
+    /* width: 13px; */
+    /* height: 13px; */
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+
+#not_exists_reports {
+    width: 8px;
+    height: 21px;
+    padding: 0px 5px;
+    cursor: pointer;
+    background-color: lightgrey;
+    position: relative;
+    top: 2px;
+    float: right;
+    margin-right: 2px;
+}
+
+#show_column_filters {
+    width: 8px;
+    height: 21px;
+    padding: 0px 5px;
+    cursor: pointer;
+    background-color: lightgrey;
+    position: relative;
+    top: 2px;
+    float: right;
+    margin-right: 2px;
+}
+
+.not_exists_reports-container, .show_column_filters-container {
+    margin: 5px;
+}
+
+.column_filters {
+    background-color: #ffffff;
+    font-size: 70%;
+    padding: 5px;
+    color: #444;
+}
+
+.errors {
+    background-color: #f6a1a1;
+    font-size: 70%;
+    padding: 5px;
+    color: #444;
+}
+
+.errors ul {
+    list-style: none;
+}
+
+.notEnrolled {
+    background: rgba(255, 20, 20, 0.2);
+}
+
+.Enrolled {
+    font-weight: bold;
+    background: rgba(20, 255, 20, 0.2);
+}
+
+.container-table {
+    /*width: 100%;*/
+    padding-bottom: 20px;
+    height: 800px;
+    overflow: overlay;
+    width: 96%;
+    margin: 0 auto;
+}
+
+.container-table a {
+    white-space: nowrap;
+}
+
+#mainTable .fa-eye-slash {
+    cursor: pointer;
+    padding-left: .5em;
+    color: grey;
+}
+
+table {
+    border-collapse: collapse !important;
+    height: 100% !important;
+    display: block !important;
+    overflow: auto !important;
+    margin-top: -2px;
+    margin-left: -2px;
+}
+
+thead {
+    /*transform: translateZ(0) !important;*/
+}
+
+thead th {
+    font-size: 80%;
+    background: #AFCDE7;
+    /*border: 1px solid black!important;*/
+    z-index: 1000;
+    position: relative !important;
+    min-width: 72px;
+}
+
+tbody .fixed-cell {
+    position: relative;
+    background: #AFCDE7;
+    padding: 5px;
+    transform: translateZ(0);
+    /*border: 1px solid black!important;*/
+    z-index: 9999;
+}
+
+td, th {
+    border: 2px solid white !important;
+    padding: 8px;
+    background: #e0ecf7;
+}
+
+td {
+    position: relative;
+}
+
+.alert {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 90%;
+}
+
+.alert-success {
+    color: forestgreen;
+}
+
+.alert-error {
+    color: red;
+}
+
+.boolean-column {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.label__checkbox {
+    display: none;
+}
+
+.label__check {
+    display: inline-block;
+    border-radius: 50%;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    background: white;
+    vertical-align: middle;
+    /*margin-right: 20px;*/
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border .3s ease;
+}
+
+.label__check i.icon {
+    opacity: 0.2;
+    font-size: 1vw;
+    color: transparent;
+    transition: opacity .3s .1s ease;
+    /*-webkit-text-stroke: 3px rgba(0, 0, 0, 0.5);*/
+}
+
+.label__check:hover {
+    border: 5px solid rgba(0, 0, 0, 0.2);
+}
+
+.label__checkbox:checked + .label__text .label__check {
+    animation: check 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22) forwards;
+}
+
+.label__checkbox:checked + .label__text .label__check .icon {
+    opacity: 1;
+    transform: scale(0);
+    color: white;
+    -webkit-text-stroke: 0;
+    animation: icon 0.3s cubic-bezier(1, 0.008, 0.565, 1.65) 0.1s 1 forwards;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes icon {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes check {
+    0% {
+        width: 1.5em;
+        height: 1.5em;
+        border-width: 5px;
+    }
+    10% {
+        width: 1.5em;
+        height: 1.5em;
+        opacity: 0.1;
+        background: rgba(0, 0, 0, 0.2);
+        border-width: 15px;
+    }
+    12% {
+        width: 1.5em;
+        height: 1.5em;
+        opacity: 0.4;
+        background: rgba(0, 0, 0, 0.1);
+        border-width: 0;
+    }
+    50% {
+        width: 2em;
+        height: 2em;
+        background: #00d478;
+        border: 0;
+        opacity: 0.6;
+    }
+    100% {
+        width: 2em;
+        height: 2em;
+        background: #00d478;
+        border: 0;
+        opacity: 1;
+    }
+}
+
+}
+

@@ -19,13 +19,22 @@ from django.contrib import admin
 from django.conf import settings
 from django.views.static import serve
 
-urlpatterns = [
-    url(r'^' + settings.STATIC_URL[1:] + '(?P<path>.*)$', serve,
-        {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
-    url(r'^admin/', include('smuggler.urls')),
-    url(r'^admin/', admin.site.urls),
+from auth_backends.urls import oauth2_urlpatterns
 
-    # url(r'^minors/', include('minors.urls', namespace="minors")),
+urlpatterns = oauth2_urlpatterns + [
+    url(r'^' + settings.STATIC_URL[1:] + '(?P<path>.*)$', serve,
+        {'document_root': settings.STATIC_ROOT}),
+    url(r'^' + settings.MEDIA_URL[1:] + '(?P<path>.*)$', serve,
+        {'document_root': settings.MEDIA_ROOT}),
+    url(r'^admin/', include('smuggler.urls')),
+    url(r'^export_action/', include("export_action.urls", namespace="export_action")),
+    url(r'^admin/', admin.site.urls),
+    url(r'^minors/', include('minors.urls', namespace="minors")),
+    url(r'^openprofession/', include('openprofession.urls', namespace="openprofession")),
+    url(r'^questionnaire/', include('questionnaire.urls', namespace="questionnaire")),
+    url(r'^ellada_api/', include('ellada_api.urls', namespace="ellada_api")),
+    url(r'^other/', include('other.urls', namespace="other")),
     url(r'^courses/', include('courses.urls', namespace="courses")),
     url(r'^', include('home.urls')),
+    url(r'^advanced_filters/', include('advanced_filters.urls'))
 ]

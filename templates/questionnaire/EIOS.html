@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+<style>
+    body {
+        margin: 1em;
+    }
+
+    div {
+        margin-bottom: 1em;
+    }
+    label {
+        margin: 0.5em;
+    }
+</style>
+<div class="container-fluid">
+    <form action="." method="post">{% csrf_token %}
+        <div class="form-group">
+            <h3>Вопрос 1. {{ form.q1.label }}</h3>
+            {% for choice in form.q1.field.choices %}
+            <input type="radio" name="{{ form.q1.name }}" id="{{ form.q1.name }}_{{ choice.0 }}"
+                   value="{{ choice.0 }}"
+                   {% ifequal form.q1.initial choice.0 %}
+                   checked="checked"
+                   {% endifequal %}/>
+            <label for="{{ form.q1.name }}_{{ choice.0 }}">{{ choice.1 }}</label>
+            {% endfor %}
+            {{ form.q1.errors }}
+        </div>
+
+        <div>
+            <h3>Вопрос 2. {{ form.q2.label }}</h3>
+            {% for choice in form.q2.field.choices %}
+            <p><input type="checkbox" name="{{ form.q2.name }}" value="{{ choice.0 }}"
+                      id="{{ form.q2.name }}_{{ choice.0 }}"><label
+                    for="{{ form.q2.name }}_{{ choice.0 }}">{{ choice.1 }}</label></p>
+            {% endfor %}
+            {{ form.q2.errors }}
+        </div>
+        <div><h3>Вопрос 3. Согласны ли вы с утверждениями?</h3>
+            <table class="table table-bordered">
+                <thead>
+                <tr style="text-align: center;">
+                    <th>Утверждение</th>
+                    <th>Абсолютно не согласен</th>
+                    <th>Частично не согласен</th>
+                    <th>Затрудняюсь ответить</th>
+                    <th>Частично согласен</th>
+                    <th>Абсолютно согласен</th>
+                </tr>
+                </thead>
+                {% for q in form %}
+                {% if q.name in qlist %}
+                <tr>
+                    <td>{{ q.label }}</td>
+                    {% for choice in q.field.choices %}
+                    <td style="text-align: center"><input type="radio" name="{{ q.name }}"
+                                                          id="{{ q.name }}_{{ choice.0 }}"
+                                                          value="{{ choice.0 }}"
+                                                          {% ifequal q.initial choice.0 %}
+                                                          checked="checked"
+                                                          {% endifequal %}/>
+                    </td>
+                    {% endfor %}
+                    {{ form.q3.errors }}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+            <h3>Вопрос 4. {{ form.q10.label }}</h3>
+            <textarea class="form-control" name="q10" maxlength="255" required=""
+                      id="id_q10"></textarea>
+            {{ form.q10.errors }}
+        </div>
+        <div>
+            <h3>Вопрос 5. {{ form.q11.label }}</h3>
+            {% for choice in form.q11.field.choices %}
+            <input type="radio" name="{{ form.q11.name }}" id="{{ form.q11.name }}_{{ choice.0 }}"
+                   value="{{ choice.0 }}"
+                   {% ifequal form.q11.initial choice.0 %}
+                   checked="checked"
+                   {% endifequal %}/>
+            <label for="{{ form.q11.name }}_{{ choice.0 }}">{{ choice.1 }}</label>
+            {% endfor %}
+            {{ form.q11.errors }}
+        </div>
+        <div>
+            <h3>Вопрос 6. {{ form.q12.label }}</h3>
+            <input class="form-control" type="number" name="q12" id="id_q12" required="">
+            {{ form.q12.errors }}
+        </div>
+        <div>
+            <h3>Вопрос 7. {{ form.q13.label }}</h3>
+            {% for choice in form.q13.field.choices %}
+            <p><input type="radio" name="{{ form.q13.name }}"
+                      id="{{ form.q13.name }}_{{ choice.0 }}"
+                      value="{{ choice.0 }}"
+                      {% ifequal form.q13.initial choice.0 %}
+                      checked="checked"
+                      {% endifequal %}/> <label for="{{ form.q13.name }}_{{ choice.0 }}"> {{ choice.1 }} </label>
+            </p>
+            {% endfor %}
+            {{ form.q13.errors }}
+        </div>
+        <div>
+            <h3>Вопрос 8. {{ form.q14.label }}</h3>
+            {% for choice in form.q14.field.choices %}
+            <p><input type="radio" name="{{ form.q14.name }}" id="{{ form.q14.name }}_{{ choice.0 }}"
+                      value="{{ choice.0 }}"
+                      {% ifequal form.q14.initial choice.0 %}
+                      checked="checked"
+                      {% endifequal %}/>
+                <label for="{{ form.q14.name }}_{{ choice.0 }}"> {{ choice.1 }} </label>
+            </p>
+            {% endfor %}
+            {{ form.q14.errors }}
+        </div>
+        <div>
+            <h3>Вопрос 9. {{ form.q15.label }}</h3>
+            <input class="form-control" type="email" name="q15" id="id_q15" required="">
+            {{ form.q15.errors }}
+        </div>
+
+        <div>
+            <h3>Вопрос 10. {{ form.q16.label }}</h3>
+            {% for choice in form.q16.field.choices %}
+            <input type="radio" name="{{ form.q16.name }}" id="{{ form.q16.name }}_{{ choice.0 }}"
+                   value="{{ choice.0 }}"
+                   {% ifequal form.q16.initial choice.0 %}
+                   checked="checked"
+                   {% endifequal %}/>
+            <label for="{{ form.q16.name }}_{{ choice.0 }}">{{ choice.1 }}</label>
+            {% endfor %}
+            {{ form.q16.errors }}
+        </div>
+        <input class="btn btn-primary btn-lg"  type="submit" value="Отправить">
+    </form>
+</div>
+</body>
+</html>

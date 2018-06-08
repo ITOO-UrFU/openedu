@@ -1,4 +1,247 @@
 {% extends "../base.html" %}
 {% block content %}
- Майноры
+<div class="for-footer">
+<div class="main-title">
+       <h1><span class="in"><span>Майноры УрФУ</span></span></h1>
+    </div>
+    <div class="section breadcrumbs">
+       <div class="row">
+          <div class="col3">
+             <span class="breadcrumbs-item">
+             <a href="/" class="no-underline">
+             <span class="dotted">Главная страница</span>
+             </a>
+             </span>
+             <span class="divide">/</span>
+             <span class="breadcrumbs-item">
+             <a href="" class="no-underline">
+             <span>Майноры УрФУ</span>
+             </a>
+
+          </span></div>
+       </div>
+    </div>
+
+<div class="">
+   <div class="row" style="margin-bottom: -20px;">
+      <div class="col">
+         <div class="article" id="top-article" style="margin-top: -25px; height: 1013px;">
+            <h2>Что такое майнор?</h2>
+            <p>«Майнор» (minor) – это модуль образовательной программы бакалавриата, который позволяет студенту получить дополнительные компетенции в области знаний, отличной от основного направления подготовки его образовательной программы.</p>
+            <p>В рамках новой образовательной политики Уральского федерального университета майноры стали неотъемлемой частью каждой образовательной программы бакалавриата. Это позволяет обеспечить не только высокий уровень профессиональной подготовки студентов по образовательной программе, но и дает возможность приобрести знания из других областей, которые пригодятся для будущей карьеры или же расширить кругозор.</p>
+            <p>Авторские коллективы, возглавляемые ведущими профессорами университета, вложили все свои опыт и знания, чтобы сделать майноры наиболее интересными и увлекательными для широкого круга обучающихся. Каждый студент Уральского федерального университета имеет возможность выбрать любой майнор при построении своей образовательной траектории.</p>
+            <p><strong>В осеннем семестре 2016/2017 года открывается возможность освоить майноры всем желающим, независимо от того, являются ли они студентами университета.</strong> Учеба будет проходить вместе со студентами Уральского федерального университета в формате краткосрочных программ дополнительного образования. Слушателям, успешно прошедшим обучение и сдавшим зачет, будут выданы сертификаты. Данные сертификаты в случае дальнейшего поступления в УрФУ могут быть зачтены по соответствующим модулям образовательной программы бакалавриата в рамках <a href="/openprograms/">проекта «Открытые образовательные программы»</a>.</p>
+            <h2>Как подать заявку на обучение?</h2>
+
+            <p>Заявку на обучение по выбранному майнору из <a id="tocatalog" href="#catalog">каталога</a> можно подать в электронном виде на странице с описанием майнора.</p>
+
+            <p>Прием заявок на обучение по майнорам заканчивается не позднее чем <strong>через 2 недели</strong> после начала обучения.</p>
+
+            <p>Количество свободных мест на каждый майнор <strong>ограничено</strong>.</p>
+
+            <p>После подачи заявки с Вами свяжется менеджер и обсудит с Вами организационные вопросы заключения договора на обучение и включения Вас в учебную группу, а также ответит на все интересующие Вас вопросы.</p>
+            <h2>Консультация по вопросам обучения</h2>
+            <p> По телефонам: <strong>+7&nbsp;(343)&nbsp;375-94-50</strong>, <strong>+7&nbsp;(904)&nbsp;983-72-74</strong> (Кузьмина Александра)<br>
+                По электронной почте: <strong>a.v.kuzmina@urfu.ru </strong><br> В офисе проекта по адресу: <strong>г. Екатеринбург, ул. Мира, 19, ком. И-210в</strong> (пн.-пт. 10:00-17:00).</p>
+            <span id="about-bottom"></span>
+         </div>
+      </div>
+   </div>
+ </div>
+<div class="gradem"></div>
+<div class="show-article">Развернуть</div>
+   </div>
+<style>
+
+.article{
+	height: 220px;
+	overflow: hidden;
+	/*border-bottom: 4px solid #f4f4f4;*/
+}
+
+.gradem{
+	border-bottom: 2px solid rgb(175, 175, 175);
+	margin: -34px auto -12px;
+	position: relative;
+	width: 910px;
+	height: 26px;
+	background-image: url(../files/img/gradem-01.png);
+}
+
+.show-article{
+
+	box-shadow: 0px 2px 3px gray;
+	background-color: white;
+	padding: 4px;
+	border-radius: 12px;
+	width: 100px;
+	text-align: center;
+
+	margin: 0 auto;
+	font-size: 70%;
+	position: relative;
+	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none
+}
+
+.show-article:hover{
+	box-shadow: 0px 2px 3px rgb(128, 100, 72);
+	cursor: pointer;
+}
+
+.show-article:active{
+	box-shadow: 0px 1px 2px rgb(128, 100, 72);
+	margin: 1px auto -1px;
+}
+.form-success {
+    line-height: 2.5em;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2em;
+    background: rgba(0, 129, 0, 0.6);
+    vertical-align: middle;
+    border-radius: 5px;
+}
+.form-error {
+    display: none;
+    background-color: pink;
+    border-top: 3px solid red;
+    line-height: 1.5em;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+.form-field {
+    padding-top: 20px;
+}
+.form-label {
+    display: inline-block;
+    width: 200px;
+    font-size: 1.2em;
+}
+.form-input {
+    width: 640px;
+    padding-left: 7px;
+    height: 35px;
+    border-radius: 4px;
+    font-size: 1.25em;
+}
+
+select.form-input {
+    width: 650px;
+}
+.footer-enroll {
+    margin: 30px 0px;
+    /*padding-top: 24px;*/
+}
+#formx {
+    padding-left: 1.5em;
+}
+
+.enroll-button {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif !important;
+    display: table;
+    background: #008100;
+    width: 272px;
+    margin: 26px auto;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+.enroll-button:hover {
+    background: #006200;
+    cursor: pointer;
+}
+
+</style>
+
+<script type="text/javascript">
+
+$(document).on('click', 'a#tocatalog', function(event){
+    event.preventDefault();
+
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
+});
+
+
+
+$(".form-input").focus(function() {
+  $(".form-error").hide();
+  actuateHeight();
+});
+
+var wrap = $('.article');
+var shown = false;
+height_min = wrap.height();
+
+function actuateHeight() {
+    $('.article').animate({
+                height: document.getElementById("about-bottom").offsetTop - document.getElementById("top-article").offsetTop
+            },500);
+}
+
+$('.show-article').on('click', function(){
+
+
+
+	if(shown == false){
+    	$('.show-article').html("Свернуть");
+    		actuateHeight();
+	}
+
+	if(shown == true){
+    	$('.show-article').html("Развернуть");
+    		wrap.animate({
+        		height: height_min
+    		},500);
+
+    		$('html, body').animate({
+        		scrollTop: $("#top-article").offset().top
+    		}, 500);
+       /* window.scrollTo(0,document.getElementById("top-article").offsetTop);*/
+	}
+
+	shown == true ? shown = false : shown=true;
+
+});
+
+function call() {
+        var msg   = $('#formx').serialize();
+        $.ajax({
+          type: 'POST',
+          url: window.location + '/bid/',
+          data: msg,
+          success: function(data) {
+            console.log(data.result);
+            if(data.result == "success"){
+              $("section#bid-section")[0].innerHTML = "<div class='form-success'>Ваша заявка будет рассмотрена в ближайшее время!</div>";
+                       $(".course-head-enroll .for-hide a").html("Заявка отправлена");
+         $(".course-head-enroll .for-hide a").css("background", "gray");
+         actuateHeight();
+            }
+            else{
+              $(".form-error").show(200);
+              setTimeout(actuateHeight, 200);
+
+            }
+          },
+          error:  function(xhr, str){
+            alert('Возникла ошибка на сервере! Попробуйте записаться позже!' /*+ xhr.responseCode*/);
+          }
+        });
+
+    }
+
+  $("#send").click(function() {
+      call();
+});
+
+</script>
 {% endblock %}

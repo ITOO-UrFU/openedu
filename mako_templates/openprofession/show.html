@@ -1,0 +1,520 @@
+## mako
+<%inherit file="../base.html"/>
+<div class="row">
+
+    <%include file="../menu_block.html"/>
+
+
+    % if not_exists_reports:
+    <div class="not_exists_reports-container">
+        <div id="not_exists_reports">+</div>
+        <div class="errors">
+            <p><strong>Отчеты по следующим курсам не загружены!</strong></p>
+            <ul id="not_exists_reports_list" style="display: none;">
+                % for a in not_exists_reports:
+                <li>${a}</li>
+                % endfor
+            </ul>
+        </div>
+    </div>
+    % endif
+
+    <div class="show_column_filters-container">
+        <div id="show_column_filters">+</div>
+        <div class="column_filters">
+            <p><strong>Фильтр столбцов</strong></p>
+            <div id="filter" style="display: none;"></div>
+        </div>
+    </div>
+    <a href="?test_mode=true">Перейти в тестовый режим</a>
+</div>
+
+<div id="app">
+
+
+    <div class="row">
+        <input type="checkbox" v-model="only_active_programs" id="only_active_programs"
+               v-on:change="showActiveOnlyPrograms(only_active_programs)"> <label for="only_active_programs"> Показать
+        только активные сессии</label>
+
+
+    </div>
+    <p style="text-align: left; margin: 0px 50px;">Показано записей: {{ pdata_for_show.length }} из {{ pdata.length }}</p>
+    <div class="container-table">
+        <table id="mainTable">
+            <thead>
+            <tr>
+                <th class="column-pd-fio">
+                    <div class="column-header-text">ФИО</div>
+                    <div class="sort-block alert sort-icon">
+                        <i v-on:click="sortByParam('fio')" v-if="sort_list.includes('fio')"
+                           class="fas fa-sort-down fa-2x"></i>
+                        <i v-on:click="sortByParam('fio')" v-else-if="sort_list.includes('-fio')"
+                           class="fas fa-sort-up fa-2x"></i>
+                        <i v-on:click="sortByParam('fio')" v-else class="fas fa-sort fa-2x"></i>
+                    </div>
+                </th>
+                <th class="column-pd-email">
+                    <div class="column-header-text">Почта</div>
+                    <div class="sort-block alert sort-icon">
+                        <i v-on:click="sortByParam('email')" v-if="sort_list.includes('email')"
+                           class="fas fa-sort-down fa-2x"></i>
+                        <i v-on:click="sortByParam('email')" v-else-if="sort_list.includes('-email')"
+                           class="fas fa-sort-up fa-2x"></i>
+                        <i v-on:click="sortByParam('email')" v-else class="fas fa-sort fa-2x"></i>
+                    </div>
+                </th>
+                <th class="column-pd-phone"><div class="column-header-text">Телефон</div></th>
+                <th class="column-pd-program-courseId">
+                    <div class="column-header-text">Программа</div>
+                    <div class="block-filter alert filter-icon">
+                        <div>Выбрано {{ user_filters.by_program.selected_values.length }}
+                            из {{ user_filters.by_program.all_programs.length }}</div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('by_program')"></i>
+                        <div v-if="user_filters.by_program.show_filter" class="users-filter-block">
+                            <div class="links">
+                                <a v-on:click="setProgramFilterAll()">Выделить все</a>
+                                <a v-on:click="setProgramFilterNull()">Скрыть все</a>
+                            </div>
+                            <div v-for="filter_program in user_filters.by_program.all_programs" style="font-size: 80%"
+                                 v-bind:filter_program="filter_program" class="filter-program-item">
+                                <label v-bind:for="'list-' + filter_program"><input type="checkbox"
+                                                                                    v-on:change="setProgramFilter(filter_program)"
+                                                                                    v-bind:checked="user_filters.by_program.selected_values.includes(filter_program)"
+                                                                                    v-bind:id="'list-' + filter_program"> {{ filter_program }}
+                                </label>
+                            </div>
+                            <div class="buttons">
+                                <button v-on:click="user_filters.by_program.show_filter = !user_filters.by_program.show_filter">
+                                    Ок
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th class="column-pd-birthDate"><div class="column-header-text">Дата рождения</div></th>
+                <th class="column-pd-city"><div class="column-header-text">Город</div></th>
+                <th class="column-pd-job"><div class="column-header-text">Место работы, должность</div></th>
+                <th class="column-pd-quote">
+                    <div class="column-header-text">Заявка на квоту</div>
+
+                    <div class="block-filter alert filter-icon">
+                        <div v-if="user_filters['quote'].selected_values.length != 2">Выбрано
+                            {{ user_filters['quote'].selected_values.length }} из 2
+                        </div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('quote')"></i>
+                        <div v-if="user_filters['quote'].show_filter" class="users-filter-block">
+                            <label for="true-filter-quote"><input type="checkbox"
+                                                                  v-on:change="setFilter('quote',true)"
+                                                                  v-bind:checked="user_filters['quote'].selected_values.includes(true)"
+                                                                  id="true-filter-quote"> Да </label> </br>
+                            <label for="false-filter-quote"><input type="checkbox"
+                                                                   v-on:change="setFilter('quote', false)"
+                                                                   v-bind:checked="user_filters['quote'].selected_values.includes(false)"
+                                                                   id="false-filter-quote"> Нет </label>
+                            <div class="buttons">
+                                <button v-on:click="toggleFilterBLockVisible('quote')">Ок</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </th>
+                <th class="column-pd-createdAt">
+                    <div class="column-header-text">Дата заявки</div>
+                    <div class="sort-block alert sort-icon">
+                        <i v-on:click="sortByParam('createdAt')" v-if="sort_list.includes('createdAt')"
+                           class="fas fa-sort-down fa-2x"></i>
+                        <i v-on:click="sortByParam('createdAt')" v-else-if="sort_list.includes('-createdAt')"
+                           class="fas fa-sort-up fa-2x"></i>
+                        <i v-on:click="sortByParam('createdAt')" v-else class="fas fa-sort fa-2x"></i>
+                    </div>
+                </th>
+                <th class="column-pd-updatedAt">
+                    <div class="column-header-text">Дата последнего изменения</div>
+                    <div class="sort-block alert sort-icon">
+                        <i v-on:click="sortByParam('updatedAt')" v-if="sort_list.includes('updatedAt')"
+                           class="fas fa-sort-down fa-2x"></i>
+                        <i v-on:click="sortByParam('updatedAt')" v-else-if="sort_list.includes('-updatedAt')"
+                           class="fas fa-sort-up fa-2x"></i>
+                        <i v-on:click="sortByParam('updatedAt')" v-else class="fas fa-sort fa-2x"></i>
+                    </div>
+                </th>
+                <th class="column-pd-user_docs">
+                    <div class="column-header-text">Приложенные документы</div>
+
+                    <div class="block-filter alert filter-icon">
+
+                        <!--
+                        <div v-if="user_filters['inQuote'].selected_values.length != 2">Выбрано
+                            {{ user_filters['by_docs'].selected_values.length }} из 2
+                        </div>
+                        -->
+
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('by_docs')"></i>
+                        <div v-if="user_filters['by_docs'].show_filter" class="users-filter-block">
+
+                            <label for="true-filter-claimScan"><input type="checkbox"
+                                                                      v-on:change="setFilter('by_docs','claimScan')"
+                                                                      v-bind:checked="user_filters['by_docs'].selected_values.includes('claimScan')"
+                                                                      id="true-filter-claimScan"> Заявление скан
+                            </label> </br>
+                            <label for="false-filter-diplomaScan"><input type="checkbox"
+                                                                         v-on:change="setFilter('by_docs', 'diplomaScan')"
+                                                                         v-bind:checked="user_filters['by_docs'].selected_values.includes('diplomaScan')"
+                                                                         id="false-filter-diplomaScan"> Диплом скан
+                            </label></br>
+                            <label for="false-filter-docForwarding"><input type="checkbox"
+                                                                           v-on:change="setFilter('by_docs', 'docForwarding')"
+                                                                           v-bind:checked="user_filters['by_docs'].selected_values.includes('docForwarding')"
+                                                                           id="false-filter-docForwarding"> Пересылка
+                                скан </label></br>
+                            <label for="false-filter-anotherDoc"><input type="checkbox"
+                                                                        v-on:change="setFilter('by_docs', 'anotherDoc')"
+                                                                        v-bind:checked="user_filters['by_docs'].selected_values.includes('anotherDoc')"
+                                                                        id="false-filter-anotherDoc"> Другой документ
+                            </label>
+
+                            <div class="buttons">
+                                <button v-on:click="toggleFilterBLockVisible('by_docs')">Ок</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--
+                                        <a target="_blank" v-bind:href="media_url + pd.claimScan">Заявление скан</a> <br>
+                                        <a target="_blank" v-bind:href="media_url + pd.diplomaScan">Диплом скан</a> <br>
+                                        <a target="_blank" v-if="pd.docForwarding" v-bind:href="media_url + pd.docForwarding">Пересылка
+                                            скан</a> <br v-if="pd.docForwarding">
+                                        <a target="_blank" v-if="pd.anotherDoc" v-bind:href="media_url + pd.anotherDoc">Другой документ</a>
+                    -->
+
+                </th>
+                <th class="column-pd-educationLevel"><div class="column-header-text">Уровень образования</div></th>
+                <th class="column-pd-inQuote">
+                    <div class="column-header-text">В квоте</div>
+                    <div class="block-filter alert filter-icon">
+                        <div v-if="user_filters['inQuote'].selected_values.length != 2">Выбрано
+                            {{ user_filters['inQuote'].selected_values.length }} из 2
+                        </div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('inQuote')"></i>
+                        <div v-if="user_filters['inQuote'].show_filter" class="users-filter-block">
+                            <label for="true-filter-inQuote"><input type="checkbox"
+                                                                    v-on:change="setFilter('inQuote',true)"
+                                                                    v-bind:checked="user_filters['inQuote'].selected_values.includes(true)"
+                                                                    id="true-filter-inQuote"> Да </label> </br>
+                            <label for="false-filter-inQuote"><input type="checkbox"
+                                                                     v-on:change="setFilter('inQuote', false)"
+                                                                     v-bind:checked="user_filters['inQuote'].selected_values.includes(false)"
+                                                                     id="false-filter-inQuote"> Нет </label>
+                            <div class="buttons">
+                                <button v-on:click="toggleFilterBLockVisible('inQuote')">Ок</button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th class="column-pd-paid">
+                    <div class="column-header-text">Оплатил</div>
+                    <div class="block-filter alert filter-icon">
+                        <div v-if="user_filters['paid'].selected_values.length != 2">Выбрано
+                            {{ user_filters['paid'].selected_values.length }} из 2
+                        </div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('paid')"></i>
+                        <div v-if="user_filters['paid'].show_filter" class="users-filter-block">
+                            <label for="true-filter-paid"><input type="checkbox"
+                                                                 v-on:change="setFilter('paid',true)"
+                                                                 v-bind:checked="user_filters['paid'].selected_values.includes(true)"
+                                                                 id="true-filter-paid"> Да </label> </br>
+                            <label for="false-filter-paid"><input type="checkbox"
+                                                                  v-on:change="setFilter('paid', false)"
+                                                                  v-bind:checked="user_filters['paid'].selected_values.includes(false)"
+                                                                  id="false-filter-paid"> Нет </label>
+                            <div class="buttons">
+                                <button v-on:click="toggleFilterBLockVisible('paid')">Ок</button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th><div class="column-header-text">Тип выдаваемого документа</div></th>
+                <th><div class="column-header-text">Статус</div></th>
+                <th class="column-pd-allDocs">
+                <div class="column-header-text" style="padding-bottom: 35px">Слушатель прикрепил документы: скан заявления, документ об
+                        образовании
+                    </div>
+                    <div class="block-filter alert filter-icon">
+                        <div v-if="user_filters['allDocs'].selected_values.length != 2">Выбрано
+                            {{ user_filters['allDocs'].selected_values.length }} из 2
+                        </div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('allDocs')"></i>
+                        <div v-if="user_filters['allDocs'].show_filter" class="users-filter-block">
+                            <label for="true-filter-allDocs"><input type="checkbox"
+                                                                    v-on:change="setFilter('allDocs',true)"
+                                                                    v-bind:checked="user_filters['allDocs'].selected_values.includes(true)"
+                                                                    id="true-filter-allDocs"> Да </label> </br>
+                            <label for="false-filter-allDocs"><input type="checkbox"
+                                                                     v-on:change="setFilter('allDocs', false)"
+                                                                     v-bind:checked="user_filters['allDocs'].selected_values.includes(false)"
+                                                                     id="false-filter-allDocs"> Нет </label>
+                            <div class="buttons">
+                                <button v-on:click="toggleFilterBLockVisible('allDocs')">Ок</button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th class="column-pd-allScans">
+                    <div class="column-header-text">Прикреплены все необоходимые сканы документов</div>
+                    <div class="block-filter alert filter-icon">
+                        <div v-if="user_filters['allScans'].selected_values.length != 2">Выбрано
+                            {{ user_filters['allScans'].selected_values.length }} из 2
+                        </div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('allScans')"></i>
+                        <div v-if="user_filters['allScans'].show_filter" class="users-filter-block">
+                            <label for="true-filter-allScans"><input type="checkbox"
+                                                                     v-on:change="setFilter('allScans',true)"
+                                                                     v-bind:checked="user_filters['allScans'].selected_values.includes(true)"
+                                                                     id="true-filter-allScans"> Да </label> </br>
+                            <label for="false-filter-allScans"><input type="checkbox"
+                                                                      v-on:change="setFilter('allScans', false)"
+                                                                      v-bind:checked="user_filters['allScans'].selected_values.includes(false)"
+                                                                      id="false-filter-allScans"> Нет </label>
+                            <div class="buttons">
+                                <button v-on:click="toggleFilterBLockVisible('allScans')">Ок</button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th class="column-pd-allValid">
+                    <div class="column-header-text">Данные в доках слушателя совпадают и корректны</div>
+                    <div class="block-filter alert filter-icon">
+                        <div v-if="user_filters['allValid'].selected_values.length != 2">Выбрано
+                            {{ user_filters['allValid'].selected_values.length }} из 2
+                        </div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('allValid')"></i>
+                        <div v-if="user_filters['allValid'].show_filter" class="users-filter-block">
+                            <label for="true-filter-allValid"><input type="checkbox"
+                                                                     v-on:change="setFilter('allValid',true)"
+                                                                     v-bind:checked="user_filters['allValid'].selected_values.includes(true)"
+                                                                     id="true-filter-allValid"> Да </label> </br>
+                            <label for="false-filter-allValid"><input type="checkbox"
+                                                                      v-on:change="setFilter('allValid', false)"
+                                                                      v-bind:checked="user_filters['allValid'].selected_values.includes(false)"
+                                                                      id="false-filter-allValid"> Нет </label>
+                            <div class="buttons">
+                                <button v-on:click="toggleFilterBLockVisible('allValid')">Ок</button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th class="column-pd-possibleId">
+                    <div class="column-header-text">ID на платформе</div>
+                </th>
+                <th>
+                    <div class="column-header-text">Оценка за выбр. курс</div></th>
+                <th v-for="program in programs_for_show" style="font-size: 80%">
+                    <div class="column-header-text"><span style="font-size: 70%">{{ program.title }}<br/><hr/></span>{{ program.courseId }} <br/> {{ program.session }}</div>
+                </th>
+            </thead>
+            <tbody>
+            <tr v-for="pd in this.pdata_for_show">
+                <td class="fixed-cell">
+                    {{ pd.fio }}
+                </td>
+                <td>
+                    {{ pd.email }}
+                </td>
+                <td>
+                    {{ pd.phone }}
+                </td>
+                <td>
+                    {{ pd.program.courseId }}
+                </td>
+                <td>
+                    {{ pd.birthDate }}
+                </td>
+                <td>
+                    {{ pd.city }}
+                </td>
+                <td>
+                    {{ pd.job }}, {{ pd.position }}
+                </td>
+                <template v-if="pd.quote == true">
+                    <td class="Enrolled">
+                    </td>
+                </template>
+                <template v-else>
+                    <td class="notEnrolled"></td>
+                </template>
+                <td>
+                    {{ pd.createdAt | moment }}
+                </td>
+                <td>
+                    {{ pd.updatedAt | moment }}
+                </td>
+                <td>
+                    <a target="_blank" v-bind:href="media_url + pd.claimScan">Заявление скан</a> <br>
+                    <a target="_blank" v-bind:href="media_url + pd.diplomaScan">Диплом скан</a> <br>
+                    <a target="_blank" v-if="pd.docForwarding" v-bind:href="media_url + pd.docForwarding">Пересылка
+                        скан</a> <br v-if="pd.docForwarding">
+                    <a target="_blank" v-if="pd.anotherDoc" v-bind:href="media_url + pd.anotherDoc">Другой документ</a>
+                </td>
+                <template v-if="pd.educationLevel == 'H'">
+                    <td>
+                        Высшее
+                    </td>
+                </template>
+                <template v-else>
+                    <td>
+                        Среднее
+                    </td>
+                </template>
+
+                <td class="boolean-column">
+                    <div class="center">
+                        <label class="label">
+                            <input class="label__checkbox" type="checkbox" v-on:change="changeField"
+                                   v-bind:checked="pd.inQuote" v-bind:data-user-id="pd.id" data-change-field="in_quote" data-local-change-field="inQuote">
+                            <span class="label__text">
+                          <span class="label__check">
+                            <i class="fa fa-check icon"></i>
+                          </span>
+                        </span>
+                        </label>
+                    </div>
+                </td>
+                <td class="boolean-column">
+                    <div class="center">
+                        <label class="label">
+                            <input class="label__checkbox" type="checkbox" v-on:change="changeField"
+                                   v-bind:checked="pd.paid" v-bind:data-user-id="pd.id" data-change-field="paid" data-local-change-field="paid">
+                            <span class="label__text">
+                          <span class="label__check">
+                            <i class="fa fa-check icon"></i>
+                          </span>
+                        </span>
+                        </label>
+                    </div>
+                </td>
+                <td>{{ pd.documentType }}</td>
+                <td>{{ pd.status }}</td>
+                <td class="boolean-column">
+                    <div class="center">
+                        <label class="label">
+                            <input class="label__checkbox" type="checkbox" v-on:change="changeField"
+                                   v-bind:checked="pd.allDocs" v-bind:data-user-id="pd.id" data-change-field="all_docs" data-local-change-field="allDocs">
+                            <span class="label__text">
+                          <span class="label__check">
+                            <i class="fa fa-check icon"></i>
+                          </span>
+                        </span>
+                        </label>
+                    </div>
+                </td>
+                <td class="boolean-column">
+                    <div class="center">
+                        <label class="label">
+                            <input class="label__checkbox" type="checkbox" v-on:change="changeField"
+                                   v-bind:checked="pd.allScans" v-bind:data-user-id="pd.id"
+                                   data-change-field="all_scans" data-local-change-field="allScans">
+                            <span class="label__text">
+                          <span class="label__check">
+                            <i class="fa fa-check icon"></i>
+                          </span>
+                        </span>
+                        </label>
+                    </div>
+                </td>
+                <td class="boolean-column">
+                    <div class="center">
+                        <label class="label">
+                            <input class="label__checkbox" type="checkbox" v-on:change="changeField"
+                                   v-bind:checked="pd.allValid" v-bind:data-user-id="pd.id"
+                                   data-change-field="all_valid" data-local-change-field="allValid">
+                            <span class="label__text">
+                          <span class="label__check">
+                            <i class="fa fa-check icon"></i>
+                          </span>
+                        </span>
+                        </label>
+                    </div>
+                </td>
+                <td>{{ pd.possibleId }}</td>
+                <template v-if="pd.programGrade != '-1'">
+                    <td class="Enrolled">
+                        {{ pd.programGrade }}
+                        <br/>
+                        Y
+                    </td>
+                </template>
+                <template v-else>
+                    <td class="notEnrolled">
+                        N
+                    </td>
+                </template>
+                <td v-for="program in programs_for_show" style="font-size: 80%">
+                    {{ JSON.parse(pd.grades)[program.id]}} <br/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+<script src="/files/openedu_static/js/moment.js"></script>
+<script src="/files/openedu_static/js/show.js"></script>
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>-->
+
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/files/openedu_static/css/show.css">
+
+<script>
+    moment.locale('ru');
+    var csrfToken = "${ csrftoken }";
+
+    for (let i = 1; i <= $('#mainTable thead th').length; i++) {
+        $('#filter').append('<input type=\"checkbox\" checked>' + $('#mainTable thead th:nth-child(' + i + ')').text() + '</input><br/>')
+        $('#mainTable thead th:nth-child(' + i + ') .column-header-text').append("<i class=\"fa fa-eye-slash\" aria-hidden=\"true\"></i>")
+    }
+    $('#filter').append('<button id=\"hideCols\">Фильтровать</button>')
+
+    function applyFilter() {
+        function hideCols() {
+            if (app.hiddenCols != null) {
+                for (var i = 0; i < $("#mainTable thead th").length; i++) {
+                    $('#mainTable th, #mainTable td').show();
+                }
+
+                for (var i = 0; i < app.hiddenCols.length; i++) {
+                    $("#filter input")[app.hiddenCols[i]].checked = false;
+                    var style = $('<style>#mainTable th:nth-child(' + (app.hiddenCols[i] + 1) + '), #mainTable td:nth-child(' + (app.hiddenCols[i] + 1) + ') { display: none; }</style>');
+                    $('html > head').append(style);
+                }
+            }
+        };
+
+        hideCols();
+
+
+        $('#hideCols').click(function () {
+            hc = [];
+            for (let i = 0; i < $('#filter input').length; i++) {
+                if ($('#filter input')[i].checked == false) {
+                    hc.push(i);
+                }
+            }
+            app.hiddenCols = hc;
+            localStorage.setItem("hiddenCols", JSON.stringify(app.hiddenCols));
+            hideCols();
+        })
+    }
+    ;
+    setTimeout(function () {
+        applyFilter();
+    }, 100);
+</script>
+

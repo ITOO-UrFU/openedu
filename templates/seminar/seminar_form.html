@@ -1,0 +1,335 @@
+{% extends "../base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col container" id="form">
+            <form enctype="multipart/form-data" action="" method="post">
+                {{ form.non_field_errors }}
+                <div class="subsection">
+
+                    <h2>Регистрационная форма участника семинара «Онлайн-курсы и практика их использования в учебном процессе образовательных организаций» 03-04 июля 2018 г.</h2>
+                </div>
+                <div class="subsection">
+
+
+
+                    <h2>Личные данные:</h2>
+                    <p><label for="id_last_name">Фамилия<span class="red">*</span>:</label>
+                        {{ form.last_name.errors }}
+                        <input name="last_name" maxlength="255" required=""
+                               id="id_last_name" type="text"></p>
+                    <p><label for="id_first_name">Имя<span class="red">*</span>:</label>
+                        {{ form.first_name.errors }}
+                        <input name="first_name" maxlength="255" required=""
+                               id="id_first_name" type="text"></p>
+                    <p><label for="id_second_name">Отчество:</label>
+                        {{ form.second_name.errors }}
+                        <input name="second_name" maxlength="255"
+                               id="id_second_name" type="text"></p>
+                    <p><label for="id_sex">Пол<span class="red">*</span>:</label>
+                        {{ form.sex.errors }}
+                        <select name="sex" required="" id="id_sex">
+                            <option value="" selected="">---------</option>
+                            <option value="m">мужской</option>
+                            <option value="f">женский</option>
+                        </select>
+                    </p>
+                    <p><label for="id_phone">Телефон<span class="red">*</span>:</label>
+                        {{ form.phone.errors }}
+                        <input name="phone" required="" id="id_phone" type="tel"></p>
+                    <p><label for="id_email">Email<span class="red">*</span>:</label>
+                        {{ form.email.errors }}
+                        <input name="email" maxlength="254" required="" id="id_email"
+                               type="email"></p>
+                    <p><label for="id_job">Место работы<span class="red">*</span>:</label>
+                        {{ form.job.errors }}
+                        <input name="job" maxlength="2048" required="" id="id_job"
+                               type="text"></p>
+                    <p><label for="id_position">Должность<span class="red">*</span>:</label>
+                        {{ form.position.errors }}
+                        <input name="position" maxlength="2048" required="" id="id_position"
+                               type="text"></p>
+
+                    <p><label for="id_type_of_participation">Тип участия<span class="red">*</span>:</label>
+                        {{ form.sex.errors }}
+                        <select name="type_of_participation" required="" id="id_type_of_participation">
+                            <option value="away">заочно (онлайн-трансляция)</option>
+                            <option value="internally">очно</option>
+                        </select>
+                    </p>
+                    <p>* Удостоверение о повышении квалификации выдается только при ОЧНОМ участии и успешном освоении
+                        программы ДПО.</p>
+                        <p>ВНИМАНИЕ! Правом на бесплатное обучение по программе повышения квалификации Вы можете воспользоваться только один раз на одном из предложенных онлайн-курсов в период с 01.12.2017г. по 31.12.2018г.</p>
+                        <!-- style="display: none;"-->
+                    <p id="block_id_with_udostoverenie"><label for="id_with_udostoverenie">С получением удостоверения о повышении квалификации</label>
+                        {{ form.with_udostoverenie.errors }}
+                        <input name="with_udostoverenie"
+                               id="id_with_udostoverenie"
+                               required=""
+                               type="checkbox"></p>
+
+                </div>
+
+                    <div id="add_docs_block" class="subsection" style="display:none">
+                        <h2>Документы, необходимые для получения удостоверения о повышении квалификации:</h2>
+                        <p><label for="id_diploma_scan">Скан диплома<span class="red">*</span>:</label>
+                            {{ form.diploma_scan.errors }}
+                            <input type="file" name="diploma_scan" id="id_diploma_scan">
+                        </p>
+                        <p>ВНИМАНИЕ! В случае, если диплом был выдан не на территории РФ, необходимо предоставить
+                            подтверждение пройденной процедуры нострификации,
+                            прикрепив скан соответствующего документа в поле «Скан диплома» <strong>единым документом
+                                вместе с дипломом.</strong></p>
+                        <p><label for="id_another_doc">Документ о смене персональных данных:</label>
+                            {{ form.another_doc.errors }}
+                            <input type="file" name="another_doc" id="id_another_doc">
+                        </p>
+                        <p>ВНИМАНИЕ! В случае несоответствия персональных данных в дипломе и форме заявки (ФИО)
+                            необходимо приложить документ о смене персональных данных, например, свидетельство о
+                            заключении брака.</p>
+                        <p><label for="id_education_bid">Скан заявления о зачислении на обучение<span
+                                class="red">*</span>:</label>
+                            {{ form.education_bid.errors }}
+                            <input type="file" name="education_bid" id="id_education_bid">
+                        </p>
+                        <p><a href="../../files/openprofession/Заявление на зачисление.docx">Скачать шаблон
+                            заявления</a></p>
+
+                        <p><label for="id_doc_forwarding">Скан заявления о пересылке оригинала документа почтой
+                            России:</label>
+                            {{ form.doc_forwarding.errors }}
+                            <input type="file" name="doc_forwarding" id="id_doc_forwarding">
+                        </p>
+                        <p><a href="../../files/openprofession/Заявление о пересылке оригинала документа.docx">Скачать
+                            шаблон
+                            заявления</a></p>
+                        <p>В случае, если Вы проживаете не в Екатеринбурге, необходимо прикрепить скан заявления о
+                            почтовой пересылке оригинала документа об обучении.</p>
+                    </div>
+
+
+                <div class="subsection" style="height: 150px;">
+                    <p><label for="id_agreement">Я ознакомился с <a target="_blank"
+                                                                    href="https://ozi.urfu.ru/fileadmin/user_upload/site_15891/politika_01.pdf">политикой
+                        обработки
+                        персональных данных</a> и <a target="_blank"
+                                                     href="https://openedu.urfu.ru/files/law/agreement.html">согласен на
+                        обработку персональных данных</a><span class="red">*</span></label>
+                        {{ form.agreement.errors }}
+                        <input name="agreement"
+                               id="id_agreement"
+                               required=""
+                               type="checkbox"></p>
+                    <input value="Отправить" type="submit">
+                </div>
+
+                <div class="subsection" style="text-align: center;height: 63px;line-height: 90px;">
+                    <p>По всем вопросам обращаться: +7 (343) 375-97-35, olya.vozisova@gmail.com</p>
+                </div>
+
+            </form>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                altFormat: "dd.mm.yyyy"
+            });
+
+            if($("#id_type_of_participation").val() == 'away'){ $("#block_id_with_udostoverenie").css("display", "none"); }
+            $("#id_type_of_participation").change(function () {
+            	if($(this).val() == 'internally'){
+                    $("#block_id_with_udostoverenie").css("display", "block");
+                }
+                else {
+                    $("#block_id_with_udostoverenie").css("display", "none");
+                }
+                document.querySelector('#id_with_udostoverenie').checked = false;
+                $("#add_docs_block").css("display", "none");
+                $("#id_diploma_scan").removeAttr("required");
+                $("#id_education_bid").removeAttr("required");
+            });
+
+            if(document.querySelector('#id_with_udostoverenie').checked == true && $("#id_type_of_participation").val() == 'internally'){
+            	$("#add_docs_block").css("display", "block");
+                $("#id_diploma_scan").attr('required', true);
+                $("#id_education_bid").attr('required', true);
+            }
+            $("#id_with_udostoverenie").change(function () {
+                if (document.querySelector('#id_with_udostoverenie').checked == true) {
+                    $("#add_docs_block").css("display", "block");
+                    $("#id_diploma_scan").attr('required', true);
+                    $("#id_education_bid").attr('required', true);
+                }
+                if (document.querySelector('#id_with_udostoverenie').checked == false) {
+                    $("#add_docs_block").css("display", "none");
+                    $("#id_diploma_scan").removeAttr("required");
+                    $("#id_education_bid").removeAttr("required");
+                }
+            });
+        });
+    </script>
+
+    <style>
+        input[type=email], input[type=tel], input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        /* Style the label to display next to the inputs */
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        /* Style the submit button */
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        /* Style the container */
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        /* Floating column for labels: 25% width */
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        /* Floating column for inputs: 75% width */
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+
+        .errorlist {
+            color: red;
+            font-size: 75%;
+            list-style: none;
+        }
+
+        .subsection {
+            font-family: "open_sansregular";
+            background: #ffffff;
+            border: 1px #e5e5e5 solid;
+            box-shadow: 0 0 1px #e5e5e5;
+            padding: 12px 15px;
+            margin-bottom: 2em;
+        }
+
+        .subsection:last-child {
+            padding-bottom: 3em;
+        }
+
+        .col#form h2 {
+            text-align: center;
+        }
+
+        .col#form p {
+            width: 810px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .col#form p label {
+            display: inline-block;
+        / / width: 350 px
+        }
+
+        .col#form p input, .col#form p select {
+            display: inline-block;
+            width: 800px;
+        }
+
+        .col#form p input[type="checkbox"] {
+            width: 20px;
+            height: 15px;
+        }
+
+        .col#form p input[type="submit"] {
+            display: block;
+            margin: 20px auto 10px;
+            height: 40px;
+        }
+
+        .col#form p input[type="submit"][disabled] {
+
+        }
+
+        .article ul li {
+            margin-top: 0px;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
+
+{% endblock %}
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter47486308 = new Ya.Metrika2({
+                    id: 47486308,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    webvisor: true,
+                    ut: "noindex"
+                });
+            } catch (e) {
+            }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () {
+                n.parentNode.insertBefore(s, n);
+            };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks2");
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/47486308?ut=noindex" style="position:absolute; left:-9999px;" alt=""/>
+    </div>
+</noscript>
+<!-- /Yandex.Metrika counter -->

@@ -31,6 +31,7 @@ class Minor(models.Model):
     enddate = models.DateTimeField(_("Дата завершения"), null=True)
     image = models.ImageField(_("Изображение"), upload_to='minors/', null=True)
     schedule = models.CharField(_("Расписание"), max_length=64, blank=True)
+    active = models.BooleanField(_("Активен"), default=False)
 
     published = models.BooleanField(_("Опубликовано"), default=False)
 
@@ -42,17 +43,17 @@ class Minor(models.Model):
 
     @property
     def get_next(self):
-        next = Minor.objects.filter(published=True, id__gt=self.id)
+        next = Minor.objects.filter(published=True, active=True, id__gt=self.id)
         if next:
             return next[0].id
-        return Minor.objects.filter(published=True)[0].id
+        return Minor.objects.filter(published=True, active=True)[0].id
 
     @property
     def get_prev(self):
-        prev = Minor.objects.filter(published=True, id__lt=self.id).order_by('-id')
+        prev = Minor.objects.filter(published=True, active=True, id__lt=self.id).order_by('-id')
         if prev:
             return prev[0].id
-        return list(Minor.objects.filter(published=True).reverse())[-1].id
+        return list(Minor.objects.filter(published=True, active=True).reverse())[-1].id
 
     class Meta:
         verbose_name = 'майнор'
@@ -79,6 +80,8 @@ class OOPBid(models.Model):
     phone = models.CharField(_("Телефон"), max_length=2048, blank=True, null=True)
     program = models.CharField(_("Программа"), max_length=2048, blank=True, null=True)
     message = models.TextField(_("Сообщение"), blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     done = models.BooleanField(default=False)
 
     def __str__(self):
@@ -87,3 +90,22 @@ class OOPBid(models.Model):
     class Meta:
         verbose_name = 'заявка на открытую программу'
         verbose_name_plural = 'заявки на открытую программу'
+
+
+class QuoteBid(models.Model):
+    name = models.CharField(_("Имя"), max_length=254, blank=True, null=True, unique=True)
+    email = models.CharField(_("Email"), max_length=254, blank=True, null=True, unique=True)
+    phone = models.CharField(_("Телефон"), max_length=254, blank=True, null=True, unique=True)
+    course = models.CharField(_("Курс"), max_length=2048, blank=True, null=True)
+    agreement = models.BooleanField(_("Согласие на обработку перс. данных"), default=False, blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    quoted = models.BooleanField(_("Попал в квоту"), default=False)
+    done = models.BooleanField(default=False)
+
+    def __str__(self):
+        return u"{}".format(self.name)
+
+    class Meta:
+        verbose_name = 'заявка на квоту'
+        verbose_name_plural = 'заявки на квоту'

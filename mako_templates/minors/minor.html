@@ -1,0 +1,405 @@
+## mako
+<%inherit file="../base.html"/>
+<%! from time import strftime as time %>
+<div class="for-footer">
+<div class="main-title">
+   <h1><span class="in"><span>${minor.name}</span></span></h1>
+</div>
+<div class="section breadcrumbs">
+   <div class="row">
+      <div class="col3">
+         <span class="breadcrumbs-item">
+         <a href="/" class="no-underline">
+         <span class="dotted">Главная страница</span>
+         </a>
+         </span>
+         <span class="divide">/</span>
+         <span class="breadcrumbs-item">
+         <a href="/minors/" class="no-underline">
+         <span class="dotted">Майноры УрФУ</span>
+         </a>
+         </span>
+         <span class="divide">/</span>
+         <span class="breadcrumbs-item">
+         <a href="" class="no-underline">
+         <span>${minor.name}</span>
+         </a>
+         </span>
+      </div>
+   </div>
+</div>
+<div class="region-container">
+
+   %if minor.get_next is not False:
+      <a id="to-next" class="next-course" href="${minor.get_next}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+   %endif
+   %if minor.get_prev is not False:
+      <a id="to-prev" class="prev-course" href="${minor.get_prev}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+   %endif
+
+   <div class="course-header">
+      <div class="header-wrap">
+         <div class="course-head-image" style="background:url(../${minor.image.url}); background-size: cover;"></div>
+         <div class="course-head-enroll">
+            <div class="course-date">
+               <p><i class="fa fa-calendar" aria-hidden="true"></i> ${minor.startdate.strftime('%d.%m.%Y')} - ${minor.enddate.strftime('%d.%m.%Y')}</p>
+               <p>${minor.schedule}</p>
+            </div>
+            <div class="action-block for-hide"><a href="#footer-enroll" class="enroll-button top-enroll-button">Подать заявку</a></div>
+         </div>
+      </div>
+   </div>
+   <div class="course-about-wrap">
+      <div class="course-side-area">
+         <ul class="course-items">
+             ##<li class="course-item"> <i style="color: #555;" class="fa fa-clock-o" aria-hidden="true"></i><span class="block-label">Длительность:</span> <span class="block-desc">8 недель</span></li>
+            <li class="course-item"> <i style="color: #555;" class="fa fa-graduation-cap" aria-hidden="true"></i><span class="block-label">Трудоемкость:</span> <span class="block-desc">${int(minor.laboriousness)} з.е.<br /> ${int(minor.laboriousness * 36)}&nbsp;ч.</span></li>
+            <li class="course-item"> <i style="color: #555;" class="fa fa-university" aria-hidden="true"></i><span class="block-label">Институт:</span> <span class="block-desc">${minor.institute}</span></li>
+            <li class="course-item"> <i style="color: #555;" class="fa fa-book" aria-hidden="true"></i><span class="block-label">Форма проведения занятий:</span> <span class="block-desc">аудиторная</span></li>
+            <li class="course-item"> <i style="color: #555;" class="fa fa-pencil" aria-hidden="true"></i><span class="block-label">Итоговый контроль:</span> <span class="block-desc">зачет</span></li>
+            <li class="course-item"> <i style="color: #555;" class="fa fa-money" aria-hidden="true"></i><span class="block-label">Стоимость:</span> <span class="block-desc">3500 р.</span></li>
+         </ul>
+         <section class="about-author">
+          % for author in minor.authors.all():
+
+            <p style="text-align:center; font-size:120%">Руководитель курса:</p>
+            </br>
+            <div class="photo"></div>
+            <div class="author-name">${author.name}</div>
+            <div class="author-regalia"><p>${author.regalia}</p></div>
+         % endfor
+         </section>
+      </div>
+      <div class="course-main-area">
+         <div class="about-course">
+            <section class="course-annotation">
+               <h3>О майноре:</h3>
+               <div></div>
+               <div class="course-description">${minor.annotation}</div>
+            </section>
+         </div>
+         <div id="footer-enroll" class="footer-enroll">
+            <section id="bid-section">
+               <form id="formx" method="post">
+                  <div class="form-field">
+                     <label class="form-label" for="id_name">ФИО:</label>
+                     <input class="form-input" id="id_name" type="text" name="name" maxlength="1024" placeholder="Иванов Иван Иванович" >
+                  </div>
+                  <div class="form-field">
+                     <label class="form-label" for="id_email">E-mail:</label>
+                     <input class="form-input" id="id_email" type="text" name="email" maxlength="75" placeholder="ivanov@yandex.ru">
+                  </div>
+                  <div class="form-field">
+                     <label class="form-label" for="id_phone">Номер телефона:</label>
+                     <input class="form-input" id="id_phone" type="text" name="phone" maxlength="16" placeholder="+7(xxx)xxx-xx-xx">
+                  </div>
+                  <div class="form-error">
+                     <label>Возникла ошибка. Проверьте правильность данных.</label>
+                  </div>
+               </form>
+               <div id="send" class="action-block"><a class="enroll-button">Отправить</a></div>
+               <!--<button id="send" type="submit">Отправить</button> -->
+            </section>
+            <div class="action-block for-hide"><a class="enroll-button">Подать заявку</a></div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script type="text/javascript">
+
+$(".form-input").focus(function() {
+  $(".form-error").hide();
+});
+
+$(document).ready(function () {
+    $(".top-enroll-button").click(function () {
+        var elementClick = $(this).attr("href");
+        var destination = $(elementClick).offset().top;
+        if ($.browser.safari) {
+          console.log(destination);
+            $('body').animate({ scrollTop: destination-150 }, 800); //1100 - скорость
+        } else {
+          console.log(destination);
+            $('html').animate({ scrollTop: destination-150 }, 800);
+        }
+        return false;
+    });
+
+
+    $(".enroll-button").click(function () {
+        $("#bid-section").show();
+         $(".footer-enroll .for-hide").hide();
+    });
+
+});
+
+
+
+function call() {
+        var msg   = $('#formx').serialize();
+        $.ajax({
+          type: 'POST',
+          url: '/minors/'+ ${minor.id} + '/bid/',
+          data: msg,
+          success: function(data) {
+            console.log(data);
+            if(data.indexOf("success") != -1){
+              $("section#bid-section")[0].innerHTML = "<div class='form-success'>Ваша заявка будет рассмотрена в ближайшее время!</div>";
+                       $(".course-head-enroll .for-hide a").html("Заявка отправлена");
+         $(".course-head-enroll .for-hide a").css("background", "gray");
+            }
+            else{
+              $(".form-error").show(200);
+            }
+          },
+          error:  function(xhr, str){
+            alert('Возникла ошибка на сервере! Попробуйте записаться позже!' /*+ xhr.responseCode*/);
+          }
+        });
+
+    }
+
+  $("#send").click(function() {
+      call();
+});
+  </script>
+
+<style>
+
+
+.author-regalia{
+    text-align: center;
+}
+
+#bid-section {
+    display: none;
+}
+.form-success {
+    line-height: 2.5em;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2em;
+    background: rgba(0, 129, 0, 0.6);
+    vertical-align: middle;
+    border-radius: 5px;
+}
+.form-error {
+    display: none;
+    background-color: pink;
+    border-top: 3px solid red;
+    line-height: 1.5em;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+.form-field {
+    padding-top: 20px;
+}
+.form-label {
+    display: inline-block;
+    width: 200px;
+    font-size: 1.2em;
+}
+.form-input {
+    width: 370px;
+    padding-left: 7px;
+    height: 35px;
+    border-radius: 4px;
+    font-size: 1.25em;
+}
+.footer-enroll {
+    margin: 30px 0px;
+    border-top: 1px solid #ccc;
+    padding-top: 24px;
+}
+.course-items > li {
+    border-bottom: 1px solid #c5c5c5;
+    line-height: 1.5em;
+    margin: 0 18px;
+    padding: 12px 2px;
+}
+.block-label {
+    color: #555;
+    display: inline-block;
+    vertical-align: top;
+    width: 55%;
+    position: relative;
+    padding-left: 12px;
+}
+.block-desc {
+    color: #0a0a0a;
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+}
+.course-items {
+    margin: 0;
+    list-style: none;
+    margin-bottom: 1.7em;
+    margin-top: 0;
+    padding: 4px 0;
+}
+.about-course li {
+    padding: 5px 0px !important;
+    margin-left: 34px;
+}
+.about-course p {
+    padding: 5px 0px !important;
+}
+h1 {
+    margin: 0 0 0px !important;
+}
+.course-description {
+    padding: 0px;
+}
+.course-annotation {
+    padding: 0px;
+}
+.about-author {
+    padding: 12px 2px;
+    margin: 0 18px;
+}
+.author-name {
+    text-align: center;
+    padding: 12px 0px;
+    font-size: 1.5em;
+}
+.next-course:hover {
+    background: rgba(210, 210, 210, 0.5);
+}
+.prev-course:hover {
+    background: rgba(210, 210, 210, 0.5);
+    ;
+}
+.prev-course {
+    position: absolute;
+    left: -76px;
+    width: 60px;
+    height: 280px;
+    display: table;
+    vertical-align: middle;
+}
+.fa-angle-left,
+.fa-angle-right {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: darkgray;
+    font-size: 6em;
+}
+a#to-prev:link,
+a#to-next:link {
+    text-decoration: none;
+}
+.next-course {
+    position: absolute;
+    right: -76px;
+    width: 60px;
+    height: 280px;
+    display: table;
+}
+.header-wrap {
+    padding-left: 380px;
+    height: inherit;
+}
+.enroll-button {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif !important;
+    display: table;
+    background: #008100;
+    width: 272px;
+    line-height: 2.3em;
+    margin: 26px auto;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+.enroll-button:hover {
+    background: #006200;
+    cursor: pointer;
+}
+.course-date {
+    text-align: center;
+    padding-top: 112px;
+    font-weight: bold;
+    font-size: large;
+}
+.course-head-image {
+    width: 618px;
+    height: 250px;
+    position: absolute;
+    left: 0;
+    margin: 15px 20px;
+    background-position-y: -35px !important;
+}
+.course-head-intro {
+    width: 450px;
+    display: table;
+    height: inherit;
+    max-width: 58%;
+    min-width: 20%;
+    float: left;
+}
+.course-head-enroll {
+    margin-right: -338px;
+    width: 306px;
+    height: 100%;
+    float: right;
+    margin: 0 0px;
+}
+.course-header {
+    background: #fff;
+    border: 1px solid #cacaca;
+    margin-bottom: 15px;
+    overflow: hidden;
+    padding: 0px;
+    position: relative;
+    height: 280px;
+}
+.region-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 950px;
+    position: relative;
+}
+.course-about-wrap {
+    margin: 0 auto;
+    max-width: 1100px;
+    overflow: hidden;
+}
+.course-side-area {
+    background: #fff;
+    border: 1px solid #cacaca;
+    float: right;
+    margin-top: auto;
+    width: 290px;
+    height: inherit;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.course-main-area {
+    margin-right: 310px;
+    background: #fff;
+    border: 1px solid #cacaca;
+    height: inherit;
+    padding: 26px;
+}
+.photo {
+    height: 75px;
+    width: 75px;
+    border-radius: 50px;
+    background: #e6e6e6;
+    //border: 1px solid gray;
+    margin: 0 auto;
+    background-image: url(https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png);
+    background-size: cover;
+}
+
+</style>

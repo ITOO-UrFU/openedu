@@ -1,0 +1,250 @@
+<%inherit file="../base.html"/>
+<div class="for-footer">
+    <div class="main-title">
+       <h1><span class="in"><span>Майноры УрФУ</span></span></h1>
+    </div>
+    <div class="section breadcrumbs">
+       <div class="row">
+          <div class="col3">
+             <span class="breadcrumbs-item">
+             <a href="/" class="no-underline">
+             <span class="dotted">Главная страница</span>
+             </a>
+             </span>
+             <span class="divide">/</span>
+             <span class="breadcrumbs-item">
+             <a href="/minors/" class="no-underline">
+             <span class="dotted">Майноры УрФУ</span>
+             </a>
+             </span>
+             <span class="divide">/</span>
+             <span class="breadcrumbs-item">
+             <a href="" class="no-underline">
+             <span>Заявка на обучение</span>
+             </a>
+             </span>
+          </div>
+       </div>
+    </div>
+
+<div class="">
+   <div class="row" style="margin-bottom: -20px;">
+      <div class="col">
+         <div class="article" id="top-article" style=" margin-top: -25px;">
+            <div id="footer-enroll" class="footer-enroll">
+            <section id="bid-section">
+               <form id="formx" method="post">
+                  <div class="form-field">
+                  <label for="id_minor" class="form-label">Майнор:</label>
+                  <select name="minor" class="form-input" id="id_minor">
+                    <option value="" selected="selected">---------</option>
+                    % for minor in minors:
+                        <option value="${minor.id}">${minor.name}</option>
+                    % endfor
+                        </select>
+                    </div>
+                  <div class="form-field">
+                     <label class="form-label" for="id_name">ФИО:</label>
+                     <input class="form-input" id="id_name" type="text" name="name" maxlength="1024" placeholder="Иванов Иван Иванович" >
+                  </div>
+                  <div class="form-field">
+                     <label class="form-label" for="id_email">E-mail:</label>
+                     <input class="form-input" id="id_email" type="text" name="email" maxlength="75" placeholder="ivanov@yandex.ru">
+                  </div>
+                  <div class="form-field">
+                     <label class="form-label" for="id_phone">Номер телефона:</label>
+                     <input class="form-input" id="id_phone" type="text" name="phone" maxlength="16" placeholder="+7(xxx)xxx-xx-xx">
+                  </div>
+                  <div class="form-error">
+                     <label>Возникла ошибка. Проверьте правильность данных.</label>
+                  </div>
+               </form>
+               <div id="send" class="action-block"><a class="enroll-button">Отправить</a></div>
+            </section>
+         </div>
+
+
+
+            </form>
+
+         </div>
+      </div>
+   </div>
+
+
+</div>
+
+</div>
+<style>
+
+.article{
+	height: 220px;
+	/*overflow: hidden;*/
+	/*border-bottom: 4px solid #f4f4f4;*/
+}
+
+.gradem{
+	border-bottom: 2px solid rgb(175, 175, 175);
+	margin: -34px auto -12px;
+	position: relative;
+	width: 910px;
+	height: 26px;
+	background-image: url(../files/img/gradem-01.png);
+}
+
+.show-article{
+
+	box-shadow: 0px 2px 3px gray;
+	background-color: white;
+	padding: 4px;
+	border-radius: 12px;
+	width: 100px;
+	text-align: center;
+
+	margin: 0 auto;
+	font-size: 70%;
+	position: relative;
+	-moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none
+}
+
+.show-article:hover{
+	box-shadow: 0px 2px 3px rgb(128, 100, 72);
+	cursor: pointer;
+}
+
+.show-article:active{
+	box-shadow: 0px 1px 2px rgb(128, 100, 72);
+	margin: 1px auto -1px;
+}
+.form-success {
+    line-height: 2.5em;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2em;
+    background: rgba(0, 129, 0, 0.6);
+    vertical-align: middle;
+    border-radius: 5px;
+}
+.form-error {
+    display: none;
+    background-color: pink;
+    border-top: 3px solid red;
+    line-height: 1.5em;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+.form-field {
+    padding-top: 20px;
+}
+.form-label {
+    display: inline-block;
+    width: 200px;
+    font-size: 1.2em;
+}
+.form-input {
+    width: 640px;
+    padding-left: 7px;
+    height: 35px;
+    border-radius: 4px;
+    font-size: 1.25em;
+}
+
+select.form-input {
+    width: 650px;
+}
+.footer-enroll {
+    margin: 30px 0px;
+    /*padding-top: 24px;*/
+}
+#formx {
+    padding-left: 1.5em;
+}
+
+.enroll-button {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif !important;
+    display: table;
+    background: #008100;
+    width: 272px;
+    margin: 26px auto;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+.enroll-button:hover {
+    background: #006200;
+    cursor: pointer;
+}
+
+</style>
+
+<script type="text/javascript">
+$(".form-input").focus(function() {
+  $(".form-error").hide();
+  actuateHeight();
+});
+
+var wrap = $('.article');
+var shown = false;
+height_min = wrap.height();
+
+
+$('.show-article').on('click', function(){
+
+
+
+	if(shown == false){
+    	$('.show-article').html("Свернуть");
+    		actuateHeight();
+	}
+
+	if(shown == true){
+    	$('.show-article').html("Развернуть");
+    		wrap.animate({
+        		height: height_min
+    		},500);
+        window.scrollTo(0,document.getElementById("top-article").offsetTop);
+	}
+
+	shown == true ? shown = false : shown=true;
+
+});
+
+function call() {
+        var msg   = $('#formx').serialize();
+        $.ajax({
+          type: 'POST',
+          url: window.location,
+          data: msg,
+          success: function(data) {
+            console.log(data.result);
+            if(data.indexOf("success") != -1){
+              $("section#bid-section")[0].innerHTML = "<div class='form-success'>Ваша заявка будет рассмотрена в ближайшее время!</div>";
+                       $(".course-head-enroll .for-hide a").html("Заявка отправлена");
+         $(".course-head-enroll .for-hide a").css("background", "gray");
+         actuateHeight();
+            }
+            else{
+              $(".form-error").show(200);
+              setTimeout(actuateHeight, 200);
+
+            }
+          },
+          error:  function(xhr, str){
+            alert('Возникла ошибка на сервере! Попробуйте записаться позже!' /*+ xhr.responseCode*/);
+          }
+        });
+
+    }
+
+  $("#send").click(function() {
+      call();
+});
+
+</script>

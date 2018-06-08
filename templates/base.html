@@ -7,14 +7,165 @@
 
     <script src='{% static "js/jquery.min.js" %}' ></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Открытые образовательные программы и курсы УрФУ</title>
 </head>
 <body class="open-edu lang_ru js">
 <div class="site content-wrapper" id="content">
+<div class="for-footer">
+<div class="section header">
+            <div class="for-main-menu">
+                <div class="main-menu-wrap">
+                    <ul class="main-menu breadcrumbs-menu">
+                        <li><a href="http://urfu.ru">Портал УрФУ</a></li>
+                        <li><a href="https://openedu.urfu.ru/">Открытые образовательные программы и курсы УрФУ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="header-logo">
+                        <img src="https://openedu.urfu.ru/files/images/header/logo5.png">
+                    </div>
+                    <div class="header-center">
+                        <div class="header-right">
+                            <div class="lang-switch">
+                                <a class="lang-switch-item active" href="#"><img src="https://openedu.urfu.ru/files/images/header/lang-ru.png"></a>
+                            </div>
+                            <!--<div class="user-links">-->
+                                <!--<a href="/login" class="header-login button">Войти</a>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="header-content">
+                            <form class="header-search">
+                                <input class="header-search-input" type="text" placeholder="Поиск"><span class="header-search-switch"><a href="#">Везде</a></span>
+                                <input class="header-search-button" type="submit" value="Найти">
+                            </form>
+                            <ul class="submenu">
+                                <li><a href="/"><span class="in">Главная</span></a></li>
+                                <li><a href="/minors/"><span class="in">Майноры УрФУ</span></a></li>
 
+
+                                <li><a href="/courses/"><span class="in">Онлайн-курсы</span></a></li>
+                                <li><a href="/openprograms/"><span class="in">Открытые образовательные программы</span></a></li>
+                                <li><a href="/quotes/"><span class="in">Программы повышения квалификации в области использования онлайн-курсов</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<noindex>
+  <div class="layer layer-auth" style="display: none; top: 100px;">
+    <div class="layer-in">
+      <a href="#" class="layer-close"><img src="https://openedu.urfu.ru/files/images/layer_close.png" alt="x"></a>
+        <div class="layer-title">Авторизация</div>
+
+          <form role="form" id="login-form" method="post" data-remote="true" action="/login_ajax" novalidate="">
+            <div class="cont-input">
+              <p class="hint">Вы можете войти  как пользователь портала OpenUrFU</p>
+            </div>
+            <div class="cont-input">
+              <label for="email">E-mail:</label>
+              <input form="login-form" id="email" name="email" type="text">
+            </div>
+            <div class="cont-input">
+              <label for="password">Пароль:</label>
+              <input form="login-form" id="password" name="password" type="password">
+              <a href="#">Забыли пароль?</a>
+            </div>
+            <div class="cont-input cont-checkbox">
+              <input id="memorize" name="memorize" type="checkbox">
+              <label form="login-form" for="memorize">Запомнить меня</label>
+            </div>
+            <div class="cont-input cont-btn">
+              <input form="login-form" type="submit" class="button" value="Войти">
+            </div>
+          </form>
+          <div class="layer-bottom">
+            <p class="hint share">Или авторизуйтесь через социальные сети:
+              <a href="#"><i class="icon-vk"></i></a>
+              <a href="#"><i class="icon-fb"></i></a>
+              <a href="#"><i class="icon-tw"></i></a>
+              <a href="#"><i class="icon-addt"></i></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="shadow-layer" style="display: none;"></div>
+</noindex>
+        </div>
 {% block content %}
 {% endblock %}
+
+
 </div>
+<div class="section footer">
+    <div class="row">
+        <div class="col">
+            <p class="copyright"><span class="sign">©</span> ФГАОУ ВО «УрФУ имени первого Президента России Б.Н.Ельцина»</p>
+        </div>
+        <div class="col phones">
+            <p>Техническая поддержка:</p>
+            <p class="big">openedu@urfu.ru</p>
+        </div>
+        <div class="col">
+            <div class="social">
+                <p>Мы в социальных сетях:</p>
+                <ul>
+                    <li><a href="https://vk.com/openedu"><i class="icon-vk"></i>Вконтакте</a></li>
+                    <li><a href="#"><i class="icon-fb"></i>Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- dummy segment.io -->
+<script type="text/javascript">
+  var analytics = {
+    track: function() { return; },
+    pageview: function() { return; }
+  };
+</script>
+<!-- end dummy segment.io -->
+
+
+</div></div>
+
+
+</div>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter45320118 = new Ya.Metrika({
+                    id:45320118,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true,
+                    trackHash:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/45320118" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 
 </body>
 </html>

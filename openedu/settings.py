@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import sys
 
+import djcelery
+
+djcelery.setup_loader()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -26,32 +30,60 @@ SECRET_KEY = 'vc1*izx9a4y+d-jnz%$8k*d8o4^q00!)quyr&-mi(oo-ro2yb_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["212.193.82.110", "openedu.urfu.ru"]
+ALLOWED_HOSTS = ["212.193.82.110", "openedu.urfu.ru", "*"]
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'phonenumber_field',
+    'auth_backends',
+    'graphene_django',
+    'corsheaders',
+    'export_action',
     'smuggler',
     'minors',
     'home',
+    'other',
+    'reversion',
+    'openprofession',
+    'questionnaire',
+    'ellada_api',
+    'django_celery_results',
+    'advanced_filters',
 ]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'auth_backends.backends.EdXOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'courses.openprofession.ru',
+    'studio.openprofession.ru',
+    'https://courses.openedu.urfu.ru/',
 
+)
 ROOT_URLCONF = 'openedu.urls'
 
 TEMPLATES_CONTEXT_PROCESSORS = [
@@ -106,6 +138,41 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/usr/local/itoo/var/log/openedu/app.log',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'INFO': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'cacheback': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -127,7 +194,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Asia/Yekaterinburg'
 
@@ -148,7 +215,37 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
-MEDIA_URL = 'uploads/'
+MEDIA_URL = '/uploads/'
 
-LMS = "https://212.193.82.110/"
+LMS = "http://courses.openedu.urfu.ru/"
 LMS_API_COURSES = "api/courses/v1/courses/"
+
+DEFAULT_FROM_EMAIL = "openedu@urfu.ru"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.urfu.ru'
+EMAIL_HOST_USER = 'a.s.chernikov@urfu.ru'
+EMAIL_HOST_PASSWORD = '15Ch3Ent_'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+BID_ADMINS = ["mastergowen@gmail.com", "vv.tashlykov@gmail.com", "igrikwork@gmail.com"]
+
+SOCIAL_AUTH_EDX_OAUTH2_KEY = "db5efbb405209b984867"
+SOCIAL_AUTH_EDX_OAUTH2_SECRET = "4385ed7ca4682a532b22884e0b7d5dbde278fe27"
+SOCIAL_AUTH_EDX_OAUTH2_ENDPOINT = "https://courses.openedu.urfu.ru/oauth2"
+
+SOCIAL_AUTH_STRATEGY = 'auth_backends.strategies.EdxDjangoStrategy'
+
+# LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'https://openedu.urfu.ru/'
+
+GRAPHENE = {
+    'SCHEMA': 'openprofession.schema.schema',
+    'MIDDLEWARE': (
+        'graphene_django.debug.DjangoDebugMiddleware',
+    )
+}
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 200000  # тут поменьше сделать
+LOGIN_URL = '/admin/login'

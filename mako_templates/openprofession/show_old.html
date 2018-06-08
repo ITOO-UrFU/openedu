@@ -1,0 +1,171 @@
+## mako
+<%inherit file="../base.html"/>
+<div class="row">
+<%include file="../menu_block.html"/>
+
+
+
+% if not_exists_reports:
+<div id="not_exists_reports">+</div>
+<div class="errors">
+    <p><strong>Отчеты по следующим курсам не загружены!</strong></p>
+    <ul id="not_exists_reports_list" style="display: none;">
+    % for a in not_exists_reports:
+        <li>${a}</li>
+    % endfor
+    </ul>
+</div>
+% endif
+
+</div>
+
+    <div id="app">
+<div class="row">
+        <input type="checkbox" v-model="only_active_programs" id="only_active_programs" v-on:change="showActiveOnlyPrograms(only_active_programs)"> <label for="only_active_programs"> Показать только активные сессии</label>
+</div>
+        <div  class="container-table" >
+        <table>
+            <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Почта</th>
+                <th>Телефон</th>
+                <th>Программа</th>
+                <th>Дата рождения</th>
+                <th>Город</th>
+                <th>Место работы, должность</th>
+                <th>Заявка на квоту</th>
+                <th>Дата заявки</th>
+                <th>Дата последнего изменения</th>
+                <th>Доки</th>
+                <th>Оценка за выбр. курс</th>
+
+            <th v-for="program in programs_for_show" style="font-size: 80%">
+                {{ program.courseId }} <br/> {{ program.session }} <br/> {{ program.id }}
+            </th>
+            </thead>
+<tbody>
+            <tr v-for="pd in pdata">
+            <td>
+            {{ pd.fio }}
+            </td>
+            <td>
+                {{ pd.email }}
+            </td>
+            <td>
+                {{ pd.phone }}
+            </td>
+            <td>
+                {{ pd.program.courseId }}
+            </td>
+
+            <td>
+                {{ pd.birthDate }}
+            </td>
+            <td>
+                {{ pd.city }}
+            </td>
+            <td>
+                {{ pd.job }}, {{ pd.position }}
+            </td>
+
+                <template v-if="pd.quote == true">
+                        <td class="Enrolled">
+                        </td>
+                    </template>
+                    <template v-else>
+                        <td class="notEnrolled"></td>
+                    </template>
+
+                <td>
+                    {{pd.createdAt | moment}}
+                </td>
+                <td>
+                    {{pd.updatedAt | moment}}
+                </td>
+
+            <td>
+                <a v-bind:href="media_url + pd.claimScan">Заявление скан</a> <br>
+                <a v-bind:href="media_url + pd.diplomaScan">Диплом скан</a> <br>
+                <a v-bind:href="media_url + pd.docForwarding">Пересылка скан</a> <br>
+              <a v-if="pd.anotherDoc" v-bind:href="media_url + pd.anotherDoc">Другой документ</a>
+            </td>
+
+                    <template v-if="pd.programGrade != '-1'">
+                        <td class="Enrolled">
+                            {{ pd.programGrade }}
+                        </td>
+                    </template>
+                    <template v-else>
+                        <td class="notEnrolled">
+
+                        </td>
+                    </template>
+
+            <td v-for="program in programs_for_show" style="font-size: 80%">
+
+                 {{JSON.parse(pd.grades)[program.id]}} <br/>
+            </td>
+
+            </tr>
+</tbody>
+
+        </table>
+</div>
+    </div>
+
+
+<style>
+    #not_exists_reports {
+        width: 8px;
+        height: 21px;
+        padding: 0px 5px;
+        cursor: pointer;
+        background-color: lightgrey;
+        position: relative;
+        top: 2px;
+        float: right;
+        margin-right: 2px;
+    }
+    .errors {
+        background-color: #f6a1a1;
+        font-size: 70%;
+        padding: 5px;
+        color: #444;
+    }
+    .errors ul {
+        list-style: none;
+    }
+    .notEnrolled {
+        background: rgba(255,20,20,0.2);
+    }
+    .Enrolled {
+        font-weight: bold;
+        background: rgba(20,255,20,0.2);
+    }
+    .container-table{
+        width: 100%;
+        padding-bottom: 20px;
+        overflow: overlay;
+    }
+
+    .container-table td{
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    .container-table a {
+        white-space: nowrap;
+    }
+
+    </style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+<script src="/files/openedu_static/js/moment.js"></script>
+<script src="/files/openedu_static/js/show.js"></script>
+
+<script>
+    moment.locale('ru');
+</script>

@@ -5,7 +5,7 @@ class Page(models.Model):
     title = models.CharField("Название", max_length=256)
     contents = models.ManyToManyField("ContentItem", blank=True)
 
-    link = models.CharField("Ссылка", max_length=32)
+    link = models.CharField("Ссылка", max_length=256)
 
     class Meta:
         verbose_name = 'страница'

@@ -23,11 +23,17 @@ from django.conf import settings
 
 def courses(request):
 
-    return redirect('http://openedu.urfu.ru:33020/')
+    return redirect(settings.LMS + "courses")
     # LMS_BASE = settings.LMS
     # LMS_API_COURSES = f"{LMS_BASE}{settings.LMS_API_COURSES}"
     # courses = []
     #
+
+
+
+
+
+
     # auth = HTTPBasicAuth(client_id, client_secret)
     # client = BackendApplicationClient(client_id=client_id)
     # oauth = OAuth2Session(client=client)

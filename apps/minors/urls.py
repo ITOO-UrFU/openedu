@@ -1,10 +1,11 @@
 from django.conf.urls import url
-from .views import mainpage
+from .views import mainpage, detail, add_bid, bidforminor, bidforoop, quotebid
 
 urlpatterns = [
     url(r'^$', mainpage),
-    # url(r'^minor/(?P<pk>\d+)$', 'minors.views.detail', name="minor"),
-    # url(r'^minor/(?P<pk>\d+)/bid/$', 'minors.views.add_bid', name="add_bid"),
-    # url(r'^minors/bid/$', 'minors.views.bidforminor', name="add_bid_full"),
-    # url(r'^oop/bid/$', 'minors.views.bidforoop', name="bidforoop"),
+    url(r'^(?P<pk>\d+)$', detail, name="minor"),
+    url(r'^(?P<pk>\d+)/bid/$', add_bid, name="add_bid"),
+    url(r'^bid/$', bidforminor, name="add_bid_full"),
+    url(r'^oop/bid/$', bidforoop, name="bidforoop"),
+    url(r'^quotes/bid/$', quotebid, name="quotebid"),
 ]

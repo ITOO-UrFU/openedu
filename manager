@@ -1,0 +1,16 @@
+#!/bin/bash
+
+case "$1" in
+  "restart")
+    git pull;
+    /edx/bin/supervisorctl restart openedu
+    ;;
+  "migrate")
+    /usr/local/itoo/envs/openedu/bin/python manage.py makemigrations
+    /usr/local/itoo/envs/openedu/bin/python manage.py makemigrations
+    ;;
+  *)
+    echo "You have failed to specify what to do correctly."
+    exit 1
+    ;;
+esac

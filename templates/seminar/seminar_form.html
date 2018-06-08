@@ -52,8 +52,8 @@
                     <p><label for="id_type_of_participation">Тип участия<span class="red">*</span>:</label>
                         {{ form.sex.errors }}
                         <select name="type_of_participation" required="" id="id_type_of_participation">
-                            <option value="away">заочно (онлайн-трансляция)</option>
-                            <option value="internally">очно</option>
+                            <option value="away">заочно (онлайн-трансляция) без повышения квалификации</option>
+                            <option value="internally">очно с повышением квалификации</option>
                         </select>
                     </p>
                     <p>* Удостоверение о повышении квалификации выдается только при ОЧНОМ участии и успешном освоении
@@ -64,7 +64,6 @@
                         {{ form.with_udostoverenie.errors }}
                         <input name="with_udostoverenie"
                                id="id_with_udostoverenie"
-                               required=""
                                type="checkbox"></p>
 
                 </div>

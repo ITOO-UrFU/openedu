@@ -224,7 +224,7 @@ class PersonalData(models.Model):
 
 class SeminarData(models.Model):
     ## Город надо??
-    TYPE_OF_PARTICIPATION = (('away', 'заочно'), ('internally', 'очно'), ('internally_cert', 'очно с сертификатом'))
+    TYPE_OF_PARTICIPATION = (('away', 'заочно'), ('internally', 'очно без сертификата'), ('internally_cert', 'очно с сертификатом'))
     SEX = (('m', 'мужской'), ('f', 'женский'))
     first_name = models.CharField("Имя", max_length=255, null=False, blank=False)
     last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)

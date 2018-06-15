@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse, Http404
 from .models import *
 import sqlite3
 import os
+import json
 
 DB_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ellada.db')
 
@@ -26,8 +27,8 @@ def api(request, table, id):
         else:
             c.execute(f"SELECT * FROM {table} WHERE _id_glossary = '{id}'")
             return JsonResponse(c.fetchone())
-    except:
-        raise Http404
+    except Exception as ex:
+        return JsonResponse({'foo': json.dumps(ex)})
 
     # c.execute(f"SELECT * FROM {table} WHERE _id_glossary = '{id}'")
     # return JsonResponse(c.fetchone())

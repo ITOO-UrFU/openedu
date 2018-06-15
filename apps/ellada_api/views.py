@@ -16,7 +16,18 @@ def api(request, table, id):
     conn.row_factory = dict_factory
     c = conn.cursor()
     try:
-        c.execute(f"SELECT * FROM {table} WHERE _id = '{id}'")
-        return JsonResponse(c.fetchone())
+        if(table == 'gallery'):
+            if id:
+                c.execute(f"SELECT * FROM gallery WHERE _id_glossary = '{id}'")
+                return JsonResponse(c.fetchone())
+            else:
+                c.execute(f"SELECT * FROM glossary ORDER BY glossary.name")
+                return JsonResponse(c.fetchone())
+        else:
+            c.execute(f"SELECT * FROM {table} WHERE _id_glossary = '{id}'")
+            return JsonResponse(c.fetchone())
     except:
         raise Http404
+
+    # c.execute(f"SELECT * FROM {table} WHERE _id_glossary = '{id}'")
+    # return JsonResponse(c.fetchone())

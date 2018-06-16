@@ -56,7 +56,7 @@ def api(request, table, id=None):
             c.execute(f"SELECT * FROM {table} WHERE _id = '{id}'")
             return JsonResponse(c.fetchall(), safe=False)
     except Exception as ex:
-        return JsonResponse({'foo': str(ex)})
+        return JsonResponse({'error': str(ex)})
 
     # c.execute(f"SELECT * FROM {table} WHERE _id_glossary = '{id}'")
     # return JsonResponse(c.fetchone())

@@ -61,18 +61,18 @@
                         <p>ВНИМАНИЕ! Правом на бесплатное обучение по программе повышения квалификации Вы можете воспользоваться только один раз на одном из предложенных онлайн-курсов в период с 01.12.2017г. по 31.12.2018г.</p>
                         <!-- style="display: none;"-->
                    <!-- <p id="block_id_with_udostoverenie"><label for="id_with_udostoverenie">С получением удостоверения о повышении квалификации</label>
-                        {{ form.with_udostoverenie.errors }}
-                        <input name="with_udostoverenie"
+                       <!--  {{ form.with_udostoverenie.errors }} -->
+                       <!--  <input name="with_udostoverenie"
                                id="id_with_udostoverenie"
                                type="checkbox"></p> -->
 
                 </div>
 
-                    <div id="add_docs_block" class="subsection" style="display:none">
+                    <div id="add_docs_block" class="subsection">
                         <h2>Документы, необходимые для получения удостоверения о повышении квалификации:</h2>
                         <p><label for="id_diploma_scan">Скан диплома<span class="red">*</span>:</label>
                             {{ form.diploma_scan.errors }}
-                            <input type="file" name="diploma_scan" id="id_diploma_scan">
+                            <input type="file" name="diploma_scan" id="id_diploma_scan" required="true">
                         </p>
                         <p>ВНИМАНИЕ! В случае, если диплом был выдан не на территории РФ, необходимо предоставить
                             подтверждение пройденной процедуры нострификации,
@@ -88,7 +88,7 @@
                         <p><label for="id_education_bid">Скан заявления о зачислении на обучение<span
                                 class="red">*</span>:</label>
                             {{ form.education_bid.errors }}
-                            <input type="file" name="education_bid" id="id_education_bid">
+                            <input type="file" name="education_bid" id="id_education_bid"  required="true">
                         </p>
                         <p><a href="../../files/openprofession/Заявление на зачисление.docx">Скачать шаблон
                             заявления</a></p>

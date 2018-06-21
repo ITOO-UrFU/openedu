@@ -105,3 +105,4 @@ uploads
 dump.rdb
 nohup.out
 openedu.py
+.idea/

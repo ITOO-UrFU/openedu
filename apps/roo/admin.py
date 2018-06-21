@@ -24,4 +24,4 @@ class ExpertiseAdmin(admin.ModelAdmin):
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Owner._meta.get_fields()]
+    list_display = ("title", "person", "connection_form", "connection_date", "contacts" )

@@ -21,14 +21,40 @@ class Expertise(models.Model):
 
 class Course(models.Model):
     title = models.CharField("Наименование")
+    short_description = models.CharField("Краткое описание")
+    description = models.TextField("Описание")
+    roo_id = models.IntegerField("ИД на РОО")
+    competences = models.TextField("Формируемые компетенции")
+    results = models.TextField("Результаты обучения")
+    grade_tools = models.TextField("Оценочные средства")
+    photo = models.CharField("Фото автора")
+    authors = models.TextField("Авторы")
+    prerequisites = models.TextField("Входные требования обучающихся")
+    content = models.TextField("Содержание")
+    directions = models.TextField("Направления подготовки")
+    subject = models.CharField("Предмет курса")
+    activity = models.CharField("Область деятельности")
+    language = models.CharField("Язык контента")
+    enrollment_end_date = models.CharField("Дата окончания записи")
+    start_date = models.CharField("Дата запуска")
+    duration = models.CharField("Длительность курса")
+    labor = models.CharField("Трудоемкость")
+    certificate = models.BooleanField("Трудоемкость", default=False)
+    proctoring_service = models.CharField("Используемый сервис прокторинга")
+    version = models.IntegerField("Номер версии курса")
+    opened = models.BooleanField("Открытый", default=False)
+    admin_email = models.EmailField("e-mail администратора платформы, правообладателя")
+
     expertized = models.BooleanField("Прошел обязательную экспертизу", default=False)
     domain = models.CharField("Предметная область", )
     uploaded_roo = models.BooleanField("Загружен курс на РОО", default=False)
     uploaded_prepod = models.BooleanField("Загружен ли курс на prepod", default=False)
     platform = models.ForeignKey("Platform", verbose_name="Название платформы", )
     url = models.URLField("URL курса на платформе", )
+    roo_url = models.URLField("URL курса на РОО", )
     owner = models.ForeignKey("Owner", verbose_name="Правообладатель", )
     permission = models.BooleanField("Разрешение правообладателя на выгрузку", )
+    comment = models.TextField("Комментарий")
 
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
@@ -73,3 +99,5 @@ class Owner(models.Model):
     class Meta:
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
+
+

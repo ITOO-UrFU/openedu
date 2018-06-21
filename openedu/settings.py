@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'minors',
     'home',
     'other',
+    'roo',
     'reversion',
     'openprofession',
     'questionnaire',

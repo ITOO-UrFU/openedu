@@ -49,10 +49,10 @@ class Course(models.Model):
     domain = models.CharField("Предметная область", blank=True, null=True, max_length=1024)
     uploaded_roo = models.BooleanField("Загружен курс на РОО", default=False)
     uploaded_prepod = models.BooleanField("Загружен ли курс на prepod", default=False)
-    platform = models.ForeignKey("Platform", verbose_name="Название платформы", blank=True, null=True)
+    platform = models.ForeignKey("Platform", verbose_name="Название платформы")
     url = models.URLField("URL курса на платформе", blank=True, null=True)
     roo_url = models.URLField("URL курса на РОО", blank=True, null=True)
-    owner = models.ForeignKey("Owner", verbose_name="Правообладатель", blank=True, null=True)
+    owner = models.ForeignKey("Owner", verbose_name="Правообладатель")
     permission = models.BooleanField("Разрешение правообладателя на выгрузку", default=False)
     comment = models.TextField("Комментарий")
 

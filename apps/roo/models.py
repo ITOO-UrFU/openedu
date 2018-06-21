@@ -6,7 +6,7 @@ class Expertise(models.Model):
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=1024)
     date = models.DateField("Дата", blank=True, null=True)
     type = models.CharField("Вид экспертизы", blank=True, null=True, max_length=1024)
-    executed = models.BooleanField("Отметка об исполнении эксперизы", )
+    executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
     expert = models.ForeignKey("Expert", verbose_name="Эксперт")
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=1024)
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True, max_length=1024)
@@ -39,10 +39,10 @@ class Course(models.Model):
     start_date = models.CharField("Дата запуска", blank=True, null=True, max_length=1024)
     duration = models.CharField("Длительность курса", blank=True, null=True, max_length=1024)
     labor = models.CharField("Трудоемкость", blank=True, null=True, max_length=1024)
-    certificate = models.BooleanField("Трудоемкость", default=False, blank=True, null=True)
+    certificate = models.BooleanField("Трудоемкость", default=False)
     proctoring_service = models.CharField("Используемый сервис прокторинга", blank=True, null=True, max_length=1024)
     version = models.IntegerField("Номер версии курса", blank=True, null=True)
-    opened = models.BooleanField("Открытый", default=False, blank=True, null=True)
+    opened = models.BooleanField("Открытый", default=False)
     admin_email = models.EmailField("e-mail администратора платформы, правообладателя", blank=True, null=True)
 
     expertized = models.BooleanField("Прошел обязательную экспертизу", default=False)
@@ -53,7 +53,7 @@ class Course(models.Model):
     url = models.URLField("URL курса на платформе", blank=True, null=True)
     roo_url = models.URLField("URL курса на РОО", blank=True, null=True)
     owner = models.ForeignKey("Owner", verbose_name="Правообладатель", blank=True, null=True)
-    permission = models.BooleanField("Разрешение правообладателя на выгрузку", blank=True, null=True)
+    permission = models.BooleanField("Разрешение правообладателя на выгрузку", default=False)
     comment = models.TextField("Комментарий")
 
     def __str__(self):

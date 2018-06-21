@@ -9,7 +9,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Platform._meta.get_fields()]
+    list_display = ("title", "person", "connection_form", "connection_date", "contacts" )
 
 
 @admin.register(Expert)
@@ -24,4 +24,4 @@ class ExpertiseAdmin(admin.ModelAdmin):
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
-    list_display = ("title", "person", "connection_form", "connection_date", "contacts" )
+    list_display = [field.name for field in Owner._meta.get_fields()]

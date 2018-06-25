@@ -4,7 +4,7 @@ import sqlite3
 import os
 import json
 
-DB_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ellada.db')
+DB_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'db', 'ellada.db')
 
 def dict_factory(cursor, row):
     d = {}

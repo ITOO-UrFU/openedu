@@ -54,7 +54,7 @@ class Course(models.Model):
     roo_url = models.URLField("URL курса на РОО", blank=True, null=True)
     owner = models.ForeignKey("Owner", verbose_name="Правообладатель")
     permission = models.BooleanField("Разрешение правообладателя на выгрузку", default=False)
-    comment = models.TextField("Комментарий")
+    comment = models.TextField("Комментарий", blank=True, null=True)
 
     def __str__(self):
         return f"Онлайн-курс: {self.title}"

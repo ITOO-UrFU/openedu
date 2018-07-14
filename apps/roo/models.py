@@ -69,7 +69,7 @@ class Course(models.Model):
     def updade_courses_from_roo():
         request = requests.get('https://online.edu.ru/api/courses/v0/course',
                                auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
-        rows = request.json().rows
+        rows = request.json()["rows"]
         print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(rows))
 
 

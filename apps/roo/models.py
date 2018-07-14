@@ -67,14 +67,15 @@ class Course(models.Model):
         verbose_name_plural = 'онлайн-курсы'
 
     def updade_courses_from_roo():
-
         request = requests.get('https://online.edu.ru/api/courses/v0/course',
                                auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
         courses = request.json()["rows"]
         for course in courses:
-            r = requests.get('https://online.edu.ru/api/courses/v0/course/'+course['global_id'])
+            print(course['global_id'])
+            r = requests.get('https://online.edu.ru/api/courses/v0/course/' + course['global_id'],
+                             auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
             print(r.json())
-        print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(rows))
+        print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(courses))
 
 
 class Platform(models.Model):

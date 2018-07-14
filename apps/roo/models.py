@@ -1,3 +1,4 @@
+import requests
 from django.db import models
 
 
@@ -9,7 +10,8 @@ class Expertise(models.Model):
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
     expert = models.ForeignKey("Expert", verbose_name="Эксперт")
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=1024)
-    organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True, max_length=1024)
+    organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
+                                 max_length=1024)
 
     def __str__(self):
         return f"Экспертиза: {self.course}, Тип: {self.type}"
@@ -63,10 +65,16 @@ class Course(models.Model):
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
 
+    def updade_courses_from_roo(self):
+        request = requests.get('https://online.edu.ru/api/courses/v0/course',
+                               auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
+        print(request.json())
+
 
 class Platform(models.Model):
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
-    person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True, max_length=1024)
+    person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
+                              max_length=1024)
     connection_form = models.CharField("Форма связи с контактным лицом", blank=True, null=True, max_length=1024)
     connection_date = models.DateField("Дата связи с контактным лицом", blank=True, null=True)
     contacts = models.CharField("Контакты института", blank=True, null=True, max_length=1024)

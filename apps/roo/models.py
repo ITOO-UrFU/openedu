@@ -1,4 +1,5 @@
 import requests
+from time import gmtime, strftime
 from django.db import models
 
 
@@ -68,7 +69,8 @@ class Course(models.Model):
     def updade_courses_from_roo():
         request = requests.get('https://online.edu.ru/api/courses/v0/course',
                                auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
-        print(request.json())
+        rows = request.json().rows
+        print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(rows))
 
 
 class Platform(models.Model):

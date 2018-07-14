@@ -74,6 +74,9 @@ class Course(models.Model):
             print(course['global_id'])
             r = requests.get('https://online.edu.ru/api/courses/v0/course/' + course['global_id'],
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
+            roo_course, created = Course.objects.get_or_create(roo_id=course['global_id'])[0]
+            roo_course.save()
+
             print(r.json())
         print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(courses))
 

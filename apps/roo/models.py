@@ -65,7 +65,7 @@ class Course(models.Model):
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
 
-    def updade_courses_from_roo(self):
+    def updade_courses_from_roo():
         request = requests.get('https://online.edu.ru/api/courses/v0/course',
                                auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
         print(request.json())

@@ -42,6 +42,11 @@ app.conf.beat_schedule = {
         'task': 'openprofession.views.set_proctoring_status',
         'schedule': 2.0,
         'args': (1, 1)
+    },
+    'update_courses_from_roo_task': {
+        'task': 'roo.tasks.update_courses_from_roo_task',
+        'schedule': 3.0,
+        'args': (1, 1)
     }
 }
 

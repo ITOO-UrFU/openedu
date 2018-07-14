@@ -13,4 +13,4 @@ def update_courses_from_roo_task(*args):
     pass
 
 
-app.control.rate_limit('roo.views.update_courses_from_roo_task', '100/m')
+app.control.rate_limit('roo.tasks.update_courses_from_roo_task', '5/m')

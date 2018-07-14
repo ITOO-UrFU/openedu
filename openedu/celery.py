@@ -45,7 +45,7 @@ app.conf.beat_schedule = {
     # },
     'update_courses_from_roo_task': {
         'task': 'roo.tasks.update_courses_from_roo_task',
-        'schedule': 20.0,
+        'schedule': 12.0,
         'args': (1, 1)
     }
 }

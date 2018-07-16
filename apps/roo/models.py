@@ -22,40 +22,68 @@ class Expertise(models.Model):
         verbose_name_plural = 'экспертизы'
 
 
+class Teacher(models.Model):
+    title = models.CharField("ФИО лектора", blank=True, null=True, max_length=1024)
+    image = models.CharField("Ссылка на изображение", blank=True, null=True, max_length=1024)
+    description = models.CharField("Описание", blank=True, null=True, max_length=1024)
+
+    def __str__(self):
+        return f"Лектор: {self.title}"
+
+    class Meta:
+        verbose_name = 'лектор'
+        verbose_name_plural = 'лекторы'
+
+
 class Course(models.Model):
+    #  что приходит в api сейчас
+    credits = models.CharField("", blank=True, null=True, max_length=1024)  # я не знаю что это
+    record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=1024)
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
-    short_description = models.CharField("Краткое описание", blank=True, null=True, max_length=1024)
-    description = models.TextField("Описание", blank=True, null=True)
-    roo_id = models.IntegerField("ИД на РОО", blank=True, null=True)
+    image = models.URLField("Изображение курса", blank=True, null=True, max_length=1024)
+    institution_id = models.CharField("Идентификатор Правообладателя", blank=True, null=True, max_length=1024)
+    global_id = models.CharField("ИД курса на РОО", blank=False, null=False, max_length=1024)
+    created_at = models.CharField("Дата создания онлайн-курса", blank=False, null=False, max_length=1024)
+    visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True, max_length=1024)  # но это не точно
+    duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=1024)
+    finished_at = models.CharField("Дата окончания онлайн-курса", blank=False, null=False)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True)
-    results = models.TextField("Результаты обучения", blank=True, null=True)
-    grade_tools = models.TextField("Оценочные средства", blank=True, null=True)
-    photo = models.CharField("Фото автора", blank=True, null=True, max_length=1024)
-    authors = models.TextField("Авторы", blank=True, null=True)
-    prerequisites = models.TextField("Входные требования обучающихся", blank=True, null=True)
-    content = models.TextField("Содержание", blank=True, null=True)
-    directions = models.TextField("Направления подготовки", blank=True, null=True)
-    subject = models.CharField("Предмет курса", blank=True, null=True, max_length=1024)
-    activity = models.CharField("Область деятельности", blank=True, null=True, max_length=1024)
+    accreditation = models.TextField("Аккредитация", blank=True, null=True)
+    description = models.TextField("Описание", blank=False, null=True)
+    visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
+    directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True)  # массив
+    expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True)  # сильно не точно
+    has_sertificate = models.BooleanField("Возможность получить сертификат", blank=True, null=True)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=1024)
-    enrollment_end_date = models.CharField("Дата окончания записи", blank=True, null=True, max_length=1024)
-    start_date = models.CharField("Дата запуска", blank=True, null=True, max_length=1024)
-    duration = models.CharField("Длительность курса", blank=True, null=True, max_length=1024)
+    course_item_url = models.CharField("", blank=True, null=True, max_length=1024)  # неизвестная вестчь
+    partner_id = models.CharField("Идентификатор Платформы", blank=True, null=True)
+    content = models.TextField("Содержание онлайн-курса", blank=True, null=True)
+    started_at = models.CharField("Дата ближайшего запуска", blank=True, null=True, max_length=1024)
+    rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=1024)
+    external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=1024)
+    lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
+    activities = models.CharField("Массив идентификаторов областей деятельности", blank=True, null=True, max_length=1024)  # массив
+    visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True, max_length=1024)  # наверно
+    experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=1024)
+    requirements = models.CharField("Массив строк-требований", blank=True, null=True, max_length=1024)  # массив
+    cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=1024)
+    teachers = models.ManyToManyField("Teacher")  # список лекторов/аторов
+
+    # это еще Никита написал
+    grade_tools = models.TextField("Оценочные средства", blank=True, null=True)
+    prerequisites = models.TextField("Входные требования обучающихся", blank=True, null=True)
+    subject = models.CharField("Предмет курса", blank=True, null=True, max_length=1024)
     labor = models.CharField("Трудоемкость", blank=True, null=True, max_length=1024)
-    certificate = models.BooleanField("Трудоемкость", default=False)
     proctoring_service = models.CharField("Используемый сервис прокторинга", blank=True, null=True, max_length=1024)
     version = models.IntegerField("Номер версии курса", blank=True, null=True)
     opened = models.BooleanField("Открытый", default=False)
     admin_email = models.EmailField("e-mail администратора платформы, правообладателя", blank=True, null=True)
-
+    short_description = models.CharField("Краткое описание", blank=True, null=True, max_length=1024)
     expertized = models.BooleanField("Прошел обязательную экспертизу", default=False)
     domain = models.CharField("Предметная область", blank=True, null=True, max_length=1024)
     uploaded_roo = models.BooleanField("Загружен курс на РОО", default=False)
     uploaded_prepod = models.BooleanField("Загружен ли курс на prepod", default=False)
     platform = models.ForeignKey("Platform", verbose_name="Название платформы")
-    url = models.URLField("URL курса на платформе", blank=True, null=True)
-    roo_url = models.URLField("URL курса на РОО", blank=True, null=True)
-    owner = models.ForeignKey("Owner", verbose_name="Правообладатель")
     permission = models.BooleanField("Разрешение правообладателя на выгрузку", default=False)
     comment = models.TextField("Комментарий", blank=True, null=True)
 

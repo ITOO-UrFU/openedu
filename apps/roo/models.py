@@ -37,7 +37,7 @@ class Teacher(models.Model):
 
 class Course(models.Model):
     #  что приходит в api сейчас
-    credits = models.CharField("", blank=True, null=True, max_length=1024)  # я не знаю что это
+    credits = models.CharField("блблбл", blank=True, null=True, max_length=1024)  # я не знаю что это
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=1024)
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
     image = models.URLField("Изображение курса", blank=True, null=True)

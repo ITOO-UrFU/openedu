@@ -49,7 +49,7 @@ class Course(models.Model):
     finished_at = models.CharField("Дата окончания онлайн-курса", blank=False, null=False)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True)
     accreditation = models.TextField("Аккредитация", blank=True, null=True)
-    description = models.TextField("Описание", blank=False, null=True)
+    description = models.TextField("Описание", blank=True, null=True)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
     directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True)  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True)  # сильно не точно
@@ -102,7 +102,7 @@ class Course(models.Model):
             print(course['global_id'])
             r = requests.get('https://online.edu.ru/api/courses/v0/course/' + course['global_id'],
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
-            roo_course, created = Course.objects.get_or_create(roo_id=course['global_id'])[0]
+            roo_course = Course.objects.get_or_create(roo_id=course['global_id'], defaults={'created_at': course['created_at'], 'finished_at': course['finished_at'], 'title':course['title'] })
             roo_course.save()
 
             print(r.json())

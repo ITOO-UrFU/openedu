@@ -4,17 +4,7 @@ from .models import Course, Platform, Expert, Expertise, Owner
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title", "short_description", "description",
-                    "roo_id", "competences", "results",
-                    "grade_tools", "photo", "authors", "prerequisites",
-                    "content", "directions", "subject", "activity",
-                    "language", "enrollment_end_date", "start_date",
-                    "duration", "labor", "certificate", "proctoring_service",
-                    "version", "opened", "admin_email", "expertized",
-                    "domain", "uploaded_roo", "uploaded_prepod",
-                    "platform", "url", "roo_url", "owner",
-                    "permission", "comment"
-                    )
+    list_display = ("title", "description")
 
 
 @admin.register(Platform)

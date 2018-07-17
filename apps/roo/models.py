@@ -4,12 +4,12 @@ from django.db import models
 
 
 class Expertise(models.Model):
-    course = models.ManyToManyField("Course", verbose_name="Курс")
+    course = models.ForeignKey("Course", verbose_name="Курс")
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=1024)
     date = models.DateField("Дата", blank=True, null=True)
     type = models.CharField("Вид экспертизы", blank=True, null=True, max_length=1024)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
-    expert = models.ManyToManyField("Expert", verbose_name="Эксперт")
+    expert = models.ForeignKey("Expert", verbose_name="Эксперт")
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=1024)
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
                                  max_length=1024)

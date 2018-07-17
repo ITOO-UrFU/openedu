@@ -117,9 +117,8 @@ class Course(models.Model):
                                                                     'finished_at': course['finished_at'],
                                                                     'title': course['title']})[0]
                 roo_course.save()
-            print(response["next"])
-            print(response["next"] == 'null')
-            if (response["next"] != 'null'):
+            print("response[next]= ", response["next"])
+            if response["next"] is not None:
                 get_courses_from_page(response["next"])
             else:
                 return

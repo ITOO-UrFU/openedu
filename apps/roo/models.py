@@ -42,11 +42,11 @@ class Course(models.Model):
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
     image = models.URLField("Изображение курса", blank=True, null=True)
     institution_id = models.CharField("Идентификатор Правообладателя", blank=True, null=True, max_length=1024)
-    global_id = models.CharField("ИД курса на РОО", blank=True, null=False, max_length=1024)
-    created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=False, max_length=1024)
+    global_id = models.CharField("ИД курса на РОО", blank=True, null=True, max_length=1024)
+    created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=True, max_length=1024)
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True, max_length=1024)  # но это не точно
     duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=1024)
-    finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=False, max_length=1024)
+    finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=True, max_length=1024)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True)
     accreditation = models.TextField("Аккредитация", blank=True, null=True)
     description = models.TextField("Описание", blank=True, null=True)
@@ -83,7 +83,7 @@ class Course(models.Model):
     domain = models.CharField("Предметная область", blank=True, null=True, max_length=1024)
     uploaded_roo = models.BooleanField("Загружен курс на РОО", default=False)
     uploaded_prepod = models.BooleanField("Загружен ли курс на prepod", default=False)
-    platform = models.ManyToManyField("Platform", verbose_name="Название платформы")
+    #platform = models.ManyToManyField("Platform", verbose_name="Название платформы")
     permission = models.BooleanField("Разрешение правообладателя на выгрузку", default=False)
     comment = models.TextField("Комментарий", blank=True, null=True)
 

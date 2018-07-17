@@ -40,23 +40,23 @@ class Course(models.Model):
     credits = models.CharField("", blank=True, null=True, max_length=1024)  # я не знаю что это
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=1024)
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
-    image = models.URLField("Изображение курса", blank=True, null=True, max_length=1024)
+    image = models.URLField("Изображение курса", blank=True, null=True)
     institution_id = models.CharField("Идентификатор Правообладателя", blank=True, null=True, max_length=1024)
     global_id = models.CharField("ИД курса на РОО", blank=False, null=False, max_length=1024)
     created_at = models.CharField("Дата создания онлайн-курса", blank=False, null=False, max_length=1024)
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True, max_length=1024)  # но это не точно
     duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=1024)
-    finished_at = models.CharField("Дата окончания онлайн-курса", blank=False, null=False)
+    finished_at = models.CharField("Дата окончания онлайн-курса", blank=False, null=False, max_length=1024)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True)
     accreditation = models.TextField("Аккредитация", blank=True, null=True)
     description = models.TextField("Описание", blank=True, null=True)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
-    directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True)  # массив
-    expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True)  # сильно не точно
+    directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True, max_length=1024)  # массив
+    expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True, max_length=1024)  # сильно не точно
     has_sertificate = models.BooleanField("Возможность получить сертификат", blank=True, null=True)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=1024)
     course_item_url = models.CharField("", blank=True, null=True, max_length=1024)  # неизвестная вестчь
-    partner_id = models.CharField("Идентификатор Платформы", blank=True, null=True)
+    partner_id = models.CharField("Идентификатор Платформы", blank=True, null=True, max_length=1024)
     content = models.TextField("Содержание онлайн-курса", blank=True, null=True)
     started_at = models.CharField("Дата ближайшего запуска", blank=True, null=True, max_length=1024)
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=1024)

@@ -53,7 +53,7 @@ class Course(models.Model):
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
     directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True, max_length=1024)  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True, max_length=1024)  # сильно не точно
-    has_sertificate = models.BooleanField("Возможность получить сертификат", blank=True, null=True)  # слово сертификат у них неправильно
+    has_sertificate = models.BooleanField("Возможность получить сертификат", default=False)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=1024)
     course_item_url = models.CharField("", blank=True, null=True, max_length=1024)  # неизвестная вестчь
     partner_id = models.CharField("Идентификатор Платформы", blank=True, null=True, max_length=1024)

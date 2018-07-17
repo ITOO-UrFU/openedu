@@ -84,7 +84,7 @@ class Course(models.Model):
     uploaded_roo = models.BooleanField("Загружен курс на РОО", default=False)
     uploaded_prepod = models.BooleanField("Загружен ли курс на prepod", default=False)
     owner = models.ForeignKey("Owner", verbose_name="Правообладатель")
-    platform = models.ManyToManyField("Platform", verbose_name="Название платформы")
+    platform = models.ForeignKey("Platform", verbose_name="Название платформы")
     permission = models.BooleanField("Разрешение правообладателя на выгрузку", default=False)
     comment = models.TextField("Комментарий", blank=True, null=True)
 

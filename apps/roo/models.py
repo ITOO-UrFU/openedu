@@ -47,9 +47,9 @@ class Course(models.Model):
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True, max_length=512)  # но это не точно
     duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=512)
     finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=True, max_length=512)
-    competences = models.TextField("Формируемые компетенции", blank=True, null=True)
-    accreditation = models.TextField("Аккредитация", blank=True, null=True)
-    description = models.TextField("Описание", blank=True, null=True)
+    competences = models.TextField("Формируемые компетенции", blank=True, null=True, max_length=512)
+    accreditation = models.TextField("Аккредитация", blank=True, null=True, max_length=512)
+    description = models.TextField("Описание", blank=True, null=True, max_length=512)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
     directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True, max_length=512)  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True, max_length=512)  # сильно не точно
@@ -57,7 +57,7 @@ class Course(models.Model):
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner_id = models.CharField("Идентификатор Платформы", blank=True, null=True, max_length=512)
-    content = models.TextField("Содержание онлайн-курса", blank=True, null=True)
+    content = models.TextField("Содержание онлайн-курса", blank=True, null=True, max_length=512)
     started_at = models.CharField("Дата ближайшего запуска", blank=True, null=True, max_length=512)
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)

@@ -44,7 +44,8 @@ class Course(models.Model):
     institution_id = models.CharField("Идентификатор Правообладателя", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД курса на РОО", blank=True, null=True, max_length=512)
     created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=True, max_length=512)
-    visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True, max_length=512)  # но это не точно
+    visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True,
+                                       max_length=512)  # но это не точно
     duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=512)
     finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=True, max_length=512)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True, max_length=512)
@@ -52,8 +53,10 @@ class Course(models.Model):
     description = models.TextField("Описание", blank=True, null=True, max_length=512)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
     directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True, max_length=512)  # массив
-    expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True, max_length=512)  # сильно не точно
-    has_sertificate = models.BooleanField("Возможность получить сертификат", default=False)  # слово сертификат у них неправильно
+    expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
+                                           max_length=512)  # сильно не точно
+    has_sertificate = models.BooleanField("Возможность получить сертификат",
+                                          default=False)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner_id = models.CharField("Идентификатор Платформы", blank=True, null=True, max_length=512)
@@ -62,8 +65,10 @@ class Course(models.Model):
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
-    activities = models.CharField("Массив идентификаторов областей деятельности", blank=True, null=True, max_length=512)  # массив
-    visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True, max_length=512)  # наверно
+    activities = models.CharField("Массив идентификаторов областей деятельности", blank=True, null=True,
+                                  max_length=512)  # массив
+    visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
+                                             max_length=512)  # наверно
     experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=512)
     requirements = models.CharField("Массив строк-требований", blank=True, null=True, max_length=512)  # массив
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)
@@ -104,7 +109,10 @@ class Course(models.Model):
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
             # print(type(course), course)
             course = r.json()
-            roo_course = Course.objects.get_or_create(global_id=course['global_id'], defaults={'created_at': course['created_at'], 'finished_at': course['finished_at'], 'title':course['title'] })
+            roo_course = Course.objects.get_or_create(global_id=course['global_id'],
+                                                      defaults={'created_at': course['created_at'],
+                                                                'finished_at': course['finished_at'],
+                                                                'title': course['title']})[0]
             roo_course.save()
 
         print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(courses))

@@ -103,7 +103,7 @@ class Course(models.Model):
             r = requests.get('https://online.edu.ru/api/courses/v0/course/' + course['global_id'],
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
             print(type(course), course)
-            roo_course = Course.objects.get_or_create(roo_id=course['global_id'], defaults={'created_at': course['created_at'], 'finished_at': course['finished_at'], 'title':course['title'] })
+            roo_course = Course.objects.get_or_create(roo_id=course['global_id'], created_at = course['created_at'], title = course['title'])
             roo_course.save()
 
             print(r.json())

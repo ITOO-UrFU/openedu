@@ -4,12 +4,12 @@ from django.db import models
 
 
 class Expertise(models.Model):
-    course = models.ForeignKey("Course", verbose_name="Курс")
+    course = models.ManyToManyField("Course", verbose_name="Курс")
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=1024)
     date = models.DateField("Дата", blank=True, null=True)
     type = models.CharField("Вид экспертизы", blank=True, null=True, max_length=1024)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
-    expert = models.ForeignKey("Expert", verbose_name="Эксперт")
+    expert = models.ManyToManyField("Expert", verbose_name="Эксперт")
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=1024)
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
                                  max_length=1024)
@@ -83,7 +83,7 @@ class Course(models.Model):
     domain = models.CharField("Предметная область", blank=True, null=True, max_length=1024)
     uploaded_roo = models.BooleanField("Загружен курс на РОО", default=False)
     uploaded_prepod = models.BooleanField("Загружен ли курс на prepod", default=False)
-    platform = models.ForeignKey("Platform", verbose_name="Название платформы")
+    platform = models.ManyToManyField("Platform", verbose_name="Название платформы")
     permission = models.BooleanField("Разрешение правообладателя на выгрузку", default=False)
     comment = models.TextField("Комментарий", blank=True, null=True)
 

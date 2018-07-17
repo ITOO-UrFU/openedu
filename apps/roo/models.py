@@ -104,7 +104,7 @@ class Course(models.Model):
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
             # print(type(course), course)
             course = r.json()
-            roo_course = Course.objects.get_or_create(roo_id=course['global_id'], defaults={'created_at': course['created_at'], 'finished_at': course['finished_at'], 'title':course['title'] })
+            roo_course = Course.objects.get_or_create(global_id=course['global_id'], defaults={'created_at': course['created_at'], 'finished_at': course['finished_at'], 'title':course['title'] })
             roo_course.save()
 
         print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(courses))

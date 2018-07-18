@@ -73,7 +73,7 @@ class Course(models.Model):
     experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=512)
     requirements = models.CharField("Массив строк-требований", blank=True, null=True, max_length=512)  # массив
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)
-    teachers = models.ManyToManyField("Teacher", blank=True)  # список лекторов/аторов
+    teachers = models.ManyToManyField("models.Teacher", blank=True)  # список лекторов/аторов
 
     # это еще Никита написал
     # grade_tools = models.TextField("Оценочные средства", blank=True, null=True)

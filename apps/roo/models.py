@@ -1,16 +1,15 @@
 import requests
-
+from time import gmtime, strftime
 from django.db import models
-from .tasks import update_courses_from_roo_task
 
 
 class Expertise(models.Model):
-    course = models.ForeignKey('Course', verbose_name="Курс", default='None', blank=True)
+    course = models.ForeignKey("Course", verbose_name="Курс", default='None')
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=512)
     date = models.DateField("Дата", blank=True, null=True)
     type = models.CharField("Вид экспертизы", blank=True, null=True, max_length=512)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
-    expert = models.ForeignKey("Expert", verbose_name="Эксперт", default='None', blank=True)
+    expert = models.ForeignKey("Expert", verbose_name="Эксперт", default='None')
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=512)
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
                                  max_length=512)
@@ -73,7 +72,7 @@ class Course(models.Model):
     experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=512)
     requirements = models.CharField("Массив строк-требований", blank=True, null=True, max_length=512)  # массив
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)
-    teachers = models.ManyToManyField(Teacher, blank=True)  # список лекторов/аторов
+    teachers = models.ManyToManyField("Teacher", blank=True)  # список лекторов/аторов
 
     # это еще Никита написал
     # grade_tools = models.TextField("Оценочные средства", blank=True, null=True)
@@ -102,7 +101,31 @@ class Course(models.Model):
         verbose_name_plural = 'онлайн-курсы'
 
     def updade_courses_from_roo():
-        update_courses_from_roo_task.delay()
+        login = 'vesloguzov@gmail.com'
+        password = 'ye;yj,jkmitrjlf'
+
+        def get_courses_from_page(page_url):
+            request = requests.get(page_url, auth=(login, password))
+            response = request.json()
+            courses = response["rows"]
+            for c in courses:
+                r = requests.get('https://online.edu.ru/api/courses/v0/course/' + c['global_id'],
+                                 auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
+                course = r.json()
+                roo_course = Course.objects.get_or_create(global_id=course['global_id'],
+                                                          defaults={'created_at': course['created_at'],
+                                                                    'finished_at': course['finished_at'],
+                                                                    'title': course['title']})[0]
+                roo_course.save()
+            print("response[next]= ", response["next"])
+            if response["next"] is not None:
+                get_courses_from_page(response["next"])
+            else:
+                return
+
+        get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
+
+        print("Закончили: ", strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 
 
 class Platform(models.Model):

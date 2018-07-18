@@ -1,7 +1,7 @@
 import requests
-from time import gmtime, strftime
+
 from django.db import models
-from .tasks import *
+from .tasks import update_courses_from_roo_task
 
 
 class Expertise(models.Model):

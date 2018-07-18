@@ -34,7 +34,7 @@ urlpatterns = oauth2_urlpatterns + [
     url(r'^questionnaire/', include('questionnaire.urls', namespace="questionnaire")),
     url(r'^ellada_api/', include('ellada_api.urls', namespace="ellada_api")),
     url(r'^other/', include('other.urls', namespace="other")),
-    # url(r'^roo/', include('roo.urls', namespace="roo")),
+    url(r'^roo/', include('roo.urls', namespace="roo")),
     url(r'^courses/', include('courses.urls', namespace="courses")),
     url(r'^', include('home.urls')),
     url(r'^advanced_filters/', include('advanced_filters.urls'))

@@ -74,6 +74,9 @@ class Course(models.Model):
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)
     teachers = models.ManyToManyField("Teacher", blank=True)  # список лекторов/аторов
 
+    # наши поля
+    newest = models.BooleanField("Самое новое содержание курса", default=False)
+
     # это еще Никита написал
     # grade_tools = models.TextField("Оценочные средства", blank=True, null=True)
     # prerequisites = models.TextField("Входные требования обучающихся", blank=True, null=True)

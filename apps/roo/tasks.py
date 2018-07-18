@@ -1,6 +1,7 @@
 import logging
 import datetime
 import json
+from django import requests
 from openedu.celery import app
 from .models import Course
 

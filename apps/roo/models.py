@@ -1,6 +1,7 @@
 import requests
 from time import gmtime, strftime
 from django.db import models
+from .tasks import *
 
 
 class Expertise(models.Model):
@@ -37,7 +38,7 @@ class Teacher(models.Model):
 
 class Course(models.Model):
     #  что приходит в api сейчас
-    credits = models.CharField("блблбл", blank=True, null=True, max_length=512)  # я не знаю что это
+    credits = models.CharField("Массив перезачётов", blank=True, null=True, max_length=512)
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=512)
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     image = models.URLField("Изображение курса", blank=True, null=True)
@@ -101,31 +102,7 @@ class Course(models.Model):
         verbose_name_plural = 'онлайн-курсы'
 
     def updade_courses_from_roo():
-        login = 'vesloguzov@gmail.com'
-        password = 'ye;yj,jkmitrjlf'
-
-        def get_courses_from_page(page_url):
-            request = requests.get(page_url, auth=(login, password))
-            response = request.json()
-            courses = response["rows"]
-            for c in courses:
-                r = requests.get('https://online.edu.ru/api/courses/v0/course/' + c['global_id'],
-                                 auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'))
-                course = r.json()
-                roo_course = Course.objects.get_or_create(global_id=course['global_id'],
-                                                          defaults={'created_at': course['created_at'],
-                                                                    'finished_at': course['finished_at'],
-                                                                    'title': course['title']})[0]
-                roo_course.save()
-            print("response[next]= ", response["next"])
-            if response["next"] is not None:
-                get_courses_from_page(response["next"])
-            else:
-                return
-
-        get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
-
-        print(strftime("%Y-%m-%d %H:%M:%S", gmtime()), "len(rows): ", len(courses))
+        update_courses_from_roo_task.delay()
 
 
 class Platform(models.Model):

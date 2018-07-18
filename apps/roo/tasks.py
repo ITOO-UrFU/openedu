@@ -4,7 +4,7 @@ import datetime
 import json
 
 from openedu.celery import app
-from .models import Course
+from .models import Course, Teacher
 
 logger = logging.getLogger(__name__)
 

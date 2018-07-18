@@ -5,12 +5,12 @@ from .tasks import update_courses_from_roo_task
 
 
 class Expertise(models.Model):
-    course = models.ForeignKey("Course", verbose_name="Курс", default='None')
+    course = models.ForeignKey('Course', verbose_name="Курс", default='None', blank=True)
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=512)
     date = models.DateField("Дата", blank=True, null=True)
     type = models.CharField("Вид экспертизы", blank=True, null=True, max_length=512)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
-    expert = models.ForeignKey("Expert", verbose_name="Эксперт", default='None')
+    expert = models.ForeignKey("Expert", verbose_name="Эксперт", default='None', blank=True)
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=512)
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
                                  max_length=512)
@@ -73,7 +73,7 @@ class Course(models.Model):
     experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=512)
     requirements = models.CharField("Массив строк-требований", blank=True, null=True, max_length=512)  # массив
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)
-    teachers = models.ManyToManyField("models.Teacher", blank=True)  # список лекторов/аторов
+    teachers = models.ManyToManyField(Teacher, blank=True)  # список лекторов/аторов
 
     # это еще Никита написал
     # grade_tools = models.TextField("Оценочные средства", blank=True, null=True)

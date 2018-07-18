@@ -25,22 +25,22 @@ app.conf.beat_schedule = {
     },
     'set_possible_id': {
         'task': 'openprofession.views.set_possible_id',
-        'schedule': 20.0,
+        'schedule': 600.0,
         'args': (1, 1)
     },
     'set_course_user_grade': {
         'task': 'openprofession.views.set_course_user_grade',
-        'schedule': 20.0,
+        'schedule': 600.0,
         'args': (1, 1)
     },
     'set_program_grade': {
         'task': 'openprofession.views.set_program_grade',
-        'schedule': 5.0,
+        'schedule': 600.0,
         'args': (1, 1)
     },
     'set_proctoring_status': {
         'task': 'openprofession.views.set_proctoring_status',
-        'schedule': 2.0,
+        'schedule': 600.0,
         'args': (1, 1)
     },
     'update_courses_from_roo_task': {

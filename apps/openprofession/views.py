@@ -306,11 +306,11 @@ def handle_report(*args):
                     report.save()
 
 
-# app.control.rate_limit('openprofession.views.handle_report', '100/m')
-# app.control.rate_limit('openprofession.views.set_possible_id', '5/m')
-# app.control.rate_limit('openprofession.views.set_course_user_grade', '5/m')
-# app.control.rate_limit('openprofession.views.set_program_grade', '100/m')
-# app.control.rate_limit('openprofession.views.set_proctoring_status', '100/m')
+app.control.rate_limit('openprofession.views.handle_report', '100/m')
+app.control.rate_limit('openprofession.views.set_possible_id', '5/m')
+app.control.rate_limit('openprofession.views.set_course_user_grade', '5/m')
+app.control.rate_limit('openprofession.views.set_program_grade', '100/m')
+app.control.rate_limit('openprofession.views.set_proctoring_status', '100/m')
 
 
 # @app.task(bind=True)

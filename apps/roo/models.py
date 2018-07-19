@@ -133,7 +133,7 @@ class Course(models.Model):
             response = request.json()
             courses = response["rows"]
             for c in courses:
-                r = requests.get('https://online.edu.ru/api/courses/v0/course/' + c['global_id'],
+                r = requests.get(f"https://online.edu.ru/api/courses/v0/course/{c['global_id']}",
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
                 roo_course = cls.objects.filter(global_id=course['global_id'])[0]
@@ -142,7 +142,7 @@ class Course(models.Model):
                     if not roo_course.newest:
                         roo_course.update_from_dict(course)
                 else:
-                    roo_course.objects.create(**course)
+                    roo_course.create_from_dict(course)
 
                 roo_course.save()
             print("response[next]= ", response["next"])

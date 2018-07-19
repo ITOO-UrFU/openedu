@@ -144,7 +144,7 @@ class Course(models.Model):
 
                 if roo_course:
                     if not roo_course.newest:
-                        roo_course.update_from_dict(course)
+                        Course.update_from_dict(course)
                 else:
                     roo_course.create_from_dict(course)
 

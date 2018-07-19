@@ -103,7 +103,8 @@ class Course(models.Model):
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
 
-    def updade_courses_from_roo():
+    @classmethod
+    def updade_courses_from_roo(cls):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
 
@@ -115,10 +116,14 @@ class Course(models.Model):
                 r = requests.get('https://online.edu.ru/api/courses/v0/course/' + c['global_id'],
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
-                roo_course = Course.objects.get_or_create(global_id=course['global_id'],
-                                                          defaults={'created_at': course['created_at'],
-                                                                    'finished_at': course['finished_at'],
-                                                                    'title': course['title']})[0]
+                roo_course = cls.objects.filter(global_id=course['global_id'])[0]
+
+                if roo_course:
+                    if not roo_course.newest:
+                        roo_course.update(**course)
+                else:
+                    roo_course.objects.create(**course)
+
                 roo_course.save()
             print("response[next]= ", response["next"])
             if response["next"] is not None:

@@ -105,6 +105,24 @@ class Course(models.Model):
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
 
+    def update_from_dict(self, d):
+        for attr, val in d.items():
+            try:
+                setattr(self, attr, val)
+                self.save()
+            except:
+                pass
+
+    @classmethod
+    def create_from_dict(cls, d):
+        c = cls.objects.create(title=d["title"])
+        for attr, val in d.items():
+            try:
+                setattr(c, attr, val)
+                c.save()
+            except:
+                pass
+
     @classmethod
     def updade_courses_from_roo(cls):
         login = 'vesloguzov@gmail.com'
@@ -122,7 +140,7 @@ class Course(models.Model):
 
                 if roo_course:
                     if not any(r.newest for r in roo_course):
-                        roo_course.update(**course)
+                        roo_course.update_from_dict(course)
                 else:
                     roo_course.objects.create(**course)
 

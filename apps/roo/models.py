@@ -69,6 +69,8 @@ class Course(models.Model):
                                   max_length=512)  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
                                              max_length=512)  # наверно
+    total_visitors_number =models.CharField("Количество слушателей", blank=True, null=True,
+                                             max_length=512)
     experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=512)
     requirements = models.CharField("Массив строк-требований", blank=True, null=True, max_length=512)  # массив
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)

@@ -119,7 +119,7 @@ class Course(models.Model):
                 roo_course = cls.objects.filter(global_id=course['global_id'])
 
                 if roo_course:
-                    if not roo_course.newest:
+                    if not any(r.newest for r in roo_course):
                         roo_course.update(**course)
                 else:
                     roo_course.objects.create(**course)

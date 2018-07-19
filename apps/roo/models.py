@@ -52,7 +52,7 @@ class Course(models.Model):
     accreditation = models.TextField("Аккредитация", blank=True, null=True, max_length=512)
     description = models.TextField("Описание", blank=True, null=True, max_length=512)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
-    directions = models.CharField("Массив идентификаторов направлений", blank=True, null=True, max_length=512)  # массив
+    directions = models.TextField("Массив идентификаторов направлений", blank=True, null=True)  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
     has_sertificate = models.BooleanField("Возможность получить сертификат",

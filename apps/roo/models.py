@@ -108,8 +108,11 @@ class Course(models.Model):
         for attr, val in d.items():
             if attr == "teachers":
                 for teacher in d['teachers']:
-                    t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
-                    t.save()
+                    if self.teachers.filter(title=teacher['title']).count() > 0:
+                        pass
+                    else:
+                        t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                        t.save()
                     self.teachers.add(t)
                     print("update", teacher)
             else:

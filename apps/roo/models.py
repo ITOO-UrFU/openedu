@@ -110,6 +110,7 @@ class Course(models.Model):
                 if attr == "teachers":
                     for teacher in d['teachers']:
                         self.teachers.create(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                        print(teacher)
                 else:
                     setattr(self, attr, val)
                 self.save()

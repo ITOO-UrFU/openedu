@@ -24,7 +24,7 @@ class Expertise(models.Model):
 class Teacher(models.Model):
     title = models.CharField("ФИО лектора", blank=True, null=True, max_length=512)
     image = models.CharField("Ссылка на изображение", blank=True, null=True, max_length=512)
-    description = models.CharField("Описание", blank=True, null=True, max_length=512)
+    description = models.CharField("Описание", blank=True, null=True, max_length=1024)
 
     def __str__(self):
         return f"Лектор: {self.title}"
@@ -144,10 +144,13 @@ class Course(models.Model):
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
                 roo_courses = cls.objects.filter(global_id=course['global_id'])
+
                 if len(roo_courses) > 0:
                     roo_course = roo_courses[0]
                 else:
-                    roo_course = None
+                    roo_course = False
+
+                print("roo_courses", roo_courses)
 
                 if roo_course:
                     if not roo_course.newest:

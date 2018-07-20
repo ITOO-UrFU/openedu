@@ -109,6 +109,7 @@ class Course(models.Model):
             if attr == "teachers":
                 for teacher in d['teachers']:
                     t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                    t.save()
                     self.teachers.add(t)
                     print("update", teacher)
             else:
@@ -122,6 +123,7 @@ class Course(models.Model):
             if attr == "teachers":
                 for teacher in d['teachers']:
                     t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                    t.save()
                     c.teachers.add(t)
                     print("create", teacher)
             else:

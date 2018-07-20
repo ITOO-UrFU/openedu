@@ -144,7 +144,7 @@ class Course(models.Model):
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
                 try:
-                    roo_courses = cls.objects.filter(global_id=course['global_id'])[0]
+                    roo_course = cls.objects.filter(global_id=course['global_id'])[0]
                 except cls.DoesNotExist:
                     roo_course = False
                 # if len(roo_courses) > 0:
@@ -152,7 +152,7 @@ class Course(models.Model):
                 # else:
                 #     roo_course = False
 
-                print("roo_courses", roo_courses)
+                print("roo_courses", roo_course)
 
                 if roo_course:
                     if not roo_course.newest:

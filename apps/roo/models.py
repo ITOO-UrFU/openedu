@@ -172,7 +172,7 @@ class Course(models.Model):
 
 
 class Platform(models.Model):
-    title = models.CharField("Наименование", blank=True, null=True, max_length=512)
+    title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
     global_id = models.CharField("ИД платформы на РОО", blank=True, null=True, max_length=512)
     image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
     url = models.CharField("Ссылка на сайт платформы", blank=True, null=True, max_length=512)

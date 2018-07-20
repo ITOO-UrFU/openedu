@@ -1,7 +1,6 @@
 import requests
 from time import gmtime, strftime
 from django.db import models
-#kek
 
 class Expertise(models.Model):
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')
@@ -108,7 +107,11 @@ class Course(models.Model):
     def update_from_dict(self, d):
         for attr, val in d.items():
             try:
-                setattr(self, attr, val)
+                if attr == "teachers":
+                    for teacher in d['teachers']:
+                        self.teachers.create(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                else:
+                    setattr(self, attr, val)
                 self.save()
             except:
                 pass

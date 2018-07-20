@@ -18,31 +18,31 @@ app.config_from_object('openedu.celeryconfig')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 app.conf.beat_schedule = {
-    'add-every-2-seconds': {
-        'task': 'openprofession.views.handle_report',
-        'schedule': 2.0,
-        'args': (1, 1)
-    },
-    'set_possible_id': {
-        'task': 'openprofession.views.set_possible_id',
-        'schedule': 600.0,
-        'args': (1, 1)
-    },
-    'set_course_user_grade': {
-        'task': 'openprofession.views.set_course_user_grade',
-        'schedule': 600.0,
-        'args': (1, 1)
-    },
-    'set_program_grade': {
-        'task': 'openprofession.views.set_program_grade',
-        'schedule': 600.0,
-        'args': (1, 1)
-    },
-    'set_proctoring_status': {
-        'task': 'openprofession.views.set_proctoring_status',
-        'schedule': 600.0,
-        'args': (1, 1)
-    },
+    # 'add-every-2-seconds': {
+    #     'task': 'openprofession.views.handle_report',
+    #     'schedule': 2.0,
+    #     'args': (1, 1)
+    # },
+    # 'set_possible_id': {
+    #     'task': 'openprofession.views.set_possible_id',
+    #     'schedule': 600.0,
+    #     'args': (1, 1)
+    # },
+    # 'set_course_user_grade': {
+    #     'task': 'openprofession.views.set_course_user_grade',
+    #     'schedule': 600.0,
+    #     'args': (1, 1)
+    # },
+    # 'set_program_grade': {
+    #     'task': 'openprofession.views.set_program_grade',
+    #     'schedule': 600.0,
+    #     'args': (1, 1)
+    # },
+    # 'set_proctoring_status': {
+    #     'task': 'openprofession.views.set_proctoring_status',
+    #     'schedule': 600.0,
+    #     'args': (1, 1)
+    # },
     'update_courses_from_roo_task': {
         'task': 'roo.tasks.update_courses_from_roo_task',
         'schedule': 240.0,

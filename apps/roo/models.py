@@ -115,14 +115,17 @@ class Course(models.Model):
             self.save()
 
     @classmethod
-    def create_from_dict(cls, d):
-        c = cls.objects.create(title=d["title"])
+    def create_from_dict(self,d):
+        c = self.objects.create(title=d["title"])
         for attr, val in d.items():
-            try:
+            if attr == "teachers":
+                for teacher in d['teachers']:
+                    self.teachers.create(image=teacher['image'], description=teacher['description'],
+                                         title=teacher['title'])
+                    print(teacher)
+            else:
                 setattr(c, attr, val)
-                c.save()
-            except:
-                pass
+            c.save()
 
     @classmethod
     def updade_courses_from_roo(cls):

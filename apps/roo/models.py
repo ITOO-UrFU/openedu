@@ -106,16 +106,13 @@ class Course(models.Model):
 
     def update_from_dict(self, d):
         for attr, val in d.items():
-            try:
-                if attr == "teachers":
-                    for teacher in d['teachers']:
-                        self.teachers.create(image=teacher['image'], description=teacher['description'], title=teacher['title'])
-                        print(teacher)
-                else:
-                    setattr(self, attr, val)
-                self.save()
-            except:
-                pass
+            if attr == "teachers":
+                for teacher in d['teachers']:
+                    self.teachers.create(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                    print(teacher)
+            else:
+                setattr(self, attr, val)
+            self.save()
 
     @classmethod
     def create_from_dict(cls, d):

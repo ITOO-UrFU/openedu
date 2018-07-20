@@ -24,7 +24,7 @@ class Expertise(models.Model):
 class Teacher(models.Model):
     title = models.CharField("ФИО лектора", blank=True, null=True, max_length=512)
     image = models.CharField("Ссылка на изображение", blank=True, null=True, max_length=512)
-    description = models.CharField("Описание", blank=True, null=True, max_length=1024)
+    description = models.TextField("Описание", blank=True, null=True)
 
     def __str__(self):
         return f"Лектор: {self.title}"
@@ -49,7 +49,7 @@ class Course(models.Model):
     finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=True, max_length=512)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True, max_length=512)
     accreditation = models.TextField("Аккредитация", blank=True, null=True, max_length=512)
-    description = models.TextField("Описание", blank=True, null=True, max_length=512)
+    description = models.TextField("Описание", blank=True, null=True)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
     directions = models.TextField("Массив идентификаторов направлений", blank=True, null=True)  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
@@ -153,6 +153,7 @@ class Course(models.Model):
                 #     roo_course = False
 
                 print("roo_courses", roo_course)
+                print("course[id]", course['global_id'])
 
                 if roo_course:
                     if not roo_course.newest:

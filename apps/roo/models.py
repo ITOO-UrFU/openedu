@@ -1,7 +1,7 @@
 import requests
 from time import gmtime, strftime
 from django.db import models
-
+#kek
 
 class Expertise(models.Model):
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')

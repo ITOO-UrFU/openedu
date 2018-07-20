@@ -108,21 +108,22 @@ class Course(models.Model):
         for attr, val in d.items():
             if attr == "teachers":
                 for teacher in d['teachers']:
-                    self.teachers.create(image=teacher['image'], description=teacher['description'], title=teacher['title'])
-                    print(teacher)
+                    t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                    self.teachers.add(t)
+                    print("update", teacher)
             else:
                 setattr(self, attr, val)
             self.save()
 
     @classmethod
-    def create_from_dict(self,d):
-        c = self.objects.create(title=d["title"])
+    def create_from_dict(cls, d):
+        c = cls.objects.create(title=d["title"])
         for attr, val in d.items():
             if attr == "teachers":
                 for teacher in d['teachers']:
-                    self.teachers.create(image=teacher['image'], description=teacher['description'],
-                                         title=teacher['title'])
-                    print(teacher)
+                    t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                    c.teachers.add(t)
+                    print("create", teacher)
             else:
                 setattr(c, attr, val)
             c.save()

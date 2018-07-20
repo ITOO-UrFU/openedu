@@ -144,7 +144,7 @@ class Course(models.Model):
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
                 try:
-                    roo_course = cls.objects.filter(global_id=course['global_id'])[0]
+                    roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:
                     roo_course = False
                 # if len(roo_courses) > 0:

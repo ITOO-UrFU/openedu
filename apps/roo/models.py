@@ -1,6 +1,9 @@
 import requests
 from time import gmtime, strftime
 from django.db import models
+from celery.utils.log import get_task_logger
+
+logger = get_task_logger(name)
 
 class Expertise(models.Model):
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')
@@ -142,8 +145,7 @@ class Course(models.Model):
                 r = requests.get(f"https://online.edu.ru/api/courses/v0/course/{c['global_id']}",
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
-                print("course_credits", course['credits'])
-                print('global_id', course['global_id'])
+                logger.info('global_id',course['global_id'])
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:
@@ -171,11 +173,17 @@ class Course(models.Model):
 
 class Platform(models.Model):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
-                              max_length=512)
-    connection_form = models.CharField("Форма связи с контактным лицом", blank=True, null=True, max_length=512)
-    connection_date = models.DateField("Дата связи с контактным лицом", blank=True, null=True)
-    contacts = models.CharField("Контакты института", blank=True, null=True, max_length=512)
+    global_id = models.CharField("ИД платформы на РОО", blank=True, null=True, max_length=512)
+    image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
+    url = models.CharField("Ссылка на сайт платформы", blank=True, null=True, max_length=512)
+    description = models.TextField("Описание платформы", blank=True, null=True)
+    ogm = models.CharField("ОГРН", blank=True, null=True, max_length=512)
+
+    # person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
+    #                           max_length=512)
+    # connection_form = models.CharField("Форма связи с контактным лицом", blank=True, null=True, max_length=512)
+    # connection_date = models.DateField("Дата связи с контактным лицом", blank=True, null=True)
+    # contacts = models.CharField("Контакты института", blank=True, null=True, max_length=512)
 
     def __str__(self):
         return f"Платформа: {self.title}"

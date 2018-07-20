@@ -14,4 +14,4 @@ broker_url = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 broker_transport_options = {'visibility_timeout': 3600}
 result_backend = 'django-db'
 result_expires = 36
-CELERY_WORKER_HIJACK_ROOT_LOGGER = True
+CELERY_WORKER_HIJACK_ROOT_LOGGER = False

@@ -129,7 +129,7 @@ CACHES = {
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'handlers': {
         'file': {
             'level': 'DEBUG',
@@ -139,7 +139,16 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-        }
+        },
+        'celery_task_logger': {
+            'level': 'DEBUG',
+            'filters': None,
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '/tmp/celery_tasks.log',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 2,
+            'formatter': 'standard'
+        },
     },
     'loggers': {
         'INFO': {
@@ -151,6 +160,11 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': False,
+        },
+        'openedu.task': {
+            'handlers': ['celery_task_logger'],
+            'level': 'DEBUG',
+            'propagate': True,
         },
     },
 }

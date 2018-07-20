@@ -206,111 +206,111 @@ class ReportUploadView(FormView):
         return super(ReportUploadView, self).form_valid(form)
 
 
-@app.task(bind=True)
-def set_program_grade(*args):
-    for user in PersonalData.objects.all():
-        if user.program and user.program.reports.count() > 0:
-            report = user.program.reports.filter(report_type="grade_report").latest("date")
-            entry = report.entries.filter(user_id=user.possible_id).first()
-            if entry:
-                user.program_grade = entry.grade
-                keys = list(json.loads(entry.raw_data).keys())
-                possible_keys = ["Final Avg", "ИТ", "Final Exam Avg", "Exam Avg"]
-                for pk in possible_keys:
-                    if pk in keys:
-                        user.exam_name = pk
-                        user.exam_grade = json.loads(entry.raw_data)[pk]
-                        user.save()
+# @app.task(bind=True)
+# def set_program_grade(*args):
+#     for user in PersonalData.objects.all():
+#         if user.program and user.program.reports.count() > 0:
+#             report = user.program.reports.filter(report_type="grade_report").latest("date")
+#             entry = report.entries.filter(user_id=user.possible_id).first()
+#             if entry:
+#                 user.program_grade = entry.grade
+#                 keys = list(json.loads(entry.raw_data).keys())
+#                 possible_keys = ["Final Avg", "ИТ", "Final Exam Avg", "Exam Avg"]
+#                 for pk in possible_keys:
+#                     if pk in keys:
+#                         user.exam_name = pk
+#                         user.exam_grade = json.loads(entry.raw_data)[pk]
+#                         user.save()
+#
+#                 user.save()
+#             else:
+#                 user.program_grade = "-1"
+#                 user.save()
+#
+#
+# @app.task(bind=True)
+# def set_proctoring_status(request, *args):
+#     for user in PersonalData.objects.all():
+#         if user.program and user.program.reports.count() > 0:
+#             report = user.program.reports.filter(report_type="proctored_exam_results_report").latest("date")
+#             entry = report.proctored_entries.filter(email=user.email).first()
+#             if entry:
+#                 user.proctoring_status = entry.status
+#                 user.save()
+#             else:
+#                 user.proctoring_status = "None"
+#                 user.save()
+#
+#
+# @app.task(bind=True)
+# def set_course_user_grade(*args):
+#     for user in PersonalData.objects.filter(possible_id__gt=0):
+#         for program in Program.objects.exclude(reports=None):
+#             report = program.reports.latest("date")
+#             entry = report.entries.filter(user_id=user.possible_id).first()
+#             if entry:
+#                 course_user_grade = \
+#                     CourseUserGrade.objects.get_or_create(user=user, program=program, grade=entry.grade)[0]
+#                 course_user_grade.save()
+#
+#
+# @app.task(bind=True)
+# def set_possible_id(*args):
+#     for user in PersonalData.objects.filter(possible_id=0).iterator():
+#         entry = ReportEntry.objects.filter(email=user.email)
+#         if entry:
+#             user.possible_id = entry.first().user_id
+#             user.save()
+#
+#
+# @app.task(bind=True)
+# def handle_report(*args):
+#     report = Report.objects.filter(processed=False).first()
+#     if report:
+#         address = settings.BASE_DIR.split(os.path.sep) + report.report_file.url.split(os.path.sep)
+#         filepath = str(os.path.sep).join(address)
+#         if report.report_type == "grade_report":
+#             with open(filepath, 'r') as report_file:
+#                 reader = csv.DictReader(report_file)
+#                 for row in reader:
+#                     try:
+#                         cohort_name = row["Cohort Name"]
+#                     except:
+#                         cohort_name = "Default"
+#                     report.entries.add(ReportEntry.objects.create(user_id=row["id"],
+#                                                                   email=row["email"],
+#                                                                   username=row["username"],
+#                                                                   grade=row["grade"],
+#                                                                   cohort_name=cohort_name,
+#                                                                   enrollment_track=row["Enrollment Track"],
+#                                                                   certificate_eligible=True if row[
+#                                                                                                    "Certificate Eligible"] == "Y" else False,
+#                                                                   certificate_delivered=row["Certificate Delivered"],
+#                                                                   raw_data=json.dumps(row)))
+#                     report.processed = True
+#                     report.save()
+#         elif report.report_type == "proctored_exam_results_report":
+#             with open(filepath, 'r') as report_file:
+#                 reader = csv.DictReader(report_file)
+#                 for row in reader:
+#                     report.proctored_entries.add(ProctoredReportEntry.objects.create(
+#                         email=row["user_email"],
+#                         exam_name=row["exam_name"],
+#                         allowed_time_limit_mins=row["allowed_time_limit_mins"],
+#                         is_sample_attempt=row["is_sample_attempt"],
+#                         started_at=row["started_at"],
+#                         completed_at=row["completed_at"],
+#                         status=row["status"]
+#                     ))
+#                     report.processed = True
+#                     report.save()
+#
 
-                user.save()
-            else:
-                user.program_grade = "-1"
-                user.save()
-
-
-@app.task(bind=True)
-def set_proctoring_status(request, *args):
-    for user in PersonalData.objects.all():
-        if user.program and user.program.reports.count() > 0:
-            report = user.program.reports.filter(report_type="proctored_exam_results_report").latest("date")
-            entry = report.proctored_entries.filter(email=user.email).first()
-            if entry:
-                user.proctoring_status = entry.status
-                user.save()
-            else:
-                user.proctoring_status = "None"
-                user.save()
-
-
-@app.task(bind=True)
-def set_course_user_grade(*args):
-    for user in PersonalData.objects.filter(possible_id__gt=0):
-        for program in Program.objects.exclude(reports=None):
-            report = program.reports.latest("date")
-            entry = report.entries.filter(user_id=user.possible_id).first()
-            if entry:
-                course_user_grade = \
-                    CourseUserGrade.objects.get_or_create(user=user, program=program, grade=entry.grade)[0]
-                course_user_grade.save()
-
-
-@app.task(bind=True)
-def set_possible_id(*args):
-    for user in PersonalData.objects.filter(possible_id=0).iterator():
-        entry = ReportEntry.objects.filter(email=user.email)
-        if entry:
-            user.possible_id = entry.first().user_id
-            user.save()
-
-
-@app.task(bind=True)
-def handle_report(*args):
-    report = Report.objects.filter(processed=False).first()
-    if report:
-        address = settings.BASE_DIR.split(os.path.sep) + report.report_file.url.split(os.path.sep)
-        filepath = str(os.path.sep).join(address)
-        if report.report_type == "grade_report":
-            with open(filepath, 'r') as report_file:
-                reader = csv.DictReader(report_file)
-                for row in reader:
-                    try:
-                        cohort_name = row["Cohort Name"]
-                    except:
-                        cohort_name = "Default"
-                    report.entries.add(ReportEntry.objects.create(user_id=row["id"],
-                                                                  email=row["email"],
-                                                                  username=row["username"],
-                                                                  grade=row["grade"],
-                                                                  cohort_name=cohort_name,
-                                                                  enrollment_track=row["Enrollment Track"],
-                                                                  certificate_eligible=True if row[
-                                                                                                   "Certificate Eligible"] == "Y" else False,
-                                                                  certificate_delivered=row["Certificate Delivered"],
-                                                                  raw_data=json.dumps(row)))
-                    report.processed = True
-                    report.save()
-        elif report.report_type == "proctored_exam_results_report":
-            with open(filepath, 'r') as report_file:
-                reader = csv.DictReader(report_file)
-                for row in reader:
-                    report.proctored_entries.add(ProctoredReportEntry.objects.create(
-                        email=row["user_email"],
-                        exam_name=row["exam_name"],
-                        allowed_time_limit_mins=row["allowed_time_limit_mins"],
-                        is_sample_attempt=row["is_sample_attempt"],
-                        started_at=row["started_at"],
-                        completed_at=row["completed_at"],
-                        status=row["status"]
-                    ))
-                    report.processed = True
-                    report.save()
-
-
-app.control.rate_limit('openprofession.views.handle_report', '100/m')
-app.control.rate_limit('openprofession.views.set_possible_id', '5/m')
-app.control.rate_limit('openprofession.views.set_course_user_grade', '5/m')
-app.control.rate_limit('openprofession.views.set_program_grade', '100/m')
-app.control.rate_limit('openprofession.views.set_proctoring_status', '100/m')
+#app.control.rate_limit('openprofession.views.handle_report', '100/m')
+#app.control.rate_limit('openprofession.views.set_possible_id', '5/m')
+#app.control.rate_limit('openprofession.views.set_course_user_grade', '5/m')
+#app.control.rate_limit('openprofession.views.set_program_grade', '100/m')
+#app.control.rate_limit('openprofession.views.set_proctoring_status', '100/m')
 
 
 # @app.task(bind=True)

@@ -143,12 +143,14 @@ class Course(models.Model):
                 r = requests.get(f"https://online.edu.ru/api/courses/v0/course/{c['global_id']}",
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
-                roo_courses = cls.objects.filter(global_id=course['global_id'])
-
-                if len(roo_courses) > 0:
-                    roo_course = roo_courses[0]
-                else:
+                try:
+                    roo_courses = cls.objects.filter(global_id=course['global_id'])[0]
+                except cls.DoesNotExist:
                     roo_course = False
+                # if len(roo_courses) > 0:
+                #     roo_course = roo_courses[0]
+                # else:
+                #     roo_course = False
 
                 print("roo_courses", roo_courses)
 

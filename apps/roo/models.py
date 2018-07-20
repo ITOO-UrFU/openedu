@@ -108,13 +108,10 @@ class Course(models.Model):
         for attr, val in d.items():
             if attr == "teachers":
                 for teacher in d['teachers']:
-                    if self.teachers.filter(title=teacher['title']).count() > 0:
-                        pass
-                    else:
+                    if self.teachers.filter(title=teacher['title']).count() == 0:
                         t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
                         t.save()
                         self.teachers.add(t)
-                    print("update", teacher)
             else:
                 setattr(self, attr, val)
             self.save()
@@ -128,7 +125,6 @@ class Course(models.Model):
                     t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
                     t.save()
                     c.teachers.add(t)
-                    print("create", teacher)
             else:
                 setattr(c, attr, val)
             c.save()
@@ -146,6 +142,8 @@ class Course(models.Model):
                 r = requests.get(f"https://online.edu.ru/api/courses/v0/course/{c['global_id']}",
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
+                print("course_credits", course['credits'])
+                print('global_id', course['global_id'])
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:
@@ -155,16 +153,12 @@ class Course(models.Model):
                 # else:
                 #     roo_course = False
 
-                print("roo_courses", roo_course)
-                print("course[id]", course['global_id'])
-
                 if roo_course:
                     if not roo_course.newest:
                         roo_course.update_from_dict(course)
                 else:
                     Course.create_from_dict(course)
 
-            print("response[next]= ", response["next"])
             if response["next"] is not None:
                 get_courses_from_page(response["next"])
             else:

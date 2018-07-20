@@ -9,7 +9,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
-    list_display = ("title", "person", "connection_form", "connection_date", "contacts")
+    list_display = ("title", "global_id", "description")
 
 
 @admin.register(Teacher)

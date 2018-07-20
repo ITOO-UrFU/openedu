@@ -3,7 +3,7 @@ from time import gmtime, strftime
 from django.db import models
 from celery.utils.log import get_task_logger
 
-logger = get_task_logger('openedu.tasks')
+logger = get_task_logger(__name__)
 
 class Expertise(models.Model):
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')
@@ -145,7 +145,7 @@ class Course(models.Model):
                 r = requests.get(f"https://online.edu.ru/api/courses/v0/course/{c['global_id']}",
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
-                logger.info('global_id',course['global_id'])
+                logger.info('global_id', course['global_id'])
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:

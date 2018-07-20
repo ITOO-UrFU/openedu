@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 @app.task(bind=True)
 def update_courses_from_roo_task(*args):
+    logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
     Course.updade_courses_from_roo()
 
 

@@ -113,7 +113,7 @@ class Course(models.Model):
                     else:
                         t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
                         t.save()
-                    self.teachers.add(t)
+                        self.teachers.add(t)
                     print("update", teacher)
             else:
                 setattr(self, attr, val)

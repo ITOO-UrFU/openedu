@@ -151,7 +151,7 @@ LOGGING = {
         },
         'celery_task_logger_err': {
             'level': 'DEBUG',
-            'class': 'logging.FileHandler()',
+            'class': 'logging.StreamHandler',
             'filename': '/tmp/celery_tasks_err.log',
         },
         # 'celery_task_logger': {
@@ -176,6 +176,11 @@ LOGGING = {
         },
         'celery_logging': {
             'handlers': ['celery_task_logger'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'celery_logging_err': {
+            'handlers': ['celery_task_logger_err'],
             'level': 'DEBUG',
             'propagate': True,
         },

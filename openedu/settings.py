@@ -179,11 +179,6 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'celery_logging_err': {
-            'handlers': ['celery_task_logger_err'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
     },
 }
 

@@ -140,9 +140,14 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
+        'celery': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+            'filename': '/tmp/celery_tasks.log',
+        },
         # 'celery_task_logger': {
         #     'level': 'DEBUG',
-        #     'filters': None,
         #     'class': 'logging.handlers.RotatingFileHandler',
         #     'filename': '/tmp/celery_tasks.log',
         #     'maxBytes': 1024 * 1024 * 5,
@@ -161,11 +166,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
-        # 'openedu.task': {
-        #     'handlers': ['celery_task_logger'],
-        #     'level': 'DEBUG',
-        #     'propagate': True,
-        # },
+        'celery_logging': {
+            'handlers': ['celery'],
+            'level': 'INFO',
+            'propagate': True,
+        },
     },
 }
 

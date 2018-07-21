@@ -167,7 +167,7 @@ class Course(models.Model):
 
         get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
 
-        print("Закончили: ", strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+        logger.info("Закончили: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Platform(models.Model):

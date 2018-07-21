@@ -140,7 +140,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
-        'celery': {
+        'celery_task_logger': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
             'stream': sys.stdout,
@@ -167,7 +167,7 @@ LOGGING = {
             'propagate': False,
         },
         'celery_logging': {
-            'handlers': ['celery'],
+            'handlers': ['celery_task_logger'],
             'level': 'INFO',
             'propagate': True,
         },

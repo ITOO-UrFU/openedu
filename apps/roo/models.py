@@ -146,7 +146,7 @@ class Course(models.Model):
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
                 logger.info("global_id")
-                logger.info(course['global_id'])
+                logger.info(course['global
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:

@@ -143,7 +143,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
         'celery_task_logger': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': '/tmp/celery_tasks.log',
             'maxBytes': 1024 * 1024 * 5,  # 5 MB
@@ -171,7 +171,7 @@ LOGGING = {
         },
         'celery_logging': {
             'handlers': ['celery_task_logger'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True,
         },
     },

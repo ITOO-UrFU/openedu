@@ -9,7 +9,7 @@ logger = logging.getLogger('celery_logging')
 
 @app.task(bind=True)
 def update_courses_from_roo_task(*args):
-    logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
+    logger.info("RUN TASKS!!!!!")
     Course.updade_courses_from_roo()
 
 

@@ -127,6 +127,8 @@ CACHES = {
     }
 }
 
+CELERYD_HIJACK_ROOT_LOGGER = False
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -141,10 +143,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
         'celery_task_logger': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
+            'level': 'DEBUG',
+            'class': 'core.log.handlers.CelerySentryHandler',
             'filename': '/tmp/celery_tasks.log',
+            'propagate': False,
         },
         # 'celery_task_logger': {
         #     'level': 'DEBUG',
@@ -168,7 +170,7 @@ LOGGING = {
         },
         'celery_logging': {
             'handlers': ['celery_task_logger'],
-            'level': 'INFO',
+            'level': 'DEBUG',
             'propagate': True,
         },
     },

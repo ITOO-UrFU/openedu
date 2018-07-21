@@ -4,7 +4,7 @@ import json
 from openedu.celery import app
 from .models import Course
 
-logger = logging.getLogger('openedu.task')
+logger = logging.getLogger('celery_logging')
 
 
 @app.task(bind=True)

@@ -1,9 +1,9 @@
 import requests
 from time import gmtime, strftime
 from django.db import models
-from celery.utils.log import get_task_logger
+import logging
 
-logger = get_task_logger('celery_logging')
+logger = logging.getLogger('celery_logging')
 
 class Expertise(models.Model):
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')

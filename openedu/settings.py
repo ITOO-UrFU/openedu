@@ -147,8 +147,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': '/tmp/celery_tasks.log',
             'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 5,
-            'formatter': 'standard',
+            'backupCount': 2,
         },
         # 'celery_task_logger': {
         #     'level': 'DEBUG',

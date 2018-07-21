@@ -144,9 +144,11 @@ LOGGING = {
         },
         'celery_task_logger': {
             'level': 'DEBUG',
-            'class': 'core.log.handlers.CelerySentryHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': '/tmp/celery_tasks.log',
-            'propagate': False,
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'standard',
         },
         # 'celery_task_logger': {
         #     'level': 'DEBUG',

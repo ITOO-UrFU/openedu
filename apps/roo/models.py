@@ -205,7 +205,10 @@ class Platform(models.Model):
             platfrom = r.json()
             logger.info('!!!!!!!!!!!!!KEK!!!!!!!!!!!!!!!')
             for p in platfroms:
-                kek = Platform(image=p['image'], description=p['description'], title=p['title'])
+                kek = Platform(image=p['image'], description=p['description'],
+                               title=p['title'], global_id=p['global_id'],
+                               ogrn=p['ogrn'], url=p['url']
+                               )
                 logger.info(kek)
 
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')

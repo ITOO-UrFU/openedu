@@ -149,19 +149,13 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 5,  # 5 MB
             'backupCount': 2,
         },
+        # не работает |
+        #             V
         'celery_task_logger_err': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': '/tmp/celery_tasks_err.log',
         },
-        # 'celery_task_logger': {
-        #     'level': 'DEBUG',
-        #     'class': 'logging.handlers.RotatingFileHandler',
-        #     'filename': '/tmp/celery_tasks.log',
-        #     'maxBytes': 1024 * 1024 * 5,
-        #     'backupCount': 2,
-        #     'formatter': 'standard'
-        # },
     },
     'loggers': {
         'INFO': {

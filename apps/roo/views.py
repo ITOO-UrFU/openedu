@@ -19,8 +19,10 @@ def index(request):
 
 
 def start_tasks_celery(request):
+    template = loader.get_template('roo/index.html')
+    update_courses_from_roo_task.delay()
     context = {
-     'latest_question_list': "Kektorium",
+     'latest_question_list': "Started!",
     }
-    return JsonResponse(context)
+    return HttpResponse(template.render(context, request))
     # update_courses_from_roo_task.delay()

@@ -7,11 +7,17 @@ from django.template.context_processors import csrf
 from django.http import Http404
 from django.http import HttpResponse
 from django.template import loader
+from .tasks import update_platform_from_roo_task
+
+
+# def index(request):
+#     template = loader.get_template('roo/index.html')
+#     context = {
+#         'latest_question_list': "kektorium",
+#     }
+#     return HttpResponse(template.render(context, request))
 
 
 def index(request):
-    template = loader.get_template('roo/index.html')
-    context = {
-        'latest_question_list': "kektorium",
-    }
-    return HttpResponse(template.render(context, request))
+    update_platform_from_roo_task.delay()
+    return HttpResponse('work kicked off!')

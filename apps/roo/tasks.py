@@ -19,4 +19,4 @@ def update_platform_from_roo_task(*args):
     Platform.updade_platform_from_roo()
 
 #app.control.rate_limit('roo.tasks,update_courses_from_roo_task', '5/m')
-app.control.rate_limit('roo.tasks,update_platform_from_roo_task', '5/m')
+#app.control.rate_limit('roo.tasks,update_platform_from_roo_task', '5/m')

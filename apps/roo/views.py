@@ -10,14 +10,13 @@ from django.template import loader
 from .tasks import update_courses_from_roo_task
 
 
-# def index(request):
-#     template = loader.get_template('roo/index.html')
-#     context = {
-#         'latest_question_list': "kektorium",
-#     }
-#     return HttpResponse(template.render(context, request))
-
-
 def index(request):
+    template = loader.get_template('roo/index.html')
+    context = {
+     'latest_question_list': "Kektorium",
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def start_tasks_celery():
     update_courses_from_roo_task.delay()
-    return HttpResponse('work kicked off!')

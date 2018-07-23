@@ -149,10 +149,6 @@ class Course(models.Model):
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:
                     roo_course = False
-                # if len(roo_courses) > 0:
-                #     roo_course = roo_courses[0]
-                # else:
-                #     roo_course = False
 
                 if roo_course:
                     if not roo_course.newest:
@@ -178,6 +174,9 @@ class Platform(models.Model):
     description = models.TextField("Описание платформы", blank=True, null=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
+    # наши поля
+    newest = models.BooleanField("Самое новое содержание курса", default=False)
+
     # person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
     #                           max_length=512)
     # connection_form = models.CharField("Форма связи с контактным лицом", blank=True, null=True, max_length=512)
@@ -192,6 +191,19 @@ class Platform(models.Model):
         verbose_name_plural = 'платформы'
 
     @classmethod
+    def update_from_dict_p(self, d):
+        for attr, val in d.items():
+            setattr(self, attr, val)
+            self.save()
+
+    @classmethod
+    def create_from_dict(cls, d):
+        c = cls.objects.create(title=d["title"])
+        for attr, val in d.items():
+            setattr(c, attr, val)
+            c.save()
+
+    @classmethod
     def updade_platform_from_roo(cls):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
@@ -201,12 +213,19 @@ class Platform(models.Model):
             response = request.json()
             platfroms = response["rows"]
             logger.info('!!!!!!!!!!!!!KEK!!!!!!!!!!!!!!!')
-            for p in platfroms:
-                pltfrm = Platform(image=p['image'], description=p['description'],
-                               title=p['title'], global_id=p['global_id'],
-                               ogrn=p['ogrn'], url=p['url']
-                               )
-                pltfrm.save()
+            r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",
+                             auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
+            platfrom = r.json()
+            try:
+                roo_course = cls.objects.filter(global_id=platfrom['global_id']).first()
+            except cls.DoesNotExist:
+                roo_course = False
+
+            if roo_course:
+                if not roo_course.newest:
+                    roo_course.update_from_dict_p(platfrom)
+            else:
+                Course.create_from_dict_p(platfrom)
 
 
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')

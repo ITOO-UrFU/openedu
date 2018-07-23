@@ -136,9 +136,8 @@ class Course(models.Model):
     def updade_courses_from_roo(cls):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
-        count_course = 0
 
-        def get_courses_from_page(page_url):
+        def get_courses_from_page(page_url, count_course):
             request = requests.get(page_url, auth=(login, password), verify=False)
             response = request.json()
             courses = response["rows"]
@@ -147,7 +146,7 @@ class Course(models.Model):
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
                 logger.info('count_course : {0}'.format(count_course))
-                count_course = count_course+1
+                count_course = count_course + 1
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:
@@ -160,11 +159,11 @@ class Course(models.Model):
                     Course.create_from_dict(course)
 
             if response["next"] is not None:
-                get_courses_from_page(response["next"])
+                get_courses_from_page(response["next"], count_course)
             else:
                 return
 
-        get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
+        get_courses_from_page('https://online.edu.ru/api/courses/v0/course', 0)
 
         logger.info("Закончили: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 

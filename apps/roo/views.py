@@ -22,7 +22,15 @@ def start_tasks_celery(request):
     template = loader.get_template('roo/index.html')
     update_courses_from_roo_task.delay()
     context = {
-     'latest_question_list': "Started!",
+     'start_list': "Started!",
+    }
+    return HttpResponse(template.render(context, request))
+
+def stop_tasks_celery(request):
+    template = loader.get_template('roo/index.html')
+    update_courses_from_roo_task.revoke()
+    context = {
+        'stop_list': "Stoped!",
     }
     return HttpResponse(template.render(context, request))
     # update_courses_from_roo_task.delay()

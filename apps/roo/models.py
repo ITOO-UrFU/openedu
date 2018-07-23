@@ -216,7 +216,7 @@ class Platform(models.Model):
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
             platfrom = r.json()
             #try:
-            logger.info(platfrom['global_id'])
+            logger.info(platfroms['global_id'])
             #     roo_course = cls.objects.filter(global_id=platfrom['global_id']).first()
             # except cls.DoesNotExist:
             #     roo_course = False

@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, redirect, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.context_processors import csrf
 from django.http import Http404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from .tasks import update_courses_from_roo_task
 
@@ -18,5 +18,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def start_tasks_celery():
-    update_courses_from_roo_task.delay()
+def start_tasks_celery(request):
+    context = {
+     'latest_question_list': "Kektorium",
+    }
+    return JsonResponse(context)
+    # update_courses_from_roo_task.delay()

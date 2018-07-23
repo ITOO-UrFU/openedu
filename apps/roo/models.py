@@ -200,16 +200,14 @@ class Platform(models.Model):
             request = requests.get(page_url, auth=(login, password), verify=False)
             response = request.json()
             platfroms = response["rows"]
-            r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",
-                                 auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
-            platfrom = r.json()
             logger.info('!!!!!!!!!!!!!KEK!!!!!!!!!!!!!!!')
             for p in platfroms:
-                kek = Platform(image=p['image'], description=p['description'],
+                pltfrm = Platform(image=p['image'], description=p['description'],
                                title=p['title'], global_id=p['global_id'],
                                ogrn=p['ogrn'], url=p['url']
                                )
-                logger.info(kek)
+                pltfrm.save()
+
 
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')
 

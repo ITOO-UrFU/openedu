@@ -29,7 +29,9 @@ def start_tasks_celery(request):
 
 def stop_tasks_celery(request):
     template = loader.get_template('roo/index.html')
-    update_courses_from_roo_task.revoke()
+    #result = add.apply_async(args=[2, 2], countdown=120)
+    #result.revoke()
+    #остановка таски
     context = {
         'stop_list': "Stoped!",
     }

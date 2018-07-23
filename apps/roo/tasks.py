@@ -10,7 +10,7 @@ logger = logging.getLogger('celery_logging')
 
 @app.task(bind=True)
 def update_courses_from_roo_task(*args):
-    logger.info("Запуск Tasks!!!!!".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+    logger.info("Начали: ".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
     Course.updade_courses_from_roo()
 
 

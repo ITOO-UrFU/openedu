@@ -191,6 +191,25 @@ class Platform(models.Model):
         verbose_name = 'платформа'
         verbose_name_plural = 'платформы'
 
+    @classmethod
+    def updade_platform_from_roo(cls):
+        login = 'vesloguzov@gmail.com'
+        password = 'ye;yj,jkmitrjlf'
+
+        def get_platform_from_page(page_url):
+            request = requests.get(page_url, auth=(login, password), verify=False)
+            response = request.json()
+            courses = response["rows"]
+            r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",
+                                 auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
+            course = r.json()
+            logger.info('courses ')
+            logger.info(courses)
+            logger.info('course ')
+            logger.info(course)
+
+        get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')
+
 
 class Expert(models.Model):
     login = models.CharField("Логин эксперта", blank=True, null=True, max_length=512)

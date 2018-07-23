@@ -198,6 +198,7 @@ class Platform(models.Model):
 
         def get_platform_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
+            logger.info('request: {0}'.format(request))
             response = request.json()
             courses = response["rows"]
             r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",

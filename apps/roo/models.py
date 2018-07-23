@@ -215,17 +215,17 @@ class Platform(models.Model):
             r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
             platfrom = r.json()
-            try:
-                logger.info(platfrom['global_id'])
-                roo_course = cls.objects.filter(global_id=platfrom['global_id']).first()
-            except cls.DoesNotExist:
-                roo_course = False
-
-            if roo_course:
-                if not roo_course.newest:
-                    roo_course.update_from_dict_p(platfrom)
-            else:
-                Course.create_from_dict_p(platfrom)
+            #try:
+            logger.info(platfrom['global_id'])
+            #     roo_course = cls.objects.filter(global_id=platfrom['global_id']).first()
+            # except cls.DoesNotExist:
+            #     roo_course = False
+            #
+            # if roo_course:
+            #     if not roo_course.newest:
+            #         roo_course.update_from_dict_p(platfrom)
+            # else:
+            #     Course.create_from_dict_p(platfrom)
 
 
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')

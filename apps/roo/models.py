@@ -136,6 +136,7 @@ class Course(models.Model):
     def updade_courses_from_roo(cls):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
+        count_course = 0
 
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
@@ -145,7 +146,8 @@ class Course(models.Model):
                 r = requests.get(f"https://online.edu.ru/api/courses/v0/course/{c['global_id']}",
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
                 course = r.json()
-                logger.info('worked')
+                logger.info('count_course : {0}'.format(count_course))
+                count_course = count_course+1
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:

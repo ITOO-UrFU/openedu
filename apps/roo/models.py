@@ -176,7 +176,7 @@ class Platform(models.Model):
     image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
     url = models.CharField("Ссылка на сайт платформы", blank=True, null=True, max_length=512)
     description = models.TextField("Описание платформы", blank=True, null=True)
-    ogm = models.CharField("ОГРН", blank=True, null=True, max_length=512)
+    ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     # person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
     #                           max_length=512)

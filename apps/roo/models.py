@@ -198,16 +198,15 @@ class Platform(models.Model):
 
         def get_platform_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
-            logger.info('request: {0}'.format(request))
             response = request.json()
-            courses = response["rows"]
+            platfroms = response["rows"]
             r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",
                                  auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
-            course = r.json()
-            logger.info('courses ')
-            logger.info(courses)
-            logger.info('course ')
-            logger.info(course)
+            platfrom = r.json()
+            logger.info('!!!!!!!!!!!!!KEK!!!!!!!!!!!!!!!')
+            for p in platfroms:
+                kek = Platform(image=p['image'], description=p['description'], title=p['title'])
+                logger.info(kek)
 
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')
 

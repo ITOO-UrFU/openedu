@@ -14,9 +14,4 @@ def update_courses_from_roo_task(*args):
     Course.updade_courses_from_roo()
     Platform.updade_platform_from_roo()
 
-@app.task(bind=True)
-def updade_platform_from_roo_task(*args):
-    logger.info("Platform Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
-    Platform.updade_platform_from_roo()
-
-app.control.rate_limit('roo.tasks,update_courses_from_roo_task,update_platform_from_roo_task', '5/m')
+app.control.rate_limit('roo.tasks,update_courses_from_roo_task', '5/m')

@@ -6,16 +6,15 @@ from django.template.context_processors import csrf
 from django.shortcuts import render, redirect
 import logging
 
-from celery.task.control import inspect
-
+from openedu.celery import app
 
 logger = logging.getLogger('celery_logging')
 
 
 def index(request):
     task = request.GET.get("task", None)
-    i = inspect()
-    print(i)
+    i = app.control.inspect()
+    print(i.active())
     context = {}
     context["active"] = i.active()
 

@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "../base.html" %}
+{% block content %}
 <h1>РОО</h1>
-<a href="/roo/?task=update_courses_from_roo_task">Start update_courses_from_roo_task</a>
-<a href="/roo/?task=update_platform_from_roo_task">Start update_platform_from_roo_task</a>
+<div class="run_task">
+    <a href="/roo/?task=update_courses_from_roo_task">Start update_courses_from_roo_task</a>
+</div>
+<div class="run_task">
+    <a href="/roo/?task=update_platform_from_roo_task">Start update_platform_from_roo_task</a>
+</div>
 <p>{{ context.active }}</p>
 <p>{{ context.status }}</p>
-</body>
-</html>
+
+{% endfor %}
+{% endblock %}

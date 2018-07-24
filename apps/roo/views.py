@@ -15,6 +15,7 @@ logger = logging.getLogger('celery_logging')
 def index(request):
     task = request.GET.get("task", None)
     i = inspect()
+    print(i)
     context = {}
     context["active"] = i.active()
 

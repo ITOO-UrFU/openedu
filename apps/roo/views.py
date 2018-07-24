@@ -24,7 +24,7 @@ def index(request):
 
 
 def start_tasks_celery(request):
-    task = request.GET("task", None)
+    task = request.GET.get("task", None)
     context = {}
     print(task)
     try:

@@ -8,6 +8,10 @@ logger = logging.getLogger('celery_logging')
 
 
 class Base(models.Model):
+
+    class Meta:
+        abstract = True
+
     def update_from_dict(self, d):
         for attr, val in d.items():
             setattr(self, attr, val)
@@ -31,7 +35,7 @@ class Base(models.Model):
             items = response["rows"]
             for item in items:
                 try:
-                    roo_base = cls.objects.filter(Q(**{filter_by: filter_by}).first())
+                    roo_base = cls.objects.filter(Q(**{filter_by: filter_by})).first()
                 except:
                     roo_base = None
 
@@ -109,7 +113,7 @@ class Course(models.Model):
                                   max_length=512)  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
                                              max_length=512)  # наверно
-    total_visitors_number =models.CharField("Количество слушателей", blank=True, null=True,
+    total_visitors_number = models.CharField("Количество слушателей", blank=True, null=True,
                                              max_length=512)
     experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=512)
     requirements = models.TextField("Массив строк-требований", blank=True, null=True)  # массив
@@ -213,7 +217,7 @@ class Platform(models.Model):
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     # наши поля
-    #newest = models.BooleanField("Самое новое содержание курса", default=False)
+    # newest = models.BooleanField("Самое новое содержание курса", default=False)
 
     # person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
     #                           max_length=512)
@@ -287,7 +291,6 @@ class Owner(Base):
     class Meta:
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
-
 
     @classmethod
     def get(cls):

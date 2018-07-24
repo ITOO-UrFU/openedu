@@ -20,7 +20,7 @@ class Base(models.Model):
             c.save()
 
     @classmethod
-    def update_base_from_roo(cls, url, filter_name, filter_name_two):
+    def update_base_from_roo(cls, url, filter_name_two):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
 
@@ -287,7 +287,7 @@ class Owner(models.Model, Base):
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
 
-    Base.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', title, 'title')
+    Base.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
 
     logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 

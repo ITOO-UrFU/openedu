@@ -25,8 +25,7 @@ def index(request):
 
 def start_tasks_celery(request):
     template = loader.get_template('roo/index.html')
-    task_id = update_courses_from_roo_task.delay()
-    logger.info("VIEW : {0}".format(task_id))
+    update_courses_from_roo_task.delay()
     context = {
      'start_list': "Started!",
     }
@@ -35,6 +34,8 @@ def start_tasks_celery(request):
 
 def stop_tasks_celery(request):
     template = loader.get_template('roo/index.html')
+    task_id = update_courses_from_roo_task
+    logger.info("VIEW : {0}".format(task_id))
     #result.revoke(task_id, terminate=True)
     #остановка таски
     context = {

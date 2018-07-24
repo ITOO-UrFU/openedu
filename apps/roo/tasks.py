@@ -13,7 +13,7 @@ def update_courses_from_roo_task(self,*args):
     logger.info("Course Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
     logger.info(self.request.id)
     Course.updade_courses_from_roo()
-
+    return self.request.id
 
 # @app.task(bind=True)
 # def update_platform_from_roo_task(*args):

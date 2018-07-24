@@ -26,6 +26,7 @@ def index(request):
 def start_tasks_celery(request):
     task = request.GET.get("task", None)
     context = {}
+    logger.info(f"Task running: \"{task}\"")
     print("ololo")
     print(task)
     try:

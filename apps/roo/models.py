@@ -324,7 +324,6 @@ class Areas(models.Model):
                     roo_area = Areas.objects.filter(title=area["title"]).first()
                 except:
                     roo_area = None
-                logger.info(roo_area)
                 if roo_area:
                     roo_area.update_from_dict(area)
                 else:

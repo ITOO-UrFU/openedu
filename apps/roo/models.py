@@ -212,13 +212,9 @@ class Platform(models.Model):
             request = requests.get(page_url, auth=(login, password), verify=False)
             response = request.json()
             platfroms = response["rows"]
-            r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",
-                             auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
-            platfrom = r.json()
-            logger.info('??????????????????????????????????????????????????????')
-            logger.info(platfroms)
-            logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            logger.info(platfrom)
+            for platform in platfroms:
+                logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
+                logger.info(platform)
             # try:
             #     roo_course = cls.objects.filter(global_id=platfrom['global_id']).first()
             # except cls.DoesNotExist:

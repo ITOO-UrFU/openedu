@@ -190,13 +190,13 @@ class Platform(models.Model):
         verbose_name = 'платформа'
         verbose_name_plural = 'платформы'
 
-    def update_from_dict_p(self, d):
+    def update_from_dict(self, d):
         for attr, val in d.items():
             setattr(self, attr, val)
             self.save()
 
     @classmethod
-    def create_from_dict_p(cls, d):
+    def create_from_dict(cls, d):
         c = cls.objects.create(title=d["title"])
         for attr, val in d.items():
             setattr(c, attr, val)
@@ -218,9 +218,9 @@ class Platform(models.Model):
                     roo_platform = False
 
                 if roo_platform:
-                    Platform.update_from_dict_p(platform)
+                    platform.update_from_dict(platform)
                 else:
-                    Platform.create_from_dict_p(platform)
+                    Platform.create_from_dict(platform)
 
 
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')

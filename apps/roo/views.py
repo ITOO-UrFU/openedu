@@ -34,8 +34,8 @@ def start_tasks_celery(request):
 
 def stop_tasks_celery(request):
     template = loader.get_template('roo/index.html')
-    update_courses_from_roo_task.revoke()
-    logger.info("VIEW_STOP : {0}".format(request))
+    task_id = update_courses_from_roo_task.request.id
+    logger.info("VIEW_STOP : {0}".format(task_id))
     #logger.info("VIEW : {0}".format(task_id))
     #revoke(task_id, terminate=True)
     # остановка таски

@@ -20,7 +20,7 @@ def index(request):
     for tasks in i.active().values():
         context["active"] += tasks
 
-    print(context["active"])
+    print([t["name"].split('.')[2] for t in context["active"]])
 
     if task:
         if task not in [t["name"].split('.')[2] for t in context["active"]]:

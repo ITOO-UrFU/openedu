@@ -18,6 +18,7 @@ def index(request):
 
     context = {}
     context["active"] = i.active()
+    print(type(context["active"]))
 
     if task:
         if task not in [t["name"].split('.')[2] for t in context["active"]]:

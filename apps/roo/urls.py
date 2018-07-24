@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from .views import index, start_tasks_celery
+from .views import index
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-    url(r'start_tasks_celery/', start_tasks_celery, name='start_tasks_celery'),
 ]

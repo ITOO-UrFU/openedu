@@ -1,6 +1,7 @@
 import requests
 from time import gmtime, strftime
 from django.db import models
+from django.db.models import Q
 import logging
 
 logger = logging.getLogger('celery_logging')
@@ -20,26 +21,26 @@ class Base(models.Model):
             c.save()
 
     @classmethod
-    def update_base_from_roo(cls, url, filter_name_two):
+    def update_base_from_roo(cls, url, filter_by):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
 
-        def get_base_from_page(page_url):
+        def get_base_from_page(cls, page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
             response = request.json()
             items = response["rows"]
             for item in items:
                 try:
-                    roo_base = Base.objects.filter(filter_name=item[filter_name_two]).first()
+                    roo_base = cls.objects.filter(Q(**{filter_by: filter_by}).first())
                 except:
                     roo_base = None
 
                 if roo_base:
                     roo_base.update_from_dict(item)
                 else:
-                    Base.create_from_dict(item)
+                    cls.create_from_dict(item)
 
-        get_base_from_page(url)
+        get_base_from_page(cls, url)
 
 
 class Expertise(models.Model):
@@ -275,7 +276,7 @@ class Expert(models.Model):
         verbose_name_plural = 'эксперт'
 
 
-class Owner(models.Model, Base):
+class Owner(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД Правообладателя на РОО", blank=True, null=True, max_length=512)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
@@ -287,7 +288,10 @@ class Owner(models.Model, Base):
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
 
-    Base.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
+
+    @classmethod
+    def get(cls):
+        cls.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
 
     logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 

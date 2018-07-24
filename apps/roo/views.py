@@ -16,7 +16,8 @@ logger = logging.getLogger('celery_logging')
 from django.utils.html import escape
 
 def index(request):
-    print(escape(repr(request)))
+    print(request.GET)
+    print(request.GET.pop("task"))
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()

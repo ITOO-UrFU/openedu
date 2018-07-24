@@ -148,7 +148,7 @@ class Course(models.Model):
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
                 except cls.DoesNotExist:
-                    roo_course = False
+                    roo_course = None
 
                 if roo_course:
                     if not roo_course.newest:
@@ -213,12 +213,12 @@ class Platform(models.Model):
             platfroms = response["rows"]
             for platform in platfroms:
                 try:
-                    roo_platform = platform
+                    roo_platform = Platform.objects.filter(global_id=platform["global_id"]).first()
                 except:
-                    roo_platform = False
+                    roo_platform = None
 
                 if roo_platform:
-                    platform.update_from_dict(platform)
+                    roo_platform.update_from_dict(platform)
                 else:
                     Platform.create_from_dict(platform)
 

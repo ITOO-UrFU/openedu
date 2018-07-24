@@ -26,12 +26,14 @@ def index(request):
 def start_tasks_celery(request):
     task = request.GET("task", None)
     context = {}
+    print(task)
     try:
         if task:
             globals()[task].delay()
             context["start_list"] = task
     except:
         context["start_list"] = "None"
+    print(context)
     #update_courses_from_roo_task.delay()
     #update_platform_from_roo_task.delay()
     return render(request, "roo/index.html", context)

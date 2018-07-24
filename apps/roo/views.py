@@ -13,7 +13,6 @@ logger = logging.getLogger('celery_logging')
 
 
 def index(request):
-    request.GET = request.GET.copy()
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()
@@ -22,11 +21,10 @@ def index(request):
         context["active"] += tasks
 
     if task:
-        request.GET = {}
         if task not in [t["name"].split('.')[2] for t in context["active"]]:
             globals()[task].delay()
             context["start_list"] = task
-            return render(request, "roo/index.html", context)  # redirect("/roo/")
+            return redirect("/roo/")
         else:
             context["status"] = f"{task} already running!"
 

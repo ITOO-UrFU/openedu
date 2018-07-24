@@ -219,7 +219,7 @@ class Platform(models.Model):
                     roo_platform = False
 
                 if roo_platform:
-                    roo_platform.update_from_dict_p(platform)
+                    Platform.update_from_dict_p(platform)
                 else:
                     Platform.create_from_dict_p(platform)
 

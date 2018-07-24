@@ -24,6 +24,7 @@ def index(request):
 
     if task:
         if task not in [t["name"].split('.')[2] for t in context["active"]]:
+            print("Я не буду это делать, идите нахуй")
             globals()[task].delay()
             context["start_list"] = task
             return redirect("/roo/")

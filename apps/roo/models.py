@@ -324,7 +324,7 @@ class Areas(models.Model):
                     roo_area = Owner.objects.filter(global_id=area["title"]).first()
                 except:
                     roo_area = None
-
+                logger.info(roo_area)
                 if roo_area:
                     roo_area.update_from_dict(area)
                 else:

@@ -218,7 +218,6 @@ class Platform(models.Model):
                 except cls.DoesNotExist:
                     roo_platform = False
                 if roo_platform:
-                    if not roo_platform:
                         roo_platform.update_from_dict_p(platform)
                 else:
                     Platform.create_from_dict_p(platform)

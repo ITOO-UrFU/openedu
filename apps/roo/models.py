@@ -35,7 +35,7 @@ class Base(models.Model):
             items = response["rows"]
             for item in items:
                 try:
-                    roo_base = cls.objects.filter(Q(**{filter_by: filter_by})).first()
+                    roo_base = cls.objects.filter(Q(**{filter_by: item[filter_by]})).first()
                 except:
                     roo_base = None
 
@@ -193,6 +193,7 @@ class Course(models.Model):
                     roo_course = None
 
                 if roo_course:
+
                     if not roo_course.newest:
                         roo_course.update_from_dict(course)
                 else:

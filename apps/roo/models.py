@@ -240,7 +240,7 @@ class Expert(models.Model):
 
 class Owner(models.Model):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    global_id = models.CharField("ИД платформы на РОО", blank=True, null=True, max_length=512)
+    global_id = models.CharField("ИД Правообладателя на РОО", blank=True, null=True, max_length=512)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     def __str__(self):
@@ -267,7 +267,7 @@ class Owner(models.Model):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
 
-        def get_platform_from_page(page_url):
+        def get_owner_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
             response = request.json()
             owners = response["rows"]
@@ -282,6 +282,54 @@ class Owner(models.Model):
                 else:
                     Owner.create_from_dict(owner)
 
-        get_platform_from_page('https://online.edu.ru/api/partners/v0/rightholder')
+        get_owner_from_page('https://online.edu.ru/api/partners/v0/rightholder')
 
         logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+
+
+class Areas(models.Model):
+    title = models.CharField("Наименование", blank=True, null=True, max_length=512)
+    global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512)
+
+    def __str__(self):
+        return f"область деятельности: {self.title}"
+
+    class Meta:
+        verbose_name = 'область деятельности'
+        verbose_name_plural = 'области деятельности'
+
+    def update_from_dict(self, d):
+        for attr, val in d.items():
+            setattr(self, attr, val)
+            self.save()
+
+    @classmethod
+    def create_from_dict(cls, d):
+        c = cls.objects.create(title=d["title"])
+        for attr, val in d.items():
+            setattr(c, attr, val)
+            c.save()
+
+    @classmethod
+    def updade_areas_from_roo(cls):
+        login = 'vesloguzov@gmail.com'
+        password = 'ye;yj,jkmitrjlf'
+
+        def get_areas_from_page(page_url):
+            request = requests.get(page_url, auth=(login, password), verify=False)
+            response = request.json()
+            areas = response["rows"]
+            for area in areas:
+                try:
+                    roo_area = Owner.objects.filter(global_id=area["title"]).first()
+                except:
+                    roo_area = None
+
+                if roo_area:
+                    roo_area.update_from_dict(area)
+                else:
+                    Areas.create_from_dict(area)
+
+        get_areas_from_page('https://online.edu.ru/api/courses/v0/activity')
+
+        logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

@@ -26,6 +26,7 @@ def index(request):
             globals()[task].delay()
             context["start_list"] = task
             request.GET = {}
+            print(request.GET)
             return render(request, "roo/index.html", context)  # redirect("/roo/")
         else:
             context["status"] = f"{task} already running!"

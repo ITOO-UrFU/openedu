@@ -13,6 +13,7 @@ logger = logging.getLogger('celery_logging')
 
 
 def index(request):
+    print(request)
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()
@@ -20,11 +21,8 @@ def index(request):
     for tasks in i.active().values():
         context["active"] += tasks
 
-    print([t["name"].split('.')[2] for t in context["active"]])
-
     if task:
         if task not in [t["name"].split('.')[2] for t in context["active"]]:
-            print("Я не буду это делать, идите нахуй")
             globals()[task].delay()
             context["start_list"] = task
             return redirect("/roo/")

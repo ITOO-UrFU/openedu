@@ -1,13 +1,47 @@
 {% extends "../base.html" %}
 {% block content %}
-<h1>РОО</h1>
-<div class="run_task">
-    <a href="/roo/?task=update_courses_from_roo_task">Start update_courses_from_roo_task</a>
+
+<div class="for-footer">
+    <div class="main-title">
+        <h1><span class="in"><span>РОО</span></span></h1>
+    </div>
+    <div class="section breadcrumbs">
+        <div class="row">
+            <div class="col3">
+             <span class="breadcrumbs-item">
+             <a href="/" class="no-underline">
+             <span class="dotted">Главная страница</span>
+             </a>
+             </span>
+                <span class="divide">/</span>
+                <span class="breadcrumbs-item">
+             <a href="" class="no-underline">
+             <span>РОО</span>
+             </a>
+
+          </span></div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="row" style="margin-bottom: -20px;">
+            <div class="col">
+                <div class="article" id="top-article" style="margin-top: -25px; height: 1013px;">
+                    <h1>РОО</h1>
+                    <div class="run_task">
+                        <a href="/roo/?task=update_courses_from_roo_task">Start update_courses_from_roo_task</a>
+                    </div>
+                    <div class="run_task">
+                        <a href="/roo/?task=update_platform_from_roo_task">Start update_platform_from_roo_task</a>
+                    </div>
+                    <p>{{ context.active }}</p>
+                    <p>{{ context.status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-<div class="run_task">
-    <a href="/roo/?task=update_platform_from_roo_task">Start update_platform_from_roo_task</a>
-</div>
-<p>{{ context.active }}</p>
-<p>{{ context.status }}</p>
+
 
 {% endblock %}

@@ -321,7 +321,7 @@ class Areas(models.Model):
             areas = response["rows"]
             for area in areas:
                 try:
-                    roo_area = Owner.objects.filter(title=area["title"]).first()
+                    roo_area = Areas.objects.filter(title=area["title"]).first()
                 except:
                     roo_area = None
                 logger.info(roo_area)

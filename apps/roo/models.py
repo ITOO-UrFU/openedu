@@ -287,7 +287,7 @@ class Owner(models.Model, Base):
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
 
-    Base.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
+    Base.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', title, 'title')
 
     logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 

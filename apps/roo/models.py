@@ -191,10 +191,10 @@ class Platform(models.Model):
         verbose_name_plural = 'платформы'
 
     @classmethod
-    def update_from_dict_p(self, d):
+    def update_from_dict_p(cls, d):
         for attr, val in d.items():
-            setattr(self, attr, val)
-            self.save()
+            setattr(cls, attr, val)
+            cls.save()
 
     @classmethod
     def create_from_dict_p(cls, d):

@@ -213,8 +213,6 @@ class Platform(models.Model):
             response = request.json()
             platfroms = response["rows"]
             for platform in platfroms:
-                logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
-                logger.info(platform)
                 try:
                     roo_platform = platform
                 except cls.DoesNotExist:

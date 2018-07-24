@@ -17,7 +17,7 @@ def index(request):
     i = app.control.inspect()
     context = dict()
     context["active"] = []
-    for tasks in i.active().items():
+    for tasks in i.active().values():
         context["active"] += tasks
 
     print(context["active"])

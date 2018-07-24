@@ -215,16 +215,15 @@ class Platform(models.Model):
             for platform in platfroms:
                 logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
                 logger.info(platform)
-            # try:
-            #     roo_course = cls.objects.filter(global_id=platfrom['global_id']).first()
-            # except cls.DoesNotExist:
-            #     roo_course = False
-            #
-            # if roo_course:
-            #     if not roo_course.newest:
-            #         roo_course.update_from_dict_p(platfrom)
-            # else:
-            #     Platform.create_from_dict_p(platfrom)
+                try:
+                    roo_course = platform
+                except cls.DoesNotExist:
+                    roo_course = False
+                if roo_course:
+                    if not roo_course.newest:
+                        roo_course.update_from_dict_p(platform)
+                else:
+                    Platform.create_from_dict_p(platform)
 
 
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')

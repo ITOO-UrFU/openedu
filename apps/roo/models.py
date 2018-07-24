@@ -5,6 +5,43 @@ import logging
 
 logger = logging.getLogger('celery_logging')
 
+
+class Base(models.Model):
+    def update_from_dict(self, d):
+        for attr, val in d.items():
+            setattr(self, attr, val)
+            self.save()
+
+    @classmethod
+    def create_from_dict(cls, d):
+        c = cls.objects.create(title=d["title"])
+        for attr, val in d.items():
+            setattr(c, attr, val)
+            c.save()
+
+    @classmethod
+    def update_base_from_roo(cls, url, filter_name, filter_name_two):
+        login = 'vesloguzov@gmail.com'
+        password = 'ye;yj,jkmitrjlf'
+
+        def get_base_from_page(page_url):
+            request = requests.get(page_url, auth=(login, password), verify=False)
+            response = request.json()
+            items = response["rows"]
+            for item in items:
+                try:
+                    roo_base = Base.objects.filter(filter_name=item[filter_name_two]).first()
+                except:
+                    roo_base = None
+
+                if roo_base:
+                    roo_base.update_from_dict(item)
+                else:
+                    Base.create_from_dict(item)
+
+        get_base_from_page(url)
+
+
 class Expertise(models.Model):
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=512)
@@ -238,7 +275,7 @@ class Expert(models.Model):
         verbose_name_plural = 'эксперт'
 
 
-class Owner(models.Model):
+class Owner(models.Model, Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД Правообладателя на РОО", blank=True, null=True, max_length=512)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
@@ -250,41 +287,9 @@ class Owner(models.Model):
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
 
-    def update_from_dict(self, d):
-        for attr, val in d.items():
-            setattr(self, attr, val)
-            self.save()
+    Base.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
 
-    @classmethod
-    def create_from_dict(cls, d):
-        c = cls.objects.create(title=d["title"])
-        for attr, val in d.items():
-            setattr(c, attr, val)
-            c.save()
-
-    @classmethod
-    def updade_owner_from_roo(cls):
-        login = 'vesloguzov@gmail.com'
-        password = 'ye;yj,jkmitrjlf'
-
-        def get_owner_from_page(page_url):
-            request = requests.get(page_url, auth=(login, password), verify=False)
-            response = request.json()
-            owners = response["rows"]
-            for owner in owners:
-                try:
-                    roo_owner = Owner.objects.filter(global_id=owner["global_id"]).first()
-                except:
-                    roo_owner = None
-
-                if roo_owner:
-                    roo_owner.update_from_dict(owner)
-                else:
-                    Owner.create_from_dict(owner)
-
-        get_owner_from_page('https://online.edu.ru/api/partners/v0/rightholder')
-
-        logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+    logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Areas(models.Model):

@@ -163,7 +163,7 @@ class Course(models.Model):
 
         get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
 
-        logger.info("Закончили: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Platform(models.Model):
@@ -175,7 +175,7 @@ class Platform(models.Model):
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     # наши поля
-    newest = models.BooleanField("Самое новое содержание курса", default=False)
+    #newest = models.BooleanField("Самое новое содержание курса", default=False)
 
     # person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
     #                           max_length=512)
@@ -222,8 +222,9 @@ class Platform(models.Model):
                 else:
                     Platform.create_from_dict(platform)
 
-
         get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')
+
+        logger.info("Закончили Platform: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Expert(models.Model):
@@ -239,6 +240,8 @@ class Expert(models.Model):
 
 class Owner(models.Model):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
+    global_id = models.CharField("ИД платформы на РОО", blank=True, null=True, max_length=512)
+    ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     def __str__(self):
         return f"Правообладатель: {self.title}"
@@ -246,3 +249,39 @@ class Owner(models.Model):
     class Meta:
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
+
+    def update_from_dict(self, d):
+        for attr, val in d.items():
+            setattr(self, attr, val)
+            self.save()
+
+    @classmethod
+    def create_from_dict(cls, d):
+        c = cls.objects.create(title=d["title"])
+        for attr, val in d.items():
+            setattr(c, attr, val)
+            c.save()
+
+    @classmethod
+    def updade_owner_from_roo(cls):
+        login = 'vesloguzov@gmail.com'
+        password = 'ye;yj,jkmitrjlf'
+
+        def get_platform_from_page(page_url):
+            request = requests.get(page_url, auth=(login, password), verify=False)
+            response = request.json()
+            owners = response["rows"]
+            for owner in owners:
+                try:
+                    roo_owner = Owner.objects.filter(global_id=owner["global_id"]).first()
+                except:
+                    roo_owner = None
+
+                if roo_owner:
+                    roo_owner.update_from_dict(owner)
+                else:
+                    Owner.create_from_dict(owner)
+
+        get_platform_from_page('https://online.edu.ru/api/partners/v0/rightholder')
+
+        logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

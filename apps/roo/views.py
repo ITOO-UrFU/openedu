@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 import logging
 
 from openedu.celery import app
+from .tasks import *
 
 logger = logging.getLogger('celery_logging')
 

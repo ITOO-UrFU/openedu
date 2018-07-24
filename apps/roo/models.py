@@ -191,13 +191,13 @@ class Platform(models.Model):
         verbose_name_plural = 'платформы'
 
     @classmethod
-    def update_from_dict_p(self, d):
+    def update_from_dict_p(cls, d):
         for attr, val in d.items():
-            setattr(self, attr, val)
-            self.save()
+            setattr(cls, attr, val)
+            cls.save()
 
     @classmethod
-    def create_from_dict(cls, d):
+    def create_from_dict_p(cls, d):
         c = cls.objects.create(title=d["title"])
         for attr, val in d.items():
             setattr(c, attr, val)
@@ -216,12 +216,12 @@ class Platform(models.Model):
                 logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
                 logger.info(platform)
                 try:
-                    roo_course = platform
+                    roo_platform = platform
                 except cls.DoesNotExist:
-                    roo_course = False
-                if roo_course:
-                    if not roo_course.newest:
-                        roo_course.update_from_dict_p(platform)
+                    roo_platform = False
+                if roo_platform:
+                    if not roo_platform:
+                        roo_platform.update_from_dict_p(platform)
                 else:
                     Platform.create_from_dict_p(platform)
 

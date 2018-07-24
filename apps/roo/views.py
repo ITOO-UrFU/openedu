@@ -12,12 +12,12 @@ from .tasks import *
 logger = logging.getLogger('celery_logging')
 
 
-
-from django.utils.html import escape
-
 def index(request):
     print(request.GET)
-    print(request.GET.pop("task"))
+    request = request.GET.pop("task")
+    print(request.GET)
+    request.GET = {}
+    print(request.GET)
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()
@@ -29,7 +29,7 @@ def index(request):
         if task not in [t["name"].split('.')[2] for t in context["active"]]:
             globals()[task].delay()
             context["start_list"] = task
-            return redirect("/roo/")
+            return render(request, "roo/index.html", context)  # redirect("/roo/")
         else:
             context["status"] = f"{task} already running!"
 

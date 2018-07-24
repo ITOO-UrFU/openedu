@@ -20,11 +20,12 @@ def index(request):
     context = {}
     context["active"] = i.active()
 
-    # try:
     if task:
-        globals()[task].delay()
-        context["start_list"] = task
-        return redirect("/roo/")
-    # except:
-    #     context["start_list"] = "None"
+        if task not in [t["name"].split('.')[2] for t in context["active"]]:
+            globals()[task].delay()
+            context["start_list"] = task
+            return redirect("/roo/")
+        else:
+            context["status"] = f"{task} already running!"
+
     return render(request, "roo/index.html", context)

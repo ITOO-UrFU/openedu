@@ -15,9 +15,11 @@ logger = logging.getLogger('celery_logging')
 def index(request):
     task = request.GET.get("task", None)
     i = app.control.inspect()
+    context = dict()
+    context["active"] = []
+    for tasks in i.active().items():
+        context["active"] += tasks
 
-    context = {}
-    context["active"] = i.active()
     print(context["active"])
 
     if task:

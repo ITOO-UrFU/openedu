@@ -217,6 +217,7 @@ class Platform(models.Model):
             r = requests.get(f"https://online.edu.ru/ru/api/partners/v0/platform",
                              auth=('vesloguzov@gmail.com', 'ye;yj,jkmitrjlf'), verify=False)
             platfrom = r.json()
+            logger.info("PLATFORM_TASK")
             #try:
             #     roo_course = cls.objects.filter(global_id=platfrom['global_id']).first()
             # except cls.DoesNotExist:

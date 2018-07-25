@@ -10,16 +10,19 @@
         box-shadow: none;
         border-radius: 4px;
         box-sizing: border-box;
-        transition: color 0.25s ease-in-out 0s,border-color 0.25s ease-in-out 0s,
-        background 0.25s ease-in-out 0s,box-shadow 0.25s ease-in-out 0s;
         background: #0075b4;
         border-color: #0075b4;
-        font-size: 1.4rem;
-        line-height: 2.072rem;
+        font-size: 15px;
         padding: 5px 15px;
+        width: 300px;
+        display: inline-block;
     }
-    a{
-        text-decoration: none;
+    .task_href{
+        text-decoration-color: #68bfff;
+        color: #fff !important;
+    }
+    .run_task:hover{
+
     }
 </style>
 <div class="for-footer">
@@ -50,19 +53,19 @@
                 <div class="article" id="top-article" style="margin-top: -25px; height: 1013px;">
                     <h1>РОО</h1>
                     <div class="run_task">
-                        <a href="/roo/?task=update_courses_from_roo_task">Обновить Онлайн-курсы</a>
+                        <a class="task_href" href="/roo/?task=update_courses_from_roo_task">Обновить Онлайн-курсы</a>
                     </div>
                     <div class="run_task">
-                        <a href="/roo/?task=update_platform_from_roo_task">Обновить Платформы</a>
+                        <a class="task_href" href="/roo/?task=update_platform_from_roo_task">Обновить Платформы</a>
                     </div>
                     <div class="run_task">
-                        <a href="/roo/?task=update_owner_from_roo_task">Обновить Правообладатели</a>
+                        <a class="task_href" href="/roo/?task=update_owner_from_roo_task">Обновить Правообладатели</a>
                     </div>
                     <div class="run_task">
-                        <a href="/roo/?task=update_areas_from_roo_task">Обновить Области деятельности</a>
+                        <a class="task_href" href="/roo/?task=update_areas_from_roo_task">Обновить Области деятельности</a>
                     </div>
                     <div class="run_task">
-                        <a href="/roo/?task=update_direction_from_roo_task">Обновить Направления подготовки</a>
+                        <a class="task_href" href="/roo/?task=update_direction_from_roo_task">Обновить Направления подготовки</a>
                     </div>
                     <p>{{ context.active }}</p>
                     <p>{{ context.status }}</p>

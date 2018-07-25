@@ -75,7 +75,7 @@ class Teacher(models.Model):
         return f"Лектор: {self.title}"
 
     def get_image(self):
-        if self.cover:
+        if self.image:
             return "<img height=\"100\" src=\"" + self.image + "\"></img>"
         else:
             return "None"

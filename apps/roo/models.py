@@ -267,7 +267,7 @@ class Owner(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
 
-    logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Areas(Base):

@@ -74,6 +74,13 @@ class Teacher(models.Model):
     def __str__(self):
         return f"Лектор: {self.title}"
 
+    def get_image(self):
+        if self.cover:
+            return "<img height=\"100\" src=\"" + self.image + "\"></img>"
+        else:
+            return "None"
+
+
     class Meta:
         verbose_name = 'лектор'
         verbose_name_plural = 'лекторы'

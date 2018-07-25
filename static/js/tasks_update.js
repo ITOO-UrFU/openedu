@@ -11,7 +11,7 @@
                     });
                 }
                 else {
-                    items.push("Нет активных задач")
+                    items.push("<p style='margin-left:1em'>Нет активных задач</p>")
                 }
 
                 $("#active_tasks").html($("<ul/>", {

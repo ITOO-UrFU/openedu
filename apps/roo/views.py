@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 
-from django.core.exceptions import ObjectDoesNotExist
-from django.template.context_processors import csrf
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 import logging
 
 from openedu.celery import app
@@ -32,3 +31,12 @@ def index(request):
             context["status"] = f"{task} already running!"
 
     return render(request, "roo/index.html", context)
+
+
+def get_active_tasks(request):
+    if request.method == "POST":
+        i = app.control.inspect()
+        active_tasks = []
+        for tasks in i.active().values():
+            active_tasks += tasks
+        return JsonResponse({"active_tasks": active_tasks})

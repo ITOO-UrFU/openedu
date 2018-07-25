@@ -1,4 +1,5 @@
 {% extends "../base.html" %}
+{% load static %}
 {% block content %}
 <style type="text/css">
     .run_task{
@@ -67,8 +68,8 @@
                     <div class="run_task">
                         <a class="task_href" href="/roo/?task=update_direction_from_roo_task">Обновить Направления подготовки</a>
                     </div>
-                    <p>{{ context.active }}</p>
-                    <p>{{ context.status }}</p>
+                    <div id="active_tasks"></div>
+                    <script type="text/javascript" src='{% static "js/tasks_update.js" %}'></script>
                 </div>
             </div>
         </div>

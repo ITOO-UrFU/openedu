@@ -80,6 +80,7 @@ class Teacher(models.Model):
         else:
             return "None"
 
+    get_image.allow_tags = True
 
     class Meta:
         verbose_name = 'лектор'

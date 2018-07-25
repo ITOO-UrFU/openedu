@@ -24,7 +24,7 @@ def update_platform_from_roo_task(*args):
 @app.task(bind=True)
 def update_owner_from_roo_task(*args):
     logger.info("Owner Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
-    Owner.updade_owner_from_roo()
+    Owner.get()
 
 
 @app.task(bind=True)

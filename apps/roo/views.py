@@ -34,9 +34,9 @@ def index(request):
 
 
 def get_active_tasks(request):
-    # if request.method == "POST":
-    i = app.control.inspect()
-    active_tasks = []
-    for tasks in i.active().values():
-        active_tasks += tasks
-    return JsonResponse({"active_tasks": active_tasks})
+    if request.method == "POST":
+        i = app.control.inspect()
+        active_tasks = []
+        for tasks in i.active().values():
+            active_tasks += tasks
+        return JsonResponse({"active_tasks": active_tasks})

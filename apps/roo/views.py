@@ -39,4 +39,4 @@ def get_active_tasks(request):
     active_tasks = []
     for tasks in i.active().values():
         active_tasks += tasks
-    return JsonResponse(active_tasks)
+    return JsonResponse(json.dumps(active_tasks))

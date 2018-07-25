@@ -286,3 +286,23 @@ class Areas(Base):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/activity', 'title')
 
         logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+
+
+class Direction(Base):
+    title = models.CharField("Наименование направления", blank=True, null=True, max_length=512)
+    activity_id = models.CharField("ИД Область деятельности", blank=True, null=True, max_length=512)
+    activity_title = models.CharField("Наименование области деятельности", blank=True, null=True, max_length=512)
+    code = models.CharField("Код направления", blank=True, null=True, max_length=512)
+
+    def __str__(self):
+        return f"направление подготовки: {self.title}"
+
+    class Meta:
+        verbose_name = 'направление подготовки'
+        verbose_name_plural = 'направления подготовки'
+
+    @classmethod
+    def get(cls):
+        cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction', 'title')
+
+        logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

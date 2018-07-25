@@ -2,7 +2,7 @@ import logging
 import datetime
 import json
 from openedu.celery import app
-from .models import Course, Platform, Owner, Areas
+from .models import Course, Platform, Owner, Areas, Direction
 from time import gmtime, strftime
 
 
@@ -32,6 +32,11 @@ def update_areas_from_roo_task(*args):
     logger.info("Areas Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
     Areas.get()
 
+
+@app.task(bind=True)
+def update_direction_from_roo_task(*args):
+    logger.info("Direction Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+    Direction.get()
 
 #app.control.rate_limit('roo.tasks,update_courses_from_roo_task', '5/m')
 #app.control.rate_limit('roo.tasks,update_platform_from_roo_task', '5/m')

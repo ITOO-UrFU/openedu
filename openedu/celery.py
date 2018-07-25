@@ -43,6 +43,10 @@ app.conf.beat_schedule = {
     #     'schedule': 600.0,
     #     'args': (1, 1)
     # },
+    'update_direction_from_roo_task': {
+        'task': 'roo.tasks.update_areas_from_roo_task',
+        'args': (1, 1)
+    },
     'update_areas_from_roo_task': {
         'task': 'roo.tasks.update_areas_from_roo_task',
         'args': (1, 1)

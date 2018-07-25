@@ -303,6 +303,6 @@ class Direction(Base):
 
     @classmethod
     def get(cls):
-        cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction', 'title')
+        cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction', 'code')
 
         logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

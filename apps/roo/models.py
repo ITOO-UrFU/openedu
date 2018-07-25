@@ -209,7 +209,7 @@ class Course(models.Model):
         logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
-class Platform(models.Model):
+class Platform(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
     global_id = models.CharField("ИД платформы на РОО", blank=True, null=True, max_length=512)
     image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
@@ -233,39 +233,9 @@ class Platform(models.Model):
         verbose_name = 'платформа'
         verbose_name_plural = 'платформы'
 
-    def update_from_dict(self, d):
-        for attr, val in d.items():
-            setattr(self, attr, val)
-            self.save()
-
     @classmethod
-    def create_from_dict(cls, d):
-        c = cls.objects.create(title=d["title"])
-        for attr, val in d.items():
-            setattr(c, attr, val)
-            c.save()
-
-    @classmethod
-    def updade_platform_from_roo(cls):
-        login = 'vesloguzov@gmail.com'
-        password = 'ye;yj,jkmitrjlf'
-
-        def get_platform_from_page(page_url):
-            request = requests.get(page_url, auth=(login, password), verify=False)
-            response = request.json()
-            platfroms = response["rows"]
-            for platform in platfroms:
-                try:
-                    roo_platform = Platform.objects.filter(global_id=platform["global_id"]).first()
-                except:
-                    roo_platform = None
-
-                if roo_platform:
-                    roo_platform.update_from_dict(platform)
-                else:
-                    Platform.create_from_dict(platform)
-
-        get_platform_from_page('https://online.edu.ru/ru/api/partners/v0/platform')
+    def get(cls):
+        cls.update_base_from_roo('https://online.edu.ru/ru/api/partners/v0/platform', 'global_id')
 
         logger.info("Закончили Platform: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
@@ -300,7 +270,7 @@ class Owner(Base):
     logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
-class Areas(models.Model):
+class Areas(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512)
 
@@ -311,37 +281,8 @@ class Areas(models.Model):
         verbose_name = 'область деятельности'
         verbose_name_plural = 'области деятельности'
 
-    def update_from_dict(self, d):
-        for attr, val in d.items():
-            setattr(self, attr, val)
-            self.save()
-
     @classmethod
-    def create_from_dict(cls, d):
-        c = cls.objects.create(title=d["title"])
-        for attr, val in d.items():
-            setattr(c, attr, val)
-            c.save()
-
-    @classmethod
-    def updade_areas_from_roo(cls):
-        login = 'vesloguzov@gmail.com'
-        password = 'ye;yj,jkmitrjlf'
-
-        def get_areas_from_page(page_url):
-            request = requests.get(page_url, auth=(login, password), verify=False)
-            response = request.json()
-            areas = response["rows"]
-            for area in areas:
-                try:
-                    roo_area = Areas.objects.filter(title=area["title"]).first()
-                except:
-                    roo_area = None
-                if roo_area:
-                    roo_area.update_from_dict(area)
-                else:
-                    Areas.create_from_dict(area)
-
-        get_areas_from_page('https://online.edu.ru/api/courses/v0/activity')
+    def get(cls):
+        cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/activity', 'title')
 
         logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

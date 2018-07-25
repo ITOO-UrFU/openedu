@@ -9,9 +9,12 @@ import logging
 from openedu.celery import app
 from .tasks import *
 
+from .decorators import roo_member_required
+
 logger = logging.getLogger('celery_logging')
 
 
+@roo_member_required
 def index(request):
     task = request.GET.get("task", None)
     i = app.control.inspect()

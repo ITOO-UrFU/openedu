@@ -181,10 +181,9 @@ class Course(models.Model):
                     activity_object = Areas.objects.get(global_id=int(activity))
                     self.activities.add(activity_object)
             elif attr == "institution_id":
-                for institution in d["institution_id"]:
-                    institution_object = Owner.objects.get(global_id=institution)
-                    self.institution = institution_object
-                    self.save()
+                institution_object = Owner.objects.get(global_id=d["institution_id"])
+                self.institution = institution_object
+                self.save()
             else:
                 setattr(self, attr, val)
             self.save()

@@ -316,7 +316,7 @@ class Area(Base):
     global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512, db_index=True)
 
     def __str__(self):
-        return f"область деятельности: {self.title}"
+        return self.title
 
     class Meta:
         verbose_name = 'область деятельности'

@@ -40,7 +40,7 @@ class ExpertiseAdmin(admin.ModelAdmin):
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
-    list_display = ("title",)
+    list_display = ("title", "get_image")
 
 
 @admin.register(Area)

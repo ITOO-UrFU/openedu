@@ -3,6 +3,9 @@ from time import gmtime, strftime
 from django.db import models
 from django.db.models import Q
 from django.template.defaultfilters import truncatewords_html
+import requests
+import json
+from urllib.parse import urlencode
 import logging
 
 logger = logging.getLogger('celery_logging')
@@ -296,6 +299,7 @@ class Owner(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, null=True, db_index=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
+    image = models.CharField("Изображение", blank=True, null=True, max_length=1024)
 
     def __str__(self):
         return self.title
@@ -303,6 +307,32 @@ class Owner(Base):
     class Meta:
         verbose_name = 'правообладатель'
         verbose_name_plural = 'правообладатели'
+
+    def get_image(self):
+        if self.image:
+            return f"<img height=\"100\" src=\"{self.image}\"></img>"
+        else:
+            return ""
+
+    get_image.allow_tags = True
+    get_image.short_description = "Изображение курса"
+
+    def save(self, *args, **kwargs):
+
+        rdata = {
+            "q": "parrot and melon",
+            "num": 1,
+            "start": 1,
+            "imgSize": "medium",
+            # "filetype": "jpg",
+            "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
+            "cx": "012036972007253236562:btl9gjd-nti",
+            "searchType": "image"
+        }
+
+        r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))
+        self.image = json.loads(r.content)["items"][0]["link"]
+        super(Owner, self).save(*args, **kwargs)
 
     @classmethod
     def get(cls):

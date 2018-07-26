@@ -331,7 +331,7 @@ class Area(Base):
 
 class Direction(models.Model):
     title = models.CharField("Наименование направления", blank=True, null=True, max_length=512, db_index=True)
-    activity = models.ForeignKey(Area, verbose_name="Область деятельности",null= True)
+    activity = models.ForeignKey("Area", verbose_name="Область деятельности",null= True)
     # activity_title = models.CharField("Наименование области деятельности", blank=True, null=True, max_length=512)
     code = models.CharField("Код направления", blank=True, null=True, max_length=512, db_index=True)
 

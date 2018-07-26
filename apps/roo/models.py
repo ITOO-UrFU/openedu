@@ -319,23 +319,20 @@ class Owner(Base):
     def save(self, *args, **kwargs):
 
         rdata = {
-            "q": f"логотип {self.title}",
+            "q": f"logo {self.title}",
             "num": 1,
             "start": 1,
-            "imgSize": "icon",
+            # "filetype": "jpg",
             "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
             "cx": "012036972007253236562:btl9gjd-nti",
             "searchType": "image",
             "gl": "ru",
-            "lr": "lang_ru",
-            "safe": "high",
-            "filter": 1
         }
 
         r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))
         items = json.loads(r.content).get("items", None)
         if items:
-            self.image = items[0]["image"]["thumbnailLink"]
+            self.image = items[0]["link"]
         super(Owner, self).save(*args, **kwargs)
 
     @classmethod

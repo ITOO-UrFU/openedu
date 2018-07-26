@@ -281,7 +281,7 @@ class Expert(models.Model):
 
 class Owner(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, db_index=True)
+    global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, null=True, db_index=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     def __str__(self):

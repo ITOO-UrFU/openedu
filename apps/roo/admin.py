@@ -50,5 +50,5 @@ class AreasAdmin(admin.ModelAdmin):
 
 @admin.register(Direction)
 class DirectionAdmin(admin.ModelAdmin):
-    list_display = ("title", "code", "activity_title")
+    list_display = ("title", "code", "activity")
 

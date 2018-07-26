@@ -269,6 +269,15 @@ class Platform(Base):
     # connection_date = models.DateField("Дата связи с контактным лицом", blank=True, null=True)
     # contacts = models.CharField("Контакты института", blank=True, null=True, max_length=512)
 
+    def get_image(self):
+        if self.image:
+            return f"<img height=\"100\" src=\"{self.image}\"></img>"
+        else:
+            return ""
+
+    get_image.allow_tags = True
+    get_image.short_description = "Изображение"
+
     def __str__(self):
         return f"Платформа: {self.title}"
 

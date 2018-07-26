@@ -322,15 +322,15 @@ class Owner(Base):
             "q": f"логотип {self.title}",
             "num": 1,
             "start": 1,
-            "imgSize": "small",
-            # "filetype": "jpg",
+            "imgSize": "icon",
             "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
             "cx": "012036972007253236562:btl9gjd-nti",
             "searchType": "image",
-            "sort": "review-rating:d:s",
+            "sort": "date:a:w",
             "gl": "ru",
             "lr": "lang_ru",
             "safe": "high",
+            "filter": 1
         }
 
         r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))

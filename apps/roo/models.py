@@ -271,12 +271,17 @@ class Platform(Base):
 
     def get_image(self):
         if self.image:
-            return f"<img height=\"100\" src=\"{self.image}\"></img>"
+            return f"<img height=\"200\" src=\"{self.image}\"></img>"
         else:
             return ""
 
+    def get_description(self):
+        return truncatewords_html(self.description, 15)
+
     get_image.allow_tags = True
+    get_description.allow_tags = True
     get_image.short_description = "Изображение"
+    get_description.short_description = "Описание"
 
     def __str__(self):
         return f"Платформа: {self.title}"

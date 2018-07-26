@@ -330,7 +330,7 @@ class Owner(Base):
             "sort": "review-rating:d:s",
             "gl": "ru",
             "lr": "lang_ru",
-            "safe": "huge",
+            "safe": "high",
         }
 
         r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))

@@ -74,6 +74,14 @@ class Teacher(models.Model):
     def __str__(self):
         return f"Лектор: {self.title}"
 
+    def get_image(self):
+        if self.image:
+            return "<img height=\"100\" src=\"" + self.image + "\"></img>"
+        else:
+            return ""
+
+    get_image.allow_tags = True
+
     class Meta:
         verbose_name = 'лектор'
         verbose_name_plural = 'лекторы'
@@ -96,7 +104,7 @@ class Course(models.Model):
     accreditation = models.TextField("Аккредитация", blank=True, null=True, max_length=512)
     description = models.TextField("Описание", blank=True, null=True)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
-    directions = models.TextField("Массив идентификаторов направлений", blank=True, null=True)  # массив
+    directions = models.ManyToManyField("Direction", verbose_name="Массив идентификаторов направлений")  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
     has_sertificate = models.BooleanField("Возможность получить сертификат",
@@ -109,8 +117,7 @@ class Course(models.Model):
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
-    activities = models.CharField("Массив идентификаторов областей деятельности", blank=True, null=True,
-                                  max_length=512)  # массив
+    activities = models.ManyToManyField("Areas", verbose_name="Массив идентификаторов областей деятельности")  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
                                              max_length=512)  # наверно
     total_visitors_number = models.CharField("Количество слушателей", blank=True, null=True,
@@ -149,6 +156,14 @@ class Course(models.Model):
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
 
+    def get_image(self):
+        if self.image:
+            return "<img height=\"100\" src=\"" + self.image + "\"></img>"
+        else:
+            return ""
+
+    get_image.allow_tags = True
+
     def update_from_dict(self, d):
         for attr, val in d.items():
             if attr == "teachers":
@@ -157,6 +172,14 @@ class Course(models.Model):
                         t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
                         t.save()
                         self.teachers.add(t)
+            elif attr == "directions":
+                for direction in d["directions"]:
+                    direction_object = Direction.objects.filter(global_id=int(direction))
+                    self.directions.add(direction_object)
+            elif attr == "activities":
+                for activity in d["activities"]:
+                    activity_object = Areas.objects.filter(global_id=int(activity))
+                    self.activities.add(activity_object)
             else:
                 setattr(self, attr, val)
             self.save()

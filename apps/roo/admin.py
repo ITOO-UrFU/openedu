@@ -4,7 +4,7 @@ from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Areas, 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title", "description")
+    list_display = ("title", "description", "get_image")
 
 
 @admin.register(Platform)
@@ -14,7 +14,7 @@ class PlatformAdmin(admin.ModelAdmin):
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ("title", "description")
+    list_display = ("title", "description", "get_image")
 
 
 @admin.register(Expert)

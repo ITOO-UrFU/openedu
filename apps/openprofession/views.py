@@ -125,6 +125,7 @@ def add_pd(request):
         programs = Program.objects.filter(active=True)
         return render(request, "openprofession/personaldata_form.html", {"QA": QA, "PDA": PDA, 'programs': programs})
 
+
 class SeminarDataForm(forms.ModelForm):
     class Meta:
         model = SeminarData
@@ -133,8 +134,10 @@ class SeminarDataForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super(SeminarDataForm, self).__init__(*args, **kwargs)
 
+
 def seminar_thanks(request):
     return render(request, "openprofession/seminar_thanks.html")
+
 
 @csrf_exempt
 def add_seminar_bid(request):
@@ -152,6 +155,7 @@ def add_seminar_bid(request):
             return render_to_response("seminar/seminar_form.html", {"form": form})
     else:
         return render(request, "seminar/seminar_form.html")
+
 
 # @group_required('manger')
 class ReportUploadView(FormView):
@@ -306,11 +310,11 @@ def handle_report(*args):
                     report.save()
 
 
-#app.control.rate_limit('openprofession.views.handle_report', '100/m')
-#app.control.rate_limit('openprofession.views.set_possible_id', '5/m')
-#app.control.rate_limit('openprofession.views.set_course_user_grade', '5/m')
-#app.control.rate_limit('openprofession.views.set_program_grade', '100/m')
-#app.control.rate_limit('openprofession.views.set_proctoring_status', '100/m')
+# app.control.rate_limit('openprofession.views.handle_report', '100/m')
+# app.control.rate_limit('openprofession.views.set_possible_id', '5/m')
+# app.control.rate_limit('openprofession.views.set_course_user_grade', '5/m')
+# app.control.rate_limit('openprofession.views.set_program_grade', '100/m')
+# app.control.rate_limit('openprofession.views.set_proctoring_status', '100/m')
 
 
 # @app.task(bind=True)

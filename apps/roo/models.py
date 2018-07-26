@@ -78,7 +78,7 @@ class Teacher(models.Model):
         if self.image:
             return "<img height=\"100\" src=\"" + self.image + "\"></img>"
         else:
-            return "None"
+            return ""
 
     get_image.allow_tags = True
 
@@ -156,6 +156,14 @@ class Course(models.Model):
     class Meta:
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
+
+    def get_image(self):
+        if self.image:
+            return "<img height=\"100\" src=\"" + self.image + "\"></img>"
+        else:
+            return ""
+
+    get_image.allow_tags = True
 
     def update_from_dict(self, d):
         for attr, val in d.items():

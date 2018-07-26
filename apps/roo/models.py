@@ -326,7 +326,6 @@ class Owner(Base):
             "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
             "cx": "012036972007253236562:btl9gjd-nti",
             "searchType": "image",
-            "sort": "date:a:w",
             "gl": "ru",
             "lr": "lang_ru",
             "safe": "high",

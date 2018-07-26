@@ -8,7 +8,6 @@ logger = logging.getLogger('celery_logging')
 
 
 class Base(models.Model):
-
     class Meta:
         abstract = True
 
@@ -93,7 +92,7 @@ class Course(models.Model):
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=512)
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     image = models.URLField("Изображение курса", blank=True, null=True)
-    institution = models.ForeignKey("Owner", verbose_name="Идентификатор правообладателя", blank=True, null=True)
+    institution = models.ForeignKey("Owner", verbose_name="Правообладатель", blank=True, null=True)
     global_id = models.CharField("ИД курса на РОО", blank=True, null=True, max_length=512)
     created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=True, max_length=512)
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True,
@@ -163,6 +162,7 @@ class Course(models.Model):
             return ""
 
     get_image.allow_tags = True
+    description.allow_tags = True
 
     def update_from_dict(self, d):
         for attr, val in d.items():

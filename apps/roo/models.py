@@ -150,6 +150,9 @@ class Course(models.Model):
     get_image.allow_tags = True
     get_description.allow_tags = True
 
+    get_image.short_description = "Изображение курса"
+    get_description.short_description = "Описание"
+
     def update_from_dict(self, d):
         for attr, val in d.items():
             if attr == "teachers":

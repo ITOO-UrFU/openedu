@@ -111,7 +111,7 @@ class Course(models.Model):
                                           default=False)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
-    partner_id = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
+    partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
     content = models.TextField("Содержание онлайн-курса", blank=True, null=True, max_length=512)
     started_at = models.CharField("Дата ближайшего запуска", blank=True, null=True, max_length=512)
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
@@ -170,6 +170,10 @@ class Course(models.Model):
                 institution_object = Owner.objects.get(global_id=d["institution_id"])
                 self.institution = institution_object
                 self.save()
+            elif attr == "partner_id":
+                partner_object = Platform.objects.get(global_id=d["partner_id"])
+                self.partner = partner_object
+                self.save()
             else:
                 setattr(self, attr, val)
             self.save()
@@ -224,7 +228,7 @@ class Course(models.Model):
 
 class Platform(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
-    global_id = models.CharField("ИД платформы на РОО", blank=True, null=True, max_length=512)
+    global_id = models.CharField("ИД платформы на РОО", null=True, db_index=True)
     image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
     url = models.CharField("Ссылка на сайт платформы", blank=True, null=True, max_length=512)
     description = models.TextField("Описание платформы", blank=True, null=True)

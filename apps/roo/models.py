@@ -320,7 +320,7 @@ class Owner(Base):
     def save(self, *args, **kwargs):
 
         rdata = {
-            "q": "parrot and melon",
+            "q": self.title,
             "num": 1,
             "start": 1,
             "imgSize": "medium",

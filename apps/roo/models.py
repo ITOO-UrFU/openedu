@@ -166,7 +166,7 @@ class Course(models.Model):
         return truncatewords_html(self.description, 15)
 
     get_image.allow_tags = True
-    description.allow_tags = True
+    get_description.allow_tags = True
 
     def update_from_dict(self, d):
         for attr, val in d.items():

@@ -133,7 +133,6 @@ class Course(models.Model):
     # наши поля
     newest = models.BooleanField("Самое новое содержание курса", default=False)
 
-
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
 
@@ -323,17 +322,21 @@ class Owner(Base):
             "q": f"логотип {self.title}",
             "num": 1,
             "start": 1,
-            "imgSize": "medium",
+            "imgSize": "small",
             # "filetype": "jpg",
             "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
             "cx": "012036972007253236562:btl9gjd-nti",
-            "searchType": "image"
+            "searchType": "image",
+            "sort": "review-rating:d:s",
+            "gl": "ru",
+            "lr": "lang_ru",
+            "safe": "huge",
         }
 
         r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))
         items = json.loads(r.content).get("items", None)
         if items:
-            self.image = items[0]["link"]
+            self.image = items[0]["image"]["thumbnailLink"]
         super(Owner, self).save(*args, **kwargs)
 
     @classmethod

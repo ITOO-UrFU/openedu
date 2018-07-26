@@ -320,7 +320,7 @@ class Owner(Base):
     def save(self, *args, **kwargs):
 
         rdata = {
-            "q": self.title,
+            "q": f"логотип {self.title}",
             "num": 1,
             "start": 1,
             "imgSize": "medium",
@@ -334,8 +334,6 @@ class Owner(Base):
         items = json.loads(r.content).get("items", None)
         if items:
             self.image = items[0]["link"]
-        else:
-            self.image = str(rdata)
         super(Owner, self).save(*args, **kwargs)
 
     @classmethod

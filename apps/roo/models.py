@@ -320,7 +320,7 @@ class Owner(Base):
 
         rdata = {
             "q": f"logo {self.title}",
-            "num": 5,
+            "num": 1,
             "start": 1,
             # "filetype": "jpg",
             "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
@@ -332,7 +332,7 @@ class Owner(Base):
         r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))
         items = json.loads(r.content).get("items", None)
         if items:
-            self.image = items[3]["link"]
+            self.image = items[0]["link"]
         super(Owner, self).save(*args, **kwargs)
 
     @classmethod

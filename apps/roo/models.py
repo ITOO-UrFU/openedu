@@ -331,7 +331,9 @@ class Owner(Base):
         }
 
         r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))
-        self.image = json.loads(r.content).get("items", None)[0]["link"]
+        items = json.loads(r.content).get("items", None)
+        if items:
+            self.image = items[0]["link"]
         super(Owner, self).save(*args, **kwargs)
 
     @classmethod

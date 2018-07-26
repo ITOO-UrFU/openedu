@@ -174,11 +174,11 @@ class Course(models.Model):
                         self.teachers.add(t)
             elif attr == "directions":
                 for direction in d["directions"]:
-                    direction_object = Direction.objects.filter(code=direction)
+                    direction_object = Direction.objects.get(code=direction)
                     self.directions.add(direction_object)
             elif attr == "activities":
                 for activity in d["activities"]:
-                    activity_object = Areas.objects.filter(global_id=int(activity))
+                    activity_object = Areas.objects.get(global_id=int(activity))
                     self.activities.add(activity_object)
             else:
                 setattr(self, attr, val)
@@ -295,7 +295,7 @@ class Owner(Base):
 
 class Areas(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512)
+    global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512, db_index=True)
 
     def __str__(self):
         return f"область деятельности: {self.title}"
@@ -315,7 +315,7 @@ class Direction(Base):
     title = models.CharField("Наименование направления", blank=True, null=True, max_length=512)
     activity_id = models.CharField("ИД Область деятельности", blank=True, null=True, max_length=512)
     activity_title = models.CharField("Наименование области деятельности", blank=True, null=True, max_length=512)
-    code = models.CharField("Код направления", blank=True, null=True, max_length=512)
+    code = models.CharField("Код направления", blank=True, null=True, max_length=512, db_index=True)
 
     def __str__(self):
         return f"направление подготовки: {self.title}"

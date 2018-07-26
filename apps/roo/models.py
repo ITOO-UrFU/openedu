@@ -174,7 +174,7 @@ class Course(models.Model):
                         self.teachers.add(t)
             elif attr == "directions":
                 for direction in d["directions"]:
-                    direction_object = Direction.objects.filter(global_id=int(direction))
+                    direction_object = Direction.objects.filter(code=direction)
                     self.directions.add(direction_object)
             elif attr == "activities":
                 for activity in d["activities"]:

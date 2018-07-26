@@ -93,7 +93,7 @@ class Course(models.Model):
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=512)
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     image = models.URLField("Изображение курса", blank=True, null=True)
-    institution_id = models.CharField("Идентификатор Правообладателя", blank=True, null=True, max_length=512)
+    institution = models.ForeignKey("Owner", verbose_name="Идентификатор правообладателя")
     global_id = models.CharField("ИД курса на РОО", blank=True, null=True, max_length=512)
     created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=True, max_length=512)
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True,
@@ -180,6 +180,11 @@ class Course(models.Model):
                 for activity in d["activities"]:
                     activity_object = Areas.objects.get(global_id=int(activity))
                     self.activities.add(activity_object)
+            elif attr == "institution_id":
+                for institution in d["institution_id"]:
+                    institution_object = Owner.objects.get(global_id=institution)
+                    self.institution = institution_object
+                    self.save()
             else:
                 setattr(self, attr, val)
             self.save()
@@ -276,7 +281,7 @@ class Expert(models.Model):
 
 class Owner(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    global_id = models.CharField("ИД Правообладателя на РОО", blank=True, null=True, max_length=512)
+    global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, db_index=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     def __str__(self):

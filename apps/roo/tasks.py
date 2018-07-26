@@ -2,7 +2,7 @@ import logging
 import datetime
 import json
 from openedu.celery import app
-from .models import Course, Platform, Owner, Areas, Direction
+from .models import Course, Platform, Owner, Area, Direction
 from time import gmtime, strftime
 
 
@@ -30,7 +30,7 @@ def update_owner_from_roo_task(*args):
 @app.task(bind=True)
 def update_areas_from_roo_task(*args):
     logger.info("Areas Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
-    Areas.get()
+    Area.get()
 
 
 @app.task(bind=True)

@@ -117,7 +117,7 @@ class Course(models.Model):
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
-    activities = models.ManyToManyField("Areas", verbose_name="Массив идентификаторов областей деятельности")  # массив
+    activities = models.ManyToManyField("apps.roo.models.Area", verbose_name="Массив идентификаторов областей деятельности")  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
                                              max_length=512)  # наверно
     total_visitors_number = models.CharField("Количество слушателей", blank=True, null=True,
@@ -172,7 +172,7 @@ class Course(models.Model):
                     self.directions.add(direction_object)
             elif attr == "activities":
                 for activity in d["activities"]:
-                    activity_object = Areas.objects.get(global_id=int(activity))
+                    activity_object = Area.objects.get(global_id=int(activity))
                     self.activities.add(activity_object)
             elif attr == "institution_id":
                 institution_object = Owner.objects.get(global_id=d["institution_id"])
@@ -195,6 +195,22 @@ class Course(models.Model):
                     t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
                     t.save()
                     c.teachers.add(t)
+            elif attr == "directions":
+                for direction in d["directions"]:
+                    direction_object = Direction.objects.get(code=direction)
+                    c.directions.add(direction_object)
+            elif attr == "activities":
+                for activity in d["activities"]:
+                    activity_object = Area.objects.get(global_id=int(activity))
+                    c.activities.add(activity_object)
+            elif attr == "institution_id":
+                institution_object = Owner.objects.get(global_id=d["institution_id"])
+                c.institution = institution_object
+                c.save()
+            elif attr == "partner_id":
+                partner_object = Platform.objects.get(global_id=d["partner_id"])
+                c.partner = partner_object
+                c.save()
             else:
                 setattr(c, attr, val)
             c.save()
@@ -295,7 +311,7 @@ class Owner(Base):
         logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
-class Areas(Base):
+class Area(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512, db_index=True)
 
@@ -313,10 +329,10 @@ class Areas(Base):
         logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
-class Direction(Base):
-    title = models.CharField("Наименование направления", blank=True, null=True, max_length=512)
-    activity_id = models.CharField("ИД Область деятельности", blank=True, null=True, max_length=512)
-    activity_title = models.CharField("Наименование области деятельности", blank=True, null=True, max_length=512)
+class Direction(models.Model):
+    title = models.CharField("Наименование направления", blank=True, null=True, max_length=512, db_index=True)
+    activity = models.ForeignKey(Area, verbose_name="Область деятельности",null= True)
+    # activity_title = models.CharField("Наименование области деятельности", blank=True, null=True, max_length=512)
     code = models.CharField("Код направления", blank=True, null=True, max_length=512, db_index=True)
 
     def __str__(self):
@@ -326,8 +342,47 @@ class Direction(Base):
         verbose_name = 'направление подготовки'
         verbose_name_plural = 'направления подготовки'
 
+    def update_from_dict(self, d):
+        for attr, val in d.items():
+            if attr == "activity_id":
+                activity_object = Area.objects.get(global_id=d["activity_id"])
+                self.activity = activity_object
+                self.save()
+            else:
+                setattr(self, attr, val)
+                self.save()
+
+    @classmethod
+    def create_from_dict(cls, d):
+        c = cls.objects.create(title=d["title"])
+        for attr, val in d.items():
+            setattr(c, attr, val)
+            c.save()
+
+    @classmethod
+    def update_base_from_roo(cls, url):
+        login = 'vesloguzov@gmail.com'
+        password = 'ye;yj,jkmitrjlf'
+
+        def get_base_from_page(cls, page_url):
+            request = requests.get(page_url, auth=(login, password), verify=False)
+            response = request.json()
+            items = response["rows"]
+            for item in items:
+                try:
+                    roo_base = cls.objects.get(title=item["title"])
+                except:
+                    roo_base = None
+
+                if roo_base:
+                    roo_base.update_from_dict(item)
+                else:
+                    cls.create_from_dict(item)
+
+        get_base_from_page(cls, url)
+
     @classmethod
     def get(cls):
-        cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction', 'code')
+        cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction')
 
         logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

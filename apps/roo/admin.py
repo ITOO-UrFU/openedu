@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Areas, Direction
+from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction
 
 
 @admin.register(Course)
@@ -43,7 +43,7 @@ class OwnerAdmin(admin.ModelAdmin):
     list_display = ("title",)
 
 
-@admin.register(Areas)
+@admin.register(Area)
 class AreasAdmin(admin.ModelAdmin):
     list_display = ("title",)
 

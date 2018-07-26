@@ -156,14 +156,12 @@ class Course(models.Model):
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
 
-    @property
     def get_image(self):
         if self.image:
             return f"<img height=\"100\" src=\"{self.image}\"></img>"
         else:
             return ""
 
-    @property
     def get_description(self):
         return truncatewords_html(self.description, 15)
 

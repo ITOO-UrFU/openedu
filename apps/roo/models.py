@@ -228,7 +228,7 @@ class Course(models.Model):
 
 class Platform(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
-    global_id = models.CharField("ИД платформы на РОО", null=True, db_index=True)
+    global_id = models.CharField("ИД платформы на РОО", null=True, max_length=512, db_index=True)
     image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
     url = models.CharField("Ссылка на сайт платформы", blank=True, null=True, max_length=512)
     description = models.TextField("Описание платформы", blank=True, null=True)

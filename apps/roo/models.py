@@ -147,11 +147,16 @@ class Course(models.Model):
     def get_description(self):
         return truncatewords_html(self.description, 15)
 
+    def get_platform(self):
+        return f"<img height=\"100\" src=\"{self.partner.image}\"></img><p>{self.partner.title}</p>"
+
     get_image.allow_tags = True
     get_description.allow_tags = True
+    get_platform.allow_tags = True
 
     get_image.short_description = "Изображение курса"
     get_description.short_description = "Описание"
+    get_platform.short_description = "Платформа"
 
     def update_from_dict(self, d):
         for attr, val in d.items():

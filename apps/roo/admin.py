@@ -4,7 +4,7 @@ from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Areas, 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title", "institution", "description", "get_image")
+    list_display = ("title", "institution", "get_description", "get_image")
     filter_horizontal = ("directions", "activities", "teachers")
 
 

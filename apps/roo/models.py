@@ -2,6 +2,7 @@ import requests
 from time import gmtime, strftime
 from django.db import models
 from django.db.models import Q
+from django.template.defaultfilters import truncatewords_html
 import logging
 
 logger = logging.getLogger('celery_logging')
@@ -155,11 +156,16 @@ class Course(models.Model):
         verbose_name = 'онлайн-курс'
         verbose_name_plural = 'онлайн-курсы'
 
+    @property
     def get_image(self):
         if self.image:
-            return "<img height=\"100\" src=\"" + self.image + "\"></img>"
+            return f"<img height=\"100\" src=\"{self.image}\"></img>"
         else:
             return ""
+
+    @property
+    def get_description(self):
+        return truncatewords_html(self.description, 15)
 
     get_image.allow_tags = True
     description.allow_tags = True
@@ -284,7 +290,7 @@ class Owner(Base):
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
 
     def __str__(self):
-        return f"Правообладатель: {self.title}"
+        return self.title
 
     class Meta:
         verbose_name = 'правообладатель'

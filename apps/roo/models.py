@@ -334,6 +334,8 @@ class Owner(Base):
         items = json.loads(r.content).get("items", None)
         if items:
             self.image = items[0]["link"]
+        else:
+            self.image = str(rdata)
         super(Owner, self).save(*args, **kwargs)
 
     @classmethod

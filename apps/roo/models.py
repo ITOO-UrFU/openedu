@@ -1,14 +1,14 @@
 import requests
-from time import gmtime, strftime
+#from time import gmtime, strftime
 from django.db import models
 from django.db.models import Q
 from django.template.defaultfilters import truncatewords_html
 import requests
 import json
 from urllib.parse import urlencode
-import logging
+#import logging
 
-logger = logging.getLogger('celery_logging')
+#logger = logging.getLogger('celery_logging')
 
 
 class Base(models.Model):
@@ -249,7 +249,7 @@ class Course(models.Model):
 
         get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
 
-        logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        #logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Platform(Base):
@@ -294,7 +294,7 @@ class Platform(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/ru/api/partners/v0/platform', 'global_id')
 
-        logger.info("Закончили Platform: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        #logger.info("Закончили Platform: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Expert(models.Model):
@@ -353,7 +353,7 @@ class Owner(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
 
-        logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        #logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Area(Base):
@@ -371,7 +371,7 @@ class Area(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/activity', 'title')
 
-        logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        #logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Direction(models.Model):
@@ -430,4 +430,4 @@ class Direction(models.Model):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction')
 
-        logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        #logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

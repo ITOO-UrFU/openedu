@@ -35,7 +35,7 @@ app.conf.beat_schedule = {
     },
     'set_program_grade': {
         'task': 'openprofession.views.set_program_grade',
-        'schedule': 600.0,
+        'schedule': 400.0,
         'args': (1, 1)
     },
     'set_proctoring_status': {

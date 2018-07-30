@@ -30,7 +30,10 @@ class ProgramAdmin(VersionAdmin):
     list_filter = ('course_id', 'session', 'active', 'start')
 
     def get_url(self, obj):
-        return f"https://courses.openprofession.ru/courses/course-v1:{obj.org}+{obj.course_id}+{obj.session}/courseware/"
+        return f"<a href=\"https://courses.openprofession.ru/courses/course-v1:{obj.org}+{obj.course_id}+{obj.session}/courseware/\">Courseware</a>"
+
+    get_url.allow_tags = True
+    get_url.short_description = "Ссылки"
 
 @admin.register(CourseUserGrade)
 class CourseUserGradeAdmin(admin.ModelAdmin):

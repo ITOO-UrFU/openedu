@@ -25,10 +25,12 @@ class SimulizatorDataAdmin(admin.ModelAdmin):
 
 @admin.register(Program)
 class ProgramAdmin(VersionAdmin):
-    list_display = ('title', 'course_id', 'session', 'active', 'has_report', 'start')
+    list_display = ('title', 'course_id', 'session', 'active', 'has_report', 'start', 'get_url')
     search_fields = ('course_id', 'session', 'active')
     list_filter = ('course_id', 'session', 'active', 'start')
 
+    def get_url(self, obj):
+        return f"https://courses.openprofession.ru/courses/course-v1:{obj.org}+{obj.course_id}+{obj.session}/courseware/"
 
 @admin.register(CourseUserGrade)
 class CourseUserGradeAdmin(admin.ModelAdmin):

@@ -98,8 +98,12 @@ class Program(models.Model):
     session = models.CharField('Название сессии', max_length=1024, blank=False, null=False)
     course_id = models.CharField('Ид курса', max_length=1024, blank=False, null=False, default="-")
     start = models.IntegerField("Старт", default=-1)
+    org = models.CharField('ИД организации', max_length=1024, blank=True, null=True)
 
     reports = models.ManyToManyField('Report', blank=True)
+
+    # def get_url(self):
+    #     return f"https://courses.openprofession.ru/courses/course-v1:{self.org}+{self.course_id}+{self.session}/courseware/"
 
     def is_active(self):
         return self.active

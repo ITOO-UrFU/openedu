@@ -150,7 +150,9 @@ class Course(models.Model):
         return truncatewords_html(self.description, 15)
 
     def get_platform(self):
-        return f"<img height=\"100\" src=\"{self.partner.image}\"></img><p>{self.partner.title}</p>"
+        if self.partner:
+            if self.partner.image:
+                return f"<img height=\"100\" src=\"{self.partner.image}\"></img><p>{self.partner.title}</p>"
 
     get_image.allow_tags = True
     get_description.allow_tags = True

@@ -6,7 +6,7 @@ from django.template.defaultfilters import truncatewords_html
 import requests
 import json
 from urllib.parse import urlencode
-
+import django_tables2 as tables
 
 # import logging
 
@@ -50,6 +50,12 @@ class Base(models.Model):
                     cls.create_from_dict(item)
 
         get_base_from_page(cls, url)
+
+
+class RooTable(tables.Table):
+    
+    class Meta:
+        model = Course
 
 
 class Expertise(models.Model):

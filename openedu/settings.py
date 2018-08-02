@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ellada_api',
     'django_celery_results',
     'advanced_filters',
+    'django_tables2',
 ]
 
 SITE_ID = 1

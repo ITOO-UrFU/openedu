@@ -10,15 +10,17 @@ from .tasks import *
 
 from .decorators import roo_member_required
 
-from .models import Course
+from .models import Course ,RooTable
 
 logger = logging.getLogger('celery_logging')
 
 
 @roo_member_required
 def index(request):
-    course_all = Course.objects.all()
-    logger.info(course_all)
+    course_queryset = Course.objects.all()
+    logger.info(course_queryset)
+    table = RooTable(course_queryset)
+    context["table"] = table
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()

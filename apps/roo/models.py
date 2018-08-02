@@ -1,14 +1,16 @@
 import requests
-#from time import gmtime, strftime
+# from time import gmtime, strftime
 from django.db import models
 from django.db.models import Q
 from django.template.defaultfilters import truncatewords_html
 import requests
 import json
 from urllib.parse import urlencode
-#import logging
 
-#logger = logging.getLogger('celery_logging')
+
+# import logging
+
+# logger = logging.getLogger('celery_logging')
 
 
 class Base(models.Model):
@@ -51,15 +53,27 @@ class Base(models.Model):
 
 
 class Expertise(models.Model):
+    TYPES = (
+        (0, "Обязательная"),
+        (1, "ОО"),
+        (2, "Независимая"),
+        (3, "Работодатель"),
+        (4, "Пользовательская"),
+        (5, "ФУМО"),
+        (6, "Большие данные"),
+        (7, "Лучшие практики")
+    )
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=512)
     date = models.DateField("Дата", blank=True, null=True)
-    type = models.CharField("Вид экспертизы", blank=True, null=True, max_length=512)
+    type = models.CharField("Вид экспертизы", choices=TYPES,
+                            blank=True, null=True, max_length=512)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
     expert = models.ForeignKey("Expert", verbose_name="Эксперт", default='None')
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=512)
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
                                  max_length=512)
+    comment = models.TextField("Примечание", blank=True, null=True)
 
     def __str__(self):
         return f"Экспертиза: {self.course}, Тип: {self.type}"
@@ -132,6 +146,60 @@ class Course(models.Model):
 
     # наши поля
     newest = models.BooleanField("Самое новое содержание курса", default=False)
+
+    COMMUNICATION_OWNER_STATES = (
+        (0, "Согласование не начато"),
+        (1, "В процессе согласования"),
+        (2, "Согласовано"),
+        (3, "Отказано")
+    )
+
+    COMMUNICATION_PLATFORM_STATES = (
+        (0, "Согласование не начато"),
+        (1, "В процессе согласования"),
+        (2, "Согласовано"),
+        (3, "Отказано")
+    )
+
+    EX_STATES = (
+        (0, "Не проводилась"),
+        (1, "Отравлен на экспертизу"),
+        (2, "Требует доработки"),
+        (3, "Прошел")
+    )
+    PASSPORT_STATES = (
+        (0, "Не проверен"),
+        (1, "Требует доработки"),
+        (2, "На согласовании с правообладателем"),
+        (3, "Готов"),
+    )
+
+    ROO_STATES = (
+        (0, "Не готов"),
+        (1, "Ждем ID платформы"),
+        (2, "К загрузке"),
+        (3, "Загружен"),
+        (4, "Ожидает загрузки с РОО")
+    )
+
+    REQUIRED_RATINGS_STATES = (
+        (0, "Не загружены"),
+        (1, "Загружены")
+    )
+    UNFORCED_RATINGS_STATES = (
+        (0, "Не загружены"),
+        (1, "Загружены частично"),
+        (2, "Загружены")
+    )
+
+    communication_owner = models.CharField("Статус коммуникации с правообладателей", default=0, max_length=1, choices=COMMUNICATION_OWNER_STATES, default=0)
+    communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1, choices=COMMUNICATION_PLATFORM_STATES, default=0)
+    expertise_status = models.CharField("Статус экспертизы", max_length=1, choices=EX_STATES, default=0)
+    passport_status = models.CharField("Статус паспорта", max_length=1, choices=PASSPORT_STATES, default=0)
+    roo_status = models.CharField("Статус загрузки на роо", max_length=1, choices=ROO_STATES, default=0)
+    required_ratings_state = models.CharField("Состояние загрузки обязательных оценок", max_length=1, choices=REQUIRED_RATINGS_STATES, default=0)
+    unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1, choices=UNFORCED_RATINGS_STATES, default=0)
+    comment = models.TextField("Примечание", blank=True, null=True)
 
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
@@ -242,7 +310,11 @@ class Course(models.Model):
                     if not roo_course.newest:
                         roo_course.update_from_dict(course)
                 else:
-                    Course.create_from_dict(course)
+                    roo_course = Course.create_from_dict(course)
+
+                roo_course.roo_status = 3
+                roo_course.save()
+
 
             if response["next"] is not None:
                 get_courses_from_page(response["next"])
@@ -251,7 +323,7 @@ class Course(models.Model):
 
         get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
 
-        #logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        # logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Platform(Base):
@@ -296,7 +368,7 @@ class Platform(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/ru/api/partners/v0/platform', 'global_id')
 
-        #logger.info("Закончили Platform: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        # logger.info("Закончили Platform: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Expert(models.Model):
@@ -355,7 +427,7 @@ class Owner(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/partners/v0/rightholder', 'title')
 
-        #logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        # logger.info("Закончили Owner: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Area(Base):
@@ -373,7 +445,7 @@ class Area(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/activity', 'title')
 
-        #logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        # logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
 class Direction(models.Model):
@@ -432,4 +504,4 @@ class Direction(models.Model):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction')
 
-        #logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+        # logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))

@@ -192,7 +192,7 @@ class Course(models.Model):
         (2, "Загружены")
     )
 
-    communication_owner = models.CharField("Статус коммуникации с правообладателей", default=0, max_length=1, choices=COMMUNICATION_OWNER_STATES, default=0)
+    communication_owner = models.CharField("Статус коммуникации с правообладателей", max_length=1, choices=COMMUNICATION_OWNER_STATES, default=0)
     communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1, choices=COMMUNICATION_PLATFORM_STATES, default=0)
     expertise_status = models.CharField("Статус экспертизы", max_length=1, choices=EX_STATES, default=0)
     passport_status = models.CharField("Статус паспорта", max_length=1, choices=PASSPORT_STATES, default=0)

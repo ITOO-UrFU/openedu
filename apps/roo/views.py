@@ -20,7 +20,6 @@ def index(request):
     course_queryset = Course.objects.all()
     logger.info(course_queryset)
     table = RooTable(course_queryset)
-    context["table"] = table
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()
@@ -35,6 +34,9 @@ def index(request):
             return redirect("/roo/")
         else:
             context["status"] = f"{task} already running!"
+
+    context["table"] = table
+    logger.info(table)
 
     return render(request, "roo/index.html", context)
 

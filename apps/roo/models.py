@@ -52,12 +52,6 @@ class Base(models.Model):
         get_base_from_page(cls, url)
 
 
-class RooTable(tables.Table):
-    
-    class Meta:
-        model = Course
-
-
 class Expertise(models.Model):
     TYPES = (
         (0, "Обязательная"),
@@ -511,3 +505,9 @@ class Direction(models.Model):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction')
 
         # logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+
+
+class RooTable(tables.Table):
+    
+    class Meta:
+        model = Course

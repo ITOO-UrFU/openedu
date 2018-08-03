@@ -11,6 +11,7 @@ from .tasks import *
 from .decorators import roo_member_required
 
 from .models import Course, RooTable
+from django_tables2 import RequestConfig
 
 logger = logging.getLogger('celery_logging')
 
@@ -36,10 +37,11 @@ def index(request):
 
 
 def course_table(request):
-    course_queryset = Course.objects.all()
-    table = RooTable(course_queryset)
-    context["table"] = []
+    table = RooTable(Course.objects.all())
+    RequestConfig(request).configure(table)
+    logger.info(table)
     context["table"] = table
+    logger.info(context)
     return render(request, "roo/course_table.html", context)
 
 

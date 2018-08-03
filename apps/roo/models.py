@@ -511,13 +511,6 @@ class RooTable(tables.Table):
     class Meta:
         model = Course
 
-    competences = tables.Column(attrs={
-    'td': {
-        'data-length': lambda value: 15}})
-
-    description = tables.Column(attrs={
-    'td': {
-        'data-length': lambda value: 15}})
-    content = tables.Column(attrs={
-    'td': {
-        'data-length': lambda value: 15}})
+    competences = tables.Column(max_length=100)
+    description = tables.Column(max_length=100)
+    content = tables.Column(max_length=100)

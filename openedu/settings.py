@@ -115,6 +115,8 @@ TEMPLATES = [
     }
 ]
 
+DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap.html'
+
 WSGI_APPLICATION = 'openedu.wsgi.application'
 
 # Database

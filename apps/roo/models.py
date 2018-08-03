@@ -515,13 +515,9 @@ class RooTable(tables.Table):
     description = tables.Column()
     content = tables.Column()
 
-    def get_description(self):
+    def render_description(self):
         return truncatewords(self.description, 15)
     def get_competences(self):
         return truncatewords(self.competences, 15)
     def get_content(self):
         return truncatewords(self.content, 15)
-    
-    get_description.allow_tags = True
-    get_competences.allow_tags = True
-    get_content.allow_tags = True

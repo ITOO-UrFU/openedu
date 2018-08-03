@@ -1,8 +1,6 @@
 {% extends "../base.html" %}
 {% load static %}
 {% block content %}
-{% load render_table from django_tables2 %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <div class="for-footer">
     <div class="main-title">
         <h1><span class="in"><span>РОО</span></span></h1>
@@ -29,8 +27,9 @@
             </div>
         </div>
     </div>
-
     
+    {% load render_table from django_tables2 %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <div>
         {% render_table table %}
     </div>

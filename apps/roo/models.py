@@ -508,6 +508,21 @@ class Direction(models.Model):
 
 
 class RooTable(tables.Table):
+        competences = tables.Column(attrs={
+        'td': {
+            'data-length': 15
+        }
+    })
+        description = tables.Column(attrs={
+        'td': {
+            'data-length': 15
+        }
+    })
+        content = tables.Column(attrs={
+        'td': {
+            'data-length': 15
+        }
+    })
     
     class Meta:
         model = Course

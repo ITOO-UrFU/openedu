@@ -48,5 +48,6 @@ def get_active_tasks(request):
 def course_table(request):
     table = RooTable(Course.objects.all())
     RequestConfig(request).configure(table)
+    context = dict()
     context["table"] = table
     return render(request, "roo/course_table.html", context)

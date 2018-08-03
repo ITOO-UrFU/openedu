@@ -514,6 +514,6 @@ class RooTable(tables.Table):
     class Meta:
         model = Course
 
-    competences = TruncatedColumn()
-    description = tables.TemplateColumn('{{ record.description | truncatewords_html:2 |safe}}')
-    content = TruncatedColumn()
+    competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
+    description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
+    content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')

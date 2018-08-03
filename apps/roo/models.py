@@ -514,6 +514,6 @@ class RooTable(tables.Table):
     class Meta:
         model = Course
 
-    competences = tables.TruncatedColumn()
-    description = tables.TruncatedColumn()
-    content = tables.TruncatedColumn()
+    competences = TruncatedColumn()
+    description = TruncatedColumn()
+    content = TruncatedColumn()

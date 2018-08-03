@@ -529,6 +529,7 @@ class RooTable(tables.Table):
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
+    image = tables.TemplateColumn('<img src="{{record.image}}" height="100"/>')
     roo_status = ChoiceColumn(Course.ROO_STATES)
     communication_owner = ChoiceColumn(Course.COMMUNICATION_OWNER_STATES)
     communication_platform = ChoiceColumn(Course.COMMUNICATION_PLATFORM_STATES)

@@ -1,5 +1,6 @@
 {% extends "../base.html" %}
 {% load static %}
+{% load render_table from django_tables2 %}
 {% block content %}
 <div class="for-footer">
     <div class="main-title">
@@ -22,13 +23,13 @@
       </span>
       <span class="divide">/</span>
       <span class="breadcrumbs-item">
-        <a href="#" class="no-underline">
+          <a href="#" class="no-underline"></a>
         <span>Таблица курсов</span>
             </div>
         </div>
     </div>
 
-    {% load render_table from django_tables2 %}
+
     <div>
         {% render_table table %}
     </div>

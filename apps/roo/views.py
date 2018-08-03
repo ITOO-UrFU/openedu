@@ -36,12 +36,6 @@ def index(request):
     return render(request, "roo/index.html", context)
 
 
-def course_table(request):
-    table = RooTable(Course.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, "roo/course_table.html", {"table":table})
-
-
 def get_active_tasks(request):
     if request.method == "POST":
         i = app.control.inspect()
@@ -49,3 +43,9 @@ def get_active_tasks(request):
         for tasks in i.active().values():
             active_tasks += tasks
         return JsonResponse({"active_tasks": active_tasks})
+
+@roo_member_required
+def course_table(request):
+    table = RooTable(Course.objects.all())
+    RequestConfig(request).configure(table)
+    return render(request, "roo/course_table.html", {"table":table})

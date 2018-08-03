@@ -511,6 +511,17 @@ class RooTable(tables.Table):
     class Meta:
         model = Course
 
-    competences = tables.Column(max_length=100)
-    description = tables.Column(max_length=100)
-    content = tables.Column(max_length=100)
+    competences = tables.Column()
+    description = tables.Column()
+    content = tables.Column()
+
+    def get_description(self):
+        return truncatewords_html(self.description, 15)
+    def get_competences(self):
+        return truncatewords_html(self.competences, 15)
+    def get_content(self):
+        return truncatewords_html(self.content, 15)
+    
+    get_description.allow_tags = True
+    get_competences.allow_tags = True
+    get_content.allow_tags = True

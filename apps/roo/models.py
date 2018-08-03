@@ -515,5 +515,5 @@ class RooTable(tables.Table):
         model = Course
 
     competences = TruncatedColumn()
-    description = tables.TemplateColumn('{{ record.description | safe }}')
+    description = tables.TemplateColumn('{{ record.description | truncatewords_html:2 }}')
     content = TruncatedColumn()

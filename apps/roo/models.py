@@ -513,16 +513,11 @@ class RooTable(tables.Table):
 
     competences = tables.Column(attrs={
     'td': {
-        'data-length': 15
-    }
-})
+        'data-length': 15}})
+
     description = tables.Column(attrs={
     'td': {
-        'data-length': 15
-    }
-})
+        'data-length': 15}})
     content = tables.Column(attrs={
     'td': {
-        'data-length': 15
-    }
-})
+        'data-length': 15}})

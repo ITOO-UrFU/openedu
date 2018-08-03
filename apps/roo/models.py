@@ -517,4 +517,4 @@ class RooTable(tables.Table):
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
-    roo_status = tables.TemplateColumn('{{ record.get_roo_status_display }}')
+    roo_status = tables.TemplateColumn('{{ record.get_roo_status_display }} sdfsdfsdf')

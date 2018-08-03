@@ -525,6 +525,7 @@ class ChoiceColumn(tables.Column):
 class RooTable(tables.Table):
     class Meta:
         model = Course
+        exclude = ("credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language", "content", "started_at", "started_at", "requirements")
 
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')

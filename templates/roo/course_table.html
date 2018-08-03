@@ -1,0 +1,39 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<div class="for-footer">
+    <div class="main-title">
+        <h1><span class="in"><span>РОО</span></span></h1>
+    </div>
+    <div class="section breadcrumbs">
+        <div class="row">
+            <div class="col3">
+         <span class="breadcrumbs-item">
+         <a href="/" class="no-underline">
+         <span class="dotted">Главная страница</span>
+         </a>
+         </span>
+                <span class="divide">/</span>
+                <span class="breadcrumbs-item">
+         <a href="" class="no-underline">
+         <span>РОО</span>
+         </a>
+
+      </span>
+      <span class="divide">/</span>
+      <span class="breadcrumbs-item">
+        <a href="#" class="no-underline">
+        <span>Таблица курсов</span>
+            </div>
+        </div>
+    </div>
+
+    {% load django_tables2 %}
+    <div>
+        {% render_table table %}
+    </div>
+
+    <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
+</div>
+
+{% endblock %}

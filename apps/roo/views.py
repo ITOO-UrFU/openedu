@@ -10,16 +10,13 @@ from .tasks import *
 
 from .decorators import roo_member_required
 
-from .models import Course ,RooTable
+from .models import Course, RooTable
 
 logger = logging.getLogger('celery_logging')
 
 
 @roo_member_required
 def index(request):
-    course_queryset = Course.objects.all()
-    logger.info(course_queryset)
-    table = RooTable(course_queryset)
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()
@@ -35,10 +32,14 @@ def index(request):
         else:
             context["status"] = f"{task} already running!"
 
-    context["table"] = table
-    logger.info(table)
-
     return render(request, "roo/index.html", context)
+
+
+def course_table(request):
+    course_queryset = Course.objects.all()
+    table = RooTable(course_queryset)
+    context["table"] = table
+    return render(request, "roo/course_table.html", context)
 
 
 def get_active_tasks(request):

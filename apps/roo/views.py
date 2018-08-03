@@ -38,7 +38,7 @@ def index(request):
 def course_table(request):
     course_queryset = Course.objects.all()
     table = RooTable(course_queryset)
-    context = dict()
+    context["table"] = []
     context["table"] = table
     return render(request, "roo/course_table.html", context)
 

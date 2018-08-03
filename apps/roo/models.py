@@ -516,7 +516,10 @@ class ChoiceColumn(tables.Column):
         return self.get_display(value)
 
     def get_display(self, value):
-        return self.choices[value][1]
+        try:
+            return self.choices[int(value)][1]
+        except:
+            return "Ошибка"
 
 
 class RooTable(tables.Table):

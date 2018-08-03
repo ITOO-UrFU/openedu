@@ -513,12 +513,10 @@ class ChoiceColumn(tables.Column):
         super(ChoiceColumn, self).__init__(*args, **kwargs)
 
     def render(self, value):
-        return self.label_to_value(value)
+        return self.get_display(value)
 
-    def label_to_value(self, label):
-        for (v, l) in self.choices:
-            if v == label:
-                return l
+    def get_display(self, value):
+        return self.choices[value][1]
 
 
 class RooTable(tables.Table):

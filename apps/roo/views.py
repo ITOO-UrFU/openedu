@@ -44,11 +44,9 @@ def get_active_tasks(request):
             active_tasks += tasks
         return JsonResponse({"active_tasks": active_tasks})
 
-
 @roo_member_required
-def course_table(self, request, *args, **kwargs):
+def course_table(request):
     table = RooTable(Course.objects.all())
     RequestConfig(request).configure(table)
-    context = self.get_context_data(**kwargs)
-    context['table'] = table
+    context["table"] = table
     return render(request, "roo/course_table.html", context)

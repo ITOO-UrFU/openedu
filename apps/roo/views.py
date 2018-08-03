@@ -39,10 +39,7 @@ def index(request):
 def course_table(request):
     table = RooTable(Course.objects.all())
     RequestConfig(request).configure(table)
-    logger.info(table)
-    context["table"] = table
-    logger.info(context)
-    return render(request, "roo/course_table.html", context)
+    return render(request, "roo/course_table.html", {"table":table})
 
 
 def get_active_tasks(request):

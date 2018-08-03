@@ -2,7 +2,7 @@ import requests
 # from time import gmtime, strftime
 from django.db import models
 from django.db.models import Q
-from django.template.defaultfilters import truncatewords_html
+from django.template.defaultfilters import truncatewords_html, truncatewords
 import requests
 import json
 from urllib.parse import urlencode
@@ -516,11 +516,11 @@ class RooTable(tables.Table):
     content = tables.Column()
 
     def get_description(self):
-        return truncatewords_html(self.description, 15)
+        return truncatewords(self.description, 15)
     def get_competences(self):
-        return truncatewords_html(self.competences, 15)
+        return truncatewords(self.competences, 15)
     def get_content(self):
-        return truncatewords_html(self.content, 15)
+        return truncatewords(self.content, 15)
     
     get_description.allow_tags = True
     get_competences.allow_tags = True

@@ -517,8 +517,8 @@ class ChoiceColumn(tables.Column):
 
     def label_to_value(self, label):
         for (v, l) in self.choices:
-            if l == label:
-                return v
+            if v == label:
+                return l
 
 
 class RooTable(tables.Table):

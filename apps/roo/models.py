@@ -8,6 +8,7 @@ import json
 from urllib.parse import urlencode
 import django_tables2 as tables
 
+
 # import logging
 
 # logger = logging.getLogger('celery_logging')
@@ -315,7 +316,6 @@ class Course(models.Model):
                 roo_course.roo_status = 3
                 roo_course.save()
 
-
             if response["next"] is not None:
                 get_courses_from_page(response["next"])
             else:
@@ -506,9 +506,20 @@ class Direction(models.Model):
 
         # logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
-class TruncatedColumn(tables.Column):
+
+class ChoiceColumn(tables.Column):
+    def __init__(self, choices, *args, **kwargs):
+        self.choices = choices
+        super(ChoiceColumn, self).__init__(*args, **kwargs)
+
     def render(self, value):
-         return truncatewords(value, 15)
+        return self.label_to_value(value)
+
+    def label_to_value(self, label):
+        for (v, l) in self.choices:
+            if l == label:
+                return v
+
 
 class RooTable(tables.Table):
     class Meta:
@@ -517,4 +528,4 @@ class RooTable(tables.Table):
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
-    roo_status = tables.TemplateColumn('{{ record.get_roo_status_display }} {{record}}')
+    roo_status = ChoiceColumn(Course.ROO_STATES)

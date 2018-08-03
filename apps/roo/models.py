@@ -506,18 +506,14 @@ class Direction(models.Model):
 
         # logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
+class TruncatedColumn(tables.Column):
+    def render(self, value):
+         return truncatewords(value, 15)
 
 class RooTable(tables.Table):
     class Meta:
         model = Course
 
-    competences = tables.Column()
-    description = tables.Column()
-    content = tables.Column()
-
-    def render_description(self):
-        return truncatewords(self.description, 15)
-    def get_competences(self):
-        return truncatewords(self.competences, 15)
-    def get_content(self):
-        return truncatewords(self.content, 15)
+    competences = tables.TruncatedColumn()
+    description = tables.TruncatedColumn()
+    content = tables.TruncatedColumn()

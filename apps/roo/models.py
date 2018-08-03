@@ -511,4 +511,3 @@ class RooTable(tables.Table):
     
     class Meta:
         model = Course
-        template_name = 'django_tables2/bootstrap.html'

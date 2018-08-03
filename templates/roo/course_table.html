@@ -2,39 +2,40 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% block content %}
-<div class="for-footer">
-    <div class="main-title">
-        <h1><span class="in"><span>РОО</span></span></h1>
-    </div>
-    <div class="section breadcrumbs">
-        <div class="row">
-            <div class="col3">
+    <div class="for-footer">
+        <div class="main-title">
+            <h1><span class="in"><span>РОО</span></span></h1>
+        </div>
+        <div class="section breadcrumbs">
+            <div class="row">
+                <div class="col3">
          <span class="breadcrumbs-item">
          <a href="/" class="no-underline">
          <span class="dotted">Главная страница</span>
          </a>
          </span>
-                <span class="divide">/</span>
-                <span class="breadcrumbs-item">
-         <a href="" class="no-underline">
+                    <span class="divide">/</span>
+                    <span class="breadcrumbs-item">
+         <a href="/roo/" class="no-underline">
          <span>РОО</span>
          </a>
 
       </span>
-      <span class="divide">/</span>
-      <span class="breadcrumbs-item">
-          <a href="#" class="no-underline"></a>
+                    <span class="divide">/</span>
+                    <span class="breadcrumbs-item">
+          <a href="#" class="no-underline">
         <span>Таблица курсов</span>
+              </a>
+                </div>
             </div>
         </div>
+
+
+        <div>
+            {% render_table table %}
+        </div>
+
+        <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
     </div>
-
-
-    <div>
-        {% render_table table %}
-    </div>
-
-    <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
-</div>
 
 {% endblock %}

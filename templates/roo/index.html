@@ -1,4 +1,4 @@
-{% extends "../base.html" %}
+{% extends "/roo/base.html" %}
 {% load static %}
 {% block content %}
     <style type="text/css">
@@ -21,7 +21,8 @@
             margin-right: .5em;
             font-weight: 700;
         }
-        .run_task:hover{
+
+        .run_task:hover {
             background: #0085cc;
         }
 
@@ -38,70 +39,48 @@
             margin-top: 1em;
         }
     </style>
-    <div class="for-footer">
-        <div class="main-title">
-            <h1><span class="in"><span>РОО</span></span></h1>
-        </div>
-        <div class="section breadcrumbs">
-            <div class="row">
-                <div class="col3">
-             <span class="breadcrumbs-item">
-             <a href="/" class="no-underline">
-             <span class="dotted">Главная страница</span>
-             </a>
-             </span>
-                    <span class="divide">/</span>
-                    <span class="breadcrumbs-item">
-             <a href="" class="no-underline">
-             <span>РОО</span>
-             </a>
 
-          </span></div>
-            </div>
-        </div>
+    <div class="">
+        <div class="row" style="margin-bottom: -20px;">
+            <div class="col">
+                <h2 style="margin-bottom: 1em">Обновить с ресурса Одного окна:</h2>
+                <div class="article" id="top-article" style="margin-top: -25px; height: 1013px;">
 
-        <div class="">
-            <div class="row" style="margin-bottom: -20px;">
-                <div class="col">
-                    <h2 style="margin-bottom: 1em">Обновить с ресурса Одного окна:</h2>
-                    <div class="article" id="top-article" style="margin-top: -25px; height: 1013px;">
+                    <a class="task_href" href="/roo/data/?task=update_courses_from_roo_task">
+                        <div class="run_task">Онлайн-курсы</div>
+                    </a>
 
-                        <a class="task_href" href="/roo/?task=update_courses_from_roo_task">
-                            <div class="run_task">Онлайн-курсы</div>
-                        </a>
+                    <a class="task_href" href="/roo/data/?task=update_platform_from_roo_task">
+                        <div class="run_task">Платформы</div>
+                    </a>
 
-                        <a class="task_href" href="/roo/?task=update_platform_from_roo_task">
-                            <div class="run_task">Платформы</div>
-                        </a>
+                    <a class="task_href" href="/roo/data/?task=update_owner_from_roo_task">
+                        <div class="run_task">Правообладатели</div>
+                    </a>
 
-                        <a class="task_href" href="/roo/?task=update_owner_from_roo_task">
-                            <div class="run_task">Правообладатели</div>
-                        </a>
+                    <a class="task_href" href="/roo/data/?task=update_areas_from_roo_task">
+                        <div class="run_task">Области деятельности</div>
+                    </a>
 
-                        <a class="task_href" href="/roo/?task=update_areas_from_roo_task">
-                            <div class="run_task">Области деятельности</div>
-                        </a>
+                    <a class="task_href" href="/roo/data/?task=update_direction_from_roo_task">
+                        <div class="run_task">Направления подготовки</div>
+                    </a>
 
-                        <a class="task_href" href="/roo/?task=update_direction_from_roo_task">
-                            <div class="run_task">Направления подготовки</div>
-                        </a>
+                    <div id="active_tasks_container">
+                        <h2 style="padding-left: 1em;">Активные задачи:</h2>
+                        <div id="active_tasks">
+                            <p style='margin-left:2em'>Нет активных задач</p>
 
-                        <div id="active_tasks_container">
-                            <h2 style="padding-left: 1em;">Активные задачи:</h2>
-                            <div id="active_tasks">
-                                <p style='margin-left:2em'>Нет активных задач</p>
-
-                            </div>
                         </div>
-
-                        <script type="text/javascript" src='{% static "js/tasks_update.js" %}'></script>
-                        <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
                     </div>
+
+                    <script type="text/javascript" src='{% static "js/tasks_update.js" %}'></script>
+                    <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
                 </div>
             </div>
         </div>
-
     </div>
+
 
 
 {% endblock %}

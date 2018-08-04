@@ -3,6 +3,8 @@ import json
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.views.generic.edit import UpdateView
+
 import logging
 
 from openedu.celery import app
@@ -37,7 +39,7 @@ def data(request):
 
 
 def get_active_tasks(request):
-    if True:  # request.method == "POST":
+    if request.method == "POST":
         i = app.control.inspect()
         active_tasks = []
         for tasks in i.active().values():
@@ -51,3 +53,9 @@ def course_table(request):
     context = dict()
     context["table"] = table
     return render(request, "roo/course_table.html", context)
+
+
+class CourseUpdate(UpdateView):
+    model = Course
+    fields = ['name']
+    template_name_suffix = '_update_form'

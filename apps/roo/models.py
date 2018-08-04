@@ -525,8 +525,9 @@ class ChoiceColumn(tables.Column):
 class RooTable(tables.Table):
     class Meta:
         model = Course
-        exclude = ("credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language", "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description")
+        exclude = ("credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language", "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
         fields = ("title", "platform", "institution", "communication_owner", "communication_platform", "expertise_status", "passport_status", "passport_status", "required_ratings_state", "unforced_ratings_state")
+
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
@@ -538,3 +539,5 @@ class RooTable(tables.Table):
     passport_status = ChoiceColumn(Course.PASSPORT_STATES)
     required_ratings_state = ChoiceColumn(Course.REQUIRED_RATINGS_STATES)
     unforced_ratings_state = ChoiceColumn(Course.UNFORCED_RATINGS_STATES)
+    platform = tables.Column(
+        accessor="course.platform.title", verbose_name="Платформа")

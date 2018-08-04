@@ -526,7 +526,7 @@ class RooTable(tables.Table):
     class Meta:
         model = Course
         exclude = ("credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language", "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
-        fields = ("title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status", "passport_status", "passport_status", "required_ratings_state", "unforced_ratings_state")
+        fields = ("title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status", "passport_status", "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
 
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')

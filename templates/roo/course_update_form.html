@@ -3,6 +3,8 @@
 {% load semanticui %}
 {% block content %}
 
+    <h2>{{ form.title.value }}</h2>
+
 <form method="post">{% csrf_token %}
     {% render_form form %}
     <input type="submit" value="Update" />

@@ -2,9 +2,9 @@
 <html>
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>
@@ -12,114 +12,120 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
-  <script>
-  $(document)
-    .ready(function() {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.semanticui.min.css">
 
-      // fix main menu to page on passing
-      $('.main.menu').visibility({
-        type: 'fixed'
-      });
-      $('.overlay').visibility({
-        type: 'fixed',
-        offset: 80
-      });
+    <script>
+        $(document)
+            .ready(function () {
 
-      // lazy load images
-      $('.image').visibility({
-        type: 'image',
-        transition: 'vertical flip in',
-        duration: 500
-      });
+                // fix main menu to page on passing
+                $('.main.menu').visibility({
+                    type: 'fixed'
+                });
+                $('.overlay').visibility({
+                    type: 'fixed',
+                    offset: 80
+                });
 
-      // show dropdown on hover
-      $('.main.menu  .ui.dropdown').dropdown({
-        on: 'hover'
-      });
-    })
-  ;
-  </script>
+                // lazy load images
+                $('.image').visibility({
+                    type: 'image',
+                    transition: 'vertical flip in',
+                    duration: 500
+                });
 
-  <style type="text/css">
+                // show dropdown on hover
+                $('.main.menu  .ui.dropdown').dropdown({
+                    on: 'hover'
+                });
+            })
+        ;
+    </script>
 
-  body {
-    background-color: #FFFFFF;
-  }
-  .main.container {
-    margin-top: 2em;
-  }
+    <style type="text/css">
 
-  .main.menu {
-    margin-top: 4em;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    transition:
-      box-shadow 0.5s ease,
-      padding 0.5s ease
-    ;
-  }
-  .main.menu .item img.logo {
-    margin-right: 1.5em;
-  }
+        body {
+            background-color: #FFFFFF;
+        }
 
-  .overlay {
-    float: left;
-    margin: 0em 3em 1em 0em;
-  }
-  .overlay .menu {
-    position: relative;
-    left: 0;
-    transition: left 0.5s ease;
-  }
+        .main.container {
+            margin-top: 2em;
+        }
 
-  .main.menu.fixed {
-    background-color: #FFFFFF;
-    border: 1px solid #DDD;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
-  }
-  .overlay.fixed .menu {
-    left: 800px;
-  }
+        .main.menu {
+            margin-top: 4em;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            transition: box-shadow 0.5s ease,
+            padding 0.5s ease;
+        }
 
-  .text.container .left.floated.image {
-    margin: 2em 2em 2em -4em;
-  }
-  .text.container .right.floated.image {
-    margin: 2em -4em 2em 2em;
-  }
+        .main.menu .item img.logo {
+            margin-right: 1.5em;
+        }
 
-  .ui.footer.segment {
-    margin: 5em 0em 0em;
-    padding: 5em 0em;
-  }
-  </style>
+        .overlay {
+            float: left;
+            margin: 0em 3em 1em 0em;
+        }
+
+        .overlay .menu {
+            position: relative;
+            left: 0;
+            transition: left 0.5s ease;
+        }
+
+        .main.menu.fixed {
+            background-color: #FFFFFF;
+            border: 1px solid #DDD;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .overlay.fixed .menu {
+            left: 800px;
+        }
+
+        .text.container .left.floated.image {
+            margin: 2em 2em 2em -4em;
+        }
+
+        .text.container .right.floated.image {
+            margin: 2em -4em 2em 2em;
+        }
+
+        .ui.footer.segment {
+            margin: 5em 0em 0em;
+            padding: 5em 0em;
+        }
+    </style>
 
 </head>
 <body>
 
-  <div class="ui main text container">
+<div class="ui main text container">
     <h1 class="ui header">Менеджер курсов РОО</h1>
 
-  </div>
+</div>
 
 
-  <div class="ui borderless main menu">
+<div class="ui borderless main menu">
     <div class="ui text container">
-      <div class="header item">
-        <img class="logo" src="https://openedu.urfu.ru/files/images/header/logo5.png">
-        Менеджер курсов РОО
-      </div>
-      <a href="/roo/course_table/" class="item">Список курсов</a>
-      <a href="/roo/data/" class="item">Обновления данных</a>
+        <div class="header item">
+            <img class="logo" src="https://openedu.urfu.ru/files/images/header/logo5.png">
+            Менеджер курсов РОО
+        </div>
+        <a href="/roo/course_table/" class="item">Список курсов</a>
+        <a href="/roo/data/" class="item">Обновления данных</a>
     </div>
-  </div>
+</div>
 
-  <div class="ui container">
+<div class="ui container">
 
     {% block content %}
-{% endblock %}
-  </div>
+    {% endblock %}
+</div>
 </body>
 
 </html>

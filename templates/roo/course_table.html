@@ -5,14 +5,11 @@
     {% render_table table %}
 
     <script>
-
-        $(document).ready(function () {
-            var table = $('#coursesTable').DataTable({
-                fixedHeader: {
-                    header: true,
-                    footer: true
-                }
-            });
+        var table = $('#coursesTable').DataTable({
+            fixedHeader: {
+                header: true,
+                footer: true
+            }
         });
     </script>
 {% endblock %}

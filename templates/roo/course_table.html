@@ -4,5 +4,17 @@
 {% block content %}
     {% render_table table %}
 
-
+    <script>
+        var table = $('#coursesTable').DataTable({
+            fixedHeader: {
+                header: true,
+                footer: false
+            }
+        });
+    </script>
+    <style>
+    .ui.container {
+        width:95% !important;
+    }
+    </style>
 {% endblock %}

@@ -13,17 +13,22 @@
         });
     </script>
     <style>
-    .ui.container {
-        width:95% !important;
-    }
-    #coursesTable_length {
-        margin-bottom: 2em;
-    }
-    div.dataTables_wrapper div.dataTables_length select {
-        min-height: 0 !important;
-    }
-    table.dataTable.table thead th.sorting::after, table.dataTable.table thead td.sorting::after {
-        content: "";
-    }
+        .ui.container {
+            width: 95% !important;
+        }
+
+        #coursesTable_length {
+            margin-bottom: 2em;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            min-height: 0 !important;
+        }
+
+        table.dataTable.table thead th.sorting::after, table.dataTable.table thead td.sorting::after,
+        table.dataTable.table thead th.sorting_asc::after, table.dataTable.table thead td.sorting_asc::after,
+        table.dataTable.table thead th.sorting_desc::after, table.dataTable.table thead td.sorting_desc::after {
+            content: "";
+        }
     </style>
 {% endblock %}

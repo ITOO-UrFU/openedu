@@ -530,6 +530,7 @@ class RooTable(tables.Table):
         fields = ("title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status", "passport_status", "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
         attrs = {'class': 'ui celled table', 'id': 'coursesTable'}
 
+    title = tables.TemplateColumn('<a href="#" onClick="CourseEdit=window.open("http://openedu.urfu.ru/roo/{{ record.id }}","{{ record.title }}",width=600,height=300); return false;">{{ record.title }}</a')
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')

@@ -50,5 +50,4 @@ def course_table(request):
     RequestConfig(request, paginate=False).configure(table)
     context = dict()
     context["table"] = table
-    # return render(request, "roo/course_table.html", context)
-    return render(request, "django_tables2/semantic.html", context)
+    return render(request, "roo/course_table.html", context)

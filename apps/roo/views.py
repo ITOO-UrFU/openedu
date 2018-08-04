@@ -3,6 +3,7 @@ import json
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django import forms
 from django.views.generic.edit import UpdateView
 
 import logging
@@ -57,5 +58,6 @@ def course_table(request):
 
 class CourseUpdate(UpdateView):
     model = Course
-    fields = ['name']
+    # fields = ['title']
     template_name_suffix = '_update_form'
+    title = forms.CharField(disabled=True)

@@ -5,33 +5,33 @@
     <div class="">
         <div class="row" style="margin-bottom: -20px;">
             <div class="col">
-                    <div class="ui stacked segment">
-                        <h4 class="ui header">Обновить с ресурса Одного окна:</h4>
-                        <a class="task_href" href="/roo/data/?task=update_courses_from_roo_task">
-                            <button class="ui primary basic button">Онлайн-курсы</button>
-                        </a>
-                        <a class="task_href" href="/roo/data/?task=update_platform_from_roo_task">
-                            <button class="ui primary basic button">Платформы</button>
-                        </a>
+                <div class="ui stacked segment">
+                    <h4 class="ui header">Обновить с ресурса Одного окна:</h4>
+                    <a class="task_href" href="/roo/data/?task=update_courses_from_roo_task">
+                        <button class="ui primary basic button">Онлайн-курсы</button>
+                    </a>
+                    <a class="task_href" href="/roo/data/?task=update_platform_from_roo_task">
+                        <button class="ui primary basic button">Платформы</button>
+                    </a>
 
 
-                        <a class="task_href" href="/roo/data/?task=update_owner_from_roo_task">
-                            <button class="ui primary basic button">Правообладатели</button>
-                        </a>
+                    <a class="task_href" href="/roo/data/?task=update_owner_from_roo_task">
+                        <button class="ui primary basic button">Правообладатели</button>
+                    </a>
 
 
-                        <a class="task_href" href="/roo/data/?task=update_direction_from_roo_task">
-                            <button class="ui primary basic button">Направления подготовки</button>
-                        </a>
+                    <a class="task_href" href="/roo/data/?task=update_direction_from_roo_task">
+                        <button class="ui primary basic button">Направления подготовки</button>
+                    </a>
 
-                        <a class="task_href" href="/roo/data/?task=update_areas_from_roo_task">
-                            <button class="ui primary basic button">Области деятельности</button>
-                        </a>
-
-
-                    </div>
+                    <a class="task_href" href="/roo/data/?task=update_areas_from_roo_task">
+                        <button class="ui primary basic button">Области деятельности</button>
+                    </a>
 
 
+                </div>
+
+                <div class="ui stacked segment">
                     <table class="ui celled striped table" id="active_tasks_container">
                         <thead>
                         <tr>
@@ -44,13 +44,14 @@
 
                         </tbody>
 
-{#                        <div id="active_tasks">#}
-{#                            <p style='margin-left:2em'>Нет активных задач</p>#}
-{#                        </div>#}
+                        {#                        <div id="active_tasks">#}
+                        {#                            <p style='margin-left:2em'>Нет активных задач</p>#}
+                        {#                        </div>#}
                     </table>
+                </div>
 
-                    <script type="text/javascript" src='{% static "js/tasks_update.js" %}'></script>
-                    <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
+                <script type="text/javascript" src='{% static "js/tasks_update.js" %}'></script>
+                <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
             </div>
         </div>
     </div>

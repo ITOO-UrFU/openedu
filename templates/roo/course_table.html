@@ -1,6 +1,14 @@
 {% extends "roo/base.html" %}
 {% load render_table from django_tables2 %}
 
-        {% block content %}
-        {% render_table table%}
-        {% endblock %}
+{% block content %}
+    {% render_table table %}
+
+    <script>
+        $(document).ready(function () {
+        $('.table').DataTable({
+            fixedHeader: true
+        });
+    });
+    </script>
+{% endblock %}

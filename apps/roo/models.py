@@ -539,4 +539,4 @@ class RooTable(tables.Table):
     passport_status = ChoiceColumn(Course.PASSPORT_STATES)
     required_ratings_state = ChoiceColumn(Course.REQUIRED_RATINGS_STATES)
     unforced_ratings_state = ChoiceColumn(Course.UNFORCED_RATINGS_STATES)
-    platform = tables.TemplateColumn('{{ record.platform }}')
+    platform = tables.RelatedLinkColumn()

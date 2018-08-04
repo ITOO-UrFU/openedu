@@ -58,6 +58,6 @@ def course_table(request):
 
 class CourseUpdate(UpdateView):
     model = Course
-    # fields = ['title']
+    fields =  '__all__'
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)

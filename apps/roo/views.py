@@ -17,7 +17,7 @@ logger = logging.getLogger('celery_logging')
 
 
 @roo_member_required
-def index(request):
+def data(request):
     task = request.GET.get("task", None)
     i = app.control.inspect()
     context = dict()

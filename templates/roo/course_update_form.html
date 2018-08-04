@@ -5,8 +5,8 @@
 
     <h2>{{ form.title.value }}</h2>
 
-<form method="post">{% csrf_token %}
+<form class="ui form" method="post">{% csrf_token %}
     {% render_form form %}
-    <input type="submit" value="Update" />
+    <button class="ui button" type="submit">Обновить</button>
 </form>
 {% endblock %}

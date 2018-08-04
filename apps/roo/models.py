@@ -525,6 +525,7 @@ class ChoiceColumn(tables.Column):
 class RooTable(tables.Table):
     class Meta:
         model = Course
+        template_name = "django_tables2/bootstrap.html"
         exclude = ("credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language", "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
         fields = ("title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status", "passport_status", "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
 

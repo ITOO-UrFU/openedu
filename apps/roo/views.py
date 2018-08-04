@@ -29,7 +29,7 @@ def data(request):
         if task not in [t["name"].split('.')[2] for t in context["active"]]:
             globals()[task].delay()
             context["start_list"] = task
-            return redirect("/roo/")
+            return redirect("/roo/data/")
         else:
             context["status"] = f"{task} already running!"
 

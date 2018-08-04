@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'advanced_filters',
     'django_tables2',
+    'semanticuiforms',
 ]
 
 SITE_ID = 1

@@ -1,4 +1,10 @@
+{% extends "roo/base.html" %}
+{% load static %}
+{% load semanticui %}
+{% block content %}
+
 <form method="post">{% csrf_token %}
-    {{ form.as_p }}
+    {% render_form form %}
     <input type="submit" value="Update" />
 </form>
+{% endblock %}

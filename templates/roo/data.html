@@ -13,17 +13,20 @@
                         }
                     }
                 }, 1000);
-            });
+            };
+
+            $("#tasks button").each(function () {
+                $(this).on("click", function () {
+                    $.post("/roo/data/", {"task": $(this).data("task")})
+                        .done(function () {
+                            console.log("Sended task: " + $(this).data("task"));
+                        });
+                })
+            })
+
+        )
         })(jQuery);
 
-        $("#tasks button").each(function () {
-            $(this).on("click", function () {
-                $.post("/roo/data/", {"task": $(this).data("task")})
-                    .done(function () {
-                        console.log("Sended task: " + $(this).data("task"));
-                    });
-            })
-        })
 
     </script>
     <div class="">

@@ -15,7 +15,7 @@ from .decorators import roo_member_required
 
 from .models import \
     Course, CoursesTable, \
-    Expertise, ExpertisesTable,\
+    Expertise, ExpertisesTable, \
     Owner
 from django_tables2 import RequestConfig
 
@@ -24,28 +24,32 @@ logger = logging.getLogger('celery_logging')
 
 @roo_member_required
 def data(request):
-    task = request.GET.get("task", None)
-    i = app.control.inspect()
-    context = dict()
-    context["active"] = []
+    if request.method == "GET":
 
-    # Statistics
-    context["courses_count"] = Course.objects.all().count()
-    context["expertises_count"] = Expertise.objects.all().count()
-    context["owners_count"] = Owner.objects.all().count()
+        i = app.control.inspect()
+        context = dict()
+        context["active"] = []
 
-    for tasks in i.active().values():
-        context["active"] += tasks
+        # Statistics
+        context["courses_count"] = Course.objects.all().count()
+        context["expertises_count"] = Expertise.objects.all().count()
+        context["owners_count"] = Owner.objects.all().count()
 
-    if task:
-        if task not in [t["name"].split('.')[2] for t in context["active"]]:
-            globals()[task].delay()
-            context["start_list"] = task
-            return redirect("/roo/data/")
-        else:
-            context["status"] = f"{task} already running!"
+        for tasks in i.active().values():
+            context["active"] += tasks
 
-    return render(request, "roo/data.html", context)
+        return render(request, "roo/data.html", context)
+
+    elif request.method == "POST":
+        i = app.control.inspect()
+        context = dict()
+        context["active"] = []
+        for tasks in i.active().values():
+            context["active"] += tasks
+        task = request.POST.get("task", None)
+        if task:
+            if task not in [t["name"].split('.')[2] for t in context["active"]]:
+                globals()[task].delay()
 
 
 def get_active_tasks(request):
@@ -65,6 +69,7 @@ def courses(request):
     context["table"] = table
     return render(request, "roo/courses.html", context)
 
+
 @roo_member_required
 def expertises(request):
     table = ExpertisesTable(Expertise.objects.all())
@@ -72,6 +77,7 @@ def expertises(request):
     context = dict()
     context["table"] = table
     return render(request, "roo/expertises.html", context)
+
 
 class CourseUpdate(UpdateView):
     model = Course

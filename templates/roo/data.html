@@ -4,6 +4,7 @@
 
     <script>
         $("active_tasks_container").change(function () {
+            console.log("I'm changed");
             if ($("#active_tasks_container tr").length > 0) {
                 $('#active_tasks_container').transition('fade up');
             }

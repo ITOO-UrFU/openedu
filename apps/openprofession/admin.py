@@ -2,7 +2,8 @@ from django.contrib import admin
 from reversion.admin import VersionAdmin
 from advanced_filters.admin import AdminAdvancedFiltersMixin
 from django.utils.html import format_html
-from django.core.urlresolvers import reverse, redirect
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from django.conf.urls import url
 
 from .models import Entry, PersonalData, Program, QuotesAvailable, Report, ReportEntry, CourseUserGrade, PDAvailable, \

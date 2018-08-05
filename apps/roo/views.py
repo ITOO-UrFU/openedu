@@ -15,7 +15,8 @@ from .decorators import roo_member_required
 
 from .models import \
     Course, CoursesTable, \
-    Expertise, ExpertisesTable
+    Expertise, ExpertisesTable,\
+    Owner
 from django_tables2 import RequestConfig
 
 logger = logging.getLogger('celery_logging')
@@ -27,6 +28,12 @@ def data(request):
     i = app.control.inspect()
     context = dict()
     context["active"] = []
+
+    # Statistics
+    context["courses_count"] = Course.objects.all().count()
+    context["expertises_count"] = Expertise.objects.all().count()
+    context["owners_count"] = Owner.objects.all().count()
+
     for tasks in i.active().values():
         context["active"] += tasks
 

@@ -31,6 +31,38 @@
 
                 </div>
 
+                <div class="ui statistics">
+                    <div class="statistic">
+                        <div class="value">
+                            {{ courses_count }}
+                        </div>
+                        <div class="label">
+                            Онлайн-курсов
+                        </div>
+                    </div>
+
+                    <div class="statistic">
+                        <div class="value">
+                            {{ expertises_count }}
+                        </div>
+                        <div class="label">
+                            Экспертиз
+                        </div>
+                    </div>
+
+                    <div class="statistic">
+                        <div class="value">
+                            {{ owners_count }}
+                        </div>
+                        <div class="label">
+                            Правообладателей
+                        </div>
+                    </div>
+
+
+                </div>
+
+
                 <table class="ui celled striped table" id="active_tasks_container">
                     <thead>
                     <tr>
@@ -43,9 +75,10 @@
 
                     </tbody>
 
-                    {#                        <div id="active_tasks">#}
-                    {#                            <p style='margin-left:2em'>Нет активных задач</p>#}
-                    {#                        </div>#}
+                    <div id="active_tasks">
+                        <p style='margin-left:2em'>Нет активных задач</p>
+                    </div>
+
                 </table>
 
                 <script type="text/javascript" src='{% static "js/tasks_update.js" %}'></script>

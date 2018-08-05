@@ -2,7 +2,7 @@ from django.contrib import admin
 from reversion.admin import VersionAdmin
 from advanced_filters.admin import AdminAdvancedFiltersMixin
 from django.utils.html import format_html
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, redirect
 from django.conf.urls import url
 
 from .models import Entry, PersonalData, Program, QuotesAvailable, Report, ReportEntry, CourseUserGrade, PDAvailable, \
@@ -47,6 +47,7 @@ class ProgramAdmin(VersionAdmin):
     def process_session(self, request, program_id, *args, **kwargs):
         program = Program.objects.get(pk=program_id)
         program.add_session()
+        return redirect('/admin/openprofession/program/')
 
     def get_urls(self):
         urls = super().get_urls()

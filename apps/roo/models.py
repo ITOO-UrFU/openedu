@@ -193,13 +193,17 @@ class Course(models.Model):
         (2, "Загружены")
     )
 
-    communication_owner = models.CharField("Статус коммуникации с правообладателей", max_length=1, choices=COMMUNICATION_OWNER_STATES, default=0)
-    communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1, choices=COMMUNICATION_PLATFORM_STATES, default=0)
+    communication_owner = models.CharField("Статус коммуникации с правообладателей", max_length=1,
+                                           choices=COMMUNICATION_OWNER_STATES, default=0)
+    communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1,
+                                              choices=COMMUNICATION_PLATFORM_STATES, default=0)
     expertise_status = models.CharField("Статус экспертизы", max_length=1, choices=EX_STATES, default=0)
     passport_status = models.CharField("Статус паспорта", max_length=1, choices=PASSPORT_STATES, default=0)
     roo_status = models.CharField("Статус загрузки на роо", max_length=1, choices=ROO_STATES, default=0)
-    required_ratings_state = models.CharField("Состояние загрузки обязательных оценок", max_length=1, choices=REQUIRED_RATINGS_STATES, default=0)
-    unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1, choices=UNFORCED_RATINGS_STATES, default=0)
+    required_ratings_state = models.CharField("Состояние загрузки обязательных оценок", max_length=1,
+                                              choices=REQUIRED_RATINGS_STATES, default=0)
+    unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
+                                              choices=UNFORCED_RATINGS_STATES, default=0)
     comment = models.TextField("Примечание", blank=True, null=True)
 
     def __str__(self):
@@ -432,7 +436,8 @@ class Owner(Base):
 
 class Area(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512, db_index=True)
+    global_id = models.CharField("ИД областей деятельности на РОО", blank=True, null=True, max_length=512,
+                                 db_index=True)
 
     def __str__(self):
         return self.title
@@ -522,15 +527,20 @@ class ChoiceColumn(tables.Column):
             return "Ошибка"
 
 
-class RooTable(tables.Table):
+class CoursesTable(tables.Table):
     class Meta:
         model = Course
         template_name = "django_tables2/bootstrap.html"
-        exclude = ("credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language", "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
-        fields = ("title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status", "passport_status", "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
+        exclude = (
+        "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language",
+        "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
+        fields = (
+        "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
+        "passport_status", "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
         attrs = {'class': 'ui celled table', 'id': 'coursesTable'}
 
-    title = tables.TemplateColumn('<a href="#" onClick="CourseEdit=window.open(\'http://openedu.urfu.ru/roo/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a')
+    title = tables.TemplateColumn(
+        '<a href="#" onClick="CourseEdit=window.open(\'http://openedu.urfu.ru/roo/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a')
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
@@ -542,3 +552,10 @@ class RooTable(tables.Table):
     passport_status = ChoiceColumn(Course.PASSPORT_STATES)
     required_ratings_state = ChoiceColumn(Course.REQUIRED_RATINGS_STATES)
     unforced_ratings_state = ChoiceColumn(Course.UNFORCED_RATINGS_STATES)
+
+
+class ExpertisesTable(tables.Table):
+    class Meta:
+        model = Expertise
+        template_name = "django_tables2/bootstrap.html"
+        fields = ("course", "state", "date", "type", "executed", "expert", "supervisor", "organizer", "comment")

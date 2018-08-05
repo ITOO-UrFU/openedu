@@ -118,6 +118,11 @@ class Program(models.Model):
         verbose_name = 'программа'
         verbose_name_plural = 'программы'
 
+    def add_session(self):
+        self.active = False
+        self.pk = None
+        self.save()
+
 
 class SimulizatorData(models.Model):
     fio = models.CharField("ФИО", max_length=2048, null=False, blank=False)

@@ -51,6 +51,8 @@ def data(request):
             if task not in [t["name"].split('.')[2] for t in context["active"]]:
                 globals()[task].delay()
 
+        return JsonResponse({"status": "sucess"})
+
 
 def get_active_tasks(request):
     if request.method == "POST":

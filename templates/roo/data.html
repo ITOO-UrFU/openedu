@@ -3,12 +3,18 @@
 {% block content %}
 
     <script>
-        $("active_tasks_container").change(function () {
-            console.log("I'm changed");
-            if ($("#active_tasks_container tr").length > 0) {
-                $('#active_tasks_container').transition('fade up');
-            }
-        });
+
+        (function ($) {
+            $(document).ready(function () {
+                var refreshContainer = setInterval(function () {
+                    console.log($("#active_tasks_container tr").length)
+                    if ($("#active_tasks_container tbody tr").length > 0) {
+                        $('#active_tasks_container').transition('fade up');
+                    }
+                }, 1000);
+            });
+        })(jQuery);
+
 
     </script>
     <div class="">

@@ -12,7 +12,9 @@
                             $('#active_tasks_container').transition('fade up');
                         }
                     } else {
-                        $('#active_tasks_container').transition('fade up');
+                        if ($(active_tasks_container).is(":visible")) {
+                            $('#active_tasks_container').transition('fade up');
+                        }
                     }
                 }, 1000);
 

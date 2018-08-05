@@ -17,35 +17,32 @@
             });
         })(jQuery);
 
+        $("#tasks button").each(function (button) {
+            $(button).on("click", function (el) {
+                $.post("data?task=" + $(button).data("task"), function () {
+                    console.log("Sended task: " + $(button).data("task"));
+                });
+            })
+
+        })
 
     </script>
     <div class="">
         <div class="row" style="margin-bottom: -20px;">
             <div class="col">
-                <div class="ui stacked segment">
+                <div class="ui stacked segment" id="tasks">
                     <h4 class="ui header">Обновить с ресурса Одного окна:</h4>
-                    <a class="task_href" href="/roo/data/?task=update_courses_from_roo_task">
-                        <button class="ui primary basic button">Онлайн-курсы</button>
-                    </a>
-                    <a class="task_href" href="/roo/data/?task=update_platform_from_roo_task">
-                        <button class="ui primary basic button">Платформы</button>
-                    </a>
-
-
-                    <a class="task_href" href="/roo/data/?task=update_owner_from_roo_task">
-                        <button class="ui primary basic button">Правообладатели</button>
-                    </a>
-
-
-                    <a class="task_href" href="/roo/data/?task=update_direction_from_roo_task">
-                        <button class="ui primary basic button">Направления подготовки</button>
-                    </a>
-
-                    <a class="task_href" href="/roo/data/?task=update_areas_from_roo_task">
-                        <button class="ui primary basic button">Области деятельности</button>
-                    </a>
-
-
+                    <button class="ui primary basic button" data-task="update_courses_from_roo_task">Онлайн-курсы
+                    </button>
+                    <button class="ui primary basic button" data-task="update_platform_from_roo_task">Платформы</button>
+                    <button class="ui primary basic button" data-task="update_owner_from_roo_task">Правообладатели
+                    </button>
+                    <button class="ui primary basic button" data-task="update_direction_from_roo_task">Направления
+                        подготовки
+                    </button>
+                    <button class="ui primary basic button" data-task="update_areas_from_roo_task">Области
+                        деятельности
+                    </button>
                 </div>
 
                 <div class="ui statistics" style="margin: 3em 0em 3em 0em;">

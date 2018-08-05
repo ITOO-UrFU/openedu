@@ -40,10 +40,13 @@ class ProgramAdmin(VersionAdmin):
     get_url.short_description = "Ссылки"
 
     def program_actions(self, obj):
-        return format_html(
-            '<a class="button" href="{}">Add session</a>&nbsp;',
-            reverse('admin:new_session', args=[obj.pk]),
-        )
+        if obj.active:
+            return format_html(
+                '<a class="button" href="{}">Add session</a>&nbsp;',
+                reverse('admin:new_session', args=[obj.pk]),
+            )
+        else:
+            return "Неактивна"
 
     def process_session(self, request, program_id, *args, **kwargs):
         program = Program.objects.get(pk=program_id)

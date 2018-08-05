@@ -121,6 +121,7 @@ class Program(models.Model):
     def add_session(self):
         self.active = False
         self.pk = None
+        self.session = str(int(self.session) + 1).rjust(2, "0")
         self.save()
 
 

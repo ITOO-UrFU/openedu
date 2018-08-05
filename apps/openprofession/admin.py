@@ -40,7 +40,7 @@ class ProgramAdmin(VersionAdmin):
 
     def program_actions(self, obj):
         return format_html(
-            '<a class="button" href="{}">Создать новую сессию</a>&nbsp;',
+            '<a class="button" href="{}">Add session</a>&nbsp;',
             reverse('admin:new_session', args=[obj.pk]),
         )
 

@@ -45,7 +45,7 @@ def data(request):
         else:
             context["status"] = f"{task} already running!"
 
-    return render(request, "roo/index.html", context)
+    return render(request, "roo/data.html", context)
 
 
 def get_active_tasks(request):

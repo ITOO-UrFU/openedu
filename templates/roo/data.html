@@ -18,11 +18,11 @@
 
         $("#tasks button").each(function () {
             $(this).on("click", function () {
-                $.post("data", {"task": $(this).data("task")}, function () {
-                    console.log("Sended task: " + $(this).data("task"));
-                });
+                $.post(".", {"task": $(this).data("task")})
+                    .done(function () {
+                        console.log("Sended task: " + $(this).data("task"));
+                    });
             })
-
         })
 
     </script>

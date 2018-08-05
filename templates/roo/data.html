@@ -18,7 +18,7 @@
 
         $("#tasks button").each(function () {
             $(this).on("click", function () {
-                $.post(".", {"task": $(this).data("task")})
+                $.post("/roo/data/", {"task": $(this).data("task")})
                     .done(function () {
                         console.log("Sended task: " + $(this).data("task"));
                     });

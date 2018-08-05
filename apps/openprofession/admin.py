@@ -46,7 +46,7 @@ class ProgramAdmin(VersionAdmin):
                 reverse('admin:new_session', args=[obj.pk]),
             )
         else:
-            return "Неактивна"
+            return "<p style='color:red;'>Неактивна</p>"
 
     def process_session(self, request, program_id, *args, **kwargs):
         program = Program.objects.get(pk=program_id)

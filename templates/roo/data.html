@@ -2,6 +2,14 @@
 {% load static %}
 {% block content %}
 
+    <script>
+        $("active_tasks_container").change(function () {
+            if ($("#active_tasks_container tr").length > 0) {
+                $('#active_tasks_container').transition('fade up');
+            }
+        });
+
+    </script>
     <div class="">
         <div class="row" style="margin-bottom: -20px;">
             <div class="col">
@@ -63,7 +71,7 @@
                 </div>
 
 
-                <table class="ui celled striped table" id="active_tasks_container">
+                <table class="ui celled striped table" id="active_tasks_container" hidden="hidden">
                     <thead>
                     <tr>
                         <th colspan="3">Активные задачи:</th>

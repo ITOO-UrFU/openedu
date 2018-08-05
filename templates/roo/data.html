@@ -16,10 +16,10 @@
             });
         })(jQuery);
 
-        $("#tasks button").each(function (button) {
-            $(button).on("click", function (el) {
-                $.post("data", {"task": $(button).data("task")}, function () {
-                    console.log("Sended task: " + $(button).data("task"));
+        $("#tasks button").each(function () {
+            $(this).on("click", function () {
+                $.post("data", {"task": $(this).data("task")}, function () {
+                    console.log("Sended task: " + $(this).data("task"));
                 });
             })
 

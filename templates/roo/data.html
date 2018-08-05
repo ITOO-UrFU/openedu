@@ -11,6 +11,8 @@
                         if ($(active_tasks_container).is(":hidden")) {
                             $('#active_tasks_container').transition('fade up');
                         }
+                    } else {
+                        $('#active_tasks_container').transition('fade up');
                     }
                 }, 1000);
 
@@ -34,17 +36,11 @@
             <div class="col">
                 <div class="ui stacked segment" id="tasks">
                     <h4 class="ui header">Обновить с ресурса Одного окна:</h4>
-                    <button class="ui primary basic button" data-task="update_courses_from_roo_task">Онлайн-курсы
-                    </button>
+                    <button class="ui primary basic button" data-task="update_courses_from_roo_task">Онлайн-курсы</button>
                     <button class="ui primary basic button" data-task="update_platform_from_roo_task">Платформы</button>
-                    <button class="ui primary basic button" data-task="update_owner_from_roo_task">Правообладатели
-                    </button>
-                    <button class="ui primary basic button" data-task="update_direction_from_roo_task">Направления
-                        подготовки
-                    </button>
-                    <button class="ui primary basic button" data-task="update_areas_from_roo_task">Области
-                        деятельности
-                    </button>
+                    <button class="ui primary basic button" data-task="update_owner_from_roo_task">Правообладатели</button>
+                    <button class="ui primary basic button" data-task="update_direction_from_roo_task">Направления подготовки</button>
+                    <button class="ui primary basic button" data-task="update_areas_from_roo_task">Области деятельности</button>
                 </div>
 
                 <div class="ui statistics" style="margin: 3em 0em 3em 0em;">

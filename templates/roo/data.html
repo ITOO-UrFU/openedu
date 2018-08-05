@@ -7,7 +7,6 @@
         (function ($) {
             $(document).ready(function () {
                 var refreshContainer = setInterval(function () {
-                    console.log($("#active_tasks_container tr").length)
                     if ($("#active_tasks_container tbody tr").length > 0) {
                         if ($(active_tasks_container).is(":hidden")) {
                             $('#active_tasks_container').transition('fade up');

@@ -88,3 +88,8 @@ class CourseUpdate(UpdateView):
     title = forms.CharField(disabled=True)
 
 
+class ExpertiseUpdate(UpdateView):
+    model = Expertise
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+    title = forms.CharField(disabled=True)

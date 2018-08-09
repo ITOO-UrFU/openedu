@@ -558,6 +558,6 @@ class ExpertisesTable(tables.Table):
     class Meta:
         model = Expertise
         template_name = "django_tables2/bootstrap.html"
-        fields = ("course", "state", "date", "type", "executed", "expert", "supervisor", "organizer", "comment")
-        course = tables.TemplateColumn(
-            '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a')
+        fields = ("id", "course", "state", "date", "type", "executed", "expert", "supervisor", "organizer", "comment")
+        id = tables.TemplateColumn(
+            '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a')

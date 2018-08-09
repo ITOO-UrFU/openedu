@@ -391,6 +391,8 @@ class Owner(Base):
     global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, null=True, db_index=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
     image = models.CharField("Изображение", blank=True, null=True, max_length=1024)
+    contacts = models.TextField("Контакты", blank=True, null=True)
+    from_roo = models.BooleanField("Существует на РОО", default=True)
 
     def __str__(self):
         return self.title

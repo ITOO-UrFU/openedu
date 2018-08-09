@@ -68,7 +68,7 @@ class Expertise(models.Model):
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=512)
     date = models.DateField("Дата", blank=True, null=True)
     type = models.CharField("Вид экспертизы", choices=TYPES,
-                            blank=True, null=True, max_length=512)
+                            blank=True, null=True, max_length=1)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
     expert = models.ForeignKey("Expert", verbose_name="Эксперт", default='None')
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=512)

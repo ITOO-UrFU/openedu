@@ -61,3 +61,5 @@ class CourseUpdate(UpdateView):
     fields =  '__all__'
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
+
+

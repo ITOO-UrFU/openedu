@@ -337,6 +337,7 @@ class Platform(Base):
     url = models.CharField("Ссылка на сайт платформы", blank=True, null=True, max_length=512)
     description = models.TextField("Описание платформы", blank=True, null=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
+    contacts = models.TextField("Контакты", blank=True, null=True)
 
     # наши поля
     # newest = models.BooleanField("Самое новое содержание курса", default=False)

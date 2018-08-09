@@ -1,0 +1,67 @@
+{% extends "roo/base.html" %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+    {% render_table table %}
+
+    <script>
+        var table = $('#coursesTable').DataTable({
+            "pageLength": 15,
+            "lengthMenu": [ 15, 25, 50, 75, 100, 1010 ],
+            fixedHeader: {
+                header: true,
+                footer: false
+            },
+            "language": {
+                    "sProcessing": "Подождите...",
+                    "sSearch": "Поиск:",
+                    "sLengthMenu": "Показать _MENU_ записей",
+                    "sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                    "sInfoEmpty": "Записи с 0 до 0 из 0 записей",
+                    "sInfoFiltered": "(отфильтровано из _MAX_ записей)",
+                    "sInfoPostFix": "",
+                    "sLoadingRecords": "Загрузка записей...",
+                    "sZeroRecords": "Записи отсутствуют.",
+                    "sEmptyTable": "В таблице отсутствуют данные",
+                    "oPaginate": {
+                      "sFirst": "Первая",
+                      "sPrevious": "Предыдущая",
+                      "sNext": "Следующая",
+                      "sLast": "Последняя"
+                    },
+                    "oAria": {
+                      "sSortAscending": ": активировать для сортировки столбца по возрастанию",
+                      "sSortDescending": ": активировать для сортировки столбца по убыванию"
+                    }
+                  }
+        });
+        document.getElementById('coursesTable').classList.add('hover');
+    </script>
+    <style>
+        .ui.container {
+            width: 95% !important;
+        }
+
+        #coursesTable_length {
+            margin-bottom: 2em;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            min-height: 0 !important;
+            margin-left: 0.5em;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            border: 1px solid;
+            border-radius: 3px;
+            height: 1.8em;
+            border-color: #c0c0c0;
+        }
+
+        table.dataTable.table thead th.sorting::after, table.dataTable.table thead td.sorting::after,
+        table.dataTable.table thead th.sorting_asc::after, table.dataTable.table thead td.sorting_asc::after,
+        table.dataTable.table thead th.sorting_desc::after, table.dataTable.table thead td.sorting_desc::after {
+            content: "";
+        }
+    </style>
+{% endblock %}

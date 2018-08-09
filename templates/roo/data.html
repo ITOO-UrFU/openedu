@@ -1,0 +1,101 @@
+{% extends "roo/base.html" %}
+{% load static %}
+{% block content %}
+
+    <script>
+
+        (function ($) {
+            $(document).ready(function () {
+                var refreshContainer = setInterval(function () {
+                    if ($("#active_tasks_container tbody tr").length > 0) {
+                        if ($(active_tasks_container).is(":hidden")) {
+                            $('#active_tasks_container').transition('fade up');
+                        }
+                    } else {
+                        if ($(active_tasks_container).is(":visible")) {
+                            $('#active_tasks_container').transition('fade up');
+                        }
+                    }
+                }, 1000);
+
+
+                $("#tasks button").each(function () {
+                    $(this).on("click", function () {
+                        $.post("/roo/data/", {"task": $(this).data("task")})
+                            .done(function () {
+                                console.log("Sended task: " + $(this).data("task"));
+                            });
+                    })
+                });
+
+            });
+        })(jQuery);
+
+
+    </script>
+    <div class="">
+        <div class="row" style="margin-bottom: -20px;">
+            <div class="col">
+                <div class="ui stacked segment" id="tasks">
+                    <h4 class="ui header">Обновить с ресурса Одного окна:</h4>
+                    <button class="ui primary basic button" data-task="update_courses_from_roo_task">Онлайн-курсы</button>
+                    <button class="ui primary basic button" data-task="update_platform_from_roo_task">Платформы</button>
+                    <button class="ui primary basic button" data-task="update_owner_from_roo_task">Правообладатели</button>
+                    <button class="ui primary basic button" data-task="update_direction_from_roo_task">Направления подготовки</button>
+                    <button class="ui primary basic button" data-task="update_areas_from_roo_task">Области деятельности</button>
+                </div>
+
+                <div class="ui statistics" style="margin: 3em 0em 3em 0em;">
+                    <div class="statistic">
+                        <div class="value">
+                            {{ courses_count }}
+                        </div>
+                        <div class="label">
+                            Онлайн-курсов
+                        </div>
+                    </div>
+
+                    <div class="statistic">
+                        <div class="value">
+                            {{ expertises_count }}
+                        </div>
+                        <div class="label">
+                            Экспертиз
+                        </div>
+                    </div>
+
+                    <div class="statistic">
+                        <div class="value">
+                            {{ owners_count }}
+                        </div>
+                        <div class="label">
+                            Правообладателей
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <table class="ui celled striped table" id="active_tasks_container" hidden="hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3">Активные задачи:</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <script type="text/javascript" src='{% static "js/tasks_update.js" %}'></script>
+                <script type="text/javascript" src='{% static "js/jquery-dateformat.js" %}'></script>
+            </div>
+        </div>
+    </div>
+    </div>
+    <style>
+        .ui.basic.primary.button {
+            margin: 0em 1em 1em 1em !important;
+        }
+    </style>
+{% endblock %}

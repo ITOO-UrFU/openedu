@@ -118,6 +118,19 @@ class Program(models.Model):
         verbose_name = 'программа'
         verbose_name_plural = 'программы'
 
+    def add_session(self):
+        self.active = False
+        Program.objects.create(
+            title=self.title,
+            active=True,
+            session=f"session_{str(int(self.session.split('_')[1]) + 1).rjust(2, '0')}",
+            course_id=self.course_id,
+            start=self.start + 1,
+            org=self.org
+        )
+
+        self.save()
+
 
 class SimulizatorData(models.Model):
     fio = models.CharField("ФИО", max_length=2048, null=False, blank=False)
@@ -264,6 +277,7 @@ class SeminarData(models.Model):
     class Meta:
         verbose_name = 'участник семинара'
         verbose_name_plural = 'участники семинара'
+
 
 class QuotesAvailable(models.Model):
     available = models.BooleanField("Квота доступна", default=False)

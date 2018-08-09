@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script src='{% static "vendor/Semantic-UI-CSS-master/semantic.min.js" %}'></script>
+    <link rel="stylesheet" type="text/css" href='{% static "vendor/Semantic-UI-CSS-master/semantic.min.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "vendor/Semantic-UI-Calendar/dist/calendar.min.css" %}'>
+
+
+
+
+</head>
+<body>
+
+
+<div class="ui container">
+
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+<style>
+    .main_content {
+        margin-bottom: 2em;
+        margin-top: 2em;
+    }
+</style>
+</html>

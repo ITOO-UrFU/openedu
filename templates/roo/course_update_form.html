@@ -1,17 +1,22 @@
-{% extends "roo/base.html" %}
+{% extends "roo/base_simple.html" %}
 {% load static %}
 {% load semanticui %}
 {% block content %}
 
-    <h2>{{ form.title.value }}</h2>
+    <div class="main_content">
 
-    <form class="ui form" method="post">{% csrf_token %}
-        {% render_form form %}
-        <button class="ui button" type="submit">Обновить</button>
-    </form>
+        <h2>{{ form.title.value }}</h2>
+
+        <form class="ui form" method="post">{% csrf_token %}
+            {% render_form form %}
+            <button class="ui button" type="submit">Обновить</button>
+        </form>
+
+    </div>
     <script>
         $('.ui.dropdown')
             .dropdown();
         $('#id_record_end_at').calendar();
     </script>
+
 {% endblock %}

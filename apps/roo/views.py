@@ -13,7 +13,10 @@ from .tasks import *
 
 from .decorators import roo_member_required
 
-from .models import Course, RooTable
+from .models import \
+    Course, CoursesTable, \
+    Expertise, ExpertisesTable, \
+    Owner
 from django_tables2 import RequestConfig
 
 logger = logging.getLogger('celery_logging')
@@ -21,22 +24,34 @@ logger = logging.getLogger('celery_logging')
 
 @roo_member_required
 def data(request):
-    task = request.GET.get("task", None)
-    i = app.control.inspect()
-    context = dict()
-    context["active"] = []
-    for tasks in i.active().values():
-        context["active"] += tasks
+    if request.method == "GET":
 
-    if task:
-        if task not in [t["name"].split('.')[2] for t in context["active"]]:
-            globals()[task].delay()
-            context["start_list"] = task
-            return redirect("/roo/data/")
-        else:
-            context["status"] = f"{task} already running!"
+        i = app.control.inspect()
+        context = dict()
+        context["active"] = []
 
-    return render(request, "roo/index.html", context)
+        # Statistics
+        context["courses_count"] = Course.objects.all().count()
+        context["expertises_count"] = Expertise.objects.all().count()
+        context["owners_count"] = Owner.objects.all().count()
+
+        for tasks in i.active().values():
+            context["active"] += tasks
+
+        return render(request, "roo/data.html", context)
+
+    elif request.method == "POST":
+        i = app.control.inspect()
+        context = dict()
+        context["active"] = []
+        for tasks in i.active().values():
+            context["active"] += tasks
+        task = request.POST.get("task", None)
+        if task:
+            if task not in [t["name"].split('.')[2] for t in context["active"]]:
+                globals()[task].delay()
+
+        return JsonResponse({"status": "sucess"})
 
 
 def get_active_tasks(request):
@@ -47,18 +62,28 @@ def get_active_tasks(request):
             active_tasks += tasks
         return JsonResponse({"active_tasks": active_tasks})
 
+
 @roo_member_required
-def course_table(request):
-    table = RooTable(Course.objects.all())
+def courses(request):
+    table = CoursesTable(Course.objects.all())
     RequestConfig(request, paginate=False).configure(table)
     context = dict()
     context["table"] = table
-    return render(request, "roo/course_table.html", context)
+    return render(request, "roo/courses.html", context)
+
+
+@roo_member_required
+def expertises(request):
+    table = ExpertisesTable(Expertise.objects.all())
+    RequestConfig(request, paginate=False).configure(table)
+    context = dict()
+    context["table"] = table
+    return render(request, "roo/expertises.html", context)
 
 
 class CourseUpdate(UpdateView):
     model = Course
-    fields =  '__all__'
+    fields = '__all__'
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
 

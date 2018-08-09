@@ -532,11 +532,11 @@ class CoursesTable(tables.Table):
         model = Course
         template_name = "django_tables2/bootstrap.html"
         exclude = (
-        "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language",
-        "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
+            "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language",
+            "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
         fields = (
-        "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
-        "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
+            "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
+            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
         attrs = {'class': 'ui celled table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(
@@ -558,6 +558,6 @@ class ExpertisesTable(tables.Table):
     class Meta:
         model = Expertise
         template_name = "django_tables2/bootstrap.html"
-        fields = ("id", "course", "state", "date", "type", "executed", "expert", "supervisor", "organizer", "comment")
-        id = tables.TemplateColumn(
+        fields = ("course", "state", "date", "type", "executed", "expert", "supervisor", "organizer", "comment")
+        course = tables.TemplateColumn(
             '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a')

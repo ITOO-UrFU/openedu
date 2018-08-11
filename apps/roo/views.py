@@ -105,6 +105,9 @@ class ExpertiseLayout(forms.ModelForm):
              ("Field", "platform"),
              ("Field", "external_url"),
              ("Field", "version"),
+             ),
+            ("Text", "<hr>"),
+            ("Equal Width Fields",
              ("Field", "owner"),
              ("Field", "course_title"),
              )

@@ -90,7 +90,7 @@ class CourseUpdate(UpdateView):
 from django.forms.models import inlineformset_factory
 
 class ExpertiseLayout(forms.ModelForm):
-    course = forms.ModelChoiceField(queryset=None)
+    platform = forms.CharField()
     class Meta:
         model = Expertise
         fields = ["course", ]
@@ -102,7 +102,8 @@ class ExpertiseLayout(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ExpertiseLayout, self).__init__(*args, **kwargs)
-        self.fields['course'].queryset = Course.objects.all()
+        self.fields['platform'].initial = self.instance.course.platform.title
+        self.fields['platform'].widget.attrs['readonly'] = True
 
 
 

@@ -91,19 +91,24 @@ from django.forms.models import inlineformset_factory
 
 class ExpertiseLayout(forms.ModelForm):
     platform = forms.ModelChoiceField(queryset=Platform.objects.all())
+    external_url = forms.CharField()
     class Meta:
         model = Expertise
-        fields = ["platform", ]
-        fieldsets = (
-            ('Обязательные поля паспорта ОК', {
-                'fields': ('platform',)
-            }),
-        )
+        fields = ["platform", "external_url",]
+
+        layout = [
+            ("Text", "<h4>Обязательные поля паспорта ОК</h4>"),
+            ("Inline Fields",
+             ("Field", "platform"),
+             ("Field", "external_url"),
+             ),
+
+        ]
 
     def __init__(self, *args, **kwargs):
         super(ExpertiseLayout, self).__init__(*args, **kwargs)
         self.fields['platform'].initial = self.instance.course.partner
-        self.fields['platform'].widget.attrs['readonly'] = True
+        self.fields['external_url'].initial = self.instance.course.external_url
 
 
 

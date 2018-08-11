@@ -91,7 +91,7 @@ class CourseUpdate(UpdateView):
 class ExpertiseLayout(forms.ModelForm):
     class Meta:
         model = Expertise
-        fields = "__all__"
+        # fields = "__all__"
         fieldsets = (
             ('Обязательные поля паспорта ОК', {
                 'fields': ('course__platform', 'course__title')

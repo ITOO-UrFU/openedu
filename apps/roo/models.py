@@ -75,6 +75,8 @@ class Expertise(models.Model):
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
                                  max_length=512)
     comment = models.TextField("Примечание", blank=True, null=True)
+    comment_fieldset_1 = models.TextField("Комментарии по отсутствию обязательных полей ОК", blank=True, null=True)
+    comment_fieldset_2 = models.TextField("Комментарии по отсутствию обязательных полей ОК претендующих на зачет ОП", blank=True, null=True)
 
     # Passport
     has_length = models.BooleanField("Длительность", default=False)
@@ -90,7 +92,7 @@ class Expertise(models.Model):
     has_results = models.BooleanField("Результаты обучения", default=False)
     has_evaluation_tools = models.BooleanField("Оценочные средства", default=False)
     has_recommended_directions = models.BooleanField("Рекомендуемые направления подготовки", default=False)
-    has_certificate = models.BooleanField("Наличие подтвержденного сертификата (сервис прокторинга)", default=False)
+    has_proctoring = models.BooleanField("Наличие подтвержденного сертификата (сервис прокторинга)", default=False)
     has_labor_costs = models.BooleanField("Трудозатраты", default=False)
     has_short_description = models.BooleanField("Короткое описание", default=False)
     has_learning_plan = models.BooleanField("Учебный план", default=False)

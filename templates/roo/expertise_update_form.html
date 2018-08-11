@@ -110,9 +110,81 @@
             </table>
 
             {% render_field form.is_open %}
+            {% render_field form.comment_fieldset_1 %}
+
+            <h2>Обязательные поля для ОК, претендующих на зачет результатов их освоения ОО в основных и дополнительных ОП:</h2>
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>Поле</th>
+                    <th>Значение</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Трудоемкость</td>
+                    <td>N/A</td>
+                    <td>{% render_field form.has_labor %}</td>
+                </tr>
+                <tr>
+                    <td>Компетенции</td>
+                    <td>{{ expertise.course.competences }}</td>
+                    <td>{% render_field form.has_competences %}</td>
+                </tr>
+                <tr>
+                    <td>Результаты обучения</td>
+                    <td>N/A</td>
+                    <td>{% render_field form.has_results %}</td>
+                </tr>
+                <tr>
+                    <td>Оценочные средства</td>
+                    <td>N/A</td>
+                    <td>{% render_field form.has_evaluation_tools %}</td>
+                </tr>
+                <tr>
+                    <td>Рекомендуемые направления подготовки</td>
+                    <td>{{ expertise.course.directions }}</td>
+                    <td>{% render_field form.has_recommended_directions %}</td>
+                </tr>
+                <tr>
+                    <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
+                    <td>N/A</td>
+                    <td>{% render_field form.has_proctoring %}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {% render_field form.comment_fieldset_2 %}
+            {% render_field form.has_not_prohibited %}
+
+            <h2>Проверка работоспособности компонентов онлайн-курса</h2>
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>Поле</th>
+                    <th>Значение</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Текстовые материалы</td>
+                    <td>{% render_field form.has_text_materials %}</td>
+                </tr>
+                <tr>
+                    <td>Иллюстрации</td>
+                    <td>{% render_field form.has_illustrations %}</td>
+                </tr>
+                <tr>
+                    <td>Аудиоматериалы</td>
+                    <td>{% render_field form.has_audio %}</td>
+                </tr>
+                <tr>
+                    <td>Видеоматериалы</td>
+
+                    <td>{% render_field form.has_video %}</td>
+                </tr>
+                </tbody>
+            </table>
 
 
-            {% render_form form %}
             <button class="ui button" type="submit">Обновить</button>
         </form>
 

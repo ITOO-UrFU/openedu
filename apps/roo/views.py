@@ -92,16 +92,12 @@ class ExpertiseLayout(forms.ModelForm):
     class Meta:
         model = Expertise
         fields = "__all__"
-        layout = [
-            ("Text", "<h4 class=\"ui dividing header\">Обязательные поля паспорта ОК</h4>"),
-            ("Three Fields",
-             ("Text", "get_platform"),
-             ("Field", "has_description"),
-             ("Field", "language"),
-             ),
+        fieldsets = (
+            ('Обязательные поля паспорта ОК', {
+                'fields': ('course__platform', 'course__title')
+            }),
+        )
 
-        ]
-        get_platform = forms.CharField()
 
 
 class ExpertiseUpdate(UpdateView):

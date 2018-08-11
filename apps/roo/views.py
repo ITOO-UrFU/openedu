@@ -107,9 +107,6 @@ class ExpertiseLayout(forms.ModelForm):
              ("Field", "version"),
              ("Field", "owner"),
              ("Field", "course_title"),
-             ),
-            ("Equal Width Fields",
-             ("Field", "course_title"),
              )
 
         ]
@@ -126,6 +123,8 @@ class ExpertiseLayout(forms.ModelForm):
         self.fields['course_title'].initial = self.instance.course.title
         self.fields['owner'].label = "Правообладатель"
         self.fields['course_title'].label = "Название курса"
+
+        self.fields['course_title'].widget.attrs['readonly'] = True
 
 
 class ExpertiseUpdate(UpdateView):

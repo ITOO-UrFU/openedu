@@ -93,7 +93,7 @@ class ExpertiseLayout(forms.ModelForm):
     platform = forms.CharField()
     class Meta:
         model = Expertise
-        # fields = ["course", ]
+        fields = ["platform", ]
         fieldsets = (
             ('Обязательные поля паспорта ОК', {
                 'fields': ('platform',)

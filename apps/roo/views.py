@@ -87,20 +87,24 @@ class CourseUpdate(UpdateView):
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
 
-from django.forms.models import inlineformset_factory
 
 class ExpertiseLayout(forms.ModelForm):
     platform = forms.ModelChoiceField(queryset=Platform.objects.all())
+    owner = forms.ModelChoiceField(queryset=Owner.objects.all())
     external_url = forms.CharField()
+    version = forms.IntegerField()
+
     class Meta:
         model = Expertise
-        fields = ["platform", "external_url",]
+        fields = ["platform", "external_url", "version", "owner"]
 
         layout = [
-            ("Text", "<h4>Обязательные поля паспорта ОК</h4>"),
-            ("Inline Fields",
+            ("Text", "<h4 class=\"ui dividing header\">Обязательные поля паспорта ОК</h4>"),
+            ("Equal Width Fields",
              ("Field", "platform"),
              ("Field", "external_url"),
+             ("Field", "version"),
+             ("Field", "owner"),
              ),
 
         ]
@@ -109,7 +113,8 @@ class ExpertiseLayout(forms.ModelForm):
         super(ExpertiseLayout, self).__init__(*args, **kwargs)
         self.fields['platform'].initial = self.instance.course.partner
         self.fields['external_url'].initial = self.instance.course.external_url
-
+        self.fields['version'].initial = self.instance.course.version
+        self.fields['owner'].initial = self.instance.course.institution
 
 
 class ExpertiseUpdate(UpdateView):

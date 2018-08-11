@@ -95,7 +95,7 @@ class ExpertiseLayout(forms.ModelForm):
         layout = [
             ("Text", "<h4 class=\"ui dividing header\">Обязательные поля паспорта ОК</h4>"),
             ("Three Fields",
-             ("Field", "course__platform"),
+             ("Field", "get_platform"),
              ("Field", "has_description"),
              ("Field", "language"),
              ),

@@ -111,6 +111,10 @@ class Expertise(models.Model):
     got_expertise_2018 = models.BooleanField("прошел экспертизу в 2018 (1 квартал)", default=False)
     additional_info = models.TextField("Дополнительная информация", null=True, blank=True)
 
+    @property
+    def get_platform(self):
+        return self.course.platform.title
+
     def __str__(self):
         return f"Экспертиза: {self.course}, Тип: {self.type}"
 

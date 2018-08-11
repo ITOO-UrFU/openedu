@@ -124,7 +124,8 @@ class ExpertiseLayout(forms.ModelForm):
         self.fields['owner'].label = "Правообладатель"
         self.fields['course_title'].label = "Название курса"
 
-        self.fields['course_title'].disabled = True
+        for field in ["platform", "external_url", "version", "owner", "course_title"]:
+            self.fields[field].disabled = True
 
 
 class ExpertiseUpdate(UpdateView):

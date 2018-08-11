@@ -109,7 +109,7 @@ class Expertise(models.Model):
     has_quality_checking = models.BooleanField("прошел проверку обязательной оценки качества", default=False)
     got_into_record = models.CharField("попал в отчет", max_length=255, null=True, blank=True)
     got_expertise_2018 = models.BooleanField("прошел экспертизу в 2018 (1 квартал)", default=False)
-    additional_info = models.TextField("Дополнительная информация")
+    additional_info = models.TextField("Дополнительная информация", null=True, blank=True)
 
     def __str__(self):
         return f"Экспертиза: {self.course}, Тип: {self.type}"

@@ -57,7 +57,12 @@
 
             <tr>
                 <td>Рекомендуемые "входные" требования к обучающемуся</td>
-                <td>{{ expertise.course.requirements }}</td>
+
+                {% if expertise.course.requirements %}
+                    {{ expertise.course.requirements }}
+                {% else %}
+                    <i class="times icon"></i>
+                {% endif %}
             </tr>
 
             <tr>
@@ -75,12 +80,21 @@
 
             <tr>
                 <td>Даты ближайшего запуска</td>
-                <td>{{ expertise.course.started_at }}</td>
+                {% if expertise.course.started_at %}
+                    {{ expertise.course.started_at }}
+                {% else %}
+                    <i class="times icon"></i>
+                {% endif %}
             </tr>
 
             <tr>
                 <td>Адрес эл. почты администратора ОК</td>
-                <td>{{ expertise.course.admin_email }}</td>
+
+                {% if expertise.course.admin_email %}
+                    {{ expertise.course.admin_email }}
+                {% else %}
+                    <i class="times icon"></i>
+                {% endif %}
             </tr>
 
             </tbody>

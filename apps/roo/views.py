@@ -88,27 +88,23 @@ class CourseUpdate(UpdateView):
     title = forms.CharField(disabled=True)
 
 
-class ExpertiseLayout(forms.Form):
+class ExpertiseLayout(forms.ModelForm):
     class Meta:
+        model = Expertise
+        fields = "__all__"
         layout = [
             ("Text", "<h4 class=\"ui dividing header\">Personal Details</h4>"),
             ("Three Fields",
-                ("Field", "has_length"),
-                ("Field", "has_description"),
-                ("Field", "language"),
-            ),
+             ("Field", "has_length"),
+             ("Field", "has_description"),
+             ("Field", "language"),
+             ),
 
         ]
-
-
-    language = forms.CharField()
-    has_length = forms.BooleanField()
-    has_description = forms.BooleanField()
 
 
 class ExpertiseUpdate(UpdateView):
     form_class = ExpertiseLayout
     model = Expertise
-    # fields = '__all__'
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)

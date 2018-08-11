@@ -54,7 +54,7 @@ class Base(models.Model):
 
 
 class Expertise(models.Model):
-    TYPES = (
+    EX_TYPES = (
         (0, "Обязательная"),
         (1, "ОО"),
         (2, "Независимая"),
@@ -67,7 +67,7 @@ class Expertise(models.Model):
     course = models.ForeignKey("Course", verbose_name="Курс", default='None')
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=512)
     date = models.DateField("Дата", blank=True, null=True)
-    type = models.CharField("Вид экспертизы", choices=TYPES,
+    type = models.CharField("Вид экспертизы", choices=EX_TYPES,
                             blank=True, null=True, max_length=1)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=False)
     expert = models.ForeignKey("Expert", verbose_name="Эксперт", default='None')
@@ -75,6 +75,41 @@ class Expertise(models.Model):
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,
                                  max_length=512)
     comment = models.TextField("Примечание", blank=True, null=True)
+
+    # Passport
+    has_length = models.BooleanField("Длительность", default=False)
+    has_description = models.BooleanField("Описание", default=False)
+    has_authors = models.BooleanField("Авторы", default=False)
+    language = models.CharField("Язык содержания", default="русский", max_length=255)
+    has_prerequisites = models.BooleanField("Рекомендуемые \"входные\" требования к обучающемуся", default=False)
+    has_certificate = models.BooleanField("Сертификат (выдается или нет)", default=False)
+    has_dates = models.BooleanField("Даты ближайшего  запуска", default=False)
+    has_admin_email = models.BooleanField("Адрес эл. почты администратора ОК", default=False)
+    has_labor = models.BooleanField("Трудоемкость", default=False)
+    has_competences = models.BooleanField("Компетенции", default=False)
+    has_results = models.BooleanField("Результаты обучения", default=False)
+    has_evaluation_tools = models.BooleanField("Оценочные средства", default=False)
+    has_recommended_directions = models.BooleanField("Рекомендуемые направления подготовки", default=False)
+    has_certificate = models.BooleanField("Наличие подтвержденного сертификата (сервис прокторинга)", default=False)
+    has_labor_costs = models.BooleanField("Трудозатраты", default=False)
+    has_short_description = models.BooleanField("Короткое описание", default=False)
+    has_learning_plan = models.BooleanField("Учебный план", default=False)
+    has_promo_clip = models.BooleanField("Проморолик", default=False)
+    language_video = models.CharField("Язык видео", default="русский", max_length=255)
+    language_subtitles = models.CharField("Язык субтитров", default="русский", max_length=255)
+    has_course_subject = models.BooleanField("Предмет курса", default=False)
+    is_open = models.BooleanField("Открытость курса", default=False)
+    has_expertises_types = models.BooleanField("Типы экспертиз для допуска", default=False)
+    has_ownership_document_scan = models.BooleanField("Скан документа, подтверждающего правообладание", default=False)
+    has_not_prohibited = models.BooleanField("В курсе отсутствуют запрещенные материалы", default=False)
+    has_text_materials = models.BooleanField("Текстовые материалы", default=False)
+    has_illustrations = models.BooleanField("Иллюстрации", default=False)
+    has_audio = models.BooleanField("Аудиоматериалы", default=False)
+    has_video = models.BooleanField("Видеоматериалы", default=False)
+    has_quality_checking = models.BooleanField("прошел проверку обязательной оценки качества", default=False)
+    got_into_record = models.CharField("попал в отчет", max_length=255, null=True, blank=True)
+    got_expertise_2018 = models.BooleanField("прошел экспертизу в 2018 (1 квартал)", default=False)
+    additional_info = models.TextField("Дополнительная информация")
 
     def __str__(self):
         return f"Экспертиза: {self.course}, Тип: {self.type}"

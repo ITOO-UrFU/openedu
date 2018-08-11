@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                     <td>Описание</td>
-                    <td>{{ expertise.course.description }}</td>
+                    <td>{{ expertise.course.description|safe }}</td>
                     <td>{% render_field form.has_description %}</td>
                 </tr>
                 <tr>
@@ -129,7 +129,7 @@
                 </tr>
                 <tr>
                     <td>Компетенции</td>
-                    <td>{{ expertise.course.competences }}</td>
+                    <td>{{ expertise.course.competences|safe }}</td>
                     <td>{% render_field form.has_competences %}</td>
                 </tr>
                 <tr>

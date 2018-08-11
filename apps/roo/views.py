@@ -87,16 +87,22 @@ class CourseUpdate(UpdateView):
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
 
+from django.forms.models import inlineformset_factory
 
 class ExpertiseLayout(forms.ModelForm):
+    course = forms.ModelChoiceField(queryset=None)
     class Meta:
         model = Expertise
         fields = ["get_platform", ]
         fieldsets = (
             ('Обязательные поля паспорта ОК', {
-                'fields': ('course__platform', 'course__title')
+                'fields': ('course',)
             }),
         )
+
+    def __init__(self, *args, **kwargs):
+        super(ExpertiseLayout, self).__init__(*args, **kwargs)
+        self.fields['course'].queryset = Course.objects.all()
 
 
 

@@ -109,6 +109,6 @@ class ExpertiseLayout(forms.Form):
 class ExpertiseUpdate(UpdateView):
     form_class = ExpertiseLayout
     model = Expertise
-    fields = '__all__'
+    # fields = '__all__'
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)

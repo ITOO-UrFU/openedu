@@ -98,10 +98,6 @@ class ExpertiseLayout(forms.ModelForm):
         model = Expertise
         fields = ["platform", "external_url", "version", "owner"]
 
-        labels = {
-            'platform': 'Платформа',
-        }
-
         layout = [
             ("Text", "<h4 class=\"ui dividing header\">Обязательные поля паспорта ОК</h4>"),
             ("Equal Width Fields",
@@ -116,6 +112,7 @@ class ExpertiseLayout(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExpertiseLayout, self).__init__(*args, **kwargs)
         self.fields['platform'].initial = self.instance.course.partner
+        self.fields['platform'].label = "Платформа"
         self.fields['external_url'].initial = self.instance.course.external_url
         self.fields['version'].initial = self.instance.course.version
         self.fields['owner'].initial = self.instance.course.institution

@@ -93,7 +93,7 @@ class ExpertiseLayout(forms.ModelForm):
     course = forms.ModelChoiceField(queryset=None)
     class Meta:
         model = Expertise
-        fields = ["get_platform", ]
+        fields = ["course", ]
         fieldsets = (
             ('Обязательные поля паспорта ОК', {
                 'fields': ('course',)

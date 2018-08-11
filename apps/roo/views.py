@@ -92,11 +92,12 @@ class ExpertiseLayout(forms.ModelForm):
     platform = forms.ModelChoiceField(queryset=Platform.objects.all())
     owner = forms.ModelChoiceField(queryset=Owner.objects.all())
     external_url = forms.CharField()
+    course_title = forms.CharField()
     version = forms.IntegerField()
 
     class Meta:
         model = Expertise
-        fields = ["platform", "external_url", "version", "owner"]
+        fields = '__all__'
 
         layout = [
             ("Text", "<h4 class=\"ui dividing header\">Обязательные поля паспорта ОК</h4>"),
@@ -106,6 +107,9 @@ class ExpertiseLayout(forms.ModelForm):
              ("Field", "version"),
              ("Field", "owner"),
              ),
+            ("Equal Width Fields",
+             ("Field", "course_title"),
+             )
 
         ]
 
@@ -114,8 +118,13 @@ class ExpertiseLayout(forms.ModelForm):
         self.fields['platform'].initial = self.instance.course.partner
         self.fields['platform'].label = "Платформа"
         self.fields['external_url'].initial = self.instance.course.external_url
+        self.fields['external_url'].label = "Ссылка на ОК на платформе (версию ОК)"
         self.fields['version'].initial = self.instance.course.version
+        self.fields['version'].label = "Версия курса"
         self.fields['owner'].initial = self.instance.course.institution
+        self.fields['course_title'].initial = self.instance.course.title
+        self.fields['owner'].label = "Правообладатель"
+        self.fields['course_title'].label = "Название курса"
 
 
 class ExpertiseUpdate(UpdateView):

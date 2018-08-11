@@ -89,11 +89,11 @@ class CourseUpdate(UpdateView):
 
 
 class ExpertiseLayout(forms.ModelForm):
-    platform = forms.ModelChoiceField(queryset=Platform.objects.all())
-    owner = forms.ModelChoiceField(queryset=Owner.objects.all())
-    external_url = forms.CharField()
-    course_title = forms.CharField()
-    version = forms.IntegerField()
+    platform = forms.ModelChoiceField(queryset=Platform.objects.all(), required=False)
+    owner = forms.ModelChoiceField(queryset=Owner.objects.all(), required=False)
+    external_url = forms.CharField(required=False)
+    course_title = forms.CharField(required=False)
+    version = forms.IntegerField(required=False)
 
     class Meta:
         model = Expertise

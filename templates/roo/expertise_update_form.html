@@ -4,99 +4,107 @@
 {% block content %}
 
     <div class="main_content">
-    <form class="ui form" method="post">{% csrf_token %}
-        <h2>Обязательные поля паспорта ОК:</h2>
+        <form class="ui form" method="post">{% csrf_token %}
+            <h2>Обязательные поля паспорта ОК:</h2>
 
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th>Поле</th>
-                <th>Значение</th>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Платформа</td>
-                <td>{{ expertice.course.partner }}</td>
-                <td>{% render_field form.platform _help=0 %}</td>
-            </tr>
-            <tr>
-                <td>Ссылка на ОК на платформе (версию ОК)</td>
-                <td>{{ expertise.course.external_url }}</td>
-            </tr>
-            <tr>
-                <td>Версия курса</td>
-                <td>{{ expertise.course.version }}</td>
-            </tr>
-            <tr>
-                <td>Правообладатель</td>
-                <td>{{ expertise.course.institution }}</td>
-            </tr>
-            <tr>
-                <td>Название курса</td>
-                <td>{{ expertise.course.title }}</td>
-            </tr>
-            <tr>
-                <td>Длительность</td>
-                <td>{{ expertise.course.duration }}</td>
-            </tr>
-            <tr>
-                <td>Описание</td>
-                <td>{{ expertise.course.description }}</td>
-            </tr>
-            <tr>
-                <td>Авторы</td>
-                <td>
-                    {% for author in  expertise.course.authors %}
-                        <p>{{ author }}</p>
-                    {% endfor %}
-                </td>
-            </tr>
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>Поле</th>
+                    <th>Значение</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Платформа</td>
+                    <td>{{ expertice.course.partner }}</td>
+                    <td>{% render_field form.platform %}</td>
+                </tr>
+                <tr>
+                    <td>Ссылка на ОК на платформе (версию ОК)</td>
+                    <td>{{ expertise.course.external_url }}</td>
+                </tr>
+                <tr>
+                    <td>Версия курса</td>
+                    <td>{{ expertise.course.version }}</td>
+                </tr>
+                <tr>
+                    <td>Правообладатель</td>
+                    <td>{{ expertise.course.institution }}</td>
+                </tr>
+                <tr>
+                    <td>Название курса</td>
+                    <td>{{ expertise.course.title }}</td>
+                </tr>
+                <tr>
+                    <td>Длительность</td>
+                    <td>{{ expertise.course.duration }}</td>
+                    <td>{% render_field form.has_length %}</td>
+                </tr>
+                <tr>
+                    <td>Описание</td>
+                    <td>{{ expertise.course.description }}</td>
+                    <td>{% render_field form.has_description %}</td>
+                </tr>
+                <tr>
+                    <td>Авторы</td>
+                    <td>
+                        {% for author in  expertise.course.authors %}
+                            <p>{{ author }}</p>
+                        {% endfor %}
+                    </td>
+                    <td>{% render_field form.has_authors %}</td>
+                </tr>
 
-            <tr>
-                <td>Язык содержания</td>
-                <td>{{ expertise.course.language }}</td>
-            </tr>
+                <tr>
+                    <td>Язык содержания</td>
+                    <td>{{ expertise.course.language }}</td>
+                    <td>{% render_field form.language %}</td>
+                </tr>
 
-            <tr>
-                <td>Рекомендуемые "входные" требования к обучающемуся</td>
+                <tr>
+                    <td>Рекомендуемые "входные" требования к обучающемуся</td>
 
-                {% if expertise.course.requirements %}
-                    <td>{{ expertise.course.requirements }}</td>
-                {% else %}
-                    <td><i class="times icon"></i></td>
-                {% endif %}
-            </tr>
+                    {% if expertise.course.requirements %}
+                        <td>{{ expertise.course.requirements }}</td>
+                    {% else %}
+                        <td><i class="times icon"></i></td>
+                    {% endif %}
+                    <td>{% render_field form.has_prerequisites %}</td>
+                </tr>
 
-            <tr>
-                <td>Сертификат (выдается или нет)</td>
+                <tr>
+                    <td>Сертификат (выдается или нет)</td>
                     {% if expertise.course.has_sertificate %}
                         <td><i class="check icon"></i></td>
                     {% else %}
                         <td><i class="times icon"></i></td>
                     {% endif %}
-            </tr>
+                    <td>{% render_field form.has_certificate %}</td>
+                </tr>
 
-            <tr>
-                <td>Даты ближайшего запуска</td>
-                {% if expertise.course.started_at %}
-                    <td>{{ expertise.course.started_at }}</td>
-                {% else %}
-                    <td><i class="times icon"></i></td>
-                {% endif %}
-            </tr>
+                <tr>
+                    <td>Даты ближайшего запуска</td>
+                    {% if expertise.course.started_at %}
+                        <td>{{ expertise.course.started_at }}</td>
+                    {% else %}
+                        <td><i class="times icon"></i></td>
+                    {% endif %}
+                    <td>{% render_field form.has_dates %}</td>
+                </tr>
 
-            <tr>
-                <td>Адрес эл. почты администратора ОК</td>
+                <tr>
+                    <td>Адрес эл. почты администратора ОК</td>
 
-                {% if expertise.course.admin_email %}
-                    <td>{{ expertise.course.admin_email }}</td>
-                {% else %}
-                    <td><i class="times icon"></i></td>
-                {% endif %}
-            </tr>
+                    {% if expertise.course.admin_email %}
+                        <td>{{ expertise.course.admin_email }}</td>
+                    {% else %}
+                        <td><i class="times icon"></i></td>
+                    {% endif %}
+                    <td>{% render_field form.has_admin_email %}</td>
+                </tr>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
 
             {% render_form form %}
@@ -108,6 +116,7 @@
         $('.ui.dropdown')
             .dropdown();
         $('#id_record_end_at').calendar();
+        $(label).remove();
     </script>
 
 {% endblock %}

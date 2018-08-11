@@ -83,7 +83,7 @@ class Expertise(models.Model):
     language = models.CharField("Язык содержания", default="русский", max_length=255)
     has_prerequisites = models.BooleanField("Рекомендуемые \"входные\" требования к обучающемуся", default=False)
     has_certificate = models.BooleanField("Сертификат (выдается или нет)", default=False)
-    has_dates = models.BooleanField("Даты ближайшего  запуска", default=False)
+    has_dates = models.BooleanField("Даты ближайшего запуска", default=False)
     has_admin_email = models.BooleanField("Адрес эл. почты администратора ОК", default=False)
     has_labor = models.BooleanField("Трудоемкость", default=False)
     has_competences = models.BooleanField("Компетенции", default=False)

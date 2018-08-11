@@ -136,4 +136,8 @@ class ExpertiseUpdate(UpdateView):
     model = Expertise
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
+
     # success_url = TODO: сделать ссылку с закрытием окна
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(ExpertiseUpdate, self).get(request, *args, **kwargs)

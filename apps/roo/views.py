@@ -89,46 +89,9 @@ class CourseUpdate(UpdateView):
 
 
 class ExpertiseLayout(forms.ModelForm):
-    platform = forms.CharField(required=False)
-    owner = forms.CharField(required=False)
-    external_url = forms.CharField(required=False)
-    course_title = forms.CharField(required=False)
-    version = forms.IntegerField(required=False)
-
     class Meta:
         model = Expertise
         fields = '__all__'
-
-        layout = [
-            ("Text", "<h4 class=\"ui dividing header\">Обязательные поля паспорта ОК</h4>"),
-            ("Equal Width Fields",
-             ("Field", "platform"),
-             ("Field", "external_url"),
-             ("Field", "version"),
-             ),
-            ("Text", "<hr>"),
-            ("Equal Width Fields",
-             ("Field", "owner"),
-             ("Field", "course_title"),
-             )
-
-        ]
-
-    def __init__(self, *args, **kwargs):
-        super(ExpertiseLayout, self).__init__(*args, **kwargs)
-        self.fields['platform'].initial = self.instance.course.partner.title
-        self.fields['platform'].label = "Платформа"
-        self.fields['external_url'].initial = self.instance.course.external_url
-        self.fields['external_url'].label = "Ссылка на ОК на платформе (версию ОК)"
-        self.fields['version'].initial = self.instance.course.version
-        self.fields['version'].label = "Версия курса"
-        self.fields['owner'].initial = self.instance.course.institution.title
-        self.fields['course_title'].initial = self.instance.course.title
-        self.fields['owner'].label = "Правообладатель"
-        self.fields['course_title'].label = "Название курса"
-
-        for field in ["platform", "external_url", "version", "owner", "course_title"]:
-            self.fields[field].disabled = True
 
 
 class ExpertiseUpdate(UpdateView):
@@ -139,4 +102,3 @@ class ExpertiseUpdate(UpdateView):
     context_object_name = "expertise"
 
     # success_url = TODO: сделать ссылку с закрытием окна
-

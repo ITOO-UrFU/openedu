@@ -4,6 +4,7 @@
 {% block content %}
 
     <div class="main_content">
+    <form class="ui form" method="post">{% csrf_token %}
         <h2>Обязательные поля паспорта ОК:</h2>
 
         <table class="ui celled table">
@@ -15,7 +16,8 @@
             <tbody>
             <tr>
                 <td>Платформа</td>
-                <td>{{ expertice.course.partner.title }}</td>
+                <td>{{ expertice.course.partner }}</td>
+                <td>{% render_field form.field %}</td>
             </tr>
             <tr>
                 <td>Ссылка на ОК на платформе (версию ОК)</td>
@@ -96,11 +98,7 @@
             </tbody>
         </table>
 
-        <p>{{ expertise.course }}</p>
 
-        <h2>{{ form.title.value }}</h2>
-
-        <form class="ui form" method="post">{% csrf_token %}
             {% render_form form %}
             <button class="ui button" type="submit">Обновить</button>
         </form>

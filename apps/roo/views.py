@@ -102,7 +102,7 @@ class ExpertiseLayout(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ExpertiseLayout, self).__init__(*args, **kwargs)
-        self.fields['platform'].initial = self.instance.course.platform.title
+        self.fields['platform'].initial = self.instance.course.partner.title
         self.fields['platform'].widget.attrs['readonly'] = True
 
 

@@ -98,6 +98,10 @@ class ExpertiseLayout(forms.ModelForm):
         model = Expertise
         fields = ["platform", "external_url", "version", "owner"]
 
+        labels = {
+            'platform': 'Платформа',
+        }
+
         layout = [
             ("Text", "<h4 class=\"ui dividing header\">Обязательные поля паспорта ОК</h4>"),
             ("Equal Width Fields",
@@ -122,3 +126,4 @@ class ExpertiseUpdate(UpdateView):
     model = Expertise
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
+    # success_url = TODO: сделать ссылку с закрытием окна

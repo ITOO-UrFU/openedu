@@ -5,6 +5,9 @@
 
     <div class="main_content">
         <form class="ui form" method="post">{% csrf_token %}
+            <p>Эксперт: {{ expertise.expert }}</p>
+            <p>Курс: {{ expertise.course.cabinet_course_url }}</p>
+
             <h2>Обязательные поля паспорта ОК:</h2>
 
             <table class="ui celled table">

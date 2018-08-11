@@ -4,8 +4,89 @@
 {% block content %}
 
     <div class="main_content">
+        <h2>Обязательные поля паспорта ОК:</h2>
 
-    <p>{{ expertise.course }}</p>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Значение</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Платформа</td>
+                <td>{{ expertice.course.partner.title }}</td>
+            </tr>
+            <tr>
+                <td>Ссылка на ОК на платформе (версию ОК)</td>
+                <td>{{ expertise.course.external_url }}</td>
+            </tr>
+            <tr>
+                <td>Версия курса</td>
+                <td>{{ expertise.course.version }}</td>
+            </tr>
+            <tr>
+                <td>Правообладатель</td>
+                <td>{{ expertise.course.institution }}</td>
+            </tr>
+            <tr>
+                <td>Название курса</td>
+                <td>{{ expertise.course.title }}</td>
+            </tr>
+            <tr>
+                <td>Длительность</td>
+                <td>{{ expertise.course.duration }}</td>
+            </tr>
+            <tr>
+                <td>Описание</td>
+                <td>{{ expertise.course.description }}</td>
+            </tr>
+            <tr>
+                <td>Авторы</td>
+                <td>
+                    {% for author in  expertise.course.authors %}
+                        <p>{{ author }}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Язык содержания</td>
+                <td>{{ expertise.course.language }}</td>
+            </tr>
+
+            <tr>
+                <td>Рекомендуемые "входные" требования к обучающемуся</td>
+                <td>{{ expertise.course.requirements }}</td>
+            </tr>
+
+            <tr>
+                <td>Сертификат (выдается или нет)</td>
+                <td>
+
+                    {% if expertise.course.has_sertificate %}
+                        <i class="check icon"></i>
+                    {% else %}
+                        <i class="times icon"></i>
+                    {% endif %}
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>Даты ближайшего запуска</td>
+                <td>{{ expertise.course.started_at }}</td>
+            </tr>
+
+            <tr>
+                <td>Адрес эл. почты администратора ОК</td>
+                <td>{{ expertise.course.admin_email }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <p>{{ expertise.course }}</p>
 
         <h2>{{ form.title.value }}</h2>
 

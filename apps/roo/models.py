@@ -183,6 +183,7 @@ class Course(models.Model):
     requirements = models.TextField("Массив строк-требований", blank=True, null=True)  # массив
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)
     teachers = models.ManyToManyField("Teacher", blank=True)  # список лекторов/аторов
+    admin_email = models.CharField("Адрес эл. почты администратора ОК", blank=True, null=True, max_length=512)
 
     # наши поля
     newest = models.BooleanField("Самое новое содержание курса", default=False)

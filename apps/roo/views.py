@@ -89,9 +89,20 @@ class CourseUpdate(UpdateView):
 
 
 class ExpertiseLayout(forms.ModelForm):
+    platform = forms.ModelChoiceField(queryset=Platform.objects.all(), required=False)
+    owner = forms.ModelChoiceField(queryset=Owner.objects.all(), required=False)
+
     class Meta:
         model = Expertise
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(ExpertiseLayout, self).__init__(*args, **kwargs)
+        self.fields['platform'].initial = self.instance.course.partner
+        self.fields['platform'].label = "Платформа"
+        self.fields['owner'].initial = self.instance.course.institution
+        self.fields['owner'].label = "Правообладатель"
+
 
 
 class ExpertiseUpdate(UpdateView):
@@ -102,3 +113,4 @@ class ExpertiseUpdate(UpdateView):
     context_object_name = "expertise"
 
     # success_url = TODO: сделать ссылку с закрытием окна
+

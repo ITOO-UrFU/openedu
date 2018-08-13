@@ -152,7 +152,7 @@ class Competence(models.Model):
     indicators = models.TextField("Индикаторы достижения компетенции", blank=True)
     levels = models.TextField("Уровни освоением компетенции", blank=True)
     evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
-    correlating = models.TextField("Соотнесение компетенции и индикаторов ее достижения с компетенциями, включенными в ФГОС и ПООП", blank=False)
+    correlating = models.TextField("Соотнесение компетенции и индикаторов ее достижения с компетенциями, включенными в ФГОС и ПООП", blank=True)
 
 
 class Result(models.Model):

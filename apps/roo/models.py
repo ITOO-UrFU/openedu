@@ -215,10 +215,10 @@ class Course(models.Model):
     newest = models.BooleanField("Самое новое содержание курса", default=False)
 
     # необязательные поля
-    learning_plan = models.TextField("Учебный план", blank=True)
-    results = models.ManyToManyField("Result", blank=True)
-    evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
-    proctoring_service = models.ForeignKey("ProctoringService", blank=True)
+    learning_plan = models.TextField("Учебный план", blank=True, null=True)
+    results = models.ManyToManyField("Result", blank=True, null=True)
+    evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True, null=True)
+    proctoring_service = models.ForeignKey("ProctoringService", blank=True, null=True)
 
     COMMUNICATION_OWNER_STATES = (
         (0, "Согласование не начато"),

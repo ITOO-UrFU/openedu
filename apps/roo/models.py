@@ -145,6 +145,30 @@ class Teacher(models.Model):
         verbose_name_plural = 'лекторы'
 
 
+class Competence(models.Model):
+    identifier = models.CharField("Идентификатор компетенции", max_length=1024, blank=False, null=False, db_index=True)
+    title = models.CharField("Наименование компетенции", max_length=1024, blank=False, null=False)
+    source = models.CharField("Источник компетенции", max_length=1024, blank=False, null=False)
+    indicators = models.TextField("Индикаторы достижения компетенции", blank=True)
+    levels = models.TextField("Уровни освоением компетенции", blank=True)
+    evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
+    correlating = models.TextField("Соотнесение компетенции и индикаторов ее достижения с компетенциями, включенными в ФГОС и ПООП", blank=False)
+
+
+class Result(models.Model):
+    title = models.TextField("Результат обучения", blank=True)
+    competence = models.ForeignKey("Competence")
+
+
+class EvaluationTool(models.Model):
+    title = models.TextField("Оценочное средство", blank=True)
+    result = models.ForeignKey("Result")
+
+
+class ProctoringService(models.Model):
+    title = models.CharField("Сервис прокторинга", max_length=255, blank=False, null=False)
+
+
 class Course(models.Model):
     #  что приходит в api сейчас
     credits = models.CharField("Массив перезачётов", blank=True, null=True, max_length=512)
@@ -189,6 +213,12 @@ class Course(models.Model):
 
     # наши поля
     newest = models.BooleanField("Самое новое содержание курса", default=False)
+
+    # необязательные поля
+    learning_plan = models.TextField("Учебный план", blank=True)
+    results = models.ManyToManyField("Result", blank=True)
+    evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
+    proctoring_service = models.ForeignKey("ProctoringService", blank=True)
 
     COMMUNICATION_OWNER_STATES = (
         (0, "Согласование не начато"),

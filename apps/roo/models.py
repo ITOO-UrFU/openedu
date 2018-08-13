@@ -216,8 +216,8 @@ class Course(models.Model):
 
     # необязательные поля
     learning_plan = models.TextField("Учебный план", blank=True, null=True)
-    results = models.ManyToManyField("Result", blank=True, null=True)
-    evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True, null=True)
+    results = models.ManyToManyField("Result", blank=True)
+    evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
     proctoring_service = models.ForeignKey("ProctoringService", blank=True, null=True)
 
     COMMUNICATION_OWNER_STATES = (

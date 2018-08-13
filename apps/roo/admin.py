@@ -1,5 +1,25 @@
 from django.contrib import admin
-from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction
+from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, EvaluationTool, ProctoringService
+
+
+@admin.register(Competence)
+class CompetenceAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+
+
+@admin.register(Result)
+class ResultAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+
+
+@admin.register(EvaluationTool)
+class EvaluationToolAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+
+
+@admin.register(ProctoringService)
+class ProctoringServiceAdmin(admin.ModelAdmin):
+    list_display = ('title',)
 
 
 @admin.register(Course)
@@ -52,4 +72,3 @@ class AreasAdmin(admin.ModelAdmin):
 class DirectionAdmin(admin.ModelAdmin):
     list_display = ("title", "code", "activity")
     list_filter = ("activity",)
-

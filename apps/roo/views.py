@@ -21,13 +21,14 @@ from django_tables2 import RequestConfig
 
 logger = logging.getLogger('celery_logging')
 
+
 def upload_from_json(request):
     if request.method == 'POST':
-            print("lool")
-            courses = json.loads(request.POST.get("json_value", None))
-            logger.info(courses)
+        print("lool")
+        courses = json.loads(request.POST.get("json_value", None))
+        logger.info(courses)
     else:
-        return render(request, 'upload_from_json.html')
+        return render(request, 'roo/upload_from_json.html')
 
 
 @roo_member_required

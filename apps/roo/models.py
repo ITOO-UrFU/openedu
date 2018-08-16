@@ -224,15 +224,17 @@ class Course(models.Model):
     COMMUNICATION_OWNER_STATES = (
         (0, "Согласование не начато"),
         (1, "В процессе согласования"),
-        (2, "Согласовано"),
-        (3, "Отказано")
+        (2, "Требуется участие администрации"),
+        (3, "Согласовано"),
+        (4, "Отказано")
     )
 
     COMMUNICATION_PLATFORM_STATES = (
         (0, "Согласование не начато"),
         (1, "В процессе согласования"),
-        (2, "Согласовано"),
-        (3, "Отказано")
+        (2, "Требуется участие администрации"),
+        (3, "Согласовано"),
+        (4, "Отказано")
     )
 
     EX_STATES = (
@@ -244,10 +246,17 @@ class Course(models.Model):
         (5, "Доступ предоставлен")
     )
     PASSPORT_STATES = (
-        (0, "Не проверен"),
+        (0, "Не заполнен"),
+        (1, "Не проверен"),
         (1, "Требует доработки"),
         (2, "На согласовании с правообладателем"),
         (3, "Готов"),
+    )
+
+    EX_ACCESSES = (
+        (0, "Не предоставлен"),
+        (1, "Отправлен запрос"),
+        (2, "Предоставлен"),
     )
 
     ROO_STATES = (
@@ -280,6 +289,9 @@ class Course(models.Model):
     unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
                                               choices=UNFORCED_RATINGS_STATES, default=0)
     comment = models.TextField("Примечание", blank=True, null=True)
+    expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, default=0)
+    reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
+
 
     def __str__(self):
         return f"Онлайн-курс: {self.title}"

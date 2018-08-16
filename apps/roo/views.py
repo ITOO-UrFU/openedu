@@ -27,6 +27,7 @@ def upload_from_json(request):
         print("lool")
         courses = json.loads(request.POST.get("json_value", None))
         logger.info(courses)
+        return render(request, 'roo/upload_from_json.html')
     else:
         return render(request, 'roo/upload_from_json.html')
 

@@ -25,13 +25,13 @@ logger = logging.getLogger('celery_logging')
 def upload_from_json(request):
     if request.method == 'POST':
         courses = json.loads(request.POST.get("json_value", None))
-        logger.info(courses)
+        # logger.info(courses)
         i = 0
         for course in courses:
             if course["title"] is None or course["platform"] is None or course["owner"] is None:
                 i += 1
-                print(course)
-                print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
+                logger.info(course)
+                logger.info("!!!!!!!!!!!!!!!!!!!!!!: ", i)
 
         return render(request, 'roo/upload_from_json.html')
     else:

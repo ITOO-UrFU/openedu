@@ -21,20 +21,13 @@ from django_tables2 import RequestConfig
 
 logger = logging.getLogger('celery_logging')
 
-
-class UploadFromJSONForm(forms.Form):
-    json_file = forms.CharField(label='json file')
-
-
 def upload_from_json(request):
     if request.method == 'POST':
-        form = UploadFromJSONForm(request.POST)
-        if form.is_valid():
             print("lool")
-            return render(request, 'name.html', {'form': form, 'success': True})
-        else:
-            form = UploadFromJSONForm()
-        return render(request, 'name.html', {'form': form})
+            courses = json.loads(request.POST.get("json_value", None))
+            logger.info(courses)
+    else:
+        return render(request, 'upload_from_json.html')
 
 
 @roo_member_required

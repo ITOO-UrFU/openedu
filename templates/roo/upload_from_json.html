@@ -1,6 +1,8 @@
-<form action="" method="post">
+<form action="." method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <textarea id="json_value" name="json_value">
+  текст
+</textarea>
     <p>lol</p>
     <input type="submit" value="Submit">
 </form>

@@ -28,7 +28,7 @@ def upload_from_json(request):
         # logger.info(courses)
         i = 0
         for course in courses:
-            if course["title"] == None or course["platform"] == None or course["owner"] == None:
+            if course["title"] == None:
                 i += 1
                 logger.info(course)
                 logger.info("!!!!!!!!!!!!!!!!!!!!!!: ", i)

@@ -28,10 +28,10 @@ def upload_from_json(request):
         # logger.info(courses)
         i = 0
         for course in courses:
-            if course["title"] == None:
+            if course["title"] is None or course["platform"] is None or course["owner"] is None:
                 i += 1
-                logger.info(course)
-                logger.info("!!!!!!!!!!!!!!!!!!!!!!: ", i)
+                print(course)
+                print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
 
         return render(request, 'roo/upload_from_json.html')
     else:

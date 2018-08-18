@@ -29,6 +29,12 @@ def get_choises_id(q, choises):
             return e[0]
     return None
 
+def get_choises_display(q, choises):
+    for e in choises:
+        if e[0].lower().strip() == q.lower().strip():
+            return e[1]
+    return None
+
 
 def add_expertises(course, our_course):
     # try:
@@ -37,7 +43,8 @@ def add_expertises(course, our_course):
     for e_type in expertise_types:
         has_ex = False
         for expertise in Expertise.objects.filter(course=our_course):
-            if expertise.EX_TYPES[expertise.type] == e_type:
+            print(expertise.type)
+            if get_choises_display(expertise.type, expertise.EX_TYPES) == e_type:
                 expertise.supervisor = course["supervisor"]
                 expertise.save()
                 has_ex = True

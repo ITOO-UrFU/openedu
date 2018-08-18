@@ -31,7 +31,7 @@ def get_choises_id(q, choises):
 
 def get_choises_display(q, choises):
     for e in choises:
-        if e[0].lower().strip() == q.lower().strip():
+        if e[0] == q:
             return e[1]
     return None
 

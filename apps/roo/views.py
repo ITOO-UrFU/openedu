@@ -42,9 +42,10 @@ def add_expertises(course, our_course):
                     expertise.save()
                 else:
                     type = get_choises_id(e_type, Expertise.EX_TYPES)
+
                     Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=type)
     except:
-        pass
+        print("ЕГГОГ!!  ", our_course.title)
 
 
 def upload_from_json(request):

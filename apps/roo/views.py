@@ -33,16 +33,32 @@ def upload_from_json(request):
             if course["title"] is None or course["platform"] is None or course["owner"] is None:
                 pass
             else:
-                print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
                 for our_course in Course.objects.all():
-                    #print(our_course.title.lower().translate(tbl).replace(' ',''))
                     if (
                     our_course.title.lower().translate(tbl).replace(' ','') == course["title"].lower().translate(tbl).replace(' ','') and 
                     our_course.institution.title.lower().translate(tbl).replace(' ','') == course["owner"].lower().translate(tbl).replace(' ','') and 
                     our_course.partner.title.lower().translate(tbl).replace(' ','') == course["platform"].lower().translate(tbl).replace(' ','')):
                         #print(course)
+                    else:
+                        new_course = Course(title=course["title"])
+                        institution = Owner.objects.create(title=course["owner"])
+                        for owner in Owner.objects.all():
+                            if owner.title.lower().translate(tbl).replace(' ','') == course["owner"].lower().translate(tbl).replace(' ',''):
+                                institution = owner
+                                break
+                        institution.save()
+                        new_course.institution = institution
+                        new_course.save()
+                        partner = Platform.objects.create(title=course["platform"])
+                        for platform in Platform.objects.all():
+                            if platform.title.lower().translate(tbl).replace(' ','') == course["platform"].lower().translate(tbl).replace(' ',''):
+                                partner = platform
+                                break
+                        partner.save()
+                        new_course.partner = partner
+                        new_course.save()
                         i += 1
-
+                        print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
 
         return render(request, 'roo/upload_from_json.html')
     else:

@@ -36,6 +36,7 @@ def upload_from_json(request):
                     for char in ' -().:;?!':
                         if our_course.title.lower().replace(char,'') == course["title"].lower().replace(char,'') and our_course.institution.title.lower().replace(char, '') == course["owner"].lower().replace(char, '') and our_course.partner.title.lower().replace(char, '') == course["platform"].lower().replace(char, ''):
                             #print(course)
+                            pass
                     i += 1
 
 

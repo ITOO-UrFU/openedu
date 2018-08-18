@@ -41,7 +41,7 @@ def add_expertises(course, our_course):
                     expertise.supervisor = course["supervisor"]
                     expertise.save()
                     has_ex = True
-            if has_ex:
+            if not has_ex:
                 _type = get_choises_id(e_type, Expertise.EX_TYPES)
                 Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type)
 

@@ -30,20 +30,21 @@ def get_choises_id(q, choises):
     return None
 
 
-
 def add_expertises(course, our_course):
     try:
         expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
         print(course["title"], expertise_types)
-        for expertise in Expertise.objects.filter(course=our_course):
-            for e_type in expertise_types:
+        for e_type in expertise_types:
+            has_ex = False
+            for expertise in Expertise.objects.filter(course=our_course):
                 if expertise.EX_TYPES[expertise.type] == e_type:
                     expertise.supervisor = course["supervisor"]
                     expertise.save()
-                else:
-                    type = get_choises_id(e_type, Expertise.EX_TYPES)
+                    has_ex = True
+            if has_ex:
+                _type = get_choises_id(e_type, Expertise.EX_TYPES)
+                Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type)
 
-                    Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=type)
     except:
         print("ЕГГОГ!!  ", our_course.title)
 

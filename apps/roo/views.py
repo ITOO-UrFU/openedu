@@ -28,7 +28,7 @@ def upload_from_json(request):
         courses = json.loads(request.POST.get("json_value", None))
         # logger.info(courses)
         i = 0
-        tbl = string.maketrans(' ?.!/;:(),-"', '')
+        tbl = str.maketrans('','',string.punctuation)
         for course in courses:
             if course["title"] is None or course["platform"] is None or course["owner"] is None:
                 pass

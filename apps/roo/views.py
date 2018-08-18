@@ -67,8 +67,9 @@ def upload_from_json(request):
                         new_course.institution = institution
                         new_course.partner = partner
                         new_course.save()
+
                         i += 1
-                        print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
+                        print("!!!!!!!!!!!!!!!!!!!!!!: ", i, new_course.title)
 
         return render(request, 'roo/upload_from_json.html')
     else:

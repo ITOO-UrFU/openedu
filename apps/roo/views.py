@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import string
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -27,13 +28,16 @@ def upload_from_json(request):
         courses = json.loads(request.POST.get("json_value", None))
         # logger.info(courses)
         i = 0
+        tbl = string.maketrans(' ?.!/;:(),-"', '')
         for course in courses:
             if course["title"] is None or course["platform"] is None or course["owner"] is None:
                 pass
             else:
                 print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
                 for our_course in Course.objects.all():
-                    if our_course.title.lower().translate(None, " ?.!/;:(),") == course["title"].lower().translate(None, " ?.!/;:(),") and our_course.institution.title.lower().translate(None, " ?.!/;:(),") == course["owner"].lower().translate(None, " ?.!/;:(),") and our_course.partner.title.lower().translate(None, " ?.!/;:(),") == course["platform"].lower().translate(None, " ?.!/;:(),"):
+                    if our_course.title.lower().translate(tbl) == course["title"].lower().translate(tbl) and 
+                    our_course.institution.title.lower().translate(tbl) == course["owner"].lower().translate(tbl) and 
+                    our_course.partner.title.lower().translate(tbl) == course["platform"].lower().translate(tbl):
                         #print(course)
                         i += 1
 

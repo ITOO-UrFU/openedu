@@ -48,13 +48,7 @@ class ExpertAdmin(admin.ModelAdmin):
 @admin.register(Expertise)
 class ExpertiseAdmin(admin.ModelAdmin):
     list_display = ("course",
-                    "state",
-                    "date",
-                    "type",
-                    "executed",
-                    "expert",
-                    "supervisor",
-                    "organizer",
+
                     )
 
 

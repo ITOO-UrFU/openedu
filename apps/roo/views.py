@@ -55,21 +55,25 @@ def upload_from_json(request):
                 else:
                     partner = Platform.objects.create(title=course["platform"])
 
+                has_course = False
                 for our_course in Course.objects.all():
+
                     if (
                             our_course.title.lower().translate(tbl).replace(' ', '') == course["title"].lower().translate(tbl).replace(' ', '') and
                             our_course.institution.title.lower().translate(tbl).replace(' ', '') == course["owner"].lower().translate(tbl).replace(' ', '') and
                             our_course.partner.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(tbl).replace(' ', '')):
                         # print(course)
-                        pass
-                    else:
-                        new_course = Course(title=course["title"])
-                        new_course.institution = institution
-                        new_course.partner = partner
-                        new_course.save()
+                        has_course = True
+                        break
 
-                        i += 1
-                        print("!!!!!!!!!!!!!!!!!!!!!!: ", i, new_course.title)
+                if not has_course:
+                    new_course = Course(title=course["title"])
+                    new_course.institution = institution
+                    new_course.partner = partner
+                    new_course.save()
+
+                    i += 1
+                    print("!!!!!!!!!!!!!!!!!!!!!!: ", i, new_course.title)
 
         return render(request, 'roo/upload_from_json.html')
     else:

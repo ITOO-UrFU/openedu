@@ -291,6 +291,7 @@ class Course(models.Model):
     comment = models.TextField("Примечание", blank=True, null=True)
     expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, default=0)
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
+    contacts = models.TextField("Контакты", blank=True, null=True)
 
 
     def __str__(self):

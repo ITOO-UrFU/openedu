@@ -64,7 +64,7 @@ class Expertise(models.Model):
         (6, "Большие данные"),
         (7, "Лучшие практики")
     )
-    course = models.ForeignKey("Course", verbose_name="Курс")
+    course = models.ForeignKey("Course", verbose_name="Курс", null=True, blank=True)
     state = models.CharField("состояние процесса (этап)", blank=True, null=True, max_length=512)
     date = models.DateField("Дата", blank=True, null=True)
     type = models.CharField("Вид экспертизы", choices=EX_TYPES,

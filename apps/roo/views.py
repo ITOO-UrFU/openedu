@@ -35,8 +35,11 @@ def upload_from_json(request):
             else:
                 print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
                 for our_course in Course.objects.all():
-                    print(our_course.title.lower().translate(tbl))
-                    if our_course.title.lower().translate(tbl).replace(' ','') == course["title"].lower().translate(tbl).replace(' ','') and our_course.institution.title.lower().translate(tbl).replace(' ','') == course["owner"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(tbl).replace(' ','') == course["platform"].lower().translate(tbl).replace(' ',''):
+                    #print(our_course.title.lower().translate(tbl).replace(' ',''))
+                    if (
+                    our_course.title.lower().translate(tbl).replace(' ','') == course["title"].lower().translate(tbl).replace(' ','') and 
+                    our_course.institution.title.lower().translate(tbl).replace(' ','') == course["owner"].lower().translate(tbl).replace(' ','') and 
+                    our_course.partner.title.lower().translate(tbl).replace(' ','') == course["platform"].lower().translate(tbl).replace(' ','')):
                         #print(course)
                         i += 1
 

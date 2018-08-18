@@ -60,7 +60,7 @@ class Expertise(models.Model):
         (2, "Независимая"),
         (3, "Работодатель"),
         (4, "Пользовательская"),
-        (5, "ФУМО"),
+        (5, "ФУМО") ,
         (6, "Большие данные"),
         (7, "Лучшие практики")
     )
@@ -289,7 +289,7 @@ class Course(models.Model):
     unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
                                               choices=UNFORCED_RATINGS_STATES, default=0)
     comment = models.TextField("Примечание", blank=True, null=True)
-    expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, default=0)
+    expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, max_length=1, default=0)
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
     contacts = models.TextField("Контакты", blank=True, null=True)
 
@@ -420,7 +420,7 @@ class Course(models.Model):
 
 class Platform(Base):
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
-    global_id = models.CharField("ИД платформы на РОО", null=True, max_length=512, db_index=True)
+    global_id = models.CharField("ИД платформы на РОО", null=True, blank=True, max_length=512)
     image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
     url = models.CharField("Ссылка на сайт платформы", blank=True, null=True, max_length=512)
     description = models.TextField("Описание платформы", blank=True, null=True)

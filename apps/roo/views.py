@@ -23,6 +23,12 @@ from django_tables2 import RequestConfig
 logger = logging.getLogger('celery_logging')
 
 
+def add_expertises(course, our_course):
+    expertise_types = course["expertise_types"].split(',')
+    [e.strip() for e in expertise_types]
+    print(course["title"], expertise_types)
+
+
 def upload_from_json(request):
     if request.method == 'POST':
         courses = json.loads(request.POST.get("json_value", None))
@@ -64,6 +70,7 @@ def upload_from_json(request):
                             our_course.partner.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(tbl).replace(' ', '')):
                         # print(course)
                         has_course = True
+                        add_expertises(course, our_course)
                         break
 
                 if not has_course:

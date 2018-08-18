@@ -33,11 +33,9 @@ def upload_from_json(request):
             else:
                 print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
                 for our_course in Course.objects.all():
-                    for char in ' -().:;?!':
-                        if our_course.title.lower().replace(char,'') == course["title"].lower().replace(char,'') and our_course.institution.title.lower().replace(char, '') == course["owner"].lower().replace(char, '') and our_course.partner.title.lower().replace(char, '') == course["platform"].lower().replace(char, ''):
-                            #print(course)
-                            pass
-                    i += 1
+                    if our_course.title.lower().translate(None, " ?.!/;:(),") == course["title"].lower().translate(None, " ?.!/;:(),") and our_course.institution.title.lower().translate(None, " ?.!/;:(),") == course["owner"].lower().translate(None, " ?.!/;:(),") and our_course.partner.title.lower().translate(None, " ?.!/;:(),") == course["platform"].lower().translate(None, " ?.!/;:(),"):
+                        #print(course)
+                        i += 1
 
 
         return render(request, 'roo/upload_from_json.html')

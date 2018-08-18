@@ -24,9 +24,18 @@ logger = logging.getLogger('celery_logging')
 
 
 def add_expertises(course, our_course):
-    expertise_types = course["expertise_types"].split(',')
-    [e.strip() for e in expertise_types]
-    print(course["title"], expertise_types)
+    try:
+        expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
+        print(course["title"], expertise_types)
+        for expertise in Expertise.objects.filter(course=our_course):
+            for e_type in expertise_types:
+                if expertise.EX_TYPES[expertise.type] == e_type:
+                    expertise.supervisor = course["supervisor"]
+                    expertise.save()
+                else:
+                    Expertise.objects.create(course=our_course, supervisor=course["supervisor"])
+    except:
+        pass
 
 
 def upload_from_json(request):

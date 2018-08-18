@@ -23,6 +23,14 @@ from django_tables2 import RequestConfig
 logger = logging.getLogger('celery_logging')
 
 
+def get_choises_id(q, choises):
+    for e in choises:
+        if e[1].lower().strip() == q.lower().strip():
+            return e[0]
+    return None
+
+
+
 def add_expertises(course, our_course):
     try:
         expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
@@ -33,7 +41,8 @@ def add_expertises(course, our_course):
                     expertise.supervisor = course["supervisor"]
                     expertise.save()
                 else:
-                    Expertise.objects.create(course=our_course, supervisor=course["supervisor"])
+                    type = get_choises_id(e_type, Expertise.EX_TYPES)
+                    Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=type)
     except:
         pass
 

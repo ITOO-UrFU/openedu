@@ -29,12 +29,13 @@ def upload_from_json(request):
         i = 0
         for course in courses:
             if course["title"] is None or course["platform"] is None or course["owner"] is None:
-                i += 1
+                pass
             else:
                 print("!!!!!!!!!!!!!!!!!!!!!!: ", i)
                 for our_course in Course.objects.all():
                     if our_course.title == course["title"] and our_course.institution.title == course["owner"] and our_course.partner.title == course["platform"]:
                         print(course)
+                        i += 1
 
 
         return render(request, 'roo/upload_from_json.html')

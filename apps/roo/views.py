@@ -39,6 +39,7 @@ def upload_from_json(request):
                     our_course.institution.title.lower().translate(tbl).replace(' ','') == course["owner"].lower().translate(tbl).replace(' ','') and 
                     our_course.partner.title.lower().translate(tbl).replace(' ','') == course["platform"].lower().translate(tbl).replace(' ','')):
                         #print(course)
+                        pass
                     else:
                         new_course = Course(title=course["title"])
                         institution = Owner.objects.create(title=course["owner"])

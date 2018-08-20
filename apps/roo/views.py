@@ -29,6 +29,7 @@ def get_choises_id(q, choises):
             return e[0]
     return None
 
+
 def get_choises_display(q, choises):
     for e in choises:
         if e[0] == q:
@@ -46,11 +47,16 @@ def add_expertises(course, our_course):
                 print(expertise.type)
                 if get_choises_display(expertise.type, expertise.EX_TYPES) == e_type:
                     expertise.supervisor = course["supervisor"]
+                    expertise.state = course["state"]
+                    expertise.organizer = course["organizer"]
                     expertise.save()
                     has_ex = True
             if not has_ex:
                 _type = get_choises_id(e_type, Expertise.EX_TYPES)
-                Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type)
+                # if course["expert"]:
+                #     expert =
+                Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
+                                         state=course["state"], organizer=course["organizer"])
 
     except:
         print("ЕГГОГ!!  ", our_course.title)
@@ -69,7 +75,8 @@ def upload_from_json(request):
                 # Смотрим, есть ли такой owner в базе
                 institution = None
                 for owner in Owner.objects.all():
-                    if owner.title.lower().translate(tbl).replace(' ', '') == course["owner"].lower().translate(tbl).replace(' ', ''):
+                    if owner.title.lower().translate(tbl).replace(' ', '') == course["owner"].lower().translate(
+                            tbl).replace(' ', ''):
                         institution = owner
                         break
                 if institution:
@@ -80,7 +87,8 @@ def upload_from_json(request):
                 # Смотрим, есть ли такой partner в базе
                 partner = None
                 for platform in Platform.objects.all():
-                    if platform.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(tbl).replace(' ', ''):
+                    if platform.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(
+                            tbl).replace(' ', ''):
                         partner = platform
                         break
                 if partner:
@@ -92,9 +100,12 @@ def upload_from_json(request):
                 for our_course in Course.objects.all():
 
                     if (
-                            our_course.title.lower().translate(tbl).replace(' ', '') == course["title"].lower().translate(tbl).replace(' ', '') and
-                            our_course.institution.title.lower().translate(tbl).replace(' ', '') == course["owner"].lower().translate(tbl).replace(' ', '') and
-                            our_course.partner.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(tbl).replace(' ', '')):
+                            our_course.title.lower().translate(tbl).replace(' ', '') == course[
+                        "title"].lower().translate(tbl).replace(' ', '') and
+                            our_course.institution.title.lower().translate(tbl).replace(' ', '') == course[
+                        "owner"].lower().translate(tbl).replace(' ', '') and
+                            our_course.partner.title.lower().translate(tbl).replace(' ', '') == course[
+                        "platform"].lower().translate(tbl).replace(' ', '')):
                         # print(course)
                         has_course = True
                         add_expertises(course, our_course)

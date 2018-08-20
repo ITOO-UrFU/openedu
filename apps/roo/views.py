@@ -48,6 +48,7 @@ def add_expertises(course, our_course):
                     expertise.supervisor = course["supervisor"]
                     expertise.state = course["state"]
                     expertise.organizer = course["organizer"]
+                    expertise.ex_date = course["date"]
                     expertise.save()
                     has_ex = True
             if not has_ex:
@@ -55,7 +56,7 @@ def add_expertises(course, our_course):
                 # if course["expert"]:
                 #     expert =
                 Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
-                                         state=course["state"], organizer=course["organizer"])
+                                         state=course["state"], organizer=course["organizer"], ex_date=course["date"])
 
     except:
         print("ЕГГОГ!!  ", our_course.title)
@@ -99,12 +100,9 @@ def upload_from_json(request):
                 for our_course in Course.objects.all():
 
                     if (
-                            our_course.title.lower().translate(tbl).replace(' ', '') == course[
-                        "title"].lower().translate(tbl).replace(' ', '') and
-                            our_course.institution.title.lower().translate(tbl).replace(' ', '') == course[
-                        "owner"].lower().translate(tbl).replace(' ', '') and
-                            our_course.partner.title.lower().translate(tbl).replace(' ', '') == course[
-                        "platform"].lower().translate(tbl).replace(' ', '')):
+                            our_course.title.lower().translate(tbl).replace(' ', '') == course["title"].lower().translate(tbl).replace(' ', '') and
+                            our_course.institution.title.lower().translate(tbl).replace(' ', '') == course["owner"].lower().translate(tbl).replace(' ', '') and
+                            our_course.partner.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(tbl).replace(' ', '')):
                         # print(course)
                         has_course = True
                         add_expertises(course, our_course)
@@ -114,6 +112,9 @@ def upload_from_json(request):
                     new_course = Course(title=course["title"])
                     new_course.institution = institution
                     new_course.partner = partner
+                    # date_or_comment =course["title"]
+                    # try:
+
                     new_course.save()
 
                     i += 1

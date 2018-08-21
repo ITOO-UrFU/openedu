@@ -452,7 +452,7 @@ class Platform(Base):
     get_description.short_description = "Описание"
 
     def __str__(self):
-        return f"Платформа: {self.title}"
+        return self.title
 
     class Meta:
         verbose_name = 'платформа'

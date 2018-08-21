@@ -5,6 +5,14 @@
     {% render_table table %}
 
     <script>
+        var delay = (function () {
+            var timer = 0;
+            return function (callback, ms) {
+                clearTimeout(timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+
         $(document).ready(function () {
             $('#coursesTable tfoot td').each(function () {
                 var title = $(this).text();
@@ -47,12 +55,16 @@
                 var that = this;
 
                 $('input', this.footer()).on('keyup change', function () {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
+                        delay(function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        })
+
                     }
-                });
+                );
             });
         });
 

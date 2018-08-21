@@ -6,9 +6,9 @@
 
     <script>
         $(document).ready(function () {
-            $('#coursesTable tfoot th').each(function () {
+            $('#coursesTable tfoot td').each(function () {
                 var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                $(this).html('<input type="text" placeholder="Фильтр" />');
             });
 
             // DataTable
@@ -58,6 +58,7 @@
 
 
         document.getElementById('coursesTable').classList.add('hover');
+
     </script>
     <style>
         .ui.container {

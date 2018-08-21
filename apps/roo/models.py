@@ -634,7 +634,7 @@ class CoursesTable(tables.Table):
         attrs = {'class': 'ui celled table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(
-        '<a href="#" onClick="CourseEdit=window.open(\'http://openedu.urfu.ru/roo/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a', footer="Title")
+        '<a href="#" onClick="CourseEdit=window.open(\'http://openedu.urfu.ru/roo/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a', footer="Наименование")
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')

@@ -60,7 +60,7 @@
                 });
 
                 $('input', table.column(colIdx).footer()).on('keyup change', function () {
-                    delay(search(this.value));
+                    delay(search(this.value), 1000).bind(this);
                 });
             });
         });

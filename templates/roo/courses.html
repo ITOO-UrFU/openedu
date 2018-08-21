@@ -55,7 +55,7 @@
                 var that = this;
 
                 $('input', this.footer()).on('keyup change', function () {
-                        delay(function () {
+                        delay.call(function () {
                             if (that.search() !== this.value) {
                                 that
                                     .search(this.value)

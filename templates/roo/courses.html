@@ -22,7 +22,7 @@
             // DataTable
             var table = $('#coursesTable').DataTable({
                 "pageLength": 15,
-                "lengthMenu": [ [15, 30, 50, -1], [15, 30, 50, "Все"] ],
+                "lengthMenu": [[15, 30, 50, -1], [15, 30, 50, "Все"]],
                 fixedHeader: {
                     header: true,
                     footer: true
@@ -51,25 +51,20 @@
                 }
             });
 
-            table.columns().every(function () {
-                var that = this;
+            table.columns().eq(0).each(function (colIdx) {
+                var search = $.fn.dataTable.util.throttle(function (val) {
+                    table
+                        .column(colIdx)
+                        .search(val)
+                        .draw();
+                });
 
-                $('input', this.footer()).on('keyup change', function () {
-                        delay(function () {
-                            if (that.search() !== this.value) {
-                                that
-                                    .search(this.value)
-                                    .draw();
-                            }
-                        })
-
-                    }
-                );
+                $('input', table.column(colIdx).footer()).on('keyup change', function () {
+                    search(this.value);
+                });
             });
-        });
 
-
-        document.getElementById('coursesTable').classList.add('hover');
+            document.getElementById('coursesTable').classList.add('hover');
 
     </script>
     <style>

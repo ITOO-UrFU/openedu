@@ -8,7 +8,6 @@
 
 
         $(document).ready(function () {
-            // Setup - add a text input to each footer cell
             $('#example tfoot th').each(function () {
                 var title = $(this).text();
                 $(this).html('<input type="text" placeholder="Search ' + title + '" />');
@@ -18,10 +17,7 @@
             var table = $('#coursesTable').DataTable({
                 "pageLength": 15,
                 "lengthMenu": [15, 25, 50, 75, 100, 1010],
-                fixedHeader: {
-                    header: true,
-                    footer: true
-                },
+
                 "language": {
                     "sProcessing": "Подождите...",
                     "sSearch": "Поиск:",
@@ -46,7 +42,6 @@
                 }
             });
 
-            // Apply the search
             table.columns().every(function () {
                 var that = this;
 

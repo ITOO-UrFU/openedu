@@ -227,7 +227,8 @@ class Course(models.Model):
         (1, "В процессе согласования"),
         (2, "Требуется участие администрации"),
         (3, "Согласовано"),
-        (4, "Отказано")
+        (4, "Отказано"),
+        (5, "Согласовано с РОО")
     )
 
     COMMUNICATION_PLATFORM_STATES = (
@@ -235,7 +236,8 @@ class Course(models.Model):
         (1, "В процессе согласования"),
         (2, "Требуется участие администрации"),
         (3, "Согласовано"),
-        (4, "Отказано")
+        (4, "Отказано"),
+        (5, "Согласовано с РОО")
     )
 
     EX_STATES = (
@@ -278,7 +280,7 @@ class Course(models.Model):
         (2, "Загружены")
     )
 
-    communication_owner = models.CharField("Статус коммуникации с правообладателей", max_length=1,
+    communication_owner = models.CharField("Статус коммуникации с правообладателем", max_length=1,
                                            choices=COMMUNICATION_OWNER_STATES, default=0)
     communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1,
                                               choices=COMMUNICATION_PLATFORM_STATES, default=0)
@@ -293,7 +295,6 @@ class Course(models.Model):
     expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, max_length=1, default=0)
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
     contacts = models.TextField("Контакты", blank=True, null=True)
-
 
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
@@ -350,6 +351,8 @@ class Course(models.Model):
                 self.save()
             else:
                 setattr(self, attr, val)
+            self.communication_owner = 5
+            self.communication_platform = 5
             self.save()
 
     @classmethod
@@ -379,6 +382,8 @@ class Course(models.Model):
                 c.save()
             else:
                 setattr(c, attr, val)
+            c.communication_owner = 5
+            c.communication_platform = 5
             c.save()
 
     @classmethod

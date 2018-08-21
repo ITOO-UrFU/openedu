@@ -5,19 +5,21 @@
     {% render_table table %}
 
     <script>
-        var delay = (function () {
-            var timer = 0;
-            return function (callback, ms) {
-                clearTimeout(timer);
-                timer = setTimeout(callback, ms);
-            };
-        })();
+
 
         $(document).ready(function () {
             $('#coursesTable tfoot td').each(function () {
                 var title = $(this).text();
                 $(this).html('<input type="text" size="10" placeholder="Фильтр" />');
             });
+
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
 
             // DataTable
             var table = $('#coursesTable').DataTable({

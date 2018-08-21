@@ -13,13 +13,6 @@
                 $(this).html('<input type="text" size="10" placeholder="Фильтр" />');
             });
 
-            var delay = (function () {
-                var timer = 0;
-                return function (callback, ms) {
-                    clearTimeout(timer);
-                    timer = setTimeout(callback, ms);
-                };
-            })();
 
             // DataTable
             var table = $('#coursesTable').DataTable({
@@ -60,6 +53,14 @@
                         .search(val)
                         .draw();
                 });
+
+                var delay = (function () {
+                    var timer = 0;
+                    return function (callback, ms) {
+                        clearTimeout(timer);
+                        timer = setTimeout(callback, ms);
+                    };
+                })();
 
                 $('input', table.column(colIdx).footer()).keyup(function () {
                     delay(search(this.value), 1000);

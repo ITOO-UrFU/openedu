@@ -61,7 +61,7 @@
                         .draw();
                 });
 
-                $('input', table.column(colIdx).footer()).on('keyup change', function () {
+                $('input', table.column(colIdx).footer()).keyup(function () {
                     delay(search(this.value), 1000);
                 });
             });

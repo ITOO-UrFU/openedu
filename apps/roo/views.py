@@ -41,7 +41,7 @@ def add_expertises(course, our_course):
     if course["expertise_types"] is None:
         return False
     exel_expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
-    print(course["title"], exel_expertise_types)
+    # print(course["title"], exel_expertise_types)
     expertise_types = list(set(exel_expertise_types) & set(
         [et[1] for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
 
@@ -158,8 +158,8 @@ def upload_from_json(request):
 
                     new_course.save()
 
-             i += 1
-             print("!!!!!!!!!!!!!!!!!!!!!!: ", i, new_course.title)
+                i += 1
+                print("!!!!!!!!!!!!!!!!!!!!!!: ", i, course["title"])
 
         return render(request, 'roo/upload_from_json.html')
     else:

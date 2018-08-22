@@ -46,8 +46,10 @@ class Base(models.Model):
                     roo_base = None
 
                 if roo_base:
+                    print(roo_base, item)
                     roo_base.update_from_dict(item)
                 else:
+                    print(item)
                     cls.create_from_dict(item)
 
         get_base_from_page(cls, url)

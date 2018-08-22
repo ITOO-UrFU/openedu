@@ -38,10 +38,12 @@ def get_choises_display(q, choises):
 
 
 def add_expertises(course, our_course):
-
+    if course["expertise_types"] is None:
+        return False
     exel_expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
     print(course["title"], exel_expertise_types)
-    expertise_types = list(set(exel_expertise_types) & set([et[1] for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
+    expertise_types = list(set(exel_expertise_types) & set(
+        [et[1] for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
 
     for e_type in expertise_types:
         has_ex = False
@@ -60,7 +62,8 @@ def add_expertises(course, our_course):
                         expert = Expert.objects.filter(expert=course["expert"])
 
                         if len(expert) == 0:
-                            expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"], contacts=course["contacts"])
+                            expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
+                                                           contacts=course["contacts"])
                             expertise.expert = expert
                             expertise.save()
                         else:
@@ -71,20 +74,22 @@ def add_expertises(course, our_course):
             # if course["expert"]:
             #     expert =
             expertise = Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
-                                     state=course["state"], organizer=course["organizer"], ex_date=course["date"], executed=True if course["expertise_status"].strip().lower() == "да" else False)
+                                                 state=course["state"], organizer=course["organizer"],
+                                                 ex_date=course["date"], executed=True if course[
+                                                                                              "expertise_status"].strip().lower() == "да" else False)
 
             if course.get("expert", ""):
                 if len(str(course["expert"]).strip()) > 0:
                     expert = Expert.objects.filter(expert=course["expert"])
 
                     if len(expert) == 0:
-                        expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"], contacts=course["contacts"])
+                        expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
+                                                       contacts=course["contacts"])
                         expertise.expert = expert
                         expertise.save()
                     else:
                         expertise.expert = expert[0]
                         expertise.save()
-
 
 
 def upload_from_json(request):
@@ -125,9 +130,12 @@ def upload_from_json(request):
                 for our_course in Course.objects.all():
 
                     if (
-                            our_course.title.lower().translate(tbl).replace(' ', '') == course["title"].lower().translate(tbl).replace(' ', '') and
-                            our_course.institution.title.lower().translate(tbl).replace(' ', '') == course["owner"].lower().translate(tbl).replace(' ', '') and
-                            our_course.partner.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(tbl).replace(' ', '')):
+                            our_course.title.lower().translate(tbl).replace(' ', '') == course[
+                        "title"].lower().translate(tbl).replace(' ', '') and
+                            our_course.institution.title.lower().translate(tbl).replace(' ', '') == course[
+                        "owner"].lower().translate(tbl).replace(' ', '') and
+                            our_course.partner.title.lower().translate(tbl).replace(' ', '') == course[
+                        "platform"].lower().translate(tbl).replace(' ', '')):
                         # print(course)
                         has_course = True
 

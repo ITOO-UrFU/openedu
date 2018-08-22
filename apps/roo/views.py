@@ -87,7 +87,7 @@ def add_expertises(course, our_course):
             expertise = Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
                                                  state=course["state"], organizer=course["organizer"],
                                                  ex_date=course["date"], executed=True if course[
-                                                                                              "expertise_status"].strip().lower() == "да" else False)
+                                                                                              "expertise_passed"].strip().lower() == "да" else False)
             if course["expert"] is not None:
                 experts = Expert.objects.filter(expert=course["expert"])
                 if experts.count() > 0:

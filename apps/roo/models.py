@@ -415,7 +415,7 @@ class Course(models.Model):
                 else:
                     roo_course = Course.create_from_dict(course)
 
-                roo_course.save()
+                #roo_course.save()
 
             if response["next"] is not None:
                 get_courses_from_page(response["next"])

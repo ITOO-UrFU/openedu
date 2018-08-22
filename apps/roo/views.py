@@ -39,8 +39,11 @@ def get_choises_display(q, choises):
 
 def add_expertises(course, our_course):
     try:
-        expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
-        print(course["title"], expertise_types)
+        exel_expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
+        print(course["title"], exel_expertise_types)
+        # expertise_types = [ex for ex in ]
+        expertise_types = list(set(exel_expertise_types) & set([et[1] for et in Expertise.EX_TYPES])) # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
+
         for e_type in expertise_types:
             has_ex = False
             for expertise in Expertise.objects.filter(course=our_course):

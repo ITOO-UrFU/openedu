@@ -44,7 +44,7 @@ def add_expertises(course, our_course):
     # print(course["title"], exel_expertise_types)
     expertise_types = list(set(exel_expertise_types) & set(
         [et[1].lower() for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
-
+    print("TYPES: ", exel_expertise_types, "  ", expertise_types)
     for e_type in expertise_types:
         has_ex = False
         for expertise in Expertise.objects.filter(course=our_course):

@@ -73,6 +73,7 @@ class Expertise(models.Model):
     type = models.CharField("Вид экспертизы", choices=EX_TYPES,
                             blank=True, null=True, max_length=1)
     executed = models.BooleanField("Отметка об исполнении эксперизы", default=True)
+    # passed = models.BooleanField("Прошел обязательную экспертизу")
     expert = models.ForeignKey("Expert", verbose_name="Эксперт", null=True, blank=True)
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=512)
     organizer = models.CharField("Организатор экспертизы сотрудники или партнеры", blank=True, null=True,

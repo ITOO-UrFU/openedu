@@ -17,7 +17,7 @@ from .decorators import roo_member_required
 from .models import \
     Course, CoursesTable, \
     Expertise, ExpertisesTable, \
-    Owner
+    Owner, Expert
 from django_tables2 import RequestConfig
 
 logger = logging.getLogger('celery_logging')
@@ -42,7 +42,7 @@ def add_expertises(course, our_course):
         exel_expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
         print(course["title"], exel_expertise_types)
         # expertise_types = [ex for ex in ]
-        expertise_types = list(set(exel_expertise_types) & set([et[1] for et in Expertise.EX_TYPES])) # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
+        expertise_types = list(set(exel_expertise_types) & set([et[1] for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
 
         for e_type in expertise_types:
             has_ex = False
@@ -50,16 +50,41 @@ def add_expertises(course, our_course):
                 if get_choises_display(expertise.type, expertise.EX_TYPES) == e_type:
                     expertise.supervisor = course["supervisor"]
                     expertise.state = course["state"]
+                    expertise.executed = True if course["expertise_passed"].strip().lower() == "да" else False
+
                     expertise.organizer = course["organizer"]
                     expertise.ex_date = course["date"]
                     expertise.save()
                     has_ex = True
+                    if course.get("expert", ""):
+                        if len(str(course["expert"]).strip()) > 0:
+                            expert = Expert.objects.filter(expert=course["expert"])
+
+                            if len(expert) == 0:
+                                expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"], contacts=course["contacts"])
+                                expertise.expert = expert
+                                expertise.save()
+                            else:
+                                expertise.expert = expert[0]
+                                expertise.save()
             if not has_ex:
                 _type = get_choises_id(e_type, Expertise.EX_TYPES)
                 # if course["expert"]:
                 #     expert =
-                Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
-                                         state=course["state"], organizer=course["organizer"], ex_date=course["date"])
+                expertise = Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
+                                         state=course["state"], organizer=course["organizer"], ex_date=course["date"], executed=True if course["expertise_status"].strip().lower() == "да" else False)
+
+                if course.get("expert", ""):
+                    if len(str(course["expert"]).strip()) > 0:
+                        expert = Expert.objects.filter(expert=course["expert"])
+
+                        if len(expert) == 0:
+                            expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"], contacts=course["contacts"])
+                            expertise.expert = expert
+                            expertise.save()
+                        else:
+                            expertise.expert = expert[0]
+                            expertise.save()
 
     except:
         print("ЕГГОГ!!  ", our_course.title)
@@ -108,14 +133,19 @@ def upload_from_json(request):
                             our_course.partner.title.lower().translate(tbl).replace(' ', '') == course["platform"].lower().translate(tbl).replace(' ', '')):
                         # print(course)
                         has_course = True
+
                         add_expertises(course, our_course)
+                        our_course.expertise_status = True if course["expertise_status"].strip().lower() == "да" else False
+
                         break
 
                 if not has_course:
                     new_course = Course(title=course["title"])
                     new_course.institution = institution
                     new_course.partner = partner
-                    # date_or_comment =course["title"]
+                    add_expertises(course, new_course)
+                    new_course.expertise_status = True if course["expertise_status"].strip().lower() == "да" else False
+
                     # try:
 
                     new_course.save()

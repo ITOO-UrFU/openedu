@@ -55,20 +55,31 @@ def add_expertises(course, our_course):
 
                 expertise.organizer = course["organizer"]
                 expertise.ex_date = course["date"]
-                expertise.save()
-                has_ex = True
-                if course.get("expert", ""):
-                    if len(str(course["expert"]).strip()) > 0:
-                        expert = Expert.objects.filter(expert=course["expert"])
 
-                        if len(expert) == 0:
-                            expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
-                                                           contacts=course["contacts"])
-                            expertise.expert = expert
-                            expertise.save()
-                        else:
-                            expertise.expert = expert[0]
-                            expertise.save()
+                has_ex = True
+
+                if course["expert"] is not None:
+                    experts = Expert.objects.filter(expert=course["expert"])
+                    if experts.count() > 0:
+                        expertise.expert = experts.first()
+                    else:
+                        expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
+                                                       contacts=course["contacts"])
+                        expertise.expert = expert
+                expertise.save()
+
+                # if course.get("expert", ""):
+                #     if len(str(course["expert"]).strip()) > 0:
+                #         expert = Expert.objects.filter(expert=course["expert"])
+                #
+                #         if len(expert) == 0:
+                #             expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
+                #                                            contacts=course["contacts"])
+                #             expertise.expert = expert
+                #             expertise.save()
+                #         else:
+                #             expertise.expert = expert[0]
+                #             expertise.save()
         if not has_ex:
             _type = get_choises_id(e_type, Expertise.EX_TYPES)
             # if course["expert"]:
@@ -77,19 +88,28 @@ def add_expertises(course, our_course):
                                                  state=course["state"], organizer=course["organizer"],
                                                  ex_date=course["date"], executed=True if course[
                                                                                               "expertise_status"].strip().lower() == "да" else False)
+            if course["expert"] is not None:
+                experts = Expert.objects.filter(expert=course["expert"])
+                if experts.count() > 0:
+                    expertise.expert = experts.first()
+                else:
+                    expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
+                                                   contacts=course["contacts"])
+                    expertise.expert = expert
+            expertise.save()
 
-            if course.get("expert", ""):
-                if len(str(course["expert"]).strip()) > 0:
-                    expert = Expert.objects.filter(expert=course["expert"])
-
-                    if len(expert) == 0:
-                        expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
-                                                       contacts=course["contacts"])
-                        expertise.expert = expert
-                        expertise.save()
-                    else:
-                        expertise.expert = expert[0]
-                        expertise.save()
+            # if course.get("expert", ""):
+            #     if len(str(course["expert"]).strip()) > 0:
+            #         expert = Expert.objects.filter(expert=course["expert"])
+            #
+            #         if len(expert) == 0:
+            #             expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
+            #                                            contacts=course["contacts"])
+            #             expertise.expert = expert
+            #             expertise.save()
+            #         else:
+            #             expertise.expert = expert[0]
+            #             expertise.save()
 
 
 def upload_from_json(request):

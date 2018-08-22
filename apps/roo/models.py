@@ -583,6 +583,7 @@ class Direction(models.Model):
         c = cls.objects.create(title=d["title"])
         for attr, val in d.items():
             if attr == "activity_id":
+                print(d["activity_id"])
                 activity_object = Area.objects.get(global_id=d["activity_id"])
                 c.activity = activity_object
                 c.save()

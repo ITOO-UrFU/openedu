@@ -140,9 +140,9 @@ def upload_from_json(request):
                         "platform"].lower().translate(tbl).replace(' ', '')):
                         # print(course)
                         has_course = True
-
-                        add_expertises(course, our_course)
                         our_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
+                        our_course.save()
+                        add_expertises(course, our_course)
 
                         break
 
@@ -150,16 +150,17 @@ def upload_from_json(request):
                     new_course = Course(title=course["title"])
                     new_course.institution = institution
                     new_course.partner = partner
-                    add_expertises(course, new_course)
-
                     new_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
 
                     # try:
 
                     new_course.save()
+                    add_expertises(course, new_course)
+
+
 
                 i += 1
-                print("!!!!!!!!!!!!!!!!!!!!!!: ", i, course["title"])
+                print("!: ", i, course["title"])
 
         return render(request, 'roo/upload_from_json.html')
     else:

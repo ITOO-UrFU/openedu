@@ -86,8 +86,8 @@ def add_expertises(course, our_course):
                             expertise.expert = expert[0]
                             expertise.save()
 
-    except:
-        print("ЕГГОГ!!  ", our_course.title)
+    except Exception as e:
+        print("ЕГГОГ!!  ", our_course.title, e)
 
 
 def upload_from_json(request):

@@ -382,8 +382,8 @@ class Course(models.Model):
                 c.save()
             else:
                 setattr(c, attr, val)
-            c.communication_owner = 5
-            c.communication_platform = 5
+            #c.communication_owner = 5
+            #c.communication_platform = 5
             c.save()
 
     @classmethod

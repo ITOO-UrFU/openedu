@@ -72,7 +72,7 @@ def add_expertises(course, our_course):
                 # if course["expert"]:
                 #     expert =
                 expertise = Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
-                                         state=course["state"], organizer=course["organizer"], ex_date=course["date"], executed=True if course["expertise_status"].strip().lower() == "да" else False)
+                                         state=course["state"], organizer=course["organizer"], ex_date=course["date"], executed=3 if course["expertise_status"].strip().lower() == "да" else 0)
 
                 if course.get("expert", ""):
                     if len(str(course["expert"]).strip()) > 0:
@@ -135,7 +135,7 @@ def upload_from_json(request):
                         has_course = True
 
                         add_expertises(course, our_course)
-                        our_course.expertise_status = True if course["expertise_status"].strip().lower() == "да" else False
+                        our_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
 
                         break
 
@@ -144,7 +144,7 @@ def upload_from_json(request):
                     new_course.institution = institution
                     new_course.partner = partner
                     add_expertises(course, new_course)
-                    new_course.expertise_status = True if course["expertise_status"].strip().lower() == "да" else False
+                    new_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
 
                     # try:
 

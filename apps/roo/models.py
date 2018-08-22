@@ -512,24 +512,24 @@ class Owner(Base):
     get_image.allow_tags = True
     get_image.short_description = "Изображение курса"
 
-    def save(self, *args, **kwargs):
-
-        rdata = {
-            "q": f"logo {self.title}",
-            "num": 1,
-            "start": 1,
-            # "filetype": "jpg",
-            "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
-            "cx": "012036972007253236562:btl9gjd-nti",
-            "searchType": "image",
-            "gl": "ru",
-        }
-
-        r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))
-        items = json.loads(r.content).get("items", None)
-        if items:
-            self.image = items[0]["link"]
-        super(Owner, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #
+    #     rdata = {
+    #         "q": f"logo {self.title}",
+    #         "num": 1,
+    #         "start": 1,
+    #         # "filetype": "jpg",
+    #         "key": "AIzaSyBaLNSE02AM6vjEJ9npNwD9uagQzSlMnhg",
+    #         "cx": "012036972007253236562:btl9gjd-nti",
+    #         "searchType": "image",
+    #         "gl": "ru",
+    #     }
+    #
+    #     r = requests.get("https://www.googleapis.com/customsearch/v1", params=urlencode(rdata))
+    #     items = json.loads(r.content).get("items", None)
+    #     if items:
+    #         self.image = items[0]["link"]
+    #     super(Owner, self).save(*args, **kwargs)
 
     @classmethod
     def get(cls):

@@ -42,7 +42,7 @@ class TeacherAdmin(admin.ModelAdmin):
 
 @admin.register(Expert)
 class ExpertAdmin(admin.ModelAdmin):
-    list_display = ("login",)
+    list_display = ("expert", "login", "contacts")
 
 
 @admin.register(Expertise)

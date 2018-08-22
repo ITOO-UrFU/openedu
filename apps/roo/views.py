@@ -38,42 +38,23 @@ def get_choises_display(q, choises):
 
 
 def add_expertises(course, our_course):
-    try:
-        exel_expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
-        print(course["title"], exel_expertise_types)
-        # expertise_types = [ex for ex in ]
-        expertise_types = list(set(exel_expertise_types) & set([et[1] for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
 
-        for e_type in expertise_types:
-            has_ex = False
-            for expertise in Expertise.objects.filter(course=our_course):
-                if get_choises_display(expertise.type, expertise.EX_TYPES) == e_type:
-                    expertise.supervisor = course["supervisor"]
-                    expertise.state = course["state"]
-                    expertise.executed = True if course["expertise_passed"].strip().lower() == "да" else False
+    exel_expertise_types = [e.strip() for e in course["expertise_types"].split(',')]
+    print(course["title"], exel_expertise_types)
+    expertise_types = list(set(exel_expertise_types) & set([et[1] for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
 
-                    expertise.organizer = course["organizer"]
-                    expertise.ex_date = course["date"]
-                    expertise.save()
-                    has_ex = True
-                    if course.get("expert", ""):
-                        if len(str(course["expert"]).strip()) > 0:
-                            expert = Expert.objects.filter(expert=course["expert"])
+    for e_type in expertise_types:
+        has_ex = False
+        for expertise in Expertise.objects.filter(course=our_course):
+            if get_choises_display(expertise.type, expertise.EX_TYPES) == e_type:
+                expertise.supervisor = course["supervisor"]
+                expertise.state = course["state"]
+                expertise.executed = True if course["expertise_passed"].strip().lower() == "да" else False
 
-                            if len(expert) == 0:
-                                expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"], contacts=course["contacts"])
-                                expertise.expert = expert
-                                expertise.save()
-                            else:
-                                expertise.expert = expert[0]
-                                expertise.save()
-            if not has_ex:
-                _type = get_choises_id(e_type, Expertise.EX_TYPES)
-                # if course["expert"]:
-                #     expert =
-                expertise = Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
-                                         state=course["state"], organizer=course["organizer"], ex_date=course["date"], executed=3 if course["expertise_status"].strip().lower() == "да" else 0)
-
+                expertise.organizer = course["organizer"]
+                expertise.ex_date = course["date"]
+                expertise.save()
+                has_ex = True
                 if course.get("expert", ""):
                     if len(str(course["expert"]).strip()) > 0:
                         expert = Expert.objects.filter(expert=course["expert"])
@@ -85,9 +66,25 @@ def add_expertises(course, our_course):
                         else:
                             expertise.expert = expert[0]
                             expertise.save()
+        if not has_ex:
+            _type = get_choises_id(e_type, Expertise.EX_TYPES)
+            # if course["expert"]:
+            #     expert =
+            expertise = Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
+                                     state=course["state"], organizer=course["organizer"], ex_date=course["date"], executed=3 if course["expertise_status"].strip().lower() == "да" else 0)
 
-    except Exception as e:
-        print("ЕГГОГ!!  ", our_course.title, e)
+            if course.get("expert", ""):
+                if len(str(course["expert"]).strip()) > 0:
+                    expert = Expert.objects.filter(expert=course["expert"])
+
+                    if len(expert) == 0:
+                        expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"], contacts=course["contacts"])
+                        expertise.expert = expert
+                        expertise.save()
+                    else:
+                        expertise.expert = expert[0]
+                        expertise.save()
+
 
 
 def upload_from_json(request):

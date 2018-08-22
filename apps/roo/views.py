@@ -102,6 +102,8 @@ def upload_from_json(request):
             if course["title"] is None or course["platform"] is None or course["owner"] is None:
                 pass
             else:
+                if course["expertise_status"] is None:
+                    course["expertise_status"] = ''
                 # Смотрим, есть ли такой owner в базе
                 institution = None
                 for owner in Owner.objects.all():
@@ -149,14 +151,15 @@ def upload_from_json(request):
                     new_course.institution = institution
                     new_course.partner = partner
                     add_expertises(course, new_course)
+
                     new_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
 
                     # try:
 
                     new_course.save()
 
-                    i += 1
-                    print("!!!!!!!!!!!!!!!!!!!!!!: ", i, new_course.title)
+             i += 1
+             print("!!!!!!!!!!!!!!!!!!!!!!: ", i, new_course.title)
 
         return render(request, 'roo/upload_from_json.html')
     else:

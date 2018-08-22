@@ -482,7 +482,10 @@ class Expert(models.Model):
     contacts = models.TextField(blank=True)
 
     def __str__(self):
-        return f"Эксперт: {self.login}"
+        if self.expert:
+            return f"Эксперт: {self.expert}"
+        else:
+            return f"Эксперт: {self.login}"
 
     class Meta:
         verbose_name = 'эксперт'

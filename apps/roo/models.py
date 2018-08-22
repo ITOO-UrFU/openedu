@@ -385,6 +385,7 @@ class Course(models.Model):
             c.communication_owner = 5
             c.communication_platform = 5
             c.save()
+        return c
 
     @classmethod
     def updade_courses_from_roo(cls):

@@ -46,8 +46,10 @@ class Base(models.Model):
                     roo_base = None
 
                 if roo_base:
+                    print(roo_base, item)
                     roo_base.update_from_dict(item)
                 else:
+                    print(item)
                     cls.create_from_dict(item)
 
         get_base_from_page(cls, url)
@@ -571,6 +573,7 @@ class Direction(models.Model):
     def update_from_dict(self, d):
         for attr, val in d.items():
             if attr == "activity_id":
+                print(d["activity_id"], type(d["activity_id"]))
                 activity_object = Area.objects.get(global_id=d["activity_id"])
                 self.activity = activity_object
                 self.save()
@@ -582,8 +585,13 @@ class Direction(models.Model):
     def create_from_dict(cls, d):
         c = cls.objects.create(title=d["title"])
         for attr, val in d.items():
-            setattr(c, attr, val)
-            c.save()
+            if attr == "activity_id":
+                activity_object = Area.objects.get(global_id=d["activity_id"])
+                c.activity = activity_object
+                c.save()
+            else:
+                setattr(c, attr, val)
+                c.save()
 
     @classmethod
     def update_base_from_roo(cls, url):

@@ -384,6 +384,7 @@ class Course(models.Model):
                 setattr(c, attr, val)
             c.communication_owner = 5
             c.communication_platform = 5
+            c.roo_status = 3
             c.save()
         return c
 
@@ -414,7 +415,6 @@ class Course(models.Model):
                 else:
                     roo_course = Course.create_from_dict(course)
 
-                roo_course.roo_status = 3
                 roo_course.save()
 
             if response["next"] is not None:

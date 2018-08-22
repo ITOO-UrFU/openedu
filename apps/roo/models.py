@@ -550,23 +550,7 @@ class Area(Base):
 
     @classmethod
     def get(cls):
-        # cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/activity', 'title')
-        login = 'vesloguzov@gmail.com'
-        password = 'ye;yj,jkmitrjlf'
-
-        request = requests.get("https://online.edu.ru/api/courses/v0/activity", auth=(login, password), verify=False)
-        response = request.json()
-        items = response["rows"]
-        for item in items:
-            try:
-                roo_base = cls.objects.filter(Q(**{'title': item['title']})).first()
-            except:
-                roo_base = None
-
-            if roo_base:
-                roo_base.update_from_dict(item)
-            else:
-                cls.create_from_dict(item)
+        cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/activity', 'title')
 
         # logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
@@ -598,8 +582,13 @@ class Direction(models.Model):
     def create_from_dict(cls, d):
         c = cls.objects.create(title=d["title"])
         for attr, val in d.items():
-            setattr(c, attr, val)
-            c.save()
+            if attr == "activity_id":
+                activity_object = Area.objects.get(global_id=d["activity_id"])
+                c.activity = activity_object
+                c.save()
+            else:
+                setattr(c, attr, val)
+                c.save()
 
     @classmethod
     def update_base_from_roo(cls, url):

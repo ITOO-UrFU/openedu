@@ -651,7 +651,7 @@ class CoursesTable(tables.Table):
         fields = (
             "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
             "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
-        attrs = {'class': 'ui celled table', 'id': 'coursesTable'}
+        attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(
         '<a href="#" onClick="CourseEdit=window.open(\'http://openedu.urfu.ru/roo/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a', footer="Наименование")
@@ -673,7 +673,7 @@ class ExpertisesTable(tables.Table):
         model = Expertise
         template_name = "django_tables2/bootstrap.html"
         fields = ("course", "state", "date", "type", "executed", "expert", "supervisor", "organizer", "comment")
-        attrs = {'class': 'ui celled table', 'id': 'expertisesTable'}
+        attrs = {'class': 'ui celled striped table', 'id': 'expertisesTable'}
 
     course = tables.TemplateColumn(
         '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a', footer="Курс")

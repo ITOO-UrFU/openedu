@@ -673,6 +673,7 @@ class ExpertisesTable(tables.Table):
         model = Expertise
         template_name = "django_tables2/bootstrap.html"
         fields = ("course", "state", "date", "type", "executed", "expert", "supervisor", "organizer", "comment")
+        attrs = {'class': 'ui celled table', 'id': 'expertisesTable'}
 
     course = tables.TemplateColumn(
         '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a')

@@ -676,4 +676,4 @@ class ExpertisesTable(tables.Table):
         attrs = {'class': 'ui celled table', 'id': 'expertisesTable'}
 
     course = tables.TemplateColumn(
-        '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a')
+        '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a', footer="Курс")

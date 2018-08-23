@@ -178,8 +178,6 @@ def upload_from_json(request):
                     new_course.save()
                     add_expertises(course, new_course)
 
-
-
                 i += 1
                 # print("!: ", i, course["title"])
 

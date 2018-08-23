@@ -5,37 +5,69 @@
     {% render_table table %}
 
     <script>
+        $(document).ready(function () {
+            $('#expertisesTable tfoot td').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" size="10" placeholder="Фильтр" />');
+            });
 
-        var table = $('#expertisesTable').DataTable({
-            "pageLength": 15,
-            "lengthMenu": [15, 25, 50, 75, 100, 1010],
-            fixedHeader: {
-                header: true,
-                footer: false
-            },
-            "language": {
-                "sProcessing": "Подождите...",
-                "sSearch": "Поиск:",
-                "sLengthMenu": "Показать _MENU_ записей",
-                "sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
-                "sInfoEmpty": "Записи с 0 до 0 из 0 записей",
-                "sInfoFiltered": "(отфильтровано из _MAX_ записей)",
-                "sInfoPostFix": "",
-                "sLoadingRecords": "Загрузка записей...",
-                "sZeroRecords": "Записи отсутствуют.",
-                "sEmptyTable": "В таблице отсутствуют данные",
-                "oPaginate": {
-                    "sFirst": "Первая",
-                    "sPrevious": "Предыдущая",
-                    "sNext": "Следующая",
-                    "sLast": "Последняя"
+
+            // DataTable
+            var table = $('#expertisesTable').DataTable({
+                "pageLength": -1,
+                "lengthMenu": [[15, 30, 50, -1], [15, 30, 50, "Все"]],
+                fixedHeader: {
+                    header: true,
+                    footer: true
                 },
-                "oAria": {
-                    "sSortAscending": ": активировать для сортировки столбца по возрастанию",
-                    "sSortDescending": ": активировать для сортировки столбца по убыванию"
+                "language": {
+                    "sProcessing": "Подождите...",
+                    "sSearch": "Поиск:",
+                    "sLengthMenu": "Показать _MENU_ записей",
+                    "sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                    "sInfoEmpty": "Записи с 0 до 0 из 0 записей",
+                    "sInfoFiltered": "(отфильтровано из _MAX_ записей)",
+                    "sInfoPostFix": "",
+                    "sLoadingRecords": "Загрузка записей...",
+                    "sZeroRecords": "Записи отсутствуют.",
+                    "sEmptyTable": "В таблице отсутствуют данные",
+                    "oPaginate": {
+                        "sFirst": "Первая",
+                        "sPrevious": "Предыдущая",
+                        "sNext": "Следующая",
+                        "sLast": "Последняя"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": активировать для сортировки столбца по возрастанию",
+                        "sSortDescending": ": активировать для сортировки столбца по убыванию"
+                    }
                 }
-            }
+            });
+
+            table.columns().eq(0).each(function (colIdx) {
+                var search = $.fn.dataTable.util.throttle(function (val) {
+                    table
+                        .column(colIdx)
+                        .search(val)
+                        .draw();
+                });
+
+                var delay = (function () {
+                    var timer = 0;
+                    return function (callback, ms) {
+                        clearTimeout(timer);
+                        timer = setTimeout(callback, ms);
+                    };
+                })();
+
+                $('input', table.column(colIdx).footer()).keyup(function () {
+                    var that = this;
+                    delay(function(){search(that.value)}, 1000);
+                });
+            });
         });
+
+
         document.getElementById('expertisesTable').classList.add('hover');
     </script>
     <style>

@@ -43,7 +43,8 @@ def add_expertises(course, our_course):
     exel_expertise_types = [e.strip().lower() for e in course["expertise_types"].split(',')]
     # print(course["title"], exel_expertise_types)
     expertise_types = list(set(exel_expertise_types) & set(
-        [et[1].lower() for et in Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
+        [et[1].lower() for et in
+         Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
     # print("TYPES: ", exel_expertise_types, "  ", expertise_types)
     for e_type in expertise_types:
         has_ex = False
@@ -127,6 +128,8 @@ def upload_from_json(request):
                     course["expertise_status"] = ''
                 if course["expertise_passed"] is None:
                     course["expertise_passed"] = ''
+                if course["communication_owner"] is None:
+                    course["communication_owner"] = ''
                 # Смотрим, есть ли такой owner в базе
                 institution = None
                 for owner in Owner.objects.all():
@@ -164,6 +167,17 @@ def upload_from_json(request):
                         # print(course)
                         has_course = True
                         our_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
+
+                        if course["communication_owner"].strip().lower() == "да":
+                            our_course.communication_owner = 3
+                            our_course.communication_platform = 3
+                        elif course["communication_owner"].strip().lower() in ["отказ", "нет"]:
+                            our_course.communication_owner = 4
+                            our_course.communication_platform = 4
+                        else:
+                            our_course.communication_owner = 0
+                            our_course.communication_platform = 0
+
                         our_course.save()
                         add_expertises(course, our_course)
 
@@ -175,12 +189,19 @@ def upload_from_json(request):
                     new_course.partner = partner
                     new_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
 
+                    if course["communication_owner"].strip().lower() == "да":
+                        our_course.communication_owner = 3
+                        our_course.communication_platform = 3
+                    elif course["communication_owner"].strip().lower() in ["отказ", "нет"]:
+                        our_course.communication_owner = 4
+                        our_course.communication_platform = 4
+                    else:
+                        our_course.communication_owner = 0
+                        our_course.communication_platform = 0
                     # try:
 
                     new_course.save()
                     add_expertises(course, new_course)
-
-
 
                 i += 1
                 # print("!: ", i, course["title"])

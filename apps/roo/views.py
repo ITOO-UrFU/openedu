@@ -125,6 +125,8 @@ def upload_from_json(request):
             else:
                 if course["expertise_status"] is None:
                     course["expertise_status"] = ''
+                if course["expertise_passed"] is None:
+                    course["expertise_passed"] = ''
                 # Смотрим, есть ли такой owner в базе
                 institution = None
                 for owner in Owner.objects.all():

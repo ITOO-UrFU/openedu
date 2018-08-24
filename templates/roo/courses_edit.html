@@ -28,7 +28,12 @@
 
     //trigger AJAX load on "Load Data via AJAX" button click
     $("#ajax-trigger").click(function () {
-        $("#example-table").tabulator("setData", "/exampledata/ajax");
+        $.get( "/roo/get_courses", function( data ) {
+            $( ".result" ).html( data );
+            alert( "Load was performed." );
+        });
+
+        $("#example-table").tabulator("setData", "/roo/get_courses");
     });
 
 </script>

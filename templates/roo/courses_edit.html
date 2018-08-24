@@ -3,7 +3,7 @@
 {% load semanticui %}
 {% block content %}
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.3/css/tabulator.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.3/css/tabulator_simple.min.css" rel="stylesheet">
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.3/js/tabulator.min.js"></script>
     {#<script src="/files/openedu_static/js/tabulator.min.js"></script>#}
@@ -11,6 +11,15 @@
     <div id="courses-table"></div>
 
     <script type="text/javascript">
+    var COMMUNICATION_OWNER_STATES = {
+        "0": "Согласование не начато",
+        "1": "В процессе согласования",
+        "2": "Требуется участие администрации",
+        "3": "Согласовано",
+        "4": "Отказано",
+        "5": "Согласовано с РОО"
+    };
+
         $("#courses-table").tabulator({
             height: "700px",
             {#width: "100%",#}
@@ -21,7 +30,7 @@
                 {title: "Наименование", field: "title", sorter: "string"},
                 {title: "Платформа", field: "partner", sorter: "string"},
                 {title: "Правообладатель", field: "institution", sorter: "string"},
-                {title: "Статус коммуникации с правообладателем", field: "communication_owner", sorter: "string"},
+                {title: "Статус коммуникации с правообладателем", field: "communication_owner", editor:"select", editorParams:COMMUNICATION_OWNER_STATES},
                 {title: "Статус коммуникации с платформой", field: "communication_platform", sorter: "string"},
                 {title: "Статус экспертизы", field: "expertise_status", sorter: "string"},
                 {title: "Статус паспорта", field: "passport_status", sorter: "string"},
@@ -31,7 +40,7 @@
                 {title: "Статус загрузки На РОО", field: "roo_status", sorter: "string"},
 
             ],
-            ajaxLoaderLoading: "<div style='display:inline-block; border:4px solid #333; border-radius:10px; background:#fff; font-weight:bold; font-size:16px; color:#000; padding:10px 20px;'>Загрузка данных</div>"
+            ajaxLoaderLoading: "Загрузка данных"
         });
 
         $(document).ready(function() {

@@ -16,24 +16,34 @@
         layout: "fitColumns",
         placeholder: "No Data Set",
         columns: [
-            {title: "Name", field: "name", sorter: "string", width: 200},
-            {title: "Progress", field: "progress", sorter: "number", formatter: "progress"},
-            {title: "Gender", field: "gender", sorter: "string"},
-            {title: "Rating", field: "rating", formatter: "star", align: "center", width: 100},
-            {title: "Favourite Color", field: "col", sorter: "string", sortable: false},
-            {title: "Date Of Birth", field: "dob", sorter: "date", align: "center"},
-            {title: "Driver", field: "car", align: "center", formatter: "tickCross", sorter: "boolean"},
+            {title: "Наименование", field: "title", sorter: "string"},
+            {title: "Платформа", field: "partner", sorter: "string"},
+            {title: "Правообладатель", field: "institution", sorter: "string"},
+            {title: "Статус коммуникации с правообладателем", field: "communication_owner", sorter: "string"},
+            {title: "Статус коммуникации с платформой", field: "communication_platform", sorter: "string"},
+            {title: "Статус экспертизы", field: "expertise_status", sorter: "string"},
+            {title: "Статус паспорта", field: "passport_status", sorter: "string"},
+            {title: "Состояние загрузки обязательных оценок", field: "required_ratings_state", sorter: "string"},
+            {title: "Состояние загрузки добровольных оценок", field: "unforced_ratings_state", sorter: "string"},
+            {title: "Примечание", field: "comment", sorter: "string"},
+            {title: "Статус загрузки На РОО", field: "roo_status", sorter: "string"},
+
         ],
     });
 
     //trigger AJAX load on "Load Data via AJAX" button click
     $("#ajax-trigger").click(function () {
         $.get( "/roo/get_courses", function( data ) {
-            $( ".result" ).html( data );
-            alert( "Load was performed." );
+            var source_data = [];
+            for course in JSON.parse(data){
+                source_course = course.fields;
+                source_course["pk"] = course.pk;
+                source_data.push(source_course)
+            }
+            $("#example-table").tabulator("setData", source_data);
         });
 
-        $("#example-table").tabulator("setData", "/roo/get_courses");
+
     });
 
 </script>

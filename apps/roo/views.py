@@ -288,7 +288,7 @@ def courses_edit(request):
             pass
     else:
         # for course in Course.objects.all():
-        formset = CourseFormSet(Course.objects.all())
+        formset = CourseFormSet(Course.objects.all()[:5])
     return render(request, 'roo/courses_edit.html', {'formset': formset})
 
 

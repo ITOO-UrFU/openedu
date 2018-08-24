@@ -174,6 +174,11 @@ class ProctoringService(models.Model):
 
 
 class Course(models.Model):
+    CERTS = (
+        (0, "Нет данных"),
+        (1, "Выдается"),
+        (2, "Не выдается")
+    )
     #  что приходит в api сейчас
     credits = models.CharField("Массив перезачётов", blank=True, null=True, max_length=512)
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=512)
@@ -193,8 +198,8 @@ class Course(models.Model):
     directions = models.ManyToManyField("Direction", verbose_name="Массив идентификаторов направлений")  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
-    has_sertificate = models.BooleanField("Возможность получить сертификат",
-                                          default=False)  # слово сертификат у них неправильно
+    has_sertificate = models.CharField("Возможность получить сертификат",
+                                       default=0, max_length=1, choices=CERTS)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
@@ -418,7 +423,7 @@ class Course(models.Model):
                 else:
                     roo_course = Course.create_from_dict(course)
 
-                #roo_course.save()
+                # roo_course.save()
 
             if response["next"] is not None:
                 get_courses_from_page(response["next"])

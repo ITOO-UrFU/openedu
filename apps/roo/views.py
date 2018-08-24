@@ -325,11 +325,43 @@ class ExpertiseLayout(forms.ModelForm):
         self.fields['owner'].initial = self.instance.course.institution
 
 
+class CourseStatusLayout(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['expertise_status']
+
+
 class ExpertiseUpdate(UpdateView):
     form_class = ExpertiseLayout
     model = Expertise
+    second_model = Course
+    second_form_class = CourseStatusLayout
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
     context_object_name = "expertise"
+    # pk_url_kwarg = 'expertise_id'
 
+    def get_context_data(self, **kwargs):
+        context = super(ExpertiseUpdate, self).get_context_data(**kwargs)
+        if self.request.method == 'POST':
+            details_form = self.second_form_class(self.request.POST, prefix='details')
+        else:
+            details_object = self.second_model.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+            details_form = self.second_form_class(instance=details_object, prefix='details')
+
+        context['details_form'] = details_form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        response = super(ExpertiseUpdate, self).post(request, *args, **kwargs)
+        details_form = self.second_form_class(self.request.POST, prefix='details')
+        if details_form.is_valid():
+            task = self.get_object()
+            self.second_model.objects.filter(task=task).update(**details_form.cleaned_data)
+            return response
+
+        return render(request, self.template_name, {
+            'form': self.get_form(self.get_form_class()),
+            'details_form': details_form,
+        })
     # success_url = TODO: сделать ссылку с закрытием окна

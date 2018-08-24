@@ -35,7 +35,7 @@
     $("#ajax-trigger").click(function () {
         $.get( "/roo/get_courses", function( data ) {
             var source_data = [];
-            for course in JSON.parse(data){
+            for (course in JSON.parse(data)){
                 source_course = course.fields;
                 source_course["pk"] = course.pk;
                 source_data.push(source_course)

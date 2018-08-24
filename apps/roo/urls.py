@@ -13,5 +13,5 @@ urlpatterns = [
 
     url(r'upload_json/', upload_from_json, name='upload_from_json'),
     url(r'courses_edit/', courses_edit, name='courses_edit'),
-    url(r'get_courses/', get_courses, name='get_courses'),
+    url(r'get_courses/', get_coursesl, name='get_courses'),
 ]

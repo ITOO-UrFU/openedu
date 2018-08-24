@@ -1,8 +1,54 @@
-<form method="post">
-{{ formset.courses_edit }}
-    <table>
-        {% for form in formset %}
-        {{ form }}
-        {% endfor %}
-    </table>
-</form>
+{% extends "roo/base_simple.html" %}
+{% load static %}
+{% load semanticui %}
+{% block content %}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.3/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.3/js/tabulator.min.js"></script>
+{#<script src="/files/openedu_static/js/tabulator.min.js"></script>#}
+<button id="ajax-trigger">ЛОЛ</button>
+
+<div id="example-table"></div>
+
+<script type="text/javascript">
+    $("#example-table").tabulator({
+        height: "311px",
+        layout: "fitColumns",
+        placeholder: "No Data Set",
+        columns: [
+            {title: "Наименование", field: "title", sorter: "string"},
+            {title: "Платформа", field: "partner", sorter: "string"},
+            {title: "Правообладатель", field: "institution", sorter: "string"},
+            {title: "Статус коммуникации с правообладателем", field: "communication_owner", sorter: "string"},
+            {title: "Статус коммуникации с платформой", field: "communication_platform", sorter: "string"},
+            {title: "Статус экспертизы", field: "expertise_status", sorter: "string"},
+            {title: "Статус паспорта", field: "passport_status", sorter: "string"},
+            {title: "Состояние загрузки обязательных оценок", field: "required_ratings_state", sorter: "string"},
+            {title: "Состояние загрузки добровольных оценок", field: "unforced_ratings_state", sorter: "string"},
+            {title: "Примечание", field: "comment", sorter: "string"},
+            {title: "Статус загрузки На РОО", field: "roo_status", sorter: "string"},
+
+        ],
+    });
+
+    //trigger AJAX load on "Load Data via AJAX" button click
+    $("#ajax-trigger").click(function () {
+        $.get( "/roo/courses_edit", function( data ) {
+            var source_data = [];
+            {#console.log(data)#}
+            for (course in data){
+                console.log(course)
+                source_course = {}
+                source_course = course.fields;
+                {#source_course["pk"] = course.pk;#}
+                source_data.push(source_course)
+            }
+            $("#example-table").tabulator("setData", source_data);
+        });
+
+
+    });
+
+</script>
+
+{% endblock %}

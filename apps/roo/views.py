@@ -282,8 +282,13 @@ def courses_list(request):
 def courses_edit(request):
     # context = dict()
     # return render(request, "roo/courses_edit.html", context)
-    data = serialize('json', Course.objects.all(), cls=LazyEncoder)
-    return HttpResponse(data, content_type='application/json')
+    data = serialize('json', Course.objects.all())
+    return_data = []
+    for course in json.loads(data):
+        new_course = course['fields']
+        new_course['pk'] = course['pk']
+        return_data.append(new_course)
+    return HttpResponse(json.dumps(return_data), content_type='application/json')
 
 @roo_member_required
 def expertises(request):

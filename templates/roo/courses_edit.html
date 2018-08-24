@@ -1,4 +1,4 @@
-{% extends "roo/base_simple.html" %}
+{% extends "roo/courses_base.html.html" %}
 {% load static %}
 {% load semanticui %}
 {% block content %}
@@ -13,7 +13,8 @@
 
     <script type="text/javascript">
         $("#example-table").tabulator({
-            {#height: "311px",#}
+            height: "500px",
+            width: "100%",
             {#layout: "fitColumns",#}
             placeholder: "No Data Set",
             columns: [

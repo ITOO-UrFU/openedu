@@ -288,7 +288,7 @@ def courses_edit(request):
         new_course = course['fields']
         new_course['pk'] = course['pk']
         return_data.append(new_course)
-    return HttpResponse(return_data, content_type='application/json')
+    return HttpResponse(json.dumps(return_data), content_type='application/json')
 
 @roo_member_required
 def expertises(request):

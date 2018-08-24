@@ -19,6 +19,38 @@
         "4": "Отказано",
         "5": "Согласовано с РОО"
     };
+    var genderEditor = function(cell, onRendered, success, cancel){
+    //cell - the cell component for the editable cell
+    //onRendered - function to call when the editor has been rendered
+    //success - function to call to pass the succesfully updated value to Tabulator
+    //cancel - function to call to abort the edit and return to a normal cell
+
+    //create and style editor
+    var editor = $("<select><option value=''></option><option value='male'>male</option><option value='female'>female</option></select>");
+    editor.css({
+        "padding":"3px",
+        "width":"100%",
+        "box-sizing":"border-box",
+    });
+
+    //Set value of editor to the current value of the cell
+    editor.val(cell.getValue());
+
+    //set focus on the select box when the editor is selected (timeout allows for editor to be added to DOM)
+    onRendered(function(){
+      editor.focus();
+      editor.css("height","100%");
+    });
+
+    //when the value has been set, trigger the cell to update
+    editor.on("change blur", function(e){
+        success(editor.val());
+    });
+
+    //return the editor element
+    return editor;
+};
+
 
         $("#courses-table").tabulator({
             height: "700px",
@@ -29,6 +61,7 @@
             columns: [
                 {title: "Наименование", field: "title", sorter: "string"},
                 {title: "Платформа", field: "partner", sorter: "string"},
+                {title:"Gender", field:"gender", editor:genderEditor},
                 {title: "Правообладатель", field: "institution", sorter: "string"},
                 {title: "Статус коммуникации с правообладателем", field: "communication_owner", editor:"select", editorParams:COMMUNICATION_OWNER_STATES, mutatorParams:COMMUNICATION_OWNER_STATES, mutator:function(value, data, type, mutatorParams, cell){ return COMMUNICATION_OWNER_STATES[value]  },},
                 {title: "Статус коммуникации с платформой", field: "communication_platform", editor:"select", editorParams:COMMUNICATION_OWNER_STATES},

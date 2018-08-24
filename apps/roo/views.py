@@ -280,9 +280,10 @@ def get_courses(request):
 
 @roo_member_required
 def courses_edit(request):
-    context = dict()
-    return render(request, "roo/courses_edit.html", context)
-
+    # context = dict()
+    # return render(request, "roo/courses_edit.html", context)
+    data = serialize('json', Course.objects.all(), cls=LazyEncoder)
+    return HttpResponse(data, content_type='application/json')
 
 @roo_member_required
 def expertises(request):

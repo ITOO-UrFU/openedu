@@ -174,6 +174,11 @@ class ProctoringService(models.Model):
 
 
 class Course(models.Model):
+    CERTS = (
+        (0, "Нет данных"),
+        (1, "Выдается"),
+        (2, "Не выдается")
+    )
     #  что приходит в api сейчас
     credits = models.CharField("Массив перезачётов", blank=True, null=True, max_length=512)
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=512)
@@ -224,12 +229,6 @@ class Course(models.Model):
     evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
     proctoring_service = models.ForeignKey("ProctoringService", blank=True, null=True)
     expert_account = models.TextField("Доступ эксперта", blank=True, null=True)
-
-    CERTS = (
-        (0, "Нет данных"),
-        (1, "Выдается"),
-        (2, "Не выдается")
-    )
 
     COMMUNICATION_OWNER_STATES = (
         (0, "Согласование не начато"),

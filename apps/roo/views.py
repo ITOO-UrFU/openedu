@@ -6,6 +6,9 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django import forms
 from django.views.generic.edit import UpdateView
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse
 
 import logging
 
@@ -179,7 +182,6 @@ def upload_from_json(request):
                                 our_course.communication_owner = 0
                                 our_course.communication_platform = 0
 
-
                         our_course.save()
                         add_expertises(course, our_course)
 
@@ -261,6 +263,19 @@ def courses(request):
     context = dict()
     context["table"] = table
     return render(request, "roo/courses.html", context)
+
+
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        # if isinstance(obj, YourCustomType):
+        #     return str(obj)
+        return super().default(obj)
+
+
+@roo_member_required
+def courses_edit(request):
+    data = serialize('json', Course.objects.all(), cls=LazyEncoder)
+    return HttpResponse(data, mimetype='application/json')
 
 
 @roo_member_required

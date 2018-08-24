@@ -35,7 +35,7 @@
         });
 
         //trigger AJAX load on "Load Data via AJAX" button click
-        $("#ajax-trigger").click(function () {
+        $( document ).ready(function() {
             $("#example-table").tabulator("setData", "/roo/courses_edit");
         });
 

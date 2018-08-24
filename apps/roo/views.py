@@ -303,7 +303,6 @@ class CourseUpdate(UpdateView):
     model = Course
     fields = '__all__'
     template_name_suffix = '_update_form'
-    title = forms.CharField(disabled=True)
 
 
 class ExpertiseLayout(forms.ModelForm):

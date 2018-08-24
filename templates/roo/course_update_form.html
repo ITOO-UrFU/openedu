@@ -7,7 +7,8 @@
 
         <h2>{{ form.title.value }}</h2>
 
-        <form class="ui form" method="post">{% csrf_token %}
+        <form class="ui form" method="post">
+            {% csrf_token %}
             {% render_form form %}
             <button class="ui submit button">Submit</button>
         </form>

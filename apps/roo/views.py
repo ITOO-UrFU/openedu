@@ -272,11 +272,10 @@ class LazyEncoder(DjangoJSONEncoder):
         return super().default(obj)
 
 
-
 @roo_member_required
 def get_courses(request):
     data = serialize('json', Course.objects.all(), cls=LazyEncoder)
-    return JsonResponse(data, safe=False)
+    return HttpResponse(data, content_type='application/json')
 
 
 @roo_member_required

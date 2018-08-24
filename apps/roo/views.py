@@ -288,7 +288,7 @@ def courses_edit(request):
             pass
     else:
         formset = CourseFormSet()
-    return render(request, 'manage_articles.html', {'formset': formset})
+    return render(request, 'course_edit.html', {'formset': formset})
 
 @roo_member_required
 def expertises(request):

@@ -336,7 +336,7 @@ class ExpertiseUpdate(UpdateView):
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
     context_object_name = "expertise"
-    # pk_url_kwarg = 'expertise_id'
+    pk_url_kwarg = 'course_id'
 
     def get_context_data(self, **kwargs):
         context = super(ExpertiseUpdate, self).get_context_data(**kwargs)

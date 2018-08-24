@@ -9,6 +9,9 @@ from django.views.generic.edit import UpdateView
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
+from .forms import CourseTableForm
+from django.forms import formset_factory
+from django.shortcuts import render
 
 import logging
 
@@ -274,9 +277,18 @@ class LazyEncoder(DjangoJSONEncoder):
 
 @roo_member_required
 def courses_edit(request):
-    data = serialize('json', Course.objects.all(), cls=LazyEncoder)
-    return HttpResponse(data, content_type='application/json')
-
+    # data = serialize('json', Course.objects.all(), cls=LazyEncoder)
+    # return HttpResponse(data, content_type='application/json')
+    CourseFormSet = formset_factory(CourseTableForm)
+    if request.method == 'POST':
+        formset = CourseFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            print("form valid")
+            # do something with the formset.cleaned_data
+            pass
+    else:
+        formset = CourseFormSet()
+    return render(request, 'manage_articles.html', {'formset': formset})
 
 @roo_member_required
 def expertises(request):

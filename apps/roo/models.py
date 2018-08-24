@@ -203,7 +203,7 @@ class Course(models.Model):
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
-    content = models.TextField("Содержание онлайн-курса", blank=True, null=True, max_length=512)
+    content = models.TextField("Содержание онлайн-курса", blank=True, null=True, max_length=4096)
     started_at = models.CharField("Дата ближайшего запуска", blank=True, null=True, max_length=512)
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)

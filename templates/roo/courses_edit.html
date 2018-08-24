@@ -36,7 +36,7 @@
         $.get( "/roo/courses_edit", function( data ) {
             var source_data = [];
             console.log(data)
-            for (course in JSON.parse(data)){
+            for (course in data){
                 source_course = course.fields;
                 source_course["pk"] = course.pk;
                 source_data.push(source_course)

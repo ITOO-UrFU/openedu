@@ -31,7 +31,7 @@
                 {title: "Платформа", field: "partner", sorter: "string"},
                 {title: "Правообладатель", field: "institution", sorter: "string"},
                 {title: "Статус коммуникации с правообладателем", field: "communication_owner", editor:"select", editorParams:COMMUNICATION_OWNER_STATES, mutatorParams:COMMUNICATION_OWNER_STATES, mutator:function(value, data, type, mutatorParams, cell){ return COMMUNICATION_OWNER_STATES[value]  },},
-                {title: "Статус коммуникации с платформой", field: "communication_platform", sorter: "string"},
+                {title: "Статус коммуникации с платформой", field: "communication_platform", editor:"select", editorParams:COMMUNICATION_OWNER_STATES},
                 {title: "Статус экспертизы", field: "expertise_status", sorter: "string"},
                 {title: "Статус паспорта", field: "passport_status", sorter: "string"},
                 {title: "Состояние загрузки обязательных оценок", field: "required_ratings_state", sorter: "string"},

@@ -287,8 +287,10 @@ def courses_edit(request):
             # do something with the formset.cleaned_data
             pass
     else:
-        formset = CourseFormSet()
+        # for course in Course.objects.all():
+        formset = CourseFormSet(Course.objects.all())
     return render(request, 'roo/courses_edit.html', {'formset': formset})
+
 
 @roo_member_required
 def expertises(request):

@@ -13,8 +13,8 @@
 
     <script type="text/javascript">
         $("#example-table").tabulator({
-            height: "311px",
-            layout: "fitColumns",
+            {#height: "311px",#}
+            {#layout: "fitColumns",#}
             placeholder: "No Data Set",
             columns: [
                 {title: "Наименование", field: "title", sorter: "string"},
@@ -41,7 +41,7 @@
                 data.forEach(function (element) {
                     console.log(element);
                     {#console.log(course)#}
-                    source_course = {}
+                    source_course = {};
                     source_course = element.fields;
                     {#source_course["pk"] = course.pk;#}
                     source_data.push(source_course)

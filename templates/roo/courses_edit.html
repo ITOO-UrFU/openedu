@@ -35,11 +35,12 @@
     $("#ajax-trigger").click(function () {
         $.get( "/roo/courses_edit", function( data ) {
             var source_data = [];
-            console.log(data)
+            {#console.log(data)#}
             for (course in data){
+                console.log(course)
                 source_course = {}
                 source_course = course.fields;
-                source_course["pk"] = course.pk;
+                {#source_course["pk"] = course.pk;#}
                 source_data.push(source_course)
             }
             $("#example-table").tabulator("setData", source_data);

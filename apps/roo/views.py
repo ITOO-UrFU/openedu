@@ -10,7 +10,7 @@ from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from .forms import CourseTableForm
-from django.forms import formset_factory
+from django.forms import formset_factory, modelformset_factory
 from django.shortcuts import render
 
 import logging
@@ -279,16 +279,19 @@ class LazyEncoder(DjangoJSONEncoder):
 def courses_edit(request):
     # data = serialize('json', Course.objects.all(), cls=LazyEncoder)
     # return HttpResponse(data, content_type='application/json')
-    CourseFormSet = formset_factory(CourseTableForm)
+
+    CourseFormSet = modelformset_factory(Course, CourseTableForm)
+    courses = Course.objects.filter(institution__title='Институт биоинформатики')
+    formset = CourseFormSet(queryset = courses)
     if request.method == 'POST':
         formset = CourseFormSet(request.POST, request.FILES)
         if formset.is_valid():
             print("form valid")
             # do something with the formset.cleaned_data
             pass
-    else:
-        # for course in Course.objects.all():
-        formset = CourseFormSet(Course.objects.filter(institution__title='Институт биоинформатики'))
+    # else:
+    #     # for course in Course.objects.all():
+    #     formset = CourseFormSet()
     return render(request, 'roo/courses_edit.html', {'formset': formset})
 
 

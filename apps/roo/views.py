@@ -282,7 +282,7 @@ def courses_edit(request):
 
     CourseFormSet = modelformset_factory(Course, CourseTableForm)
     courses = Course.objects.filter(institution__title='Институт биоинформатики')
-    formset = CourseFormSet(queryset = courses)
+    formset = CourseFormSet(queryset=courses)
     if request.method == 'POST':
         formset = CourseFormSet(request.POST, request.FILES)
         if formset.is_valid():

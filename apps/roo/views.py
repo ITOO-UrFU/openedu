@@ -6,6 +6,12 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django import forms
 from django.views.generic.edit import UpdateView
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse
+from .forms import CourseTableForm
+from django.forms import formset_factory
+from django.shortcuts import render
 
 import logging
 
@@ -49,7 +55,7 @@ def add_expertises(course, our_course):
     for e_type in expertise_types:
         has_ex = False
         for expertise in Expertise.objects.filter(course=our_course):
-            if get_choises_display(expertise.type, expertise.EX_TYPES) == e_type:
+            if get_choises_display(expertise.type, expertise.EX_TYPES).lower() == e_type:
                 expertise.supervisor = course["supervisor"]
                 expertise.state = course["state"]
                 print(course["title"], course["expertise_passed"])
@@ -168,15 +174,16 @@ def upload_from_json(request):
                         has_course = True
                         our_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
 
-                        if course["communication_owner"].strip().lower() == "да":
-                            our_course.communication_owner = 3
-                            our_course.communication_platform = 3
-                        elif course["communication_owner"].strip().lower() in ["отказ", "нет"]:
-                            our_course.communication_owner = 4
-                            our_course.communication_platform = 4
-                        else:
-                            our_course.communication_owner = 0
-                            our_course.communication_platform = 0
+                        if our_course.roo_status != 3:
+                            if course["communication_owner"].strip().lower() == "да":
+                                our_course.communication_owner = 3
+                                our_course.communication_platform = 3
+                            elif course["communication_owner"].strip().lower() in ["отказ", "нет"]:
+                                our_course.communication_owner = 4
+                                our_course.communication_platform = 4
+                            else:
+                                our_course.communication_owner = 0
+                                our_course.communication_platform = 0
 
                         our_course.save()
                         add_expertises(course, our_course)
@@ -259,6 +266,30 @@ def courses(request):
     context = dict()
     context["table"] = table
     return render(request, "roo/courses.html", context)
+
+
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        # if isinstance(obj, YourCustomType):
+        #     return str(obj)
+        return super().default(obj)
+
+
+@roo_member_required
+def courses_edit(request):
+    # data = serialize('json', Course.objects.all(), cls=LazyEncoder)
+    # return HttpResponse(data, content_type='application/json')
+    CourseFormSet = formset_factory(CourseTableForm)
+    if request.method == 'POST':
+        formset = CourseFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            print("form valid")
+            # do something with the formset.cleaned_data
+            pass
+    else:
+        # for course in Course.objects.all():
+        formset = CourseFormSet(Course.objects.filter(institution__title='Институт биоинформатики'))
+    return render(request, 'roo/courses_edit.html', {'formset': formset})
 
 
 @roo_member_required

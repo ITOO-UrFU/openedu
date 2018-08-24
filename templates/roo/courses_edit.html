@@ -1,8 +1,10 @@
-<form method="post">
 
-    {% for form in formset %}
-        <div class="form-dych">
+
+{% for form in formset %}
+    <div class="form-dych">
+        <form method="post" method="post">
+
             {{ form }}
-        </div>
-    {% endfor %}
-</form>
+        <input type="submit" value="OK">
+    </div>
+{% endfor %}

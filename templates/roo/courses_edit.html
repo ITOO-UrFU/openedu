@@ -14,8 +14,9 @@
     <script type="text/javascript">
         $("#example-table").tabulator({
             height: "500px",
-            width: "100%",
-            {#layout: "fitColumns",#}
+            {#width: "100%",#}
+            layout: "fitColumns",
+            responsiveLayout:true,
             placeholder: "No Data Set",
             columns: [
                 {title: "Наименование", field: "title", sorter: "string"},
@@ -35,22 +36,7 @@
 
         //trigger AJAX load on "Load Data via AJAX" button click
         $("#ajax-trigger").click(function () {
-            $.get("/roo/courses_edit", function (data) {
-                var source_data = [];
-                {#console.log(data)#}
-
-                data.forEach(function (element) {
-                    console.log(element);
-                    {#console.log(course)#}
-                    source_course = {};
-                    source_course = element.fields;
-                    {#source_course["pk"] = course.pk;#}
-                    source_data.push(source_course)
-                });
-                $("#example-table").tabulator("setData", source_data);
-            });
-
-
+            $("#example-table").tabulator("setData", "/roo/courses_edit");
         });
 
     </script>

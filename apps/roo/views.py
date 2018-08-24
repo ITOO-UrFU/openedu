@@ -9,9 +9,6 @@ from django.views.generic.edit import UpdateView
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
-from .forms import CourseTableForm
-from django.forms import formset_factory, modelformset_factory
-from django.shortcuts import render
 
 import logging
 
@@ -276,24 +273,13 @@ class LazyEncoder(DjangoJSONEncoder):
 
 
 @roo_member_required
+def get_courses(request):
+    data = serialize('json', Course.objects.all(), cls=LazyEncoder)
+    return HttpResponse(data, content_type='application/json')
+
+@roo_member_required
 def courses_edit(request):
-    # data = serialize('json', Course.objects.all(), cls=LazyEncoder)
-    # return HttpResponse(data, content_type='application/json')
-
-    CourseFormSet = modelformset_factory(Course, CourseTableForm)
-    courses = Course.objects.filter(institution__title='Институт биоинформатики')
-    formset = CourseFormSet(queryset=courses)
-    if request.method == 'POST':
-        formset = CourseFormSet(request.POST, request.FILES)
-        if formset.is_valid():
-            print("form valid")
-            # do something with the formset.cleaned_data
-            pass
-    # else:
-    #     # for course in Course.objects.all():
-    #     formset = CourseFormSet()
-    return render(request, 'roo/courses_edit.html', {'formset': formset})
-
+    return render(request, "roo/courses_edit.html", context)
 
 @roo_member_required
 def expertises(request):
@@ -325,43 +311,11 @@ class ExpertiseLayout(forms.ModelForm):
         self.fields['owner'].initial = self.instance.course.institution
 
 
-class CourseStatusLayout(forms.ModelForm):
-    class Meta:
-        model = Course
-        fields = ['expertise_status']
-
-
 class ExpertiseUpdate(UpdateView):
     form_class = ExpertiseLayout
     model = Expertise
-    second_model = Course
-    second_form_class = CourseStatusLayout
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
     context_object_name = "expertise"
-    pk_url_kwarg = 'course__id'
 
-    def get_context_data(self, **kwargs):
-        context = super(ExpertiseUpdate, self).get_context_data(**kwargs)
-        if self.request.method == 'POST':
-            details_form = self.second_form_class(self.request.POST, prefix='details')
-        else:
-            details_object = self.second_model.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
-            details_form = self.second_form_class(instance=details_object, prefix='details')
-
-        context['details_form'] = details_form
-        return context
-
-    def post(self, request, *args, **kwargs):
-        response = super(ExpertiseUpdate, self).post(request, *args, **kwargs)
-        details_form = self.second_form_class(self.request.POST, prefix='details')
-        if details_form.is_valid():
-            task = self.get_object()
-            self.second_model.objects.filter(task=task).update(**details_form.cleaned_data)
-            return response
-
-        return render(request, self.template_name, {
-            'form': self.get_form(self.get_form_class()),
-            'details_form': details_form,
-        })
     # success_url = TODO: сделать ссылку с закрытием окна

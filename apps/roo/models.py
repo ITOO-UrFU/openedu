@@ -682,7 +682,7 @@ class CoursesTable(tables.Table):
             "image")
         fields = (
             "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
-            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
+            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status")
         attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(

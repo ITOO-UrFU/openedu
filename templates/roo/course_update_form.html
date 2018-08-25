@@ -17,7 +17,7 @@
     <div class="ui segment">
       <h2>Экспертизы:</h2>
         {% for e in expertises %}
-            <a href="/roo/expertise/{{ e.id }}/">e.get_type_dysplay</a>
+            <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
         {% endfor %}
     </div>
   </div>

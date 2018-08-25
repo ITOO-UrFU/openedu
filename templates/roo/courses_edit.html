@@ -12,6 +12,15 @@
     <script type="text/javascript">
 
         $(function () {
+            var COMMUNICATION_OWNER_STATES = [
+                {Id: 0, Name: "Согласование не начато"},
+                {Id: 1, Name: "В процессе согласования"},
+                {Id: 2, Name: "Требуется участие администрации"},
+                {Id: 3, Name: "Согласовано"},
+                {Id: 4, Name: "Отказано"},
+                {Id: 5, Name: "Согласовано с РОО"}
+            ];
+
             $("#jsGrid").jsGrid({
                 height: "100%",
                 width: "100%",
@@ -63,7 +72,14 @@
                     {title: "Наименование", name: "title", type: "text", filtering: true},
                     {title: "Платформа", name: "partner", type: "text"},
                     {title: "Правообладатель", name: "institution", type: "text"},
-                    {title: "Статус коммуникации с правообладателем", name: "communication_owner", type: "text"},
+                    {
+                        title: "Статус коммуникации с правообладателем",
+                        name: "communication_owner",
+                        type: "select",
+                        tems: COMMUNICATION_OWNER_STATES
+                        valueField: "Id",
+                        textField: "Name"
+                    },
                     {title: "Статус коммуникации с платформой", name: "communication_platform", type: "text"},
                     {title: "Статус экспертизы", name: "expertise_status", type: "text"},
                     {title: "Статус паспорта", name: "passport_status", type: "text"},

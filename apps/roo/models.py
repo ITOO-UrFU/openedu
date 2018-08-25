@@ -461,6 +461,9 @@ class Platform(Base):
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
     contacts = models.TextField("Контакты", blank=True, null=True)
 
+    def natural_key(self):
+        return (self.title)
+
     # наши поля
     # newest = models.BooleanField("Самое новое содержание курса", default=False)
 
@@ -523,6 +526,9 @@ class Owner(Base):
     image = models.CharField("Изображение", blank=True, null=True, max_length=1024)
     contacts = models.TextField("Контакты", blank=True, null=True)
     from_roo = models.BooleanField("Существует на РОО", default=True)
+
+    def natural_key(self):
+        return (self.title)
 
     def __str__(self):
         return self.title

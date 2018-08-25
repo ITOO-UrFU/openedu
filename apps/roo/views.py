@@ -5,7 +5,7 @@ import string
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django import forms
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
@@ -310,6 +310,14 @@ class CourseUpdate(UpdateView):
         context = super(CourseUpdate, self).get_context_data(**kwargs)
         context['expertises'] = Expertise.objects.filter(course=self.object)
         return context
+
+
+class ExpertiseCreate(CreateView):
+    model = Expertise
+    fields = '_all__'
+    template_name_suffix = '_update_form'
+    success_url = '/roo/close/'
+
 
 
 class ExpertiseLayout(forms.ModelForm):

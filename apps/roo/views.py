@@ -304,6 +304,7 @@ class CourseUpdate(UpdateView):
     model = Course
     fields = '__all__'
     template_name_suffix = '_update_form'
+    success_url = '/close/'
 
 
 class ExpertiseLayout(forms.ModelForm):

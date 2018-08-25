@@ -81,17 +81,41 @@
                 /*deleteConfirm: "Do you really want to delete client?",*/
                 loadMessage: "Идет загрузка...",
                 controller: {
-                    loadData: function () {
-                        var d = $.Deferred();
+                    loadData: function (filter) {
+                        var data = $.Deferred();
+                        criteria = filter;
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
-                        }).done(function (result) {
-                            d.resolve($.map(result, function (item) {
-                                return item;
-                            }));
+                        }).done(function (response) {
+
+                            /* d.resolve($.map(result, function (item) {
+                                 return item;
+                             }));*/
+                            var res = [];
+                            if (criteria.Name !== "") {
+                                response.forEach(function (element) {
+                                    if (element.Name.indexOf(criteria.Name) > -1) {
+                                        res.push(element);
+                                        response = res;
+                                    }
+                                }, this);
+                            }
+                            else res = response;
+                            if (criteria.Title !== "") {
+                                res = [];
+                                response.forEach(function (element) {
+                                    if (element.Title.indexOf(criteria.Title) > -1)
+                                        res.push(element);
+                                }, this);
+                            }
+                            else res = response;
+
+                            data.resolve(res);
+
+
                         });
-                        return d.promise();
+                        return data.promise();
                     }
                     /*, insertItem: function (item) {
                         return $.ajax({

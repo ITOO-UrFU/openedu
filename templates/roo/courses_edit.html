@@ -13,7 +13,7 @@
 
         $(function () {
             $("#jsGrid").jsGrid({
-                height: "80%",
+                height: "95%",
                 width: "100%",
                 {#filtering: true,#}
                 inserting: true,
@@ -21,20 +21,18 @@
                 sorting: true,
                 paging: true,
                 autoload: true,
-                pageSize: 10,
+                pageSize: 20,
                 pageButtonCount: 5,
                 deleteConfirm: "Do you really want to delete client?",
                 controller: {
                     loadData: function () {
                         var d = $.Deferred();
-                        var data = []
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
                         }).done(function (result) {
-                            console.log(result);
                             d.resolve($.map(result, function (item) {
-                                return $.extend(item);
+                                return item;
                             }));
                         });
                         return d.promise();

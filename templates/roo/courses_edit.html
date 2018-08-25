@@ -13,7 +13,7 @@
 
         $(function () {
             $("#jsGrid").jsGrid({
-                height: "95%",
+                height: "100%",
                 width: "100%",
                 filtering: true,
                 {#inserting: true,#}
@@ -24,6 +24,7 @@
                 pageSize: 20,
                 pageButtonCount: 5,
                 deleteConfirm: "Do you really want to delete client?",
+                loadMessage: "Идет загрузка...",
                 controller: {
                     loadData: function () {
                         var d = $.Deferred();

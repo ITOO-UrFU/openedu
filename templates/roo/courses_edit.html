@@ -20,6 +20,50 @@
                 {Id: "4", Name: "Отказано"},
                 {Id: "5", Name: "Согласовано с РОО"}
             ];
+            COMMUNICATION_PLATFORM_STATES = [
+                {Id: "0", Name: "Согласование не начато"},
+                {Id: "1", Name: "В процессе согласования"},
+                {Id: "2", Name: "Требуется участие администрации"},
+                {Id: "3", Name: "Согласовано"},
+                {Id: "4", Name: "Отказано"},
+                {Id: "5", Name: "Согласовано с РОО"}
+            ];
+
+            EX_STATES = [
+                {Id: "0", Name: "Не проводилась"},
+                {Id: "1", Name: "Отравлен на экспертизу"},
+                {Id: "2", Name: "Требует доработки"},
+                {Id: "3", Name: "Прошел"},
+                {Id: "4", Name: "Отправлен запрос на доступ к платформе"},
+                {Id: "5", Name: "Доступ предоставлен"}
+            ];
+
+            PASSPORT_STATES = [
+                {Id: "0", Name: "Не заполнен"},
+                {Id: "1", Name: "Не проверен"},
+                {Id: "2", Name: "Требует доработки"},
+                {Id: "3", Name: "На согласовании с правообладателем"},
+                {Id: "4", Name: "Готов"},
+            ];
+
+            REQUIRED_RATINGS_STATES = [
+                {Id: "0", Name: "Не загружены"},
+                {Id: "1", Name: "Загружены"}
+            ];
+
+            UNFORCED_RATINGS_STATES = [
+                {Id: "0", Name: "Не загружены"},
+                {Id: "1", Name: "Загружены частично"},
+                {Id: "2", Name: "Загружены"}
+            ];
+
+            ROO_STATES = [
+                {Id: "0", Name: "Не готов"},
+                {Id: "1", Name: "Ждем ID платформы"},
+                {Id: "2", Name: "К загрузке"},
+                {Id: "3", Name: "Загружен"},
+                {Id: "4", Name: "Ожидает загрузки с РОО"}
+            ];
 
             $("#jsGrid").jsGrid({
                 height: "100%",
@@ -80,13 +124,55 @@
                         valueField: "Id",
                         textField: "Name"
                     },
-                    {title: "Статус коммуникации с платформой", name: "communication_platform", type: "text"},
-                    {title: "Статус экспертизы", name: "expertise_status", type: "text"},
-                    {title: "Статус паспорта", name: "passport_status", type: "text"},
-                    {title: "Состояние загрузки обязательных оценок", name: "required_ratings_state", type: "text"},
-                    {title: "Состояние загрузки добровольных оценок", name: "unforced_ratings_state", type: "text"},
+                    {
+                        title: "Статус коммуникации с платформой",
+                        name: "communication_platform",
+                        type: "select",
+                        items: COMMUNICATION_PLATFORM_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Статус экспертизы",
+                        name: "expertise_status",
+                        type: "select",
+                        items: EX_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Статус паспорта",
+                        name: "passport_status",
+                        type: "select",
+                        items: PASSPORT_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Состояние загрузки обязательных оценок",
+                        name: "required_ratings_state",
+                        type: "select",
+                        items: REQUIRED_RATINGS_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Состояние загрузки добровольных оценок",
+                        name: "unforced_ratings_state",
+                        type: "select",
+                        items: UNFORCED_RATINGS_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
                     {title: "Примечание", name: "comment", type: "text"},
-                    {title: "Статус загрузки На РОО", name: "roo_status", type: "text"},
+                    {
+                        title: "Статус загрузки На РОО",
+                        name: "roo_status",
+                        type: "select",
+                        items: ROO_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
                 ]
             });
         });

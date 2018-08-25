@@ -3,83 +3,70 @@
 {% load semanticui %}
 {% block content %}
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.3/css/tabulator_simple.min.css" rel="stylesheet">
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.3/js/tabulator.min.js"></script>
-    {#<script src="/files/openedu_static/js/tabulator.min.js"></script>#}
+    <link href="http://js-grid.com/css/jsgrid.min.css" rel="stylesheet" />
+    <link href="http://js-grid.com/css/jsgrid-theme.min.css" rel="stylesheet" />
 
     <div id="courses-table"></div>
 
     <script type="text/javascript">
-    var COMMUNICATION_OWNER_STATES = {
-        "0": "Согласование не начато",
-        "1": "В процессе согласования",
-        "2": "Требуется участие администрации",
-        "3": "Согласовано",
-        "4": "Отказано",
-        "5": "Согласовано с РОО"
-    };
-    var genderEditor = function(cell, onRendered, success, cancel){
-    //cell - the cell component for the editable cell
-    //onRendered - function to call when the editor has been rendered
-    //success - function to call to pass the succesfully updated value to Tabulator
-    //cancel - function to call to abort the edit and return to a normal cell
-
-    //create and style editor
-    var editor = $("<select><option value='male'>Male</option><option value='female'>Female</option></select>");
-    editor.css({
-        "padding":"3px",
-        "width":"100%",
-        "box-sizing":"border-box",
-    });
-
-    //Set value of editor to the current value of the cell
-    editor.val('male');
-
-    //set focus on the select box when the editor is selected (timeout allows for editor to be added to DOM)
-    onRendered(function(){
-      editor.focus();
-      editor.css("height","100%");
-    });
-
-    //when the value has been set, trigger the cell to update
-    editor.on("change blur", function(e){
-        success(editor.val());
-    });
-
-    //return the editor element
-    return editor;
-};
-
-
-        $("#courses-table").tabulator({
-            height: "700px",
-            {#width: "100%",#}
-            layout: "fitColumns",
-            responsiveLayout:true,
-            placeholder: "Нет данных",
-            columns: [
-                {title: "Наименование", field: "title", sorter: "string"},
-                {title: "Платформа", field: "partner", sorter: "string"},
-                {title:"Gender", field:"gender", editor:genderEditor},
-                {title: "Правообладатель", field: "institution", sorter: "string"},
-                {title: "Статус коммуникации с правообладателем", field: "communication_owner", editor:"select", editorParams:COMMUNICATION_OWNER_STATES, mutatorParams:COMMUNICATION_OWNER_STATES, mutator:function(value, data, type, mutatorParams, cell){ return COMMUNICATION_OWNER_STATES[value]  },},
-                {title: "Статус коммуникации с платформой", field: "communication_platform", editor:"select", editorParams:COMMUNICATION_OWNER_STATES},
-                {title: "Статус экспертизы", field: "expertise_status", sorter: "string"},
-                {title: "Статус паспорта", field: "passport_status", sorter: "string"},
-                {title: "Состояние загрузки обязательных оценок", field: "required_ratings_state", sorter: "string"},
-                {title: "Состояние загрузки добровольных оценок", field: "unforced_ratings_state", sorter: "string"},
-                {title: "Примечание", field: "comment", sorter: "string"},
-                {title: "Статус загрузки На РОО", field: "roo_status", sorter: "string"},
-
-            ],
-            ajaxLoaderLoading: "Загрузка данных"
-        });
-
-        $(document).ready(function() {
-            console.log("!!!!!!!!!!!!!!!");
-            $("#courses-table").tabulator("setData", "/roo/courses_edit");
-        });
+    <script src="http://js-grid.com/js/jsgrid.min.js"></script>
+    <script>
+        $(function() {
+            $("#jsGrid").jsGrid({
+                height: "50%",
+                width: "100%",
+                filtering: true,
+                inserting: true,
+                editing: true,
+                sorting: true,
+                paging: true,
+                autoload: true,
+                pageSize: 10,
+                pageButtonCount: 5,
+                deleteConfirm: "Do you really want to delete client?",
+                controller: {
+                    loadData: function(filter) {
+                        var d = $.Deferred();
+                        $.ajax({
+                            type: "GET",
+                            url: "/clients/api",
+                            data: filter
+                        }).done(function(result) {
+                            d.resolve($.map(result, function(item) {
+                                return $.extend(item.fields, { id: item.pk });
+                            }));
+                        });
+                        return d.promise();
+                    },
+                    insertItem: function(item) {
+                        return $.ajax({
+                            type: "POST",
+                            url: "/clients/api",
+                            data: item
+                        });
+                    },
+                    updateItem: function(item) {
+                        return $.ajax({
+                            type: "PUT",
+                            url: "/clients/api/" + item.id,
+                            data: item
+                        });
+                    },
+                    deleteItem: function(item) {
+                        return $.ajax({
+                            type: "DELETE",
+                            url: "/clients/api/" + item.id
+                        });
+                    }
+                },
+                fields: [
+                    { name: "name", type: "text", width: 150 },
+                    { name: "age", type: "number", width: 50, filtering: false },
+                    { name: "address", type: "text", width: 200 },
+                    { name: "married", type: "checkbox", title: "Is Married", filtering: false, sorting: false },
+                    { type: "control" }
+                ]
+            });
 
     </script>
 

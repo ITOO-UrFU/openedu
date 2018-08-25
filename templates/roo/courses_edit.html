@@ -67,6 +67,7 @@
                 {Id: "4", Name: "Ожидает загрузки с РОО"}
             ];
 
+            var courses = [];
             var coursesLoaded = false;
 
             $("#jsGrid").jsGrid({
@@ -86,6 +87,7 @@
                 onDataLoaded: function (args) {
                     // cancel loading data if 'name' is empty
                     console.log("DATA LOADED", args.data);
+                    courses = args.data;
                     coursesLoaded = true;
                 },
                 controller: {
@@ -94,14 +96,22 @@
                         console.log(filter);
                         console.log("!!!!!!!!!!!!!!!!", coursesLoaded);
 
-                        $.ajax({
-                            type: "GET",
-                            url: "/roo/courses_edit/",
-                        }).done(function (result) {
-                            d.resolve($.map(result, function (item) {
-                                return item;
-                            }));
-                        });
+                        if (!coursesLoaded) {
+                            $.ajax({
+                                type: "GET",
+                                url: "/roo/courses_edit/",
+                            }).done(function (result) {
+                                d.resolve($.map(result, function (item) {
+                                    return item;
+                                }));
+                            });
+                        }
+                        {
+                            result = $.grep(courses, function (item) {
+                                return item.expertise_status === filter.expertise_status;
+                            });
+                            d.resolve(result)
+                        }
                         return d.promise();
                     }
                     /*, insertItem: function (item) {

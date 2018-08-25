@@ -665,10 +665,10 @@ class ChoiceColumn(tables.Column):
         return self.get_display(value)
 
     def get_display(self, value):
-        try:
-            return self.choices[value][1]
-        except:
-            return "Ошибка"
+        # try:
+        return self.choices[int(value)][1]
+        # except:
+            # return "Ошибка"
 
 
 class CoursesTable(tables.Table):
@@ -692,7 +692,7 @@ class CoursesTable(tables.Table):
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     image = tables.TemplateColumn('<img src="{{record.image}}" height="100"/>')
-    roo_status = tables.TemplateColumn("{{record.get_roo_status.display}}")
+    roo_status = ChoiceColumn(Course.ROO_STATES)
     communication_owner = ChoiceColumn(Course.COMMUNICATION_OWNER_STATES)
     communication_platform = ChoiceColumn(Course.COMMUNICATION_PLATFORM_STATES)
     expertise_status = ChoiceColumn(Course.EX_STATES)

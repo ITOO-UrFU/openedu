@@ -13,9 +13,9 @@
 
         $(function () {
             $("#jsGrid").jsGrid({
-                height: "50%",
+                height: "80%",
                 width: "100%",
-                filtering: true,
+                {#filtering: true,#}
                 inserting: true,
                 editing: true,
                 sorting: true,
@@ -27,13 +27,14 @@
                 controller: {
                     loadData: function () {
                         var d = $.Deferred();
+                        var data = []
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
                         }).done(function (result) {
                             console.log(result);
                             d.resolve($.map(result, function (item) {
-                                return $.extend(item.fields);
+                                return $.extend(item);
                             }));
                         });
                         return d.promise();
@@ -60,15 +61,8 @@
                     }*/
                 },
                 fields: [
-                    {#{name: "name", type: "text", width: 150},#}
-                    {#{name: "age", type: "number", width: 50, filtering: false},#}
-                    {#{name: "address", type: "text", width: 200},#}
-                    {#{name: "married", type: "checkbox", title: "Is Married", filtering: false, sorting: false},#}
-                    {#{type: "control"}#}
-
                     {title: "Наименование", name: "title", type: "text"},
                     {title: "Платформа", name: "partner", type: "text"},
-                    {title: "Gender", name: "gender", type: "text"},
                     {title: "Правообладатель", name: "institution", type: "text"},
                     {title: "Статус коммуникации с правообладателем", name: "communication_owner", type: "text"},
                     {title: "Статус коммуникации с платформой", name: "communication_platform", type: "text"},
@@ -78,15 +72,7 @@
                     {title: "Состояние загрузки добровольных оценок", name: "unforced_ratings_state", type: "text"},
                     {title: "Примечание", name: "comment", type: "text"},
                     {title: "Статус загрузки На РОО", name: "roo_status", type: "text"},
-                ],
-                loadIndicator: {
-                    show: function () {
-                        console.log("Загрузка началась");
-                    },
-                    hide: function () {
-                        console.log("Загрузка окончена");
-                    }
-                }
+                ]
             });
         });
     </script>

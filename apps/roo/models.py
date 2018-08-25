@@ -666,7 +666,7 @@ class ChoiceColumn(tables.Column):
 
     def get_display(self, value):
         try:
-            return self.choices[int(value)][1]
+            return self.choices[value][1]
         except:
             return "Ошибка"
 

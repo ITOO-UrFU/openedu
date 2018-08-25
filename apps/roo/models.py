@@ -692,7 +692,7 @@ class CoursesTable(tables.Table):
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     image = tables.TemplateColumn('<img src="{{record.image}}" height="100"/>')
-    roo_status = ChoiceColumn(Course.ROO_STATES)
+    roo_status = tables.TemplateColumn("{{record.get_roo_status.display}}")
     communication_owner = ChoiceColumn(Course.COMMUNICATION_OWNER_STATES)
     communication_platform = ChoiceColumn(Course.COMMUNICATION_PLATFORM_STATES)
     expertise_status = ChoiceColumn(Course.EX_STATES)

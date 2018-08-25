@@ -76,14 +76,7 @@
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",
                         type: "select",
-                        items: [
-                            {Id: "0", Name: "Согласование не начато"},
-                            {Id: "1", Name: "В процессе согласования"},
-                            {Id: "2", Name: "Требуется участие администрации"},
-                            {Id: "3", Name: "Согласовано"},
-                            {Id: "4", Name: "Отказано"},
-                            {Id: "5", Name: "Согласовано с РОО"}
-                        ],
+                        items: COMMUNICATION_OWNER_STATES,
                         valueField: "Id",
                         textField: "Name"
                     },

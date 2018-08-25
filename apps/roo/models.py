@@ -209,7 +209,7 @@ class Course(models.Model):
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
     version = models.IntegerField("Версия курса", default=0)
-    activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности")  # массив
+    activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности", blank=True, null=True)  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
                                              max_length=512)  # наверно
     total_visitors_number = models.CharField("Количество слушателей", blank=True, null=True,

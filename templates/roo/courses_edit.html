@@ -84,12 +84,7 @@
                 pageLoading: false,
                 /*deleteConfirm: "Do you really want to delete client?",*/
                 loadMessage: "Идет загрузка...",
-                onDataLoaded: function (args) {
-                    // cancel loading data if 'name' is empty
-                    console.log("DATA LOADED", args.data);
-                    courses = args.data;
-                    coursesLoaded = true;
-                },
+
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -101,6 +96,8 @@
                                 type: "GET",
                                 url: "/roo/courses_edit/",
                             }).done(function (result) {
+                                  courses = result;
+                                  coursesLoaded = true;
                                 d.resolve($.map(result, function (item) {
                                     return item;
                                 }));

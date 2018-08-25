@@ -12,33 +12,86 @@
     <script type="text/javascript">
 
         $(function () {
+            var COMMUNICATION_OWNER_STATES = [
+                {Id: "0", Name: "Согласование не начато"},
+                {Id: "1", Name: "В процессе согласования"},
+                {Id: "2", Name: "Требуется участие администрации"},
+                {Id: "3", Name: "Согласовано"},
+                {Id: "4", Name: "Отказано"},
+                {Id: "5", Name: "Согласовано с РОО"}
+            ];
+            COMMUNICATION_PLATFORM_STATES = [
+                {Id: "0", Name: "Согласование не начато"},
+                {Id: "1", Name: "В процессе согласования"},
+                {Id: "2", Name: "Требуется участие администрации"},
+                {Id: "3", Name: "Согласовано"},
+                {Id: "4", Name: "Отказано"},
+                {Id: "5", Name: "Согласовано с РОО"}
+            ];
+
+            EX_STATES = [
+                {Id: "0", Name: "Не проводилась"},
+                {Id: "1", Name: "Отравлен на экспертизу"},
+                {Id: "2", Name: "Требует доработки"},
+                {Id: "3", Name: "Прошел"},
+                {Id: "4", Name: "Отправлен запрос на доступ к платформе"},
+                {Id: "5", Name: "Доступ предоставлен"}
+            ];
+
+            PASSPORT_STATES = [
+                {Id: "0", Name: "Не заполнен"},
+                {Id: "1", Name: "Не проверен"},
+                {Id: "2", Name: "Требует доработки"},
+                {Id: "3", Name: "На согласовании с правообладателем"},
+                {Id: "4", Name: "Готов"},
+            ];
+
+            REQUIRED_RATINGS_STATES = [
+                {Id: "0", Name: "Не загружены"},
+                {Id: "1", Name: "Загружены"}
+            ];
+
+            UNFORCED_RATINGS_STATES = [
+                {Id: "0", Name: "Не загружены"},
+                {Id: "1", Name: "Загружены частично"},
+                {Id: "2", Name: "Загружены"}
+            ];
+
+            ROO_STATES = [
+                {Id: "0", Name: "Не готов"},
+                {Id: "1", Name: "Ждем ID платформы"},
+                {Id: "2", Name: "К загрузке"},
+                {Id: "3", Name: "Загружен"},
+                {Id: "4", Name: "Ожидает загрузки с РОО"}
+            ];
+
             $("#jsGrid").jsGrid({
-                height: "50%",
+                height: "100%",
                 width: "100%",
                 filtering: true,
-                inserting: true,
+                {#inserting: true,#}
                 editing: true,
                 sorting: true,
-                paging: true,
+                paging: false,
                 autoload: true,
-                pageSize: 10,
+                pageSize: 20,
                 pageButtonCount: 5,
                 deleteConfirm: "Do you really want to delete client?",
+                loadMessage: "Идет загрузка...",
                 controller: {
-                    loadData: function (filter) {
+                    loadData: function () {
                         var d = $.Deferred();
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
-                            data: filter
                         }).done(function (result) {
                             d.resolve($.map(result, function (item) {
-                                return $.extend(item.fields, {id: item.pk});
+                                return item;
                             }));
                         });
                         return d.promise();
-                    },
-                    insertItem: function (item) {
+                    }
+                    /*, insertItem: function (item) {
                         return $.ajax({
                             type: "POST",
                             url: "/clients/api",
@@ -57,28 +110,69 @@
                             type: "DELETE",
                             url: "/clients/api/" + item.id
                         });
-                    }
+                    }*/
                 },
                 fields: [
-                    {#{name: "name", type: "text", width: 150},#}
-                    {#{name: "age", type: "number", width: 50, filtering: false},#}
-                    {#{name: "address", type: "text", width: 200},#}
-                    {#{name: "married", type: "checkbox", title: "Is Married", filtering: false, sorting: false},#}
-                    {#{type: "control"}#}
-
-                    {title: "Наименование", name: "title", type: "text"},
+                    {title: "Наименование", name: "title", type: "text", filtering: true},
                     {title: "Платформа", name: "partner", type: "text"},
-                    {title: "Gender", name: "gender", type: "text"},
                     {title: "Правообладатель", name: "institution", type: "text"},
-                    {title: "Статус коммуникации с правообладателем", name: "communication_owner", type: "text"},
-                    {title: "Статус коммуникации с платформой", name: "communication_platform", type: "text"},
-                    {title: "Статус экспертизы", name: "expertise_status", type: "text"},
-                    {title: "Статус паспорта", name: "passport_status", type: "text"},
-                    {title: "Состояние загрузки обязательных оценок", name: "required_ratings_state", type: "text"},
-                    {title: "Состояние загрузки добровольных оценок", name: "unforced_ratings_state", type: "text"},
+                    {
+                        title: "Статус коммуникации с правообладателем",
+                        name: "communication_owner",
+                        type: "select",
+                        items: COMMUNICATION_OWNER_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Статус коммуникации с платформой",
+                        name: "communication_platform",
+                        type: "select",
+                        items: COMMUNICATION_PLATFORM_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Статус экспертизы",
+                        name: "expertise_status",
+                        type: "select",
+                        items: EX_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Статус паспорта",
+                        name: "passport_status",
+                        type: "select",
+                        items: PASSPORT_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Состояние загрузки обязательных оценок",
+                        name: "required_ratings_state",
+                        type: "select",
+                        items: REQUIRED_RATINGS_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
+                    {
+                        title: "Состояние загрузки добровольных оценок",
+                        name: "unforced_ratings_state",
+                        type: "select",
+                        items: UNFORCED_RATINGS_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
                     {title: "Примечание", name: "comment", type: "text"},
-                    {title: "Статус загрузки На РОО", name: "roo_status", type: "text"},
-                    {type: "control"}
+                    {
+                        title: "Статус загрузки На РОО",
+                        name: "roo_status",
+                        type: "select",
+                        items: ROO_STATES,
+                        valueField: "Id",
+                        textField: "Name"
+                    },
                 ]
             });
         });

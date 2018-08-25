@@ -314,7 +314,7 @@ class CourseUpdate(UpdateView):
 
 class ExpertiseCreate(CreateView):
     model = Expertise
-    fields = '_all__'
+    fields = '__all__'
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 

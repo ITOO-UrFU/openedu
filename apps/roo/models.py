@@ -80,7 +80,8 @@ class Expertise(models.Model):
                                  max_length=512)
     comment = models.TextField("Примечание", blank=True, null=True)
     comment_fieldset_1 = models.TextField("Комментарии по отсутствию обязательных полей ОК", blank=True, null=True)
-    comment_fieldset_2 = models.TextField("Комментарии по отсутствию обязательных полей ОК претендующих на зачет ОП", blank=True, null=True)
+    comment_fieldset_2 = models.TextField("Комментарии по отсутствию обязательных полей ОК претендующих на зачет ОП",
+                                          blank=True, null=True)
 
     # Passport
     has_length = models.BooleanField("Длительность", default=False)
@@ -156,7 +157,8 @@ class Competence(models.Model):
     indicators = models.TextField("Индикаторы достижения компетенции", blank=True)
     levels = models.TextField("Уровни освоением компетенции", blank=True)
     evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
-    correlating = models.TextField("Соотнесение компетенции и индикаторов ее достижения с компетенциями, включенными в ФГОС и ПООП", blank=True)
+    correlating = models.TextField(
+        "Соотнесение компетенции и индикаторов ее достижения с компетенциями, включенными в ФГОС и ПООП", blank=True)
 
 
 class Result(models.Model):
@@ -171,6 +173,16 @@ class EvaluationTool(models.Model):
 
 class ProctoringService(models.Model):
     title = models.CharField("Сервис прокторинга", max_length=255, blank=False, null=False)
+
+
+class PlatformManager(models.Manager):
+    def get_by_natural_key(self, title):
+        return self.get(title=title)
+
+
+class OwnerManager(models.Manager):
+    def get_by_natural_key(self, title):
+        return self.get(title=title)
 
 
 class Course(models.Model):
@@ -195,7 +207,8 @@ class Course(models.Model):
     accreditation = models.TextField("Аккредитация", blank=True, null=True, max_length=512)
     description = models.TextField("Описание", blank=True, null=True)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
-    directions = models.ManyToManyField("Direction", verbose_name="Массив идентификаторов направлений", blank=True, null=True)  # массив
+    directions = models.ManyToManyField("Direction", verbose_name="Массив идентификаторов направлений", blank=True,
+                                        null=True)  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
     has_sertificate = models.CharField("Возможность получить сертификат",
@@ -209,7 +222,8 @@ class Course(models.Model):
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
     version = models.IntegerField("Версия курса", default=0)
-    activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности", blank=True, null=True)  # массив
+    activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности", blank=True,
+                                        null=True)  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
                                              max_length=512)  # наверно
     total_visitors_number = models.CharField("Количество слушателей", blank=True, null=True,
@@ -300,7 +314,8 @@ class Course(models.Model):
     unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
                                               choices=UNFORCED_RATINGS_STATES, default="0")
     comment = models.TextField("Примечание", blank=True, null=True)
-    expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, max_length=1, default="0")
+    expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES,
+                                     max_length=1, default="0")
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
     contacts = models.TextField("Контакты", blank=True, null=True)
 
@@ -436,6 +451,8 @@ class Course(models.Model):
 
 
 class Platform(Base):
+    objects = PlatformManager()
+
     title = models.CharField("Наименование", blank=True, null=True, max_length=1024)
     global_id = models.CharField("ИД платформы на РОО", null=True, blank=True, max_length=512)
     image = models.CharField("Изображение платформы", blank=True, null=True, max_length=512)
@@ -443,6 +460,9 @@ class Platform(Base):
     description = models.TextField("Описание платформы", blank=True, null=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
     contacts = models.TextField("Контакты", blank=True, null=True)
+
+    def natural_key(self):
+        return (self.title)
 
     # наши поля
     # newest = models.BooleanField("Самое новое содержание курса", default=False)
@@ -498,12 +518,17 @@ class Expert(models.Model):
 
 
 class Owner(Base):
+    objects = OwnerManager()
+
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, null=True, db_index=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
     image = models.CharField("Изображение", blank=True, null=True, max_length=1024)
     contacts = models.TextField("Контакты", blank=True, null=True)
     from_roo = models.BooleanField("Существует на РОО", default=True)
+
+    def natural_key(self):
+        return (self.title)
 
     def __str__(self):
         return self.title
@@ -651,15 +676,18 @@ class CoursesTable(tables.Table):
         model = Course
         template_name = "django_tables2/bootstrap.html"
         exclude = (
-            "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at", "language",
-            "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description", "image")
+            "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at",
+            "language",
+            "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
+            "image")
         fields = (
             "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
             "passport_status", "required_ratings_state", "unforced_ratings_state", "comment")
         attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(
-        '<a href="#" onClick="CourseEdit=window.open(\'http://openedu.urfu.ru/roo/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a', footer="Наименование")
+        '<a href="#" onClick="CourseEdit=window.open(\'http://openedu.urfu.ru/roo/{{ record.id }}\',\'{{ record.title }}\',width=600,height=300); return false;">{{ record.title }}</a',
+        footer="Наименование")
     competences = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
@@ -681,4 +709,5 @@ class ExpertisesTable(tables.Table):
         attrs = {'class': 'ui celled striped table', 'id': 'expertisesTable'}
 
     course = tables.TemplateColumn(
-        '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a', footer="Курс")
+        '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a',
+        footer="Курс")

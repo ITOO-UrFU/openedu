@@ -77,6 +77,7 @@
                 pageSize: 20,
 
                 pageButtonCount: 5,
+                pageLoading: false,
                 /*deleteConfirm: "Do you really want to delete client?",*/
                 loadMessage: "Идет загрузка...",
                 controller: {
@@ -98,15 +99,17 @@
                             url: "/clients/api",
                             data: item
                         });
-                    },
-                    updateItem: function (item) {
-                        return $.ajax({
+                    },*/
+                    ,updateItem: function (item) {
+                        console.log(item)
+                        /*return $.ajax({
                             type: "PUT",
                             url: "/clients/api/" + item.id,
                             data: item
-                        });
-                    },
-                    deleteItem: function (item) {
+                        });*/
+                    }
+                    /*
+                    ,deleteItem: function (item) {
                         return $.ajax({
                             type: "DELETE",
                             url: "/clients/api/" + item.id
@@ -114,8 +117,8 @@
                     }*/
                 },
                 fields: [
-                    {title: "Наименование", name: "title", type: "text", filtering: true},
-                    {title: "Платформа", name: "partner", type: "text"},
+                    {title: "Наименование", name: "title", type: "text", filtering: true, editing: false},
+                    {title: "Платформа", name: "partner", type: "text", editing: false},
                     {title: "Правообладатель", name: "institution", type: "text"},
                     {
                         title: "Статус коммуникации с правообладателем",

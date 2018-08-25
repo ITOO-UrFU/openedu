@@ -30,16 +30,15 @@
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
-                            {#data: filter#}
                         }).done(function (result) {
-                            console.log(result)
+                            console.log(result);
                             d.resolve($.map(result, function (item) {
                                 return $.extend(item.fields);
                             }));
                         });
                         return d.promise();
-                    },
-                    insertItem: function (item) {
+                    }
+                    /*, insertItem: function (item) {
                         return $.ajax({
                             type: "POST",
                             url: "/clients/api",
@@ -58,7 +57,7 @@
                             type: "DELETE",
                             url: "/clients/api/" + item.id
                         });
-                    }
+                    }*/
                 },
                 fields: [
                     {#{name: "name", type: "text", width: 150},#}
@@ -68,7 +67,7 @@
                     {#{type: "control"}#}
 
                     {title: "Наименование", name: "title", type: "text"},
-                    {title: "Платформа", name: "partner", type: "text"},
+                   /* {title: "Платформа", name: "partner", type: "text"},
                     {title: "Gender", name: "gender", type: "text"},
                     {title: "Правообладатель", name: "institution", type: "text"},
                     {title: "Статус коммуникации с правообладателем", name: "communication_owner", type: "text"},
@@ -79,8 +78,16 @@
                     {title: "Состояние загрузки добровольных оценок", name: "unforced_ratings_state", type: "text"},
                     {title: "Примечание", name: "comment", type: "text"},
                     {title: "Статус загрузки На РОО", name: "roo_status", type: "text"},
-                    {type: "control"}
-                ]
+                    {type: "control"}*/
+                ],
+                loadIndicator: {
+                    show: function () {
+                        console.log("Загрузка началась");
+                    },
+                    hide: function () {
+                        console.log("Загрузка окончена");
+                    }
+                }
             });
         });
     </script>

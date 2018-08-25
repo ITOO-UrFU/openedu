@@ -85,7 +85,7 @@
                 loadMessage: "Идет загрузка...",
                 onDataLoaded: function (args) {
                     // cancel loading data if 'name' is empty
-                    console.log("DATA LOADED");
+                    console.log("DATA LOADED", args.data);
                     coursesLoaded = true;
                 },
                 controller: {

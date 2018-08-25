@@ -75,14 +75,17 @@
                 paging: true,
                 autoload: true,
                 pageSize: 20,
-
+                data: [],
                 pageButtonCount: 5,
                 pageLoading: false,
                 /*deleteConfirm: "Do you really want to delete client?",*/
                 loadMessage: "Идет загрузка...",
                 controller: {
-                    loadData: function () {
+                    loadData: function (filter) {
                         var d = $.Deferred();
+                        console.log(filter);
+                        console.log("!!!!!!!!!!!!!!!!", data);
+
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
@@ -119,7 +122,7 @@
                 fields: [
                     {title: "Наименование", name: "title", type: "text", filtering: true, editing: false},
                     {title: "Платформа", name: "partner", type: "text", editing: false},
-                    {title: "Правообладатель", name: "institution", type: "text"},
+                    {title: "Правообладатель", name: "institution", type: "text", editing: false},
                     {
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",

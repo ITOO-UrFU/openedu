@@ -3,8 +3,8 @@
 {% load semanticui %}
 {% block content %}
 
-    <div class="main_content">
-{{ expertises }}
+    <div class="main_content ui segment">
+
         <h2>{{ form.title.value }}</h2>
 
         <form class="ui form" method="post">
@@ -12,6 +12,15 @@
             {% render_form form %}
             <button class="ui submit button">Submit</button>
         </form>
+
+    <div class="ui right rail">
+    <div class="ui segment">
+      <h2>Экспертизы:</h2>
+        {% for e in expertises %}
+            <a href="/roo/expertise/{{ e.id }}/">e.get_type_dysplay</a>
+        {% endfor %}
+    </div>
+  </div>
 
     </div>
     <script>

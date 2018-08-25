@@ -25,15 +25,16 @@
                 pageButtonCount: 5,
                 deleteConfirm: "Do you really want to delete client?",
                 controller: {
-                    loadData: function (filter) {
+                    loadData: function () {
                         var d = $.Deferred();
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
-                            data: filter
+                            {#data: filter#}
                         }).done(function (result) {
+                            console.log(result)
                             d.resolve($.map(result, function (item) {
-                                return $.extend(item.fields, {id: item.pk});
+                                return $.extend(item.fields);
                             }));
                         });
                         return d.promise();

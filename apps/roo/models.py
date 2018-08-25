@@ -175,9 +175,9 @@ class ProctoringService(models.Model):
 
 class Course(models.Model):
     CERTS = (
-        (0, "Нет данных"),
-        (1, "Выдается"),
-        (2, "Не выдается")
+        ("0", "Нет данных"),
+        ("1", "Выдается"),
+        ("2", "Не выдается")
     )
     #  что приходит в api сейчас
     credits = models.CharField("Массив перезачётов", blank=True, null=True, max_length=512)
@@ -199,7 +199,7 @@ class Course(models.Model):
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
     has_sertificate = models.CharField("Возможность получить сертификат",
-                                       default=0, max_length=1, choices=CERTS)  # слово сертификат у них неправильно
+                                       default="0", max_length=1, choices=CERTS)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
@@ -231,76 +231,76 @@ class Course(models.Model):
     expert_account = models.TextField("Доступ эксперта", blank=True, null=True)
 
     COMMUNICATION_OWNER_STATES = (
-        (0, "Согласование не начато"),
-        (1, "В процессе согласования"),
-        (2, "Требуется участие администрации"),
-        (3, "Согласовано"),
-        (4, "Отказано"),
-        (5, "Согласовано с РОО")
+        ("0", "Согласование не начато"),
+        ("1", "В процессе согласования"),
+        ("2", "Требуется участие администрации"),
+        ("3", "Согласовано"),
+        ("4", "Отказано"),
+        ("5", "Согласовано с РОО")
     )
 
     COMMUNICATION_PLATFORM_STATES = (
-        (0, "Согласование не начато"),
-        (1, "В процессе согласования"),
-        (2, "Требуется участие администрации"),
-        (3, "Согласовано"),
-        (4, "Отказано"),
-        (5, "Согласовано с РОО")
+        ("0", "Согласование не начато"),
+        ("1", "В процессе согласования"),
+        ("2", "Требуется участие администрации"),
+        ("3", "Согласовано"),
+        ("4", "Отказано"),
+        ("5", "Согласовано с РОО")
     )
 
     EX_STATES = (
-        (0, "Не проводилась"),
-        (1, "Отравлен на экспертизу"),
-        (2, "Требует доработки"),
-        (3, "Прошел"),
-        (4, "Отправлен запрос на доступ к платформе"),
-        (5, "Доступ предоставлен")
+        ("0", "Не проводилась"),
+        ("1", "Отравлен на экспертизу"),
+        ("2", "Требует доработки"),
+        ("3", "Прошел"),
+        ("4", "Отправлен запрос на доступ к платформе"),
+        ("5", "Доступ предоставлен")
     )
     PASSPORT_STATES = (
-        (0, "Не заполнен"),
-        (1, "Не проверен"),
-        (2, "Требует доработки"),
-        (3, "На согласовании с правообладателем"),
-        (4, "Готов"),
+        ("0", "Не заполнен"),
+        ("1", "Не проверен"),
+        ("2", "Требует доработки"),
+        ("3", "На согласовании с правообладателем"),
+        ("4", "Готов"),
     )
 
     EX_ACCESSES = (
-        (0, "Не предоставлен"),
-        (1, "Отправлен запрос"),
-        (2, "Предоставлен"),
+        ("0", "Не предоставлен"),
+        ("1", "Отправлен запрос"),
+        ("2", "Предоставлен"),
     )
 
     ROO_STATES = (
-        (0, "Не готов"),
-        (1, "Ждем ID платформы"),
-        (2, "К загрузке"),
-        (3, "Загружен"),
-        (4, "Ожидает загрузки с РОО")
+        ("0", "Не готов"),
+        ("1", "Ждем ID платформы"),
+        ("2", "К загрузке"),
+        ("3", "Загружен"),
+        ("4", "Ожидает загрузки с РОО")
     )
 
     REQUIRED_RATINGS_STATES = (
-        (0, "Не загружены"),
-        (1, "Загружены")
+        ("0", "Не загружены"),
+        ("1", "Загружены")
     )
     UNFORCED_RATINGS_STATES = (
-        (0, "Не загружены"),
-        (1, "Загружены частично"),
-        (2, "Загружены")
+        ("0", "Не загружены"),
+        ("1", "Загружены частично"),
+        ("2", "Загружены")
     )
 
     communication_owner = models.CharField("Статус коммуникации с правообладателем", max_length=1,
-                                           choices=COMMUNICATION_OWNER_STATES, default=0)
+                                           choices=COMMUNICATION_OWNER_STATES, default="0")
     communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1,
-                                              choices=COMMUNICATION_PLATFORM_STATES, default=0)
-    expertise_status = models.CharField("Статус экспертизы", max_length=1, choices=EX_STATES, default=0)
-    passport_status = models.CharField("Статус паспорта", max_length=1, choices=PASSPORT_STATES, default=0)
-    roo_status = models.CharField("Статус загрузки на роо", max_length=1, choices=ROO_STATES, default=0)
+                                              choices=COMMUNICATION_PLATFORM_STATES, default="0")
+    expertise_status = models.CharField("Статус экспертизы", max_length=1, choices=EX_STATES, default="0")
+    passport_status = models.CharField("Статус паспорта", max_length=1, choices=PASSPORT_STATES, default="0")
+    roo_status = models.CharField("Статус загрузки на роо", max_length=1, choices=ROO_STATES, default="0")
     required_ratings_state = models.CharField("Состояние загрузки обязательных оценок", max_length=1,
-                                              choices=REQUIRED_RATINGS_STATES, default=0)
+                                              choices=REQUIRED_RATINGS_STATES, default="0")
     unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
-                                              choices=UNFORCED_RATINGS_STATES, default=0)
+                                              choices=UNFORCED_RATINGS_STATES, default="0")
     comment = models.TextField("Примечание", blank=True, null=True)
-    expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, max_length=1, default=0)
+    expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES, max_length=1, default="0")
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
     contacts = models.TextField("Контакты", blank=True, null=True)
 

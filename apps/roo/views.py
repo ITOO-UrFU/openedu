@@ -282,7 +282,7 @@ def courses_list(request):
 def courses_edit(request):
     # context = dict()
     # return render(request, "roo/courses_edit.html", context)
-    data = serialize('json', Course.objects.all())
+    data = serialize('xml', Course.objects.all())
     return_data = []
     for course in json.loads(data):
         new_course = course['fields']

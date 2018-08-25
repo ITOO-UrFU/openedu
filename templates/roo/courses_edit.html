@@ -108,6 +108,7 @@
                         }
                         else {
                             result = $.grep(courses, function (item) {
+                                console.log(item.expertise_status, filter.expertise_status)
                                 return item.expertise_status === filter.expertise_status;
                             });
                             d.resolve(result)

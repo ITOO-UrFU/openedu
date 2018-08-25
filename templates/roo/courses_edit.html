@@ -81,41 +81,17 @@
                 /*deleteConfirm: "Do you really want to delete client?",*/
                 loadMessage: "Идет загрузка...",
                 controller: {
-                    loadData: function (filter) {
-                        var data = $.Deferred();
-                        criteria = filter;
+                    loadData: function () {
+                        var d = $.Deferred();
                         $.ajax({
                             type: "GET",
                             url: "/roo/courses_edit/",
-                        }).done(function (response) {
-
-                            /* d.resolve($.map(result, function (item) {
-                                 return item;
-                             }));*/
-                            var res = [];
-                            if (criteria.Name !== "") {
-                                response.forEach(function (element) {
-                                    if (element.Name.indexOf(criteria.Name) > -1) {
-                                        res.push(element);
-                                        response = res;
-                                    }
-                                }, this);
-                            }
-                            else res = response;
-                            if (criteria.Title !== "") {
-                                res = [];
-                                response.forEach(function (element) {
-                                    if (element.Title.indexOf(criteria.Title) > -1)
-                                        res.push(element);
-                                }, this);
-                            }
-                            else res = response;
-
-                            data.resolve(res);
-
-
+                        }).done(function (result) {
+                            d.resolve($.map(result, function (item) {
+                                return item;
+                            }));
                         });
-                        return data.promise();
+                        return d.promise();
                     }
                     /*, insertItem: function (item) {
                         return $.ajax({
@@ -123,15 +99,17 @@
                             url: "/clients/api",
                             data: item
                         });
-                    },
+                    },*/
                     updateItem: function (item) {
-                        return $.ajax({
+                        console.log(item)
+                        /*return $.ajax({
                             type: "PUT",
                             url: "/clients/api/" + item.id,
                             data: item
-                        });
-                    },
-                    deleteItem: function (item) {
+                        });*/
+                    }
+                    /*
+                    ,deleteItem: function (item) {
                         return $.ajax({
                             type: "DELETE",
                             url: "/clients/api/" + item.id

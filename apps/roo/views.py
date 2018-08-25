@@ -306,6 +306,11 @@ class CourseUpdate(UpdateView):
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 
+    def get_context_data(self, **kwargs):
+        context = super(CourseUpdate, self).get_context_data(**kwargs)
+        context['expertises'] = Expertise.objects.filter(course=self.object)
+        return context
+
 
 class ExpertiseLayout(forms.ModelForm):
     platform = forms.ModelChoiceField(queryset=Platform.objects.all(), required=False)

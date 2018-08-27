@@ -347,12 +347,12 @@ class CourseStatusLayout(forms.ModelForm):
 class ExpertiseUpdate(UpdateView):
     form_class = ExpertiseLayout
     model = Expertise
-    second_model = Course
-    second_form_class = CourseStatusLayout
+    # second_model = Course
+    # second_form_class = CourseStatusLayout
     template_name_suffix = '_update_form'
     title = forms.CharField(disabled=True)
-    context_object_name = "expertise"
-    pk_url_kwarg = 'course__id'
+    # context_object_name = "expertise"
+    # pk_url_kwarg = 'course__id'
     success_url = '/roo/close/'
 
     # def get_context_data(self, **kwargs):

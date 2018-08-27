@@ -136,7 +136,8 @@ def upload_expertises(request):
                     break
             expertise_count = +1
             if course_exist:
-                print(expertise_count, ' !')
+                pass
+                # print(expertise_count, ' !')
             else:
                 not_found_count += 1
                 print(expertise_count, expertise['course_title'])

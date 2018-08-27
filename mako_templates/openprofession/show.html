@@ -309,8 +309,8 @@
                 <th class="column-pd-possibleId">
                     <div class="column-header-text">ID на платформе</div>
                 </th>
-                <th>
-                    <div class="column-header-text">Оценка за выбр. курс</div></th>
+                <th><div class="column-header-text">Оценка за выбр. курс</div></th>
+                <th><div class="column-header-text">Оценка за выбр. курс</div></th>
                 <th v-for="program in programs_for_show" style="font-size: 80%">
                     <div class="column-header-text"><span style="font-size: 70%">{{ program.title }}<br/><hr/></span>{{ program.courseId }} <br/> {{ program.session }}</div>
                 </th>
@@ -451,6 +451,7 @@
                         N
                     </td>
                 </template>
+                <td> {{ pd.examGrade }}</td>
                 <td v-for="program in programs_for_show" style="font-size: 80%">
                     {{ JSON.parse(pd.grades)[program.id]}} <br/>
                 </td>

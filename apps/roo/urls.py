@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.views.generic.base import RedirectView, TemplateView
-from .views import data, get_active_tasks, courses, CourseUpdate, expertises, ExpertiseUpdate, upload_from_json, courses_list, courses_edit, ExpertiseCreate
+from .views import data, get_active_tasks, courses, CourseUpdate, expertises, ExpertiseUpdate, upload_from_json, courses_list, courses_edit, ExpertiseCreate, TeacherCreate
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/roo/courses/', permanent=False), name='index'),
@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'courses_edit/', courses_edit, name='courses_edit'),
     url(r'courses_list/', courses_list, name='courses_list'),
     url(r'create_expertise/', ExpertiseCreate.as_view(), name='create_expertise'),
+    url(r'create_teacher/', TeacherCreate.as_view(), name='create_teacher'),
     url(r'^close/$', TemplateView.as_view(template_name='roo/close.html')),
 ]

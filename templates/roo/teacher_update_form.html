@@ -1,0 +1,19 @@
+{% extends "roo/base_simple.html" %}
+{% load static %}
+{% load semanticui %}
+{% block content %}
+
+    <div class="main_content ui segment">
+
+        <h2>Create teacher</h2>
+
+        <form class="ui form" method="post">
+            {% csrf_token %}
+            {% render_form form %}
+            <button class="ui submit button">Submit</button>
+        </form>
+
+
+    </div>
+
+{% endblock %}

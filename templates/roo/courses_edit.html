@@ -155,7 +155,10 @@
                 },
                 fields: [
                     {title: "Наименование", name: "title", type: "text", filtering: true, editing: false},
-                    {title: "Платформа", name: "partner", type: "text", editing: false},
+                    {title: "Платформа",itemTemplate: function(value) {
+                            return $("<a>").attr("href", value).text(value);
+                        } ,
+                        name: "partner", editing: false},
                     {title: "Правообладатель", name: "institution", type: "text", editing: false},
                     {
                         title: "Статус коммуникации с правообладателем",

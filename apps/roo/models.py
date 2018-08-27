@@ -135,7 +135,7 @@ class Teacher(models.Model):
     description = models.TextField("Описание", blank=True, null=True)
 
     def __str__(self):
-        return f"Лектор: {self.title}"
+        return f"{self.title}"
 
     def get_image(self):
         if self.image:

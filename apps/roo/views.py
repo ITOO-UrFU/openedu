@@ -118,7 +118,7 @@ def add_expertises(course, our_course):
 
 
 def upload_expertises(request):
-    if request.method.POST:
+    if request.method == "POST":
         expertises = json.loads(request.POST.get("json_value", None))
         tbl = str.maketrans('', '', string.punctuation)
         for expertise in expertises:

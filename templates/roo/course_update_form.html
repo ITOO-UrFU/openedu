@@ -13,22 +13,25 @@
             <button class="ui submit button">Submit</button>
         </form>
 
-    <div class="ui right rail">
-    <div class="ui segment">
-      <h2>Экспертизы:</h2>
-        {% for e in expertises %}
-            <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
-        {% endfor %}
+        <div class="ui right rail">
+            <div class="ui segment">
+                <h2>Экспертизы:</h2>
+                {% for e in expertises %}
+                    <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
+                {% endfor %}
 
 
-        <button onClick="window.open('/roo/create_expertise/');" class="ui blue basic button">Добавить экспертизу</button>
+                <button onClick="window.open('/roo/create_expertise/');" class="ui blue basic button">Добавить экспертизу</button>
+                <button onClick="window.open('/roo/create_teacher/');" class="ui blue basic button">Добавить автора</button>
 
-    </div>
-  </div>
+            </div>
+        </div>
 
     </div>
     <script>
-        $('.ui.dropdown').dropdown({ fullTextSearch: "exact" });
+        $('.ui.dropdown').cl
+
+        $('.ui.dropdown').dropdown({fullTextSearch: "exact", allowAdditions: true});
     </script>
 
 {% endblock %}

@@ -156,7 +156,7 @@
                 fields: [
                     {title: "Наименование", name: "title", type: "text", filtering: true, editing: false},
                     {title: "Платформа",itemTemplate: function(value) {
-                            return $("<a>").attr("href", value).text(value);
+                            return $("<a onclick=\"CourseEdit=window.open('http://openedu.urfu.ru/roo/5739','10. Образовательный маркетинг',width=600,height=300); return false;\">").attr("href", "#").text(value);
                         } ,
                         name: "partner", editing: false},
                     {title: "Правообладатель", name: "institution", type: "text", editing: false},

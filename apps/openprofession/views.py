@@ -237,8 +237,9 @@ def set_proctoring_status(request, *args):
     for user in PersonalData.objects.all():
         if user.program and user.program.reports is not None:
             print(user, user.program.reports)
-            report = user.program.reports.filter(report_type="proctored_exam_results_report").latest("date")
+            report = user.program.reports.filter(report_type="proctored_exam_results_report")
             if report:
+                report = report.latest("date")
                 entry = report.proctored_entries.filter(email=user.email).first()
                 if entry:
                     user.proctoring_status = entry.status

@@ -113,10 +113,10 @@
                         else {
                             result = $.grep(courses, function (item) {
                                 /*console.log(item.expertise_status, filter.expertise_status)*/
-                                return (!filter.title || item.title.indexOf(filter.title) > -1)
-                                    && (!filter.partner || item.partner.indexOf(filter.partner) > -1)
-                                    && (!filter.institution || item.institution.indexOf(filter.institution) > -1)
-                                    && (!filter.comment || item.comment.indexOf(filter.comment) > -1)
+                                return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
+                                    && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
+                                    && (!filter.institution || item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)
+                                    && (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)
 
                                     && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
                                     && (!filter.communication_platform || item.communication_platform === filter.communication_platform)

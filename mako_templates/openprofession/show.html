@@ -36,6 +36,10 @@
         <input type="checkbox" v-model="only_active_programs" id="only_active_programs"
                v-on:change="showActiveOnlyPrograms(only_active_programs)"> <label for="only_active_programs"> Показать
         только активные сессии</label>
+        <input type="checkbox" v-model="only_running_programs" id="only_running_programs"
+               v-on:change="showRunningPrograms(only_running_programs)"> <label for="only_running_programs"> Показать
+        только текущий запуск</label>
+
 
 
     </div>
@@ -328,7 +332,8 @@
                     {{ pd.phone }}
                 </td>
                 <td>
-                    {{ pd.program.courseId }}
+                    {{ pd.program.courseId }}<br/>
+                    {{ pd.program.start }}
                 </td>
                 <td>
                     {{ pd.birthDate }}
@@ -443,8 +448,6 @@
                 <template v-if="pd.programGrade != '-1'">
                     <td class="Enrolled">
                         {{ pd.programGrade }}
-                        <br/>
-                        Y
                     </td>
                 </template>
                 <template v-else>

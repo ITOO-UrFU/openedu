@@ -117,6 +117,31 @@ def add_expertises(course, our_course):
             #             expertise.save()
 
 
+def upload_expertises(request):
+    if request.method == "POST":
+        expertises = json.loads(request.POST.get("json_value", None))
+        tbl = str.maketrans('', '', string.punctuation)
+        for expertise in expertises:
+            course_exist = False
+            for our_course in Course.objects.all():
+                if our_course.title.lower().translate(tbl).replace(' ', '') == expertise[
+                    "course_title"].lower().translate(tbl).replace(' ',
+                                                                   '') and our_course.institution.title.lower().translate(
+                    tbl).replace(' ', '') == expertise["course_institution"].lower().translate(tbl).replace(' ',
+                                                                                                            '') and our_course.partner.title.lower().translate(
+                    tbl).replace(' ', '') == expertise["course_partner"].lower().translate(tbl).replace(' ', ''):
+                    course_exist = True
+                    break
+
+            if course_exist:
+                print('!')
+            else:
+                print(expertise['course_title'])
+        return render(request, 'roo/upload_from_json.html')
+    else:
+        return render(request, 'roo/upload_from_json.html')
+
+
 def upload_from_json(request):
     if request.method == 'POST':
         courses = json.loads(request.POST.get("json_value", None))
@@ -318,11 +343,13 @@ class ExpertiseCreate(CreateView):
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 
+
 class TeacherCreate(CreateView):
     model = Teacher
     fields = '__all__'
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
+
 
 class ExpertiseLayout(forms.ModelForm):
     platform = forms.ModelChoiceField(queryset=Platform.objects.all(), required=False)

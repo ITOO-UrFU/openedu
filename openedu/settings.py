@@ -246,6 +246,7 @@ GRAPHENE = {
     )
 }
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 200000  # тут поменьше сделать
 LOGIN_URL = '/admin/login'
 

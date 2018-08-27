@@ -105,8 +105,8 @@
                         }
                         else {
                             result = $.grep(courses, function (item) {
-                                console.log(item.expertise_status, filter.expertise_status)
-                                return item.expertise_status === filter.expertise_status;
+                                /*console.log(item.expertise_status, filter.expertise_status)*/
+                                return (!filter.title || item.title.indexOf(filter.title) > -1);
                             });
                             d.resolve(result)
                         }

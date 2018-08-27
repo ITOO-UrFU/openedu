@@ -115,6 +115,16 @@
                                 /*console.log(item.expertise_status, filter.expertise_status)*/
                                 return (!filter.title || item.title.indexOf(filter.title) > -1)
                                     && (!filter.partner || item.partner.indexOf(filter.partner) > -1)
+                                    && (!filter.institution || item.institution.indexOf(filter.institution) > -1)
+                                    && (!filter.comment || item.comment.indexOf(filter.comment) > -1)
+
+                                    && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
+                                    && (!filter.communication_platform || item.communication_platform === filter.communication_platform)
+                                    && (!filter.expertise_status || item.expertise_status === filter.expertise_status)
+                                    && (!filter.passport_status || item.passport_status === filter.passport_status)
+                                    && (!filter.required_ratings_state || item.required_ratings_state === filter.required_ratings_state)
+                                    && (!filter.unforced_ratings_state || item.unforced_ratings_state === filter.unforced_ratings_state)
+                                    && (!filter.roo_status || item.roo_status === filter.roo_status)
                             });
                             d.resolve(result)
                         }
@@ -162,7 +172,8 @@
                         type: "select",
                         items: COMMUNICATION_PLATFORM_STATES,
                         valueField: "Id",
-                        textField: "Name"
+                        textField: "Name",
+                        validate: "required"
                     },
                     {
                         title: "Статус экспертизы",
@@ -170,7 +181,8 @@
                         type: "select",
                         items: EX_STATES,
                         valueField: "Id",
-                        textField: "Name"
+                        textField: "Name",
+                        validate: "required"
                     },
                     {
                         title: "Статус паспорта",
@@ -178,7 +190,8 @@
                         type: "select",
                         items: PASSPORT_STATES,
                         valueField: "Id",
-                        textField: "Name"
+                        textField: "Name",
+                        validate: "required"
                     },
                     {
                         title: "Состояние загрузки обязательных оценок",
@@ -186,7 +199,8 @@
                         type: "select",
                         items: REQUIRED_RATINGS_STATES,
                         valueField: "Id",
-                        textField: "Name"
+                        textField: "Name",
+                        validate: "required"
                     },
                     {
                         title: "Состояние загрузки добровольных оценок",
@@ -194,7 +208,8 @@
                         type: "select",
                         items: UNFORCED_RATINGS_STATES,
                         valueField: "Id",
-                        textField: "Name"
+                        textField: "Name",
+                        validate: "required"
                     },
                     {title: "Примечание", name: "comment", type: "text"},
                     {
@@ -203,7 +218,8 @@
                         type: "select",
                         items: ROO_STATES,
                         valueField: "Id",
-                        textField: "Name"
+                        textField: "Name",
+                        validate: "required"
                     },
                     {type: "control"}
                 ]

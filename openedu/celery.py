@@ -40,7 +40,7 @@ app.conf.beat_schedule = {
     },
     'set_proctoring_status': {
         'task': 'openprofession.views.set_proctoring_status',
-        'schedule': 600.0,
+        'schedule': 5.0,
         'args': (1, 1)
     },
     # 'update_direction_from_roo_task': {

@@ -521,7 +521,7 @@ class Owner(Base):
     objects = OwnerManager()
 
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, null=True, db_index=True)
+    global_id = models.CharField("ИД Правообладателя на РОО", max_length=512, null=True, blank=True, db_index=True)
     ogrn = models.CharField("ОГРН", blank=True, null=True, max_length=512)
     image = models.CharField("Изображение", blank=True, null=True, max_length=1024)
     contacts = models.TextField("Контакты", blank=True, null=True)

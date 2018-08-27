@@ -121,6 +121,8 @@ def upload_expertises(request):
     if request.method == "POST":
         expertises = json.loads(request.POST.get("json_value", None))
         tbl = str.maketrans('', '', string.punctuation)
+
+        not_found_count = 0
         for expertise in expertises:
             course_exist = False
             for our_course in Course.objects.all():
@@ -136,7 +138,10 @@ def upload_expertises(request):
             if course_exist:
                 print('!')
             else:
+                not_found_count += 1
                 print(expertise['course_title'])
+
+        print('Курсов не найдено: ', not_found_count)
         return render(request, 'roo/upload_from_json.html')
     else:
         return render(request, 'roo/upload_from_json.html')

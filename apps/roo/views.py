@@ -20,7 +20,7 @@ from .decorators import roo_member_required
 from .models import \
     Course, CoursesTable, \
     Expertise, ExpertisesTable, \
-    Owner, Expert
+    Owner, Expert, Teacher
 from django_tables2 import RequestConfig
 
 logger = logging.getLogger('celery_logging')
@@ -318,6 +318,11 @@ class ExpertiseCreate(CreateView):
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 
+class TeacherCreate(CreateView):
+    model = Teacher
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+    success_url = '/roo/close/'
 
 class ExpertiseLayout(forms.ModelForm):
     platform = forms.ModelChoiceField(queryset=Platform.objects.all(), required=False)

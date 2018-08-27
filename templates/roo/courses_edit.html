@@ -14,6 +14,7 @@
         $(function () {
 
             var COMMUNICATION_OWNER_STATES = [
+                {Id: "", Name: ""},
                 {Id: "0", Name: "Согласование не начато"},
                 {Id: "1", Name: "В процессе согласования"},
                 {Id: "2", Name: "Требуется участие администрации"},
@@ -23,6 +24,7 @@
             ];
 
             var COMMUNICATION_PLATFORM_STATES = [
+                {Id: "", Name: ""},
                 {Id: "0", Name: "Согласование не начато"},
                 {Id: "1", Name: "В процессе согласования"},
                 {Id: "2", Name: "Требуется участие администрации"},
@@ -32,6 +34,7 @@
             ];
 
             var EX_STATES = [
+                {Id: "", Name: ""},
                 {Id: "0", Name: "Не проводилась"},
                 {Id: "1", Name: "Отравлен на экспертизу"},
                 {Id: "2", Name: "Требует доработки"},
@@ -41,6 +44,7 @@
             ];
 
             var PASSPORT_STATES = [
+                {Id: "", Name: ""},
                 {Id: "0", Name: "Не заполнен"},
                 {Id: "1", Name: "Не проверен"},
                 {Id: "2", Name: "Требует доработки"},
@@ -49,17 +53,20 @@
             ];
 
             var REQUIRED_RATINGS_STATES = [
+                {Id: "", Name: ""},
                 {Id: "0", Name: "Не загружены"},
                 {Id: "1", Name: "Загружены"}
             ];
 
             var UNFORCED_RATINGS_STATES = [
+                {Id: "", Name: ""},
                 {Id: "0", Name: "Не загружены"},
                 {Id: "1", Name: "Загружены частично"},
                 {Id: "2", Name: "Загружены"}
             ];
 
             var ROO_STATES = [
+                {Id: "", Name: ""},
                 {Id: "0", Name: "Не готов"},
                 {Id: "1", Name: "Ждем ID платформы"},
                 {Id: "2", Name: "К загрузке"},
@@ -146,7 +153,8 @@
                         type: "select",
                         items: COMMUNICATION_OWNER_STATES,
                         valueField: "Id",
-                        textField: "Name"
+                        textField: "Name",
+                        validate: "required"
                     },
                     {
                         title: "Статус коммуникации с платформой",

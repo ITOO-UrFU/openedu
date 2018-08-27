@@ -310,7 +310,8 @@
                     <div class="column-header-text">ID на платформе</div>
                 </th>
                 <th><div class="column-header-text">Оценка за выбр. курс</div></th>
-                <th><div class="column-header-text">Оценка за выбр. курс</div></th>
+                <th><div class="column-header-text">Оценка за экзамен(но это не точно)</div></th>
+                <th><div class="column-header-text">Статус прокторинга</div></th>
                 <th v-for="program in programs_for_show" style="font-size: 80%">
                     <div class="column-header-text"><span style="font-size: 70%">{{ program.title }}<br/><hr/></span>{{ program.courseId }} <br/> {{ program.session }}</div>
                 </th>
@@ -452,6 +453,7 @@
                     </td>
                 </template>
                 <td> {{ pd.examGrade }}</td>
+                <td> {{ pd.proctoringStatus }}</td>
                 <td v-for="program in programs_for_show" style="font-size: 80%">
                     {{ JSON.parse(pd.grades)[program.id]}} <br/>
                 </td>

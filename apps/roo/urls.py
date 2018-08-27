@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'expertises/', expertises, name='expertises'),
     url(r'data/get_active_tasks/$', get_active_tasks, name='get_active_tasks'),
 
-    url(r'upload_json/', upload_from_json, name='upload_from_json'),
+    url(r'upload_json/', upload_from_json, name='upload_expertises'),
     url(r'courses_edit/', courses_edit, name='courses_edit'),
     url(r'courses_list/', courses_list, name='courses_list'),
     url(r'create_expertise/', ExpertiseCreate.as_view(), name='create_expertise'),

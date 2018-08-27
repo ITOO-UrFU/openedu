@@ -36,10 +36,6 @@
         <input type="checkbox" v-model="only_active_programs" id="only_active_programs"
                v-on:change="showActiveOnlyPrograms(only_active_programs)"> <label for="only_active_programs"> Показать
         только активные сессии</label>
-        <input type="checkbox" v-model="only_running_programs" id="only_running_programs"
-               v-on:change="showRunningPrograms(only_running_programs)"> <label for="only_running_programs"> Показать
-        только текущий запуск</label>
-
 
 
     </div>
@@ -68,7 +64,9 @@
                         <i v-on:click="sortByParam('email')" v-else class="fas fa-sort fa-2x"></i>
                     </div>
                 </th>
-                <th class="column-pd-phone"><div class="column-header-text">Телефон</div></th>
+                <th class="column-pd-phone">
+                    <div class="column-header-text">Телефон</div>
+                </th>
                 <th class="column-pd-program-courseId">
                     <div class="column-header-text">Программа</div>
                     <div class="block-filter alert filter-icon">
@@ -96,9 +94,44 @@
                         </div>
                     </div>
                 </th>
-                <th class="column-pd-birthDate"><div class="column-header-text">Дата рождения</div></th>
-                <th class="column-pd-city"><div class="column-header-text">Город</div></th>
-                <th class="column-pd-job"><div class="column-header-text">Место работы, должность</div></th>
+                <th>
+
+                    <div class="column-header-text">Запуск</div>
+                    <div class="block-filter alert filter-icon">
+                        <div>Выбрано {{ user_filters.by_start.selected_values.length }}
+                            из {{ user_filters.by_start.all_starts.length }}</div>
+                        <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('by_start')"></i>
+                        <div v-if="user_filters.by_program.show_filter" class="users-filter-block">
+                            <div class="links">
+                                <a v-on:click="setStartFilterAll()">Выделить все</a>
+                                <a v-on:click="setStartFilterNull()">Скрыть все</a>
+                            </div>
+                            <div v-for="filter_start in user_filters.by_start.all_starts" style="font-size: 80%"
+                                 v-bind:filter_program="filter_start" class="filter-start-item">
+                                <label v-bind:for="'list-' + filter_start"><input type="checkbox"
+                                                                                  v-on:change="setStartFilter(filter_start)"
+                                                                                  v-bind:checked="user_filters.by_start.selected_values.includes(filter_start)"
+                                                                                  v-bind:id="'list-' + filter_start"> {{ filter_start }}
+                                </label>
+                            </div>
+                            <div class="buttons">
+                                <button v-on:click="user_filters.by_start.show_filter = !user_filters.by_start.show_filter">
+                                    Ок
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+
+                <th class="column-pd-birthDate">
+                    <div class="column-header-text">Дата рождения</div>
+                </th>
+                <th class="column-pd-city">
+                    <div class="column-header-text">Город</div>
+                </th>
+                <th class="column-pd-job">
+                    <div class="column-header-text">Место работы, должность</div>
+                </th>
                 <th class="column-pd-quote">
                     <div class="column-header-text">Заявка на квоту</div>
 
@@ -195,7 +228,9 @@
                     -->
 
                 </th>
-                <th class="column-pd-educationLevel"><div class="column-header-text">Уровень образования</div></th>
+                <th class="column-pd-educationLevel">
+                    <div class="column-header-text">Уровень образования</div>
+                </th>
                 <th class="column-pd-inQuote">
                     <div class="column-header-text">В квоте</div>
                     <div class="block-filter alert filter-icon">
@@ -240,10 +275,14 @@
                         </div>
                     </div>
                 </th>
-                <th><div class="column-header-text">Тип выдаваемого документа</div></th>
-                <th><div class="column-header-text">Статус</div></th>
+                <th>
+                    <div class="column-header-text">Тип выдаваемого документа</div>
+                </th>
+                <th>
+                    <div class="column-header-text">Статус</div>
+                </th>
                 <th class="column-pd-allDocs">
-                <div class="column-header-text" style="padding-bottom: 35px">Слушатель прикрепил документы: скан заявления, документ об
+                    <div class="column-header-text" style="padding-bottom: 35px">Слушатель прикрепил документы: скан заявления, документ об
                         образовании
                     </div>
                     <div class="block-filter alert filter-icon">
@@ -313,9 +352,15 @@
                 <th class="column-pd-possibleId">
                     <div class="column-header-text">ID на платформе</div>
                 </th>
-                <th><div class="column-header-text">Оценка за выбр. курс</div></th>
-                <th><div class="column-header-text">Оценка за экзамен(но это не точно)</div></th>
-                <th><div class="column-header-text">Статус прокторинга</div></th>
+                <th>
+                    <div class="column-header-text">Оценка за выбр. курс</div>
+                </th>
+                <th>
+                    <div class="column-header-text">Оценка за экзамен(но это не точно)</div>
+                </th>
+                <th>
+                    <div class="column-header-text">Статус прокторинга</div>
+                </th>
                 <th v-for="program in programs_for_show" style="font-size: 80%">
                     <div class="column-header-text"><span style="font-size: 70%">{{ program.title }}<br/><hr/></span>{{ program.courseId }} <br/> {{ program.session }}</div>
                 </th>
@@ -333,9 +378,11 @@
                 </td>
                 <td>
                     {{ pd.program.courseId }}<br/>
-                    {{ pd.program.start }}
+
                 </td>
+                <td>{{ pd.program.start }}</td>
                 <td>
+
                     {{ pd.birthDate }}
                 </td>
                 <td>

@@ -78,11 +78,8 @@
 
                 <tr>
                     <td>Сертификат (выдается или нет)</td>
-                    {% if expertise.course.has_sertificate %}
-                        <td><i class="check icon"></i></td>
-                    {% else %}
-                        <td><i class="times icon"></i></td>
-                    {% endif %}
+                    {{  expertise.course.get_has_sertificate_display }}
+
                     <td>{% render_field form.has_certificate %}</td>
                 </tr>
 

@@ -113,9 +113,9 @@ class Expertise(models.Model):
     has_illustrations = models.BooleanField("Иллюстрации", default=False)
     has_audio = models.BooleanField("Аудиоматериалы", default=False)
     has_video = models.BooleanField("Видеоматериалы", default=False)
-    has_quality_checking = models.BooleanField("прошел проверку обязательной оценки качества", default=False)
+    has_quality_checking = models.CharField("прошел проверку обязательной оценки качества", blank=True, null=True, max_length=512)
     got_into_record = models.CharField("попал в отчет", max_length=255, null=True, blank=True)
-    got_expertise_2018 = models.BooleanField("прошел экспертизу в 2018 (1 квартал)", default=False)
+    got_expertise_2018 = models.CharField("прошел экспертизу в 2018 (1 квартал)", default=False, blank=True, null=True, max_length=512)
     additional_info = models.TextField("Дополнительная информация", null=True, blank=True)
 
     def get_platform(self):

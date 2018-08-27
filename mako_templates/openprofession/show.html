@@ -101,13 +101,13 @@
                         <div>Выбрано {{ user_filters.by_start.selected_values.length }}
                             из {{ user_filters.by_start.all_starts.length }}</div>
                         <i class="fas fa-filter  fa-2x" v-on:click="toggleFilterBLockVisible('by_start')"></i>
-                        <div v-if="user_filters.by_program.show_filter" class="users-filter-block">
+                        <div v-if="user_filters.by_start.show_filter" class="users-filter-block">
                             <div class="links">
                                 <a v-on:click="setStartFilterAll()">Выделить все</a>
                                 <a v-on:click="setStartFilterNull()">Скрыть все</a>
                             </div>
                             <div v-for="filter_start in user_filters.by_start.all_starts" style="font-size: 80%"
-                                 v-bind:filter_program="filter_start" class="filter-start-item">
+                                 v-bind:filter_start="filter_start" class="filter-start-item">
                                 <label v-bind:for="'list-' + filter_start"><input type="checkbox"
                                                                                   v-on:change="setStartFilter(filter_start)"
                                                                                   v-bind:checked="user_filters.by_start.selected_values.includes(filter_start)"

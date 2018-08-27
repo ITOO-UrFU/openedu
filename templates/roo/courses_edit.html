@@ -96,8 +96,8 @@
                                 type: "GET",
                                 url: "/roo/courses_edit/",
                             }).done(function (result) {
-                                  courses = result;
-                                  coursesLoaded = true;
+                                courses = result;
+                                coursesLoaded = true;
                                 d.resolve($.map(result, function (item) {
                                     return item;
                                 }));
@@ -106,7 +106,8 @@
                         else {
                             result = $.grep(courses, function (item) {
                                 /*console.log(item.expertise_status, filter.expertise_status)*/
-                                return (!filter.title || item.title.indexOf(filter.title) > -1);
+                                return (!filter.title || item.title.indexOf(filter.title) > -1)
+                                    && (!filter.partner || item.partner.indexOf(filter.partner) > -1)
                             });
                             d.resolve(result)
                         }

@@ -237,13 +237,14 @@ def set_proctoring_status(request, *args):
     for user in PersonalData.objects.all():
         if user.program and user.program.reports.count() > 0:
             report = user.program.reports.filter(report_type="proctored_exam_results_report").latest("date")
-            entry = report.proctored_entries.filter(email=user.email).first()
-            if entry:
-                user.proctoring_status = entry.status
-                user.save()
-            else:
-                user.proctoring_status = "None"
-                user.save()
+            if report:
+                entry = report.proctored_entries.filter(email=user.email).first()
+                if entry:
+                    user.proctoring_status = entry.status
+                    user.save()
+                else:
+                    user.proctoring_status = "None"
+                    user.save()
 
 
 @app.task(bind=True)

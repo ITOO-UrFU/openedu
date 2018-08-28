@@ -149,6 +149,7 @@
                             });
                         }
                         else {
+                            console.log(courses)
                             result = $.grep(courses, function (item) {
                                 /*console.log(item.expertise_status, filter.expertise_status)*/
                                 return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
@@ -297,8 +298,8 @@ $(".box").click(function() {
     });
     
     $("#jsGrid").jsGrid("option", "fields", fields);
-    for (var n in fields)
-           console.log('fields: ',fields[n].name.toLowerCase());
+    {#for (var n in fields)#}
+    {#       console.log('fields: ',fields[n].name.toLowerCase());#}
   });
   $(".boxAll").click(function() {
       if(this.checked != true){

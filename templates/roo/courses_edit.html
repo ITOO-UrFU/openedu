@@ -72,7 +72,6 @@
                 {Id: "4", Name: "Отказано"},
                 {Id: "5", Name: "Согласовано с РОО"}
             ];
-
             var COMMUNICATION_PLATFORM_STATES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Согласование не начато"},
@@ -82,7 +81,6 @@
                 {Id: "4", Name: "Отказано"},
                 {Id: "5", Name: "Согласовано с РОО"}
             ];
-
             var EX_STATES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Не проводилась"},
@@ -92,7 +90,6 @@
                 {Id: "4", Name: "Отправлен запрос на доступ к платформе"},
                 {Id: "5", Name: "Доступ предоставлен"}
             ];
-
             var PASSPORT_STATES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Не заполнен"},
@@ -101,20 +98,17 @@
                 {Id: "3", Name: "На согласовании с правообладателем"},
                 {Id: "4", Name: "Готов"},
             ];
-
             var REQUIRED_RATINGS_STATES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Не загружены"},
                 {Id: "1", Name: "Загружены"}
             ];
-
             var UNFORCED_RATINGS_STATES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Не загружены"},
                 {Id: "1", Name: "Загружены частично"},
                 {Id: "2", Name: "Загружены"}
             ];
-
             var ROO_STATES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Не готов"},
@@ -146,6 +140,12 @@
                 {Id: "0", Name: "Не предоставлен"},
                 {Id: "1", Name: "Отправлен запрос"},
                 {Id: "2", Name: "Предоставлен"},
+            ];
+            var CERTS = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Нет данных"},
+                {Id: "1", Name: "Выдается"},
+                {Id: "2", Name: "Не выдается"}
             ];
 
             var courses = [];
@@ -194,6 +194,13 @@
                                     && (!filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
                                     && (!filter.contacts || item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1)
                                     && (!filter.responsible_comment || item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1)
+
+                                    && (!filter.admin_email || item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1)
+                                    && (!filter.cabinet_course_url || item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1)
+                                    && (!filter.version || item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1)
+                                    && (!filter.language || item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1)
+                                    && (!filter.duration || item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1)
+                                    && (!filter.expert_account || item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1)
                                     /*
                                     * Пошли селекты
                                     * */
@@ -208,6 +215,7 @@
                                     && (!filter.passport_responsible || item.passport_responsible === filter.passport_responsible)
                                     && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
                                     && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
+                                    && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)
                             });
                             d.resolve(result)
                         }
@@ -349,6 +357,23 @@
                     },
                     {title: "Контакты", name: "contacts", type: "text"},
                     {title: "Регистрационные данные для доступа к курсу", name: "reg_data", type: "text"},
+                    {title: "Доступ эксперта", name: "expert_account", type: "text"},
+
+
+                    {title: "Адрес эл. почты администратора ОК", name: "admin_email", type: "text"},
+                    {title: "Ссылка на курс в кабинете", name: "cabinet_course_url", type: "text"},
+                    {title: "Версия курса", name: "version", type: "text"},
+                    {title: "Язык контента", name: "language", type: "text"},
+                    {title: "Длительность в неделях", name: "duration", type: "text"},
+                    {
+                        title: "Возможность получить сертификат",
+                        name: "has_sertificate",
+                        type: "select",
+                        items: CERTS,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
                     {
                         title: "Доступ к курсу для экспертов обязательной оценки",
                         name: "expert_access",

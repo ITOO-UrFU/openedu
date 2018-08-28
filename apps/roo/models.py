@@ -704,8 +704,8 @@ class CoursesTable(tables.Table):
             "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
             "image")
         fields = (
-            "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
-            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status", "platform_responsible", "owner_responsible", "responsible_comment", "passport_responsible")
+            "title", "partner", "platform_responsible", "institution", "owner_responsible", "communication_owner", "communication_platform", "expertise_status",
+            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status",  "responsible_comment", "passport_responsible")
         attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(

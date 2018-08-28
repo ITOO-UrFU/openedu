@@ -277,16 +277,6 @@
             var gridSettings = JSON.parse(localStorage.getItem("gridSettings"));
 var grid = $("#jsGrid").data("JSGrid");
 
-grid.search(gridSettings.filter).done(function() {
-console.log("MLMLML");
-    grid.sort({
-    	  field: gridSettings.sorting.sortField,
-        order: gridSettings.sorting.sortOrder
-    }).done(function() {
-        grid.option("pageIndex", gridSettings.pageIndex);
-    });
-});
-
 $("#saveSettings").on("click", function() {
     localStorage.setItem("gridSettings", JSON.stringify({
     	sorting: grid._sortingParams(),

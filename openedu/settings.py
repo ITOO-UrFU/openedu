@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-import os
 import sys
+
 import djcelery
+import os
 
 djcelery.setup_loader()
 
@@ -261,7 +262,7 @@ SUI_DROPDOWN_WRAPPER = (
     "</div>"
 )
 
-MULTIPLE_DROPDOWN_WRAPPER = (
+SUI_MULTIPLE_DROPDOWN_WRAPPER = (
     "<div class=\"ui%(style)smultiple search selection dropdown\">"
     "%(field)s"
     "%(icon)s"

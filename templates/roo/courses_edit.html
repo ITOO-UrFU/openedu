@@ -5,7 +5,7 @@
 
     <link href="http://js-grid.com/css/jsgrid.min.css" rel="stylesheet"/>
     <link href="http://js-grid.com/css/jsgrid-theme.min.css" rel="stylesheet"/>
-
+<button type="button" id="saveSettings">Save Settings</button>
     <div id="jsGrid"></div>
 
     <script src="http://js-grid.com/js/jsgrid.min.js"></script>
@@ -228,6 +228,28 @@
                     {type: "control"}
                 ]
             });
+
+            var gridSettings = JSON.parse(localStorage.getItem("gridSettings"));
+{#var grid = $("#jsGrid").data("JSGrid");#}
+
+grid.search(gridSettings.filter).done(function() {
+    console.log('');
+    grid.sort({
+    	field: gridSettings.sorting.sortField,
+        order: gridSettings.sorting.sortOrder
+    }).done(function() {
+        grid.option("pageIndex", gridSettings.pageIndex);
+    });
+});
+
+$("#saveSettings").on("click", function() {
+    localStorage.setItem("gridSettings", JSON.stringify({
+    	sorting: grid._sortingParams(),
+        pageIndex: grid.option("pageIndex"),
+        filter: grid.getFilter()
+    }));
+});
+
         });
     </script>
 

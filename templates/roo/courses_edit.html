@@ -230,10 +230,10 @@
             });
 
             var gridSettings = JSON.parse(localStorage.getItem("gridSettings"));
-{#var grid = $("#jsGrid").data("JSGrid");#}
+var grid = $("#jsGrid").data("JSGrid");
 
 grid.search(gridSettings.filter).done(function() {
-    console.log('');
+    console.log('sdg');
     grid.sort({
     	field: gridSettings.sorting.sortField,
         order: gridSettings.sorting.sortOrder

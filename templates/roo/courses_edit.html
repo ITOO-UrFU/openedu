@@ -91,7 +91,10 @@
                 pageLoading: false,
                 /*deleteConfirm: "Do you really want to delete client?",*/
                 loadMessage: "Идет загрузка...",
-
+ onItemUpdated: function(args) {
+            args.grid.data[selectedRow] = args.item;
+            console.log(args)
+        },
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -229,26 +232,26 @@
                 ]
             });
 
-            var gridSettings = JSON.parse(localStorage.getItem("gridSettings"));
-var grid = $("#jsGrid").data("JSGrid");
-
-grid.search(gridSettings.filter).done(function() {
-    console.log('sdg');
-    grid.sort({
-    	field: gridSettings.sorting.sortField,
-        order: gridSettings.sorting.sortOrder
-    }).done(function() {
-        grid.option("pageIndex", gridSettings.pageIndex);
-    });
-});
-
-$("#saveSettings").on("click", function() {
-    localStorage.setItem("gridSettings", JSON.stringify({
-    	sorting: grid._sortingParams(),
-        pageIndex: grid.option("pageIndex"),
-        filter: grid.getFilter()
-    }));
-});
+{#            var gridSettings = JSON.parse(localStorage.getItem("gridSettings"));#}
+{#var grid = $("#jsGrid").data("JSGrid");#}
+{##}
+{#grid.search(gridSettings.filter).done(function() {#}
+{#    console.log('sdg');#}
+{#    grid.sort({#}
+{#    	field: gridSettings.sorting.sortField,#}
+{#        order: gridSettings.sorting.sortOrder#}
+{#    }).done(function() {#}
+{#        grid.option("pageIndex", gridSettings.pageIndex);#}
+{#    });#}
+{#});#}
+{##}
+{#$("#saveSettings").on("click", function() {#}
+{#    localStorage.setItem("gridSettings", JSON.stringify({#}
+{#    	sorting: grid._sortingParams(),#}
+{#        pageIndex: grid.option("pageIndex"),#}
+{#        filter: grid.getFilter()#}
+{#    }));#}
+{#});#}
 
         });
     </script>

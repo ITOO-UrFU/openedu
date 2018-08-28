@@ -203,7 +203,7 @@ class Course(models.Model):
                                        max_length=512)  # но это не точно
     duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=512)
     finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=True, max_length=512)
-    competences = models.TextField("Формируемые компетенции", blank=True, null=True, max_length=512)
+    competences = models.TextField("Формируемые компетенции", blank=True, null=True)
     accreditation = models.TextField("Аккредитация", blank=True, null=True, max_length=512)
     description = models.TextField("Описание", blank=True, null=True)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)

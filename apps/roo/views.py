@@ -350,6 +350,13 @@ class ExpertiseCreate(CreateView):
     success_url = '/roo/close/'
 
 
+class CourseCreate(CreateView):
+    model = Course
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+    success_url = '/roo/close/'
+
+
 class TeacherCreate(CreateView):
     model = Teacher
     fields = '__all__'

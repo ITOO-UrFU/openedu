@@ -219,7 +219,7 @@ def set_program_grade(*args):
             if entry:
                 user.program_grade = entry.grade
                 keys = list(json.loads(entry.raw_data).keys())
-                possible_keys = ["Final Avg", "ИТ", "Final Exam Avg", "Exam Avg", "ИЗ Avg", "ИТ Avg", "Final", "FInal Exam Avg", "ИК"]
+                possible_keys = ["Final Avg", "ИТ", "Final Exam Avg", "Exam Avg", "ИЗ Avg", "ИТ Avg", "Final", "FInal Exam Avg", "ИК", "ИТ Avg"]
                 for pk in possible_keys:
                     if pk in keys:
                         user.exam_name = pk

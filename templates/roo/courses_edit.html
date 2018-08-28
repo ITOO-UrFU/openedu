@@ -184,7 +184,7 @@
                             });
                         }
                         else {
-                            console.log(courses);
+                            {#console.log(courses);#}
                             result = $.grep(courses, function (item) {
 
                                 return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)

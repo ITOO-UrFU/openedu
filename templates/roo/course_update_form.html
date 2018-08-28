@@ -5,7 +5,11 @@
 
     <div class="main_content ui segment">
 
-        <h2>{{ form.title.value }}</h2>
+        {% if form.title.value %}
+            <h2>{{ form.title.value }}</h2>
+        {% else %}
+            <h2>Создать курс</h2>
+        {% endif %}
 
         <form class="ui form" method="post">
             {% csrf_token %}

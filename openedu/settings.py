@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -250,5 +250,13 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 200000  # тут поменьше сделать
 LOGIN_URL = '/admin/login'
 
-
-
+SUI_DROPDOWN_WRAPPER = (
+    "<div class=\"ui%(style)sselection search dropdown\">"
+    "<input name=\"%(name)s\"%(attrs)stype=\"hidden\"></input>"
+    "%(icon)s"
+    "<div class=\"default text\">%(placeholder)s</div>"
+    "<div class=\"menu\">"
+    "%(choices)s"
+    "</div>"
+    "</div>"
+)

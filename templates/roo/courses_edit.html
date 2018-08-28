@@ -164,7 +164,6 @@
                                 href: '#',
                                     click: function(){ CourseEdit=window.open('http://openedu.urfu.ru/roo/'+item.pk,value,width=600,height=300); return false;}
                                 });
-                            {#console.log(value, item);#}
                             return course_link;
                         } , name: "title", type: "text", filtering: true, editing: false},
                     {title: "Платформа", name: "partner", editing: false, type: "text"},
@@ -204,7 +203,8 @@
                         items: PASSPORT_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Состояние загрузки обязательных оценок",

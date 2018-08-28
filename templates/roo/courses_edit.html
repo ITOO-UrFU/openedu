@@ -160,11 +160,12 @@
                     {title: "Наименование", itemTemplate: function(value, item) {
                             var course_link = $('<a>', {
                                   text: value,
-                                  class: 'item',
-                                  'href': ''
+                                   title: value,
+                                href: '#',
+                                    click: function(){ CourseEdit=window.open('http://openedu.urfu.ru/roo/'+item.pk,value,width=600,height=300); return false;}
                                 });
-                            console.log(value, item);
-                            return $("<a onclick=\"CourseEdit=window.open('http://openedu.urfu.ru/roo/5739','10. Образовательный маркетинг',width=600,height=300); return false;\">").attr("href", "#").text(value);
+                            {#console.log(value, item);#}
+                            return course_link;
                         } , name: "title", type: "text", filtering: true, editing: false},
                     {title: "Платформа", name: "partner", editing: false, type: "text"},
 

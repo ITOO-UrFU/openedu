@@ -694,7 +694,6 @@ class ChoiceColumn(tables.Column):
         # except:
             # return "Ошибка"
 
-
 class CoursesTable(tables.Table):
     class Meta:
         model = Course
@@ -706,7 +705,7 @@ class CoursesTable(tables.Table):
             "image")
         fields = (
             "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
-            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status")
+            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status", "platform_responsible", "owner_responsible", "responsible_comment", "passport_responsible")
         attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(

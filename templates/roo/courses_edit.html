@@ -277,6 +277,13 @@
             var gridSettings = JSON.parse(localStorage.getItem("gridSettings"));
 var grid = $("#jsGrid").data("JSGrid");
 
+$("#jsGrid").jsGrid("sort", gridSettings.sorting).done(function() {
+    console.log("sorting completed");
+});
+$("#jsGrid").jsGrid("search", gridSettings.filter).done(function() {
+    console.log("filtering completed");
+});
+
 $("#saveSettings").on("click", function() {
     localStorage.setItem("gridSettings", JSON.stringify({
     	sorting: grid._sortingParams(),

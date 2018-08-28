@@ -221,7 +221,7 @@ class Course(models.Model):
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
-    version = models.IntegerField("Версия курса", default=0)
+    version = models.IntegerField("Версия курса", default=1)
     activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности", blank=True,
                                         null=True)  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
@@ -302,6 +302,22 @@ class Course(models.Model):
         ("2", "Загружены")
     )
 
+    platform_responsible_STATES = (
+        ("0", "Не выбрано"),
+        ("1", "Шарыпова Е.А."),
+        ("2", "Рачёва Н.И.")
+    )
+    owner_responsible_STATES = (
+        ("0", "Не выбрано"),
+        ("1", "Шарыпова Е.А."),
+        ("2", "Рачёва Н.И.")
+    )
+    passport_responsible_STATES = (
+        ("0", "Не выбрано"),
+        ("1", "Возисова О.С."),
+        ("2", "Талапов В.А.")
+    )
+
     communication_owner = models.CharField("Статус коммуникации с правообладателем", max_length=1,
                                            choices=COMMUNICATION_OWNER_STATES, default="0")
     communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1,
@@ -319,6 +335,14 @@ class Course(models.Model):
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
     contacts = models.TextField("Контакты", blank=True, null=True)
 
+    platform_responsible = models.CharField("Ответсвенный за платформу", max_length=1,
+                                           choices=platform_responsible_STATES, default="0")
+    owner_responsible = models.CharField("Ответсвенный за правообладателя", max_length=1,
+                                           choices=owner_responsible_STATES, default="0")
+    responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
+
+    passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
+                                         choices=passport_responsible_STATES, default="0")
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
 
@@ -670,7 +694,6 @@ class ChoiceColumn(tables.Column):
         # except:
             # return "Ошибка"
 
-
 class CoursesTable(tables.Table):
     class Meta:
         model = Course
@@ -681,8 +704,8 @@ class CoursesTable(tables.Table):
             "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
             "image")
         fields = (
-            "title", "partner", "institution", "communication_owner", "communication_platform", "expertise_status",
-            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status")
+            "title", "partner", "platform_responsible", "institution", "owner_responsible", "communication_owner", "communication_platform", "expertise_status",
+            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status",  "responsible_comment", "passport_responsible")
         attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(

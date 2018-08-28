@@ -25,7 +25,7 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ("title", "get_platform", "institution", "get_description", "get_image")
-    list_filter = ("partner", "roo_status")
+    list_filter = ("partner", "roo_status", "institution")
     filter_horizontal = ("directions", "activities", "teachers")
     search_fields = ("title",)
 

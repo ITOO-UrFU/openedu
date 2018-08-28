@@ -125,27 +125,27 @@
             ];
             var platform_responsible_STATES = [
                 {Id: "", Name: ""},
-                {Id: "0",  Name: "Не выбрано"},
-                {Id: "1",  Name: "Шарыпова Е.А."},
-                {Id: "2",  Name: "Рачёва Н.И."}
+                {Id: "0", Name: "Не выбрано"},
+                {Id: "1", Name: "Шарыпова Е.А."},
+                {Id: "2", Name: "Рачёва Н.И."}
             ];
             var owner_responsible_STATES = [
                 {Id: "", Name: ""},
-                {Id: "0",  Name: "Не выбрано"},
-                {Id: "1",  Name: "Шарыпова Е.А."},
-                {Id: "2",  Name: "Рачёва Н.И."}
+                {Id: "0", Name: "Не выбрано"},
+                {Id: "1", Name: "Шарыпова Е.А."},
+                {Id: "2", Name: "Рачёва Н.И."}
             ];
             var passport_responsible_STATES = [
                 {Id: "", Name: ""},
-                {Id: "0",  Name: "Не выбрано"},
-                {Id: "1",  Name: "Возисова О.С."},
-                {Id: "2",  Name: "Талапов В.А."}
+                {Id: "0", Name: "Не выбрано"},
+                {Id: "1", Name: "Возисова О.С."},
+                {Id: "2", Name: "Талапов В.А."}
             ];
             var EX_ACCESSES = [
                 {Id: "", Name: ""},
-                {Id:"0", Name: "Не предоставлен"},
-                {Id:"1", Name: "Отправлен запрос"},
-                {Id:"2", Name: "Предоставлен"},
+                {Id: "0", Name: "Не предоставлен"},
+                {Id: "1", Name: "Отправлен запрос"},
+                {Id: "2", Name: "Предоставлен"},
             ];
 
             var courses = [];
@@ -191,7 +191,12 @@
                                     && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
                                     && (!filter.institution || item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)
                                     && (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)
-
+                                    && (!filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
+                                    && (!filter.contacts || item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1)
+                                    && (!filter.responsible_comment || item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1)
+                                    /*
+                                    * Пошли селекты
+                                    * */
                                     && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
                                     && (!filter.communication_platform || item.communication_platform === filter.communication_platform)
                                     && (!filter.expertise_status || item.expertise_status === filter.expertise_status)
@@ -199,6 +204,10 @@
                                     && (!filter.required_ratings_state || item.required_ratings_state === filter.required_ratings_state)
                                     && (!filter.unforced_ratings_state || item.unforced_ratings_state === filter.unforced_ratings_state)
                                     && (!filter.roo_status || item.roo_status === filter.roo_status)
+                                    && (!filter.expert_access || item.expert_access === filter.expert_access)
+                                    && (!filter.passport_responsible || item.passport_responsible === filter.passport_responsible)
+                                    && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
+                                    && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
                             });
                             d.resolve(result)
                         }
@@ -354,31 +363,29 @@
             });
 
 
+            $(".box").click(function () {
+                var fields = $("#jsGrid").data("JSGrid").fields;
+                var colValue = $(this).val();
+                var check = $(this);
 
+                $.each(fields, function (idx, value) {
+                    if (value.name.toLowerCase() === colValue) {
+                        value.visible = check.prop("checked");
+                    }
+                });
 
-        $(".box").click(function () {
-            var fields = $("#jsGrid").data("JSGrid").fields;
-            var colValue = $(this).val();
-            var check = $(this);
-
-            $.each(fields, function (idx, value) {
-                if (value.name.toLowerCase() === colValue) {
-                    value.visible = check.prop("checked");
+                $("#jsGrid").jsGrid("option", "fields", fields);
+                {#for (var n in fields)#}
+                {#       console.log('fields: ',fields[n].name.toLowerCase());#}
+            });
+            $(".boxAll").click(function () {
+                if (this.checked != true) {
+                    $("ul").hide();
+                }
+                else {
+                    $("ul").show();
                 }
             });
-
-            $("#jsGrid").jsGrid("option", "fields", fields);
-            {#for (var n in fields)#}
-            {#       console.log('fields: ',fields[n].name.toLowerCase());#}
-        });
-        $(".boxAll").click(function () {
-            if (this.checked != true) {
-                $("ul").hide();
-            }
-            else {
-                $("ul").show();
-            }
-        });
         })
         ;
     </script>

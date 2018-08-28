@@ -25,7 +25,7 @@
     </style>
 <button type="button" id="saveSettings">Save Settings</button>
 <div>
-    <li><input type='checkbox' class='boxAll' checked> Показать/Скрыть Столбцы </li>
+    <input type='checkbox' class='boxAll' checked> Показать/Скрыть Столбцы
       <ul>
         <li>
           <input type='checkbox' class='box' value='title' checked> Наименование </li>
@@ -149,9 +149,9 @@
                             });
                         }
                         else {
-                            console.log(courses)
+                            console.log(courses);
                             result = $.grep(courses, function (item) {
-                                /*console.log(item.expertise_status, filter.expertise_status)*/
+
                                 return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
                                     && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
                                     && (!filter.institution || item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)
@@ -274,7 +274,18 @@
                 ]
             });
 
+            var gridSettings = JSON.parse(localStorage.getItem("gridSettings"));
 var grid = $("#jsGrid").data("JSGrid");
+
+grid.search(gridSettings.filter).done(function() {
+console.log("MLMLML");
+    grid.sort({
+    	  field: gridSettings.sorting.sortField,
+        order: gridSettings.sorting.sortOrder
+    }).done(function() {
+        grid.option("pageIndex", gridSettings.pageIndex);
+    });
+});
 
 $("#saveSettings").on("click", function() {
     localStorage.setItem("gridSettings", JSON.stringify({

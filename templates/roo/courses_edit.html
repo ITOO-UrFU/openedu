@@ -5,7 +5,46 @@
 
     <link href="http://js-grid.com/css/jsgrid.min.css" rel="stylesheet"/>
     <link href="http://js-grid.com/css/jsgrid-theme.min.css" rel="stylesheet"/>
+    <style>
+        ul {
+            margin: 20px auto;
+            padding: 0px;
+            display: flex;
+          }
+          
+          ul li {
+            list-style: none;
+            margin-right: 10px;
+            border-right: 1px solid #c8c8c8;
+            padding-right: 10px;
+          }
+          
+          .boxAll{
+            margin:15px auto;
+          }
+    </style>
 <button type="button" id="saveSettings">Save Settings</button>
+<div>
+    <li><input type='checkbox' class='boxAll' checked> Показать/Скрыть Столбцы </li>
+      <ul>
+        <li>
+          <input type='checkbox' class='box' value='title' checked> Наименование </li>
+        <li>
+          <input type='checkbox' class='box' value='partner' checked> Платформа </li>
+        <li>
+          <input type='checkbox' class='box' value='institution' checked> Правообладатель </li>
+        <li>
+          <input type='checkbox' class='box' value='communication_owner' checked> Статус коммуникации с правообладателем </li>
+        <li>
+          <input type='checkbox' class='box' value='passport_status' checked> Статус паспорта </li>
+        <li>
+          <input type='checkbox' class='box' value='required_ratings_state' checked> Состояние загрузки обязательных оценок </li>
+        <li>
+          <input type='checkbox' class='box' value='unforced_ratings_state' checked> Состояние загрузки добровольных оценок </li>
+        <li>
+          <input type='checkbox' class='box' value='roo_status' checked> Статус загрузки На РОО </li>
+      </ul>
+    </div>
     <div id="jsGrid"></div>
 
     <script src="http://js-grid.com/js/jsgrid.min.js"></script>
@@ -259,6 +298,31 @@
 {#    }));#}
 {#});#}
 
+
+
+$(".box").click(function() {
+    var fields = $("#jsGrid").data("JSGrid").fields;
+      var colValue = $(this).val();
+    var check = $(this);
+    
+    $.each(fields, function(idx, value) {
+      if (value.name.toLowerCase() === colValue) {
+        value.visible = check.prop("checked");
+      }
+    });
+    
+    $("#jsGrid").jsGrid("option", "fields", fields);
+    for (var n in fields)
+           console.log('fields: ',fields[n].name.toLowerCase());
+  });
+  $(".boxAll").click(function() {
+      if(this.checked != true){
+            $("ul").hide();
+       }
+    else{
+          $("ul").show();
+    }
+  });
         });
     </script>
 

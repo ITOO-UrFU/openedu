@@ -260,3 +260,14 @@ SUI_DROPDOWN_WRAPPER = (
     "</div>"
     "</div>"
 )
+
+MULTIPLE_DROPDOWN_WRAPPER = (
+    "<div class=\"ui%(style)smultiple search selection dropdown\">"
+    "%(field)s"
+    "%(icon)s"
+    "<div class=\"default text\">%(placeholder)s</div>"
+    "<div class=\"menu\">"
+    "%(choices)s"
+    "</div>"
+    "</div>"
+)

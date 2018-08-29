@@ -26,7 +26,8 @@
     <button type="button" id="saveSettings">Save Settings</button>
     <div>
         <input type='checkbox' class='boxAll'> Показать/Скрыть Столбцы
-        <ul>
+        <div id="show_column_checkboxes">
+        <!--<ul>
             <li>
                 <input type='checkbox' class='box' value='title' checked> Наименование
             </li>
@@ -126,6 +127,8 @@
                 <input type='checkbox' class='box' value='version'> Версия курса
             </li>
         </ul>
+        -->
+        </div>
     </div>
     <div id="jsGrid"></div>
 
@@ -467,12 +470,29 @@
                 ]
             });
 
-            $("#jsGrid").data("JSGrid").fields.each(function(elem) {
-                console.log("this: ", this);
-                console.log("elem: ", elem)
+
+            {#var list = document.createElement('ul');#}
+            $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+                /*console.log("element", element);*/
+                var list_item = document.createElement('div');
+                var input = document.createElement('input');
+                input.type = 'checkbox';
+                input.class = 'show_column_checkbox';
+                input.checked = element.visible;
+                input.value = element.name;
+                var label = document.createElement('label');
+                label.for = element.name;
+                list_item.appendChild(input);
+                list_item.appendChild(label);
+                $("#show_column_checkboxes").append(list_item);
             });
 
-            $(".box").click(function () {
+            /*
+            <li>
+                <input type='checkbox' class='box' value='title' checked> Наименование
+            </li>
+            * */
+           /* $(".box").click(function () {
                 var fields = $("#jsGrid").data("JSGrid").fields;
                 var colValue = $(this).val();
                 var check = $(this);
@@ -494,7 +514,7 @@
                 else {
                     $("ul").show();
                 }
-            });
+            });*/
         })
         ;
     </script>

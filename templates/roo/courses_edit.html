@@ -485,13 +485,15 @@
                         var settings = $("#jsGrid").data("JSGrid").fields;
                         //settings.find(x => x.name == element.name);
                         for (var s in settings){
-                            if (s.name === element.name){
+                            console.log(s.name ,element.name)
+                            if (s.name == element.name){
 
                                 s.visible = input.checked;
                                 console.log(element, s.visible);
                                 break;
                             }
                         }
+                        console.log(settings);
                         $("#jsGrid").jsGrid("option", "fields", settings)
                         {#console.log(element, input.checked)#}
                     };

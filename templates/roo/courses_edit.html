@@ -485,10 +485,9 @@
                         var settings = $("#jsGrid").data("JSGrid").fields;
                         //settings.find(x => x.name == element.name);
                         for (var s in settings){
-                            console.log(s ,element.name)
-                            if (s.name == element.name){
-
-                                s.visible = input.checked;
+                            console.log(settings[s] ,element.name);
+                            if (settings[s].name == element.name){
+                                settings[s].visible = input.checked;
                                 console.log(element, s.visible);
                                 break;
                             }

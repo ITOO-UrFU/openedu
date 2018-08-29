@@ -6,6 +6,16 @@
     <link href="http://js-grid.com/css/jsgrid.min.css" rel="stylesheet"/>
     <link href="http://js-grid.com/css/jsgrid-theme.min.css" rel="stylesheet"/>
     <style>
+
+        input.column_checkbox {
+            margin-right: 5px;
+        }
+
+        #column_show_checkboxes {
+            margin: 5px;
+            padding: 10px;
+        }
+
         ul {
             margin: 20px;
             list-style: none;
@@ -26,6 +36,7 @@
     <button type="button" id="saveSettings">Save Settings</button>
     <div>
         <input type='checkbox' id='show_hide_checkboxes'> Показать/Скрыть Столбцы
+        <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры. </p>
         <div id="column_show_checkboxes" style="display:none;">
         </div>
     </div>
@@ -402,6 +413,7 @@
                     input.type = 'checkbox';
                     input.setAttribute("class", 'column_checkbox');
                     input.checked = element.visible;
+                    input.id = element.name;
                     input.value = element.name;
                     input.oninput = function () {
                         var settings = $("#jsGrid").data("JSGrid").fields;
@@ -451,7 +463,11 @@
                  $("#jsGrid").jsGrid("option", "fields", fields);
 
 
+
+
             {#for (var n in fields)#}
+
+
 
 
             {#       console.log('fields: ',fields[n].name.toLowerCase());#}

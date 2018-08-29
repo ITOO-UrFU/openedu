@@ -471,9 +471,7 @@
             });
 
 
-            {#var list = document.createElement('ul');#}
             $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
-                /*console.log("element", element);*/
                 if(element.type != 'control') {
                     var list_item = document.createElement('div');
                     var input = document.createElement('input');
@@ -483,19 +481,13 @@
                     input.value = element.name;
                     input.oninput = function() {
                         var settings = $("#jsGrid").data("JSGrid").fields;
-                        //settings.find(x => x.name == element.name);
                         for (var s in settings){
-
                             if (settings[s].name == element.name){
-                                                            console.log(settings[s] ,element.name);
                                 settings[s].visible = input.checked;
-                                console.log(element, s.visible);
                                 break;
                             }
                         }
-                        console.log(settings);
                         $("#jsGrid").jsGrid("option", "fields", settings)
-                        {#console.log(element, input.checked)#}
                     };
                     var label = document.createElement('label');
                     label.for = element.name;

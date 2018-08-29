@@ -57,6 +57,7 @@ class ExpertiseAdmin(admin.ModelAdmin):
                     "supervisor",
                     "organizer",
                     )
+    list_filter = ("type",)
 
 
 @admin.register(Owner)

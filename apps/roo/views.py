@@ -134,12 +134,16 @@ def upload_expertises(request):
                     tbl).replace(' ', '') == expertise["course_partner"].lower().translate(tbl).replace(' ', ''):
                     course_exist = True
 
-                    ex = Expertise.objects.create(course=our_course, type="0", executed=["executed"],
-                                                  supervisor=["supervisor"], organizer=["organizer"],
-                                                  comment=["comment"], comment_fieldset_1=["comment_fieldset_1"],
-                                                  comment_fieldset_2=["comment_fieldset_2"], has_length=["has_length"],
-                                                  has_description=["has_description"], has_authors=["has_authors"],
-                                                  language=["language"], has_prerequisites=["has_prerequisites"],
+                    ex = Expertise.objects.create(course=our_course, type="0", executed=expertise["executed"],
+                                                  supervisor=expertise["supervisor"], organizer=expertise["organizer"],
+                                                  comment=expertise["comment"],
+                                                  comment_fieldset_1=expertise["comment_fieldset_1"],
+                                                  comment_fieldset_2=expertise["comment_fieldset_2"],
+                                                  has_length=expertise["has_length"],
+                                                  has_description=expertise["has_description"],
+                                                  has_authors=expertise["has_authors"],
+                                                  language=expertise["language"],
+                                                  has_prerequisites=expertise["has_prerequisites"],
                                                   has_certificate=expertise["has_certificate"],
                                                   has_dates=expertise["has_dates"],
                                                   has_admin_email=expertise["has_admin_email"],

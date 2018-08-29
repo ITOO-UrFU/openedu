@@ -414,7 +414,8 @@
                         $("#jsGrid").jsGrid("option", "fields", settings)
                     };
                     var label = document.createElement('label');
-                    label.for = element.name;
+
+                    label.setAttribute("for", element.name);
                     label.innerHTML = element.title;
                     list_item.appendChild(input);
                     list_item.appendChild(label);

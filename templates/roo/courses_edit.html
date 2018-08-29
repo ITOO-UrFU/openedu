@@ -400,7 +400,7 @@
                     var list_item = document.createElement('div');
                     var input = document.createElement('input');
                     input.type = 'checkbox';
-                    input.class = 'show_column_checkbox';
+                    input.setAttribute("class", 'column_checkbox');
                     input.checked = element.visible;
                     input.value = element.name;
                     input.oninput = function () {

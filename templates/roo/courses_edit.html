@@ -482,7 +482,7 @@
                     input.checked = element.visible;
                     input.value = element.name;
                     input.oninput = function() {
-                        console.log(element, input.value)
+                        console.log(element, input.checked)
                     };
                     var label = document.createElement('label');
                     label.for = element.name;

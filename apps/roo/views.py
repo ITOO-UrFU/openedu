@@ -173,7 +173,7 @@ def upload_expertises(request):
                                                   got_expertise_2018=expertise["got_expertise_2018"],
                                                   additional_info=expertise["additional_info"])
                     if expertise["expert"] is not None:
-                        ex.expert = Expert.objects.filter(expert=expertise["expert"])
+                        ex.expert = Expert.objects.filter(expert=expertise["expert"]).first()
                         ex.save()
 
                     expertise_count = +1

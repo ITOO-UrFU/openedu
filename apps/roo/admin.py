@@ -38,6 +38,7 @@ class PlatformAdmin(admin.ModelAdmin):
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ("title", "description", "get_image")
+    search_fields = ("title",)
 
 
 @admin.register(Expert)

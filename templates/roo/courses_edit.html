@@ -435,7 +435,8 @@
                     label.innerHTML = element.title;
                     list_item.appendChild(input);
                     list_item.appendChild(label);
-                    $("#column_show_checkboxes").append(list_item);
+                    list_item_wrap.appendChild(list_item);
+                    $("#column_show_checkboxes").append(list_item_wrap);
 
                 }
             });

@@ -37,7 +37,7 @@
     <div>
         <input type='checkbox' id='show_hide_checkboxes'> Изменить видимые столбцы
 
-        <div id="column_show_checkboxes" style="display:none;">
+        <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
             <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры. </p>
         </div>
     </div>
@@ -409,6 +409,8 @@
 
             $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
                 if (element.type != 'control') {
+                    var list_item_wrap = document.createElement('div');
+                    list_item_wrap.setAttribute("class", "field");
                     var list_item = document.createElement('div');
                     list_item.setAttribute("class", "ui slider checkbox");
                     var input = document.createElement('input');

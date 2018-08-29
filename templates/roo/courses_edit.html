@@ -482,6 +482,7 @@
                 input.value = element.name;
                 var label = document.createElement('label');
                 label.for = element.name;
+                label.innerHTML = element.title;
                 list_item.appendChild(input);
                 list_item.appendChild(label);
                 $("#show_column_checkboxes").append(list_item);

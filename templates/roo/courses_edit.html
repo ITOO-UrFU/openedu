@@ -454,7 +454,16 @@
                         textField: "Name",
                         validate: "required"
                     },
-                    {type: "control"}
+                    {
+                        type: "control",
+                        headerTemplate: function () {
+                            return $("<button>").attr("type", "button").text("Добавить курс")
+                                .on("click", function () {
+                                    AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
+                                    return false;
+                                });
+                        }
+                    }
                 ]
             });
 

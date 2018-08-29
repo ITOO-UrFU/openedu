@@ -482,7 +482,18 @@
                     input.checked = element.visible;
                     input.value = element.name;
                     input.oninput = function() {
-                        console.log(element, input.checked)
+                        var settings = $("#jsGrid").data("JSGrid").fields;
+                        //settings.find(x => x.name == element.name);
+                        for (var s in settings){
+                            if (s.name === element.name){
+
+                                s.visible = input.checked;
+                                console.log(element, s.visible);
+                                break;
+                            }
+                        }
+                        $("#jsGrid").jsGrid("option", "fields", settings)
+                        {#console.log(element, input.checked)#}
                     };
                     var label = document.createElement('label');
                     label.for = element.name;

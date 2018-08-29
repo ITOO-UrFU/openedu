@@ -176,7 +176,7 @@ def upload_expertises(request):
                         ex.expert = Expert.objects.filter(expert=expertise["expert"]).first()
                         ex.save()
 
-                    expertise_count = +1
+                    expertise_count += 1
                     print('ОК:', expertise_count)
                     break
 

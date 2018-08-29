@@ -467,6 +467,10 @@
                 ]
             });
 
+            $("#jsGrid").data("JSGrid").fields.each(function(elem) {
+                console.log("this: ", this);
+                console.log("elem: ", elem)
+            });
 
             $(".box").click(function () {
                 var fields = $("#jsGrid").data("JSGrid").fields;

@@ -141,6 +141,7 @@ def upload_expertises(request):
             else:
                 not_found_count += 1
                 print(expertise_count, expertise['course_title'])
+                print(expertise_count, expertise['course_partner'])
 
         print('Курсов не найдено: ', not_found_count)
         return render(request, 'roo/upload_from_json.html')

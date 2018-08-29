@@ -474,18 +474,24 @@
             {#var list = document.createElement('ul');#}
             $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
                 /*console.log("element", element);*/
-                var list_item = document.createElement('div');
-                var input = document.createElement('input');
-                input.type = 'checkbox';
-                input.class = 'show_column_checkbox';
-                input.checked = element.visible;
-                input.value = element.name;
-                var label = document.createElement('label');
-                label.for = element.name;
-                label.innerHTML = element.title;
-                list_item.appendChild(input);
-                list_item.appendChild(label);
-                $("#show_column_checkboxes").append(list_item);
+                if(element.type != 'control') {
+                    var list_item = document.createElement('div');
+                    var input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.class = 'show_column_checkbox';
+                    input.checked = element.visible;
+                    input.value = element.name;
+                    input.oninput = function() {
+                        console.log(element, input.value)
+                    };
+                    var label = document.createElement('label');
+                    label.for = element.name;
+                    label.innerHTML = element.title;
+                    list_item.appendChild(input);
+                    list_item.appendChild(label);
+                    $("#show_column_checkboxes").append(list_item);
+
+                }
             });
 
             /*

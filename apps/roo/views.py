@@ -329,6 +329,9 @@ def TableCourseUpdate(request):
     if request.method == "POST":
         course = Course.objects.get(pk=request.POST['pk'])
         print(course)
+        return JsonResponse({"status": "sucess"})
+    else:
+        return JsonResponse({"status": "failed"})
 
 
 def get_active_tasks(request):

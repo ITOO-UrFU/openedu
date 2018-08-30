@@ -498,17 +498,17 @@
                 }
             });
             $("#setColumnsVisible").click(function () {
+                var settings = $("#jsGrid").data("JSGrid").fields;
                 $(".column_checkbox").each(function( index, element ) {
-                    console.log(element.value)
-                    {#var settings = $("#jsGrid").data("JSGrid").fields;#}
-                    {#    for (var s in settings) {#}
-                    {#        if (settings[s].name == element.name) {#}
-                    {#            settings[s].visible = input.checked;#}
-                    {#            break;#}
-                    {#        }#}
-                    {#    }#}
-                    {#    $("#jsGrid").jsGrid("option", "fields", settings)#}
+                    //console.log(element.value)
+                        for (var s in settings) {
+                            if (settings[s].name == element.value) {
+                                settings[s].visible = element.checked;
+                                break;
+                            }
+                        }
                 });
+                $("#jsGrid").jsGrid("option", "fields", settings);
             });
 
             /*

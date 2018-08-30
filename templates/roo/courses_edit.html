@@ -3,8 +3,8 @@
 {% load semanticui %}
 {% block content %}
 
-    <link href="http://js-grid.com/css/jsgrid.min.css" rel="stylesheet"/>
-    <link href="http://js-grid.com/css/jsgrid-theme.min.css" rel="stylesheet"/>
+    <link href='{% static "css/jsgrid.min.css" %}' rel="stylesheet"/>
+    <link href='{% static "css/jsgrid-theme.min.css" %}' rel="stylesheet"/>
     <style>
 
         input.column_checkbox {
@@ -78,7 +78,7 @@
             <div id="jsGrid"></div>
         </div>
     </div>
-    <script src="http://js-grid.com/js/jsgrid.min.js"></script>
+    <script src='{% static "/js/jsgrid.min.js" %}'></script>
     <script type="text/javascript">
 
         $(function () {

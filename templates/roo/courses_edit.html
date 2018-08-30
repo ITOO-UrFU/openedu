@@ -171,6 +171,9 @@
                 noDataContent: "Нет курсов для отображения",
                 pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
+                onRefreshed: function () {
+                    $("#courseCounter").html('Найдено курсов:' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
+                },
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -227,7 +230,6 @@
                             d.resolve(result)
                         }
 
-                        $("#courseCounter").html('Найдено курсов:' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
 
                         return d.promise();
                     }
@@ -507,7 +509,9 @@
 
 
 
+
             {#for (var n in fields)#}
+
 
 
 

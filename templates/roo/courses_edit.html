@@ -45,6 +45,7 @@
     <div>
         <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
         столбцы</label>
+        <div id="courseCounter"></div>
 
         <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
             <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры. </p>
@@ -145,6 +146,7 @@
 
             var courses = [];
             var coursesLoaded = false;
+            var coursesCount = 0;
 
             $("#jsGrid").jsGrid({
                 height: "97%",
@@ -173,6 +175,7 @@
                                 url: "/roo/courses_edit/",
                             }).done(function (result) {
                                 courses = result;
+                                coursesCount = courses.length;
                                 coursesLoaded = true;
                                 d.resolve($.map(result, function (item) {
                                     return item;
@@ -215,11 +218,9 @@
                             });
                             d.resolve(result)
                         }
-                        $(".jsgrid-pager").contents().filter(function () {
-                            return this.nodeType == 3;
-                        }).each(function () {
-                            this.textContent = this.textContent.replace('{itemCount}', $("#jsGrid").jsGrid("_itemsCount"));
-                        });
+
+                         $("#courseCounter").html('Найдено курсов:'+ $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
+
                         return d.promise();
                     }
                     /*, insertItem: function (item) {

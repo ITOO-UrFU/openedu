@@ -486,7 +486,7 @@
                     list_item.appendChild(input);
                     list_item.appendChild(label);
                     list_item_wrap.appendChild(list_item);
-                    $("#column_show_checkboxes").append(list_item_wrap);
+                    $("#column_show_checkboxes").prepend(list_item_wrap);
                 }
             });
             $("#show_hide_checkboxes").click(function () {
@@ -499,7 +499,7 @@
             });
             $("#setColumnsVisible").click(function () {
                 $(".column_checkbox").each(function( index, element ) {
-                    console.log(element.title)
+                    console.log(element.value)
                     {#var settings = $("#jsGrid").data("JSGrid").fields;#}
                     {#    for (var s in settings) {#}
                     {#        if (settings[s].name == element.name) {#}

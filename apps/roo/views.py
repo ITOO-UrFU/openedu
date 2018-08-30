@@ -329,7 +329,7 @@ def TableCourseUpdate(request):
     if request.method == "POST":
         course = Course.objects.get(pk=request.POST['pk'])
         print(request.body)
-        request_data = json.loads(request.body.data)
+        request_data = json.loads(request.body)["data"]
 
         course.credits = request_data.credits
         course.record_end_at = request_data.record_end_at

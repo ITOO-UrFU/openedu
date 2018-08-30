@@ -376,10 +376,10 @@ def TableCourseUpdate(request):
         course.passport_responsible = request_data['passport_responsible']
         course.save()
         data = serialize('json', [course, ], use_natural_foreign_keys=True)
-        struct = json.loads(data)
-        data = struct[0]
-        print(data)
-        new_course = {}
+        struct = json.loads(data)[2]
+        # data = struct[0]
+        # print(data)
+        # new_course = {}
         new_course = data['fields']
         new_course['pk'] = data['pk']
         return JsonResponse(new_course)

@@ -50,16 +50,23 @@
 
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
-    <div>
-        <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
-        столбцы</label>
-        <div id="courseCounter"></div>
 
-        <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
-            <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры. </p>
-        </div>
-    </div>
     <div id="jsGridWrapper">
+        <div class="ui horizontal segments">
+            <div class="ui segment">
+                <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
+                столбцы</label>
+                <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
+                    <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
+                    </p>
+                </div>
+            </div>
+            <div class="ui segment">
+                <div id="courseCounter"></div>
+            </div>
+
+        </div>
+
         <div id="jsGrid"></div>
     </div>
     <script src="http://js-grid.com/js/jsgrid.min.js"></script>
@@ -510,7 +517,11 @@
 
 
 
+
+
             {#for (var n in fields)#}
+
+
 
 
 

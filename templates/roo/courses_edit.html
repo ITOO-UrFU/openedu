@@ -66,6 +66,7 @@
                 <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
                     <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
                     </p>
+                    <button id="setColumnsVisible">Применить</button>
                 </div>
             </div>
             <div class="ui segment">
@@ -468,7 +469,7 @@
                     input.checked = element.visible;
                     input.id = element.name;
                     input.value = element.name;
-                    input.oninput = function () {
+                    /*input.oninput = function () {
                         var settings = $("#jsGrid").data("JSGrid").fields;
                         for (var s in settings) {
                             if (settings[s].name == element.name) {
@@ -477,7 +478,7 @@
                             }
                         }
                         $("#jsGrid").jsGrid("option", "fields", settings)
-                    };
+                    };*/
                     var label = document.createElement('label');
 
                     label.setAttribute("for", element.name);
@@ -486,7 +487,6 @@
                     list_item.appendChild(label);
                     list_item_wrap.appendChild(list_item);
                     $("#column_show_checkboxes").append(list_item_wrap);
-
                 }
             });
             $("#show_hide_checkboxes").click(function () {
@@ -496,6 +496,19 @@
                 else {
                     $("#column_show_checkboxes").show();
                 }
+            });
+            $("#setColumnsVisible").click(function () {
+                $(".column_checkbox").each(function( index, element ) {
+                    console.log(element.title)
+                    {#var settings = $("#jsGrid").data("JSGrid").fields;#}
+                    {#    for (var s in settings) {#}
+                    {#        if (settings[s].name == element.name) {#}
+                    {#            settings[s].visible = input.checked;#}
+                    {#            break;#}
+                    {#        }#}
+                    {#    }#}
+                    {#    $("#jsGrid").jsGrid("option", "fields", settings)#}
+                });
             });
 
             /*

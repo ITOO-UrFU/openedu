@@ -36,6 +36,9 @@
         div.field {
             padding: 5px 0px !important;
         }
+    .jsgrid-pager-container{
+        display: block !important;
+    }
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
     <div>
@@ -150,11 +153,11 @@
                 sorting: true,
                 paging: true,
                 autoload: true,
-                pageSize: 2000,
+                pageSize: 200,
                 pageButtonCount: 5,
                 pageLoading: false,
                 noDataContent: "Нет курсов для отображения",
-                pagerFormat: "{itemCount}",
+                pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
                 controller: {
                     loadData: function (filter) {
@@ -213,7 +216,7 @@
                         $(".jsgrid-pager").contents().filter(function () {
                             return this.nodeType == 3;
                         }).each(function () {
-                            this.textContent = this.textContent.replace('{itemsCount}', $("#jsGrid").jsGrid("_itemsCount"));
+                            this.textContent = this.textContent.replace('{itemCount}', $("#jsGrid").jsGrid("_itemsCount"));
                         });
                         return d.promise();
                     }

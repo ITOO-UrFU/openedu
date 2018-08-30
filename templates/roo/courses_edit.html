@@ -153,6 +153,21 @@
                 {#pageSize: 20,#}
                 pageButtonCount: 5,
                 pageLoading: false,
+                pagerFormat: "total items: {itemsCount}",
+                    onRefreshed: function() {
+        $(".jsgrid-pager").contents().filter(function() {
+            return this.nodeType == 3;
+        }).each(function(){
+            this.textContent = this.textContent.replace('{itemsCount}', $("#jsGrid").jsGrid("_itemsCount"));
+        });
+    },
+                {#pagerFormat: "Страницы: {first} {prev} {pages} {next} {last}    {pageIndex} из {pageCount}",#}
+                {#pagePrevText: "Prev",#}
+                {#pageNextText: "Next",#}
+                {#pageFirstText: "First",#}
+                {#pageLastText: "Last",#}
+                {#pageNavigatorNextText: "...",#}
+                {#pageNavigatorPrevText: "...",#}
                 /*deleteConfirm: "Do you really want to delete client?",*/
                 loadMessage: "Идет загрузка...",
                 controller: {
@@ -483,7 +498,9 @@
 
 
 
+
             {#for (var n in fields)#}
+
 
 
 

@@ -375,7 +375,7 @@ def TableCourseUpdate(request):
         course.responsible_comment = request_data['responsible_comment']
         course.passport_responsible = request_data['passport_responsible']
         course.save()
-        data = serialize('json', course, use_natural_foreign_keys=True)
+        data = serialize('json', [ course, ], use_natural_foreign_keys=True)
         new_course = data['fields']
         new_course['pk'] = data['pk']
 

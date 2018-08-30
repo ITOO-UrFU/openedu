@@ -220,7 +220,7 @@
                     , updateItem: function (item) {
                         console.log(item);
                         return $.ajax({
-                            type: "PUT",
+                            type: "POST",
                             url: "/roo/update_course/",
                             data: item
                         })

@@ -377,8 +377,8 @@ def TableCourseUpdate(request):
             course.save()
             data = serialize('json', [course, ], use_natural_foreign_keys=True)
             struct = json.loads(data)[0]
-            new_course = data['fields']
-            new_course['pk'] = data['pk']
+            new_course = struct['fields']
+            new_course['pk'] = struct['pk']
             return JsonResponse(new_course)
         except:
             return HttpResponse(status=500)

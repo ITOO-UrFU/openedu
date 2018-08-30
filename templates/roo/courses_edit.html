@@ -222,7 +222,7 @@
                         return $.ajax({
                             type: "POST",
                             url: "/roo/update_course/",
-                            data: item
+                            data: JSON.stringify(item)
                         })
                     }
                     /*

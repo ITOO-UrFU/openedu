@@ -187,9 +187,9 @@
                 noDataContent: "Нет курсов для отображения",
                 pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
-                onRefreshed: function () {
+               /* onRefreshed: function () {
                     $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
-                },
+                },*/
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -500,72 +500,18 @@
             $("#setColumnsVisible").click(function () {
                 var settings = $("#jsGrid").data("JSGrid").fields;
                 console.log(settings);
-                {#$(".column_checkbox").each(function( index, element ) {#}
-                {#    //console.log(element.value)#}
-                {#        for (var s in settings) {#}
-                {#            if (settings[s].name == element.value) {#}
-                {#                settings[s].visible = element.checked;#}
-                {#                break;#}
-                {#            }#}
-                {#        }#}
-                {#});#}
+               /* $(".column_checkbox").each(function( index, element ) {
+                    //console.log(element.value)
+                        for (var s in settings) {
+                            if (settings[s].name == element.value) {
+                                settings[s].visible = element.checked;
+                                break;
+                            }
+                        }
+                });*/
                 $("#jsGrid").jsGrid("option", "fields", settings);
             });
 
-            /*
-            <li>
-                <input type='checkbox' class='box' value='title' checked> Наименование
-            </li>
-            * */
-            /* $(".box").click(function () {
-                 var fields = $("#jsGrid").data("JSGrid").fields;
-                 var colValue = $(this).val();
-                 var check = $(this);
-
-                 $.each(fields, function (idx, value) {
-                     if (value.name.toLowerCase() === colValue) {
-                         value.visible = check.prop("checked");
-                     }
-                 });
-
-                 $("#jsGrid").jsGrid("option", "fields", fields);
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {#for (var n in fields)#}
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {#       console.log('fields: ',fields[n].name.toLowerCase());#}
-            });
-            $(".boxAll").click(function () {
-                if (this.checked != true) {
-                    $("ul").hide();
-                }
-                else {
-                    $("ul").show();
-                }
-            });*/
         })
         ;
     </script>

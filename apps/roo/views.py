@@ -328,7 +328,7 @@ def data(request):
 def TableCourseUpdate(request):
     if request.method == "POST":
         request_data = json.loads(request.body)
-        print(json.loads(request.body))
+        # print(json.loads(request.body))
         course = Course.objects.get(pk=request_data['pk'])
         course.credits = request_data['credits']
         course.record_end_at = request_data['record_end_at']
@@ -375,11 +375,12 @@ def TableCourseUpdate(request):
         course.responsible_comment = request_data['responsible_comment']
         course.passport_responsible = request_data['passport_responsible']
         course.save()
-        data = serialize('json', [ course, ], use_natural_foreign_keys=True)
+        data = serialize('json', [ course, ], use_natural_foreign_keys=True)[0]
+        print(data)
         new_course = data['fields']
         new_course['pk'] = data['pk']
 
-        return new_course
+        return JsonResponse(new_course)
     else:
         return JsonResponse({"status": "failed"})
 

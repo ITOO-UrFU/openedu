@@ -43,8 +43,13 @@
 
         #jsGridWrapper {
             height: 100%;
-            position: absolute;
+        {#position: absolute;#}
             /* bottom: 0; */
+        }
+
+        #jsGridTableWrapper {
+            position: absolute;
+            bottom: 0;
         }
 
 
@@ -66,8 +71,9 @@
             </div>
 
         </div>
-
-        <div id="jsGrid"></div>
+        <div id="jsGridTableWrapper">
+            <div id="jsGrid"></div>
+        </div>
     </div>
     <script src="http://js-grid.com/js/jsgrid.min.js"></script>
     <script type="text/javascript">
@@ -519,7 +525,9 @@
 
 
 
+
             {#for (var n in fields)#}
+
 
 
 

@@ -501,9 +501,11 @@
                 }
             });
 
-            var settings = $("#jsGrid").data("JSGrid").fields.filter(obj => {
+            var settings = $("#jsGrid").data("JSGrid").fields;
+
+               /* .filter(obj => {
                 return obj.type != 'control';
-            });
+            });*/
             $("#setColumnsVisible").click(function () {
                 {#var settings = $("#jsGrid").data("JSGrid").fields;#}
                 {#console.log(settings);#}
@@ -512,7 +514,8 @@
                     console.log(element.value);
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
-                            console.log(value);
+                            console.log(element.checked);
+                            value.visible = element.checked;
                         }
                     })
                     /* for (var s in settings) {

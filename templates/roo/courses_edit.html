@@ -253,7 +253,7 @@
                         });
                     },*/
                     , updateItem: function (item) {
-                        console.log(item);
+                        //console.log(item);
                         return $.ajax({
                             type: "POST",
                             url: "/roo/update_course/",
@@ -514,7 +514,7 @@
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
                 $(".column_checkbox").each(function (index, element) {
-                    console.log(element.value);
+                    //console.log(element.value);
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
                             console.log(element.checked);
@@ -524,7 +524,7 @@
                 });
                 $("#jsGrid").jsGrid("option", "fields", settings);
                 $("#column_show_checkboxes").hide(1000);
-                $("#show_hide_checkboxes").checked = false;
+                $("#show_hide_checkboxes").prop("checked", false);
             });
         })
         ;

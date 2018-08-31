@@ -42,16 +42,14 @@
         }*/
 
         #jsGridWrapper {
-            {#height: 100%;#}
-        {#position: absolute;#}
+        {#height: 100%;#}{#position: absolute;#}
             /* bottom: 0; */
         }
 
         #jsGridTableWrapper {
             position: absolute;
             height: 100%;
-            {#bottom: 0;#}
-            {#    height: 100%;#}
+        {#bottom: 0;#}{#    height: 100%;#}
         }
 
 
@@ -187,9 +185,9 @@
                 noDataContent: "Нет курсов для отображения",
                 pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
-               /* onRefreshed: function () {
-                    $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
-                },*/
+                /* onRefreshed: function () {
+                     $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
+                 },*/
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -217,7 +215,7 @@
                                     && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
                                     && (!filter.institution || item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)
                                     {#&& (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)#}
-                                    && ( item.reg_data !== null && !filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
+                                    && (item.reg_data !== null && !filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
                                     && (!filter.contacts || item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1)
                                     {#&& (!filter.responsible_comment || item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1)#}
 
@@ -266,7 +264,7 @@
                                 console.log("курс сохранен")
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                               alert("По некоторым причинам не удалось произвести сохранение курса. Для разрешения этой ситуации, пожалуйста, обратитесь к Никите.")
+                                alert("По некоторым причинам не удалось произвести сохранение курса. Для разрешения этой ситуации, пожалуйста, обратитесь к Никите.")
                             }
                         })
                     }
@@ -379,7 +377,12 @@
                         textField: "Name",
                         validate: "required"
                     },
-                    {title: "Комментарий ответсвенного за платформу", name: "responsible_comment", type: "text", filtering: false},
+                    {
+                        title: "Комментарий ответсвенного за платформу",
+                        name: "responsible_comment",
+                        type: "text",
+                        filtering: false
+                    },
                     {
                         title: "Ответсвенный за паспорт",
                         name: "passport_responsible",
@@ -498,20 +501,19 @@
                 }
             });
 
-            var settings = $("#jsGrid").data("JSGrid").fields;
 
             $("#setColumnsVisible").click(function () {
-
+                var settings = $("#jsGrid").data("JSGrid").fields;
                 console.log(settings);
-                $(".column_checkbox").each(function( index, element ) {
+                $(".column_checkbox").each(function (index, element) {
                     //console.log(element.value)
-                        for (var s in settings) {
-                            print(settings[s]);
-                            if (settings[s].name == element.value) {
-                                settings[s].visible = element.checked;
-                                break;
-                            }
+                    for (var s in settings) {
+                        print(settings[s]);
+                        if (settings[s].name == element.value) {
+                            settings[s].visible = element.checked;
+                            break;
                         }
+                    }
                 });
                 $("#jsGrid").jsGrid("option", "fields", settings);
             });
@@ -546,7 +548,9 @@
 
 
 
+
             {#for (var n in fields)#}
+
 
 
 

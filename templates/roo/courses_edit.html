@@ -314,7 +314,8 @@
                         items: COMMUNICATION_OWNER_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Статус коммуникации с платформой",
@@ -323,7 +324,8 @@
                         items: COMMUNICATION_PLATFORM_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Статус экспертизы",
@@ -332,7 +334,8 @@
                         items: EX_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Статус паспорта",
@@ -351,7 +354,8 @@
                         items: REQUIRED_RATINGS_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Состояние загрузки добровольных оценок",
@@ -360,7 +364,8 @@
                         items: UNFORCED_RATINGS_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {title: "Примечание", name: "comment", type: "text", filtering: false},
                     {
@@ -394,7 +399,8 @@
                         title: "Комментарий ответсвенного за платформу",
                         name: "responsible_comment",
                         type: "text",
-                        filtering: false
+                        filtering: false,
+                        visible: false
                     },
                     {
                         title: "Ответсвенный за паспорт",
@@ -403,7 +409,8 @@
                         items: passport_responsible_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Контакты", name: "contacts", type: "text",

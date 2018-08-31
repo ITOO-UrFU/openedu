@@ -497,12 +497,16 @@
                     $("#column_show_checkboxes").show();
                 }
             });
+
+            var settings = $("#jsGrid").data("JSGrid").fields;
+
             $("#setColumnsVisible").click(function () {
-                var settings = $("#jsGrid").data("JSGrid").fields;
+
                 console.log(settings);
                 $(".column_checkbox").each(function( index, element ) {
                     //console.log(element.value)
                         for (var s in settings) {
+                            print(settings[s]);
                             if (settings[s].name == element.value) {
                                 settings[s].visible = element.checked;
                                 break;

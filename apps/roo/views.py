@@ -134,47 +134,50 @@ def upload_expertises(request):
                     tbl).replace(' ', '') == expertise["course_partner"].lower().translate(tbl).replace(' ', ''):
                     course_exist = True
 
-                    ex = Expertise.objects.create(course=our_course, type="0", executed=expertise["executed"],
-                                                  supervisor=expertise["supervisor"], organizer=expertise["organizer"],
-                                                  comment=expertise["comment"],
-                                                  comment_fieldset_1=expertise["comment_fieldset_1"],
-                                                  comment_fieldset_2=expertise["comment_fieldset_2"],
-                                                  has_length=expertise["has_length"],
-                                                  has_description=expertise["has_description"],
-                                                  has_authors=expertise["has_authors"],
-                                                  language=expertise["language"],
-                                                  has_prerequisites=expertise["has_prerequisites"],
-                                                  has_certificate=expertise["has_certificate"],
-                                                  has_dates=expertise["has_dates"],
-                                                  has_admin_email=expertise["has_admin_email"],
-                                                  has_labor=expertise["has_labor"],
-                                                  has_competences=expertise["has_competences"],
-                                                  has_results=expertise["has_results"],
-                                                  has_evaluation_tools=expertise["has_evaluation_tools"],
-                                                  has_recommended_directions=expertise["has_recommended_directions"],
-                                                  has_proctoring=expertise["has_proctoring"],
-                                                  has_labor_costs=expertise["has_labor_costs"],
-                                                  has_short_description=expertise["has_short_description"],
-                                                  has_learning_plan=expertise["has_learning_plan"],
-                                                  has_promo_clip=expertise["has_promo_clip"],
-                                                  language_video=expertise["language_video"],
-                                                  language_subtitles=expertise["language_subtitles"],
-                                                  has_course_subject=expertise["has_course_subject"],
-                                                  is_open=expertise["is_open"],
-                                                  has_expertises_types=expertise["has_expertises_types"],
-                                                  has_ownership_document_scan=expertise["has_ownership_document_scan"],
-                                                  has_not_prohibited=expertise["has_not_prohibited"],
-                                                  has_text_materials=expertise["has_text_materials"],
-                                                  has_illustrations=expertise["has_illustrations"],
-                                                  has_audio=expertise["has_audio"], has_video=expertise["has_video"],
-                                                  has_quality_checking=expertise["has_quality_checking"],
-                                                  no_permission_of_owners=expertise["no_permission_of_owners"],
-                                                  got_into_record=expertise["got_into_record"],
-                                                  got_expertise_2018=expertise["got_expertise_2018"],
-                                                  additional_info=expertise["additional_info"])
-                    if expertise["expert"] is not None:
-                        ex.expert = Expert.objects.filter(expert=expertise["expert"]).first()
-                        ex.save()
+                    if our_course.external_url is None or our_course.external_url == "":
+                        our_course.external_url = expertise["external_url"]
+                    our_course.save()
+                    # ex = Expertise.objects.create(course=our_course, type="0", executed=expertise["executed"],
+                    #                               supervisor=expertise["supervisor"], organizer=expertise["organizer"],
+                    #                               comment=expertise["comment"],
+                    #                               comment_fieldset_1=expertise["comment_fieldset_1"],
+                    #                               comment_fieldset_2=expertise["comment_fieldset_2"],
+                    #                               has_length=expertise["has_length"],
+                    #                               has_description=expertise["has_description"],
+                    #                               has_authors=expertise["has_authors"],
+                    #                               language=expertise["language"],
+                    #                               has_prerequisites=expertise["has_prerequisites"],
+                    #                               has_certificate=expertise["has_certificate"],
+                    #                               has_dates=expertise["has_dates"],
+                    #                               has_admin_email=expertise["has_admin_email"],
+                    #                               has_labor=expertise["has_labor"],
+                    #                               has_competences=expertise["has_competences"],
+                    #                               has_results=expertise["has_results"],
+                    #                               has_evaluation_tools=expertise["has_evaluation_tools"],
+                    #                               has_recommended_directions=expertise["has_recommended_directions"],
+                    #                               has_proctoring=expertise["has_proctoring"],
+                    #                               has_labor_costs=expertise["has_labor_costs"],
+                    #                               has_short_description=expertise["has_short_description"],
+                    #                               has_learning_plan=expertise["has_learning_plan"],
+                    #                               has_promo_clip=expertise["has_promo_clip"],
+                    #                               language_video=expertise["language_video"],
+                    #                               language_subtitles=expertise["language_subtitles"],
+                    #                               has_course_subject=expertise["has_course_subject"],
+                    #                               is_open=expertise["is_open"],
+                    #                               has_expertises_types=expertise["has_expertises_types"],
+                    #                               has_ownership_document_scan=expertise["has_ownership_document_scan"],
+                    #                               has_not_prohibited=expertise["has_not_prohibited"],
+                    #                               has_text_materials=expertise["has_text_materials"],
+                    #                               has_illustrations=expertise["has_illustrations"],
+                    #                               has_audio=expertise["has_audio"], has_video=expertise["has_video"],
+                    #                               has_quality_checking=expertise["has_quality_checking"],
+                    #                               no_permission_of_owners=expertise["no_permission_of_owners"],
+                    #                               got_into_record=expertise["got_into_record"],
+                    #                               got_expertise_2018=expertise["got_expertise_2018"],
+                    #                               additional_info=expertise["additional_info"])
+                    # if expertise["expert"] is not None:
+                    #     ex.expert = Expert.objects.filter(expert=expertise["expert"]).first()
+                    #     ex.save()
 
                     expertise_count += 1
                     print('ОК:', expertise_count)

@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)', CourseUpdate.as_view(), name="detail"),
     url(r'^expertise/(?P<pk>\d+)/$', ExpertiseUpdate.as_view(), name="detail"),
     url(r'data/$', data, name='data'),
-    url(r'courses/', courses_list, name='courses_list'),
+    url(r'courses/', courses, name='courses'),
     url(r'expertises/', expertises, name='expertises'),
     url(r'data/get_active_tasks/$', get_active_tasks, name='get_active_tasks'),
 

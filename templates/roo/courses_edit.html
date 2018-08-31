@@ -518,15 +518,8 @@
                             value.visible = element.checked;
                         }
                     })
-                    /* for (var s in settings) {
-                         print(settings[s]);
-                         if (settings[s].name == element.value) {
-                             settings[s].visible = element.checked;
-                             break;
-                         }
-                     }*/
                 });
-                {#$("#jsGrid").jsGrid("option", "fields", settings);#}
+                $("#jsGrid").jsGrid("option", "fields", settings);
             });
 
             /*

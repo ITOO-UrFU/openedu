@@ -291,7 +291,20 @@
                             return course_link;
                         }, name: "title", type: "text", filtering: true, editing: false
                     },
-                    {title: "", name:"external_url", filtering: false, editing: false, type: "text"},
+                    {title: "Ссылка на онлайн-курс на сайте Платформы",itemTemplate: function (value, item) {
+                        if(value and value!="")
+                            {
+                                var course_link = $('<a>', {
+                                    text: "Сслыка",
+                                    title: value,
+                                    href: value,
+                                });
+                                return course_link;
+                            }
+                            else{
+                                return "";
+                            }
+                        } name:"external_url", filtering: false, editing: false, type: "text"},
                     {title: "Платформа", name: "partner", editing: false, type: "text"},
 
                     {title: "Правообладатель", name: "institution", type: "text", editing: false},

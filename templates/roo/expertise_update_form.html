@@ -6,7 +6,7 @@
     <div class="main_content">
         <form class="ui form" method="post">{% csrf_token %}
             <p>Эксперт: {{ expertise.expert }}</p>
-            <p>Курс: {{ expertise.course.cabinet_course_url }}</p>
+            <p>Курс: {{ expertise.course }}</p>
 
             <h2>Обязательные поля паспорта ОК:</h2>
 
@@ -21,7 +21,7 @@
                 <tr>
                     <td>Платформа</td>
                     <td>{{ expertice.course.partner }}</td>
-                    <td>{% render_field form.platform %}</td>
+                    {#                    <td>{% render_field form.platform %}</td>#}
                 </tr>
                 <tr>
                     <td>Ссылка на ОК на платформе (версию ОК)</td>
@@ -67,18 +67,14 @@
 
                 <tr>
                     <td>Рекомендуемые "входные" требования к обучающемуся</td>
+                    <td>{{ expertise.course.requirements }}</td>
 
-                    {% if expertise.course.requirements %}
-                        <td>{{ expertise.course.requirements }}</td>
-                    {% else %}
-                        <td><i class="times icon"></i></td>
-                    {% endif %}
                     <td>{% render_field form.has_prerequisites %}</td>
                 </tr>
 
                 <tr>
                     <td>Сертификат (выдается или нет)</td>
-                        <td>{{  expertise.course.get_has_sertificate_display }}</td>
+                    <td>{{ expertise.course.get_has_sertificate_display }}</td>
 
                     <td>{% render_field form.has_certificate %}</td>
                 </tr>

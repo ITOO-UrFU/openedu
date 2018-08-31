@@ -292,6 +292,8 @@
                             return course_link;
                         }, name: "title", type: "text", filtering: true, editing: false
                     },
+
+                    {title: "Платформа", name: "partner", editing: false, type: "text"},
                     {title: "Ссылка на онлайн-курс на сайте Платформы",itemTemplate: function (value, item) {
                         if(value && value!="")
                             {
@@ -307,8 +309,6 @@
                                 return "";
                             }
                         }, name:"external_url", filtering: false, editing: false, type: "text"},
-                    {title: "Платформа", name: "partner", editing: false, type: "text"},
-
                     {title: "Правообладатель", name: "institution", type: "text", editing: false},
                     {
                         title: "Статус коммуникации с правообладателем",

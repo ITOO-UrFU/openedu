@@ -533,9 +533,9 @@ class Expert(models.Model):
 
     def __str__(self):
         if self.expert:
-            return f"Эксперт: {self.expert}"
+            return self.expert
         else:
-            return f"Эксперт: {self.login}"
+            return self.login
 
     class Meta:
         verbose_name = 'эксперт'

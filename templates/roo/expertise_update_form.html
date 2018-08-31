@@ -6,7 +6,7 @@
     <div class="main_content">
         <form class="ui form" method="post">{% csrf_token %}
             <p>Эксперт: {{ expertise.expert }}</p>
-            <p>Курс: {{ expertise.course.cabinet_course_url }}</p>
+            <p>Курс: {{ expertise.course }}</p>
 
             <h2>Обязательные поля паспорта ОК:</h2>
 
@@ -21,7 +21,7 @@
                 <tr>
                     <td>Платформа</td>
                     <td>{{ expertice.course.partner }}</td>
-                    <td>{% render_field form.platform %}</td>
+                    <td>{% form.platform.value %}</td>
                 </tr>
                 <tr>
                     <td>Ссылка на ОК на платформе (версию ОК)</td>

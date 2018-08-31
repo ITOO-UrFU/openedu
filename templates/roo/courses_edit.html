@@ -510,10 +510,10 @@
             });
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
-                    $("#column_show_checkboxes").hide(1500);
+                    $("#column_show_checkboxes").hide(1000);
                 }
                 else {
-                    $("#column_show_checkboxes").show(1500);
+                    $("#column_show_checkboxes").show(1000);
                 }
             });
 
@@ -536,7 +536,7 @@
                     })
                 });
                 $("#jsGrid").jsGrid("option", "fields", settings);
-                $("#column_show_checkboxes").hide();
+                $("#column_show_checkboxes").hide(1000);
             });
 
             /*

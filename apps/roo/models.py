@@ -341,7 +341,7 @@ class Course(models.Model):
     owner_responsible = models.CharField("Ответсвенный за правообладателя", max_length=1,
                                            choices=owner_responsible_STATES, default="0")
 
-    # responsible_comment = models.TextField("Комментарий ответсвенного", blank=True, null=True)
+    responsible_comment = models.TextField("Комментарий ответсвенного", blank=True, null=True)
     platform_responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
     owner_responsible_comment = models.TextField("Комментарий ответсвенного за правообладателя", blank=True, null=True)
 

@@ -504,7 +504,7 @@
                 ]
             });
 
-            $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+            $("#jsGrid").data("JSGrid").fields.reverse().forEach(function (element) {
                 if (element.type != 'control') {
                     var list_item_wrap = document.createElement('div');
                     list_item_wrap.setAttribute("class", "field");

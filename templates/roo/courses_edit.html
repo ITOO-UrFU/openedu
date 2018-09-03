@@ -185,10 +185,12 @@
                 noDataContent: "Нет курсов для отображения",
                 pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
-                rowClick: function (args) { return; },
+                rowClick: function (args) {
+                    return;
+                },
                 onRefreshed: function () {
-                     $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
-                 },
+                    $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
+                },
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -290,23 +292,68 @@
                         }, name: "title", type: "text", filtering: true, editing: false
                     },
 
-                    {title: "Платформа", name: "partner", editing: false, type: "text"},
-                    {title: "Ссылка на онлайн-курс на сайте Платформы",itemTemplate: function (value, item) {
-                        if(value && value!="")
-                            {
+                    {
+                        title: "Платформа",
+                        name: "partner",
+                        editing: false,
+                        type: "text"
+                    },
+                    {
+                        title: "Ответсвенный за платформу",
+                        name: "platform_responsible",
+                        type: "select",
+                        items: platform_responsible_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
+                    {
+                        title: "Комментарий ответсвенного за платформу",
+                        name: "platform_responsible_comment",
+                        type: "text",
+                        filtering: false,
+
+                    },
+                    {
+                        title: "Ссылка на онлайн-курс на сайте Платформы", itemTemplate: function (value, item) {
+                            if (value && value != "") {
                                 var course_link = $('<a>', {
                                     text: "Сслыка",
                                     title: value,
                                     href: value,
                                 });
-                                course_link.attr('target','_blank');
+                                course_link.attr('target', '_blank');
                                 return course_link;
                             }
-                            else{
+                            else {
                                 return "";
                             }
-                        }, name:"external_url", filtering: false, editing: false, type: "text"},
-                    {title: "Правообладатель", width: "150", name: "institution", type: "text", editing: false},
+                        }, name: "external_url", filtering: false, editing: false, type: "text"
+                    },
+                    {
+                        title: "Правообладатель",
+                        width: "150",
+                        name: "institution",
+                        type: "text",
+                        editing: false
+                    },
+                    {
+                        title: "Ответсвенный за правообладателя",
+                        name: "owner_responsible",
+                        type: "select",
+                        items: owner_responsible_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
+                    {
+                        title: "Комментарий ответсвенного за правообладателя",
+                        name: "owner_responsible_comment",
+                        type: "text",
+                        filtering: false,
+
+                    },
+                    {title: "Примечание", name: "comment", type: "text", filtering: false},
                     {
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",
@@ -317,6 +364,7 @@
                         validate: "required",
                         visible: false
                     },
+
                     {
                         title: "Статус коммуникации с платформой",
                         name: "communication_platform",
@@ -367,7 +415,7 @@
                         validate: "required",
                         visible: false
                     },
-                    {title: "Примечание", name: "comment", type: "text", filtering: false},
+
                     {
                         title: "Статус загрузки На РОО",
                         name: "roo_status",
@@ -377,31 +425,7 @@
                         textField: "Name",
                         validate: "required"
                     },
-                    {
-                        title: "Ответсвенный за платформу",
-                        name: "platform_responsible",
-                        type: "select",
-                        items: platform_responsible_STATES,
-                        valueField: "Id",
-                        textField: "Name",
-                        validate: "required"
-                    },
-                    {
-                        title: "Ответсвенный за правообладателя",
-                        name: "owner_responsible",
-                        type: "select",
-                        items: owner_responsible_STATES,
-                        valueField: "Id",
-                        textField: "Name",
-                        validate: "required"
-                    },
-                    {
-                        title: "Комментарий ответсвенного за платформу",
-                        name: "responsible_comment",
-                        type: "text",
-                        filtering: false,
-                        visible: false
-                    },
+
                     {
                         title: "Ответсвенный за паспорт",
                         name: "passport_responsible",

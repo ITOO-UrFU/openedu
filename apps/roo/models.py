@@ -342,8 +342,8 @@ class Course(models.Model):
                                            choices=owner_responsible_STATES, default="0")
 
     # responsible_comment = models.TextField("Комментарий ответсвенного", blank=True, null=True)
-    # platform_responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
-    # owner_responsible_comment = models.TextField("Комментарий ответсвенного за правообладателя", blank=True, null=True)
+    platform_responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
+    owner_responsible_comment = models.TextField("Комментарий ответсвенного за правообладателя", blank=True, null=True)
 
     passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
                                          choices=passport_responsible_STATES, default="0")

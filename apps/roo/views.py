@@ -433,6 +433,18 @@ def courses_edit(request):
     return HttpResponse(json.dumps(return_data), content_type='application/json')
 
 @roo_member_required
+def expertises_edit(request):
+    # context = dict()
+    # return render(request, "roo/courses_edit.html", context)
+    data = serialize('json', Expertise.objects.all(), use_natural_foreign_keys=True)
+    return_data = []
+    for course in json.loads(data):
+        new_course = course['fields']
+        new_course['pk'] = course['pk']
+        return_data.append(new_course)
+    return HttpResponse(json.dumps(return_data), content_type='application/json')
+
+@roo_member_required
 def expertises_list(request):
     context = dict()
     return render(request, "roo/expertises_edit.html", context)

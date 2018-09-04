@@ -1,0 +1,541 @@
+{% extends "roo/courses_base.html" %}
+{% load static %}
+{% load semanticui %}
+{% block content %}
+
+    <link href='{% static "css/jsgrid.min.css" %}' rel="stylesheet"/>
+    <link href='{% static "css/jsgrid-theme.min.css" %}' rel="stylesheet"/>
+    <style>
+
+        input.column_checkbox {
+            margin-right: 5px;
+        }
+
+        #column_show_checkboxes {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        ul {
+            margin: 20px;
+            list-style: none;
+            padding: 0px;
+        }
+
+        ul li {
+            list-style: none;
+            margin-right: 10px;
+            border-right: 1px solid #c8c8c8;
+            padding-right: 10px;
+        }
+
+        .boxAll {
+            margin: 15px auto;
+        }
+
+        div.field {
+            padding: 5px 0px !important;
+        }
+
+        /*.jsgrid-pager-container {
+            display: block !important;
+        }*/
+
+        #jsGridWrapper {
+        {#height: 100%;#}{#position: absolute;#}
+            /* bottom: 0; */
+        }
+
+        #jsGridTableWrapper {
+            position: absolute;
+            height: 100%;
+        {#bottom: 0;#}{#    height: 100%;#}
+        }
+
+
+    </style>
+    <!-- <button type="button" id="saveSettings">Save Settings</button> -->
+
+    <div id="jsGridWrapper">
+        <div class="ui horizontal segments">
+            <div class="ui segment">
+                <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
+                столбцы</label>
+                <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
+                    <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
+                    </p>
+                    <button id="setColumnsVisible">Применить</button>
+                </div>
+            </div>
+            <div class="ui segment">
+                <div id="courseCounter"></div>
+            </div>
+
+        </div>
+        <div id="jsGridTableWrapper">
+            <div id="jsGrid"></div>
+        </div>
+    </div>
+    <script src='{% static "/js/jsgrid.min.js" %}'></script>
+    <script type="text/javascript">
+
+      /*  $(function () {
+
+            var COMMUNICATION_OWNER_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Согласование не начато"},
+                {Id: "1", Name: "В процессе согласования"},
+                {Id: "2", Name: "Требуется участие администрации"},
+                {Id: "3", Name: "Согласовано"},
+                {Id: "4", Name: "Отказано"},
+                {Id: "5", Name: "Согласовано с РОО"}
+            ];
+            var COMMUNICATION_PLATFORM_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Согласование не начато"},
+                {Id: "1", Name: "В процессе согласования"},
+                {Id: "2", Name: "Требуется участие администрации"},
+                {Id: "3", Name: "Согласовано"},
+                {Id: "4", Name: "Отказано"},
+                {Id: "5", Name: "Согласовано с РОО"}
+            ];
+            var EX_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не проводилась"},
+                {Id: "1", Name: "Отравлен на экспертизу"},
+                {Id: "2", Name: "Требует доработки"},
+                {Id: "3", Name: "Прошел"},
+                {Id: "4", Name: "Отправлен запрос на доступ к платформе"},
+                {Id: "5", Name: "Доступ предоставлен"}
+            ];
+            var PASSPORT_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не заполнен"},
+                {Id: "1", Name: "Не проверен"},
+                {Id: "2", Name: "Требует доработки"},
+                {Id: "3", Name: "На согласовании с правообладателем"},
+                {Id: "4", Name: "Готов"},
+            ];
+            var REQUIRED_RATINGS_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не загружены"},
+                {Id: "1", Name: "Загружены"}
+            ];
+            var UNFORCED_RATINGS_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не загружены"},
+                {Id: "1", Name: "Загружены частично"},
+                {Id: "2", Name: "Загружены"}
+            ];
+            var ROO_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не готов"},
+                {Id: "1", Name: "Ждем ID платформы"},
+                {Id: "2", Name: "К загрузке"},
+                {Id: "3", Name: "Загружен"},
+                {Id: "4", Name: "Ожидает загрузки с РОО"}
+            ];
+            var platform_responsible_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не выбрано"},
+                {Id: "1", Name: "Шарыпова Е.А."},
+                {Id: "2", Name: "Рачёва Н.И."}
+            ];
+            var owner_responsible_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не выбрано"},
+                {Id: "1", Name: "Шарыпова Е.А."},
+                {Id: "2", Name: "Рачёва Н.И."}
+            ];
+            var passport_responsible_STATES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не выбрано"},
+                {Id: "1", Name: "Возисова О.С."},
+                {Id: "2", Name: "Талапов В.А."}
+            ];
+            var EX_ACCESSES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Не предоставлен"},
+                {Id: "1", Name: "Отправлен запрос"},
+                {Id: "2", Name: "Предоставлен"},
+            ];
+            var CERTS = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Нет данных"},
+                {Id: "1", Name: "Выдается"},
+                {Id: "2", Name: "Не выдается"}
+            ];
+
+            var courses = [];
+            var coursesLoaded = false;
+            var coursesCount = 0;
+
+            $("#jsGrid").jsGrid({
+                height: "auto",
+                width: "100%",
+
+                filtering: true,
+                editing: true,
+                sorting: true,
+
+                autoload: true,
+
+                pageButtonCount: 5,
+                pageLoading: false,
+                noDataContent: "Нет курсов для отображения",
+                pagerFormat: "Найдено курсов: {itemCount}",
+                loadMessage: "Идет загрузка...",
+                rowClick: function (args) {
+                    return;
+                },
+                onRefreshed: function () {
+                    $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
+                },
+                controller: {
+                    loadData: function (filter) {
+                        var d = $.Deferred();
+                        if (!coursesLoaded) {
+                            $.ajax({
+                                type: "GET",
+                                url: "/roo/courses_edit/",
+                            }).done(function (result) {
+                                courses = result;
+                                coursesCount = courses.length;
+                                coursesLoaded = true;
+                                d.resolve($.map(result, function (item) {
+                                    return item;
+                                }));
+                            });
+                        }
+                        else {
+                            {#console.log(courses);#}
+                            result = $.grep(courses, function (item) {
+
+                                return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
+                                    && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
+                                    && (!filter.institution || item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)
+                                    {#&& (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)#}
+                                    && (item.reg_data !== null && !filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
+                                    && (!filter.contacts || item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1)
+                                    {#&& (!filter.responsible_comment || item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1)#}
+
+                                    && (!filter.admin_email || item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1)
+                                    && (!filter.cabinet_course_url || item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1)
+                                    && (!filter.version || item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1)
+                                    && (!filter.language || item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1)
+                                    && (!filter.duration || item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1)
+                                    && (!filter.expert_account || item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1)
+
+                                    && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
+                                    && (!filter.communication_platform || item.communication_platform === filter.communication_platform)
+                                    && (!filter.expertise_status || item.expertise_status === filter.expertise_status)
+                                    && (!filter.passport_status || item.passport_status === filter.passport_status)
+                                    && (!filter.required_ratings_state || item.required_ratings_state === filter.required_ratings_state)
+                                    && (!filter.unforced_ratings_state || item.unforced_ratings_state === filter.unforced_ratings_state)
+                                    && (!filter.roo_status || item.roo_status === filter.roo_status)
+                                    && (!filter.expert_access || item.expert_access === filter.expert_access)
+                                    && (!filter.passport_responsible || item.passport_responsible === filter.passport_responsible)
+                                    && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
+                                    && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
+                                    && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)
+                            });
+                            d.resolve(result)
+                        }
+
+
+                        return d.promise();
+                    }
+                    , updateItem: function (item) {
+                        //console.log(item);
+                        return $.ajax({
+                            type: "POST",
+                            url: "/roo/update_course/",
+                            data: JSON.stringify(item),
+                            success: function () {
+                                console.log("курс сохранен")
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("По некоторым причинам не удалось произвести сохранение курса. Для разрешения этой ситуации, пожалуйста, обратитесь к Никите.")
+                            }
+                        })
+                    }
+                },
+                fields: [
+                    {
+                        title: "Наименование", width: "150", itemTemplate: function (value, item) {
+                            var course_link = $('<a>', {
+                                text: value,
+                                title: value,
+                                href: '#',
+                                click: function () {
+                                    CourseEdit = window.open('http://openedu.urfu.ru/roo/' + item.pk, value, width = 600, height = 300);
+                                    return false;
+                                }
+                            });
+                            return course_link;
+                        }, name: "title", type: "text", filtering: true, editing: false
+                    },
+
+                    {
+                        title: "Платформа",
+                        name: "partner",
+                        editing: false,
+                        type: "text"
+                    },
+                    {
+                        title: "Ответсвенный за платформу",
+                        name: "platform_responsible",
+                        type: "select",
+                        items: platform_responsible_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
+                    {
+                        title: "Комментарий ответсвенного за платформу",
+                        name: "platform_responsible_comment",
+                        type: "text",
+                        filtering: false,
+
+                    },
+                    {
+                        title: "Ссылка на онлайн-курс на сайте Платформы", itemTemplate: function (value, item) {
+                            if (value && value != "") {
+                                var course_link = $('<a>', {
+                                    text: "Сслыка",
+                                    title: value,
+                                    href: value,
+                                });
+                                course_link.attr('target', '_blank');
+                                return course_link;
+                            }
+                            else {
+                                return "";
+                            }
+                        }, name: "external_url", filtering: false, editing: false, type: "text"
+                    },
+                    {
+                        title: "Правообладатель",
+                        width: "150",
+                        name: "institution",
+                        type: "text",
+                        editing: false
+                    },
+                    {
+                        title: "Ответсвенный за правообладателя",
+                        name: "owner_responsible",
+                        type: "select",
+                        items: owner_responsible_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
+                    {
+                        title: "Комментарий ответсвенного за правообладателя",
+                        name: "owner_responsible_comment",
+                        type: "text",
+                        filtering: false,
+
+                    },
+                    {title: "Примечание", name: "comment", type: "text", filtering: false},
+                    {
+                        title: "Статус коммуникации с правообладателем",
+                        name: "communication_owner",
+                        type: "select",
+                        items: COMMUNICATION_OWNER_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        visible: false
+                    },
+
+                    {
+                        title: "Статус коммуникации с платформой",
+                        name: "communication_platform",
+                        type: "select",
+                        items: COMMUNICATION_PLATFORM_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        visible: false
+                    },
+                    {
+                        title: "Статус экспертизы",
+                        name: "expertise_status",
+                        type: "select",
+                        items: EX_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+
+                    },
+                    {
+                        title: "Статус паспорта",
+                        name: "passport_status",
+                        type: "select",
+                        items: PASSPORT_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        visible: false
+                    },
+                    {
+                        title: "Состояние загрузки обязательных оценок",
+                        name: "required_ratings_state",
+                        type: "select",
+                        items: REQUIRED_RATINGS_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        visible: false
+                    },
+                    {
+                        title: "Состояние загрузки добровольных оценок",
+                        name: "unforced_ratings_state",
+                        type: "select",
+                        items: UNFORCED_RATINGS_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        visible: false
+                    },
+
+                    {
+                        title: "Статус загрузки На РОО",
+                        name: "roo_status",
+                        type: "select",
+                        items: ROO_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
+
+                    {
+                        title: "Ответсвенный за паспорт",
+                        name: "passport_responsible",
+                        type: "select",
+                        items: passport_responsible_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                    },
+                    {
+                        title: "Контакты", name: "contacts", type: "text",
+                        visible: false,
+                    },
+                    {
+                        title: "Регистрационные данные для доступа к курсу", name: "reg_data", type: "text",
+                        visible: false,
+                    },
+                    {
+                        title: "Доступ эксперта", name: "expert_account", type: "text",
+                        visible: false,
+                    },
+
+
+                    {
+                        title: "Адрес эл. почты администратора ОК", name: "admin_email", type: "text",
+                        visible: false,
+                    },
+                    {
+                        title: "Ссылка на курс в кабинете", name: "cabinet_course_url", type: "text",
+                        visible: false,
+                    },
+                    {
+                        title: "Версия курса", name: "version", type: "text",
+                        visible: false,
+                    },
+                    {
+                        title: "Язык контента", name: "language", type: "text",
+                        visible: false,
+                    },
+                    {
+                        title: "Длительность в неделях", name: "duration", type: "text",
+                        visible: false,
+                    },
+                    {
+                        title: "Возможность получить сертификат",
+                        name: "has_sertificate",
+                        type: "select",
+                        items: CERTS,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        visible: false,
+                    },
+                    {
+                        title: "Доступ к курсу для экспертов обязательной оценки",
+                        name: "expert_access",
+                        type: "select",
+                        items: EX_ACCESSES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        visible: false,
+                    },
+                    {
+                        type: "control",
+                        width: "100",
+                        deleteButton: false,
+                        headerTemplate: function () {
+                            return $("<button>").attr("type", "button").text("Добавить курс")
+                                .on("click", function () {
+                                    AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
+                                    return false;
+                                });
+                        }
+                    }
+                ]
+            });
+
+            $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+                if (element.type != 'control') {
+                    var list_item_wrap = document.createElement('div');
+                    list_item_wrap.setAttribute("class", "field");
+                    var list_item = document.createElement('div');
+                    list_item.setAttribute("class", "ui slider checkbox");
+                    var input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.setAttribute("class", 'column_checkbox');
+                    input.checked = element.visible;
+                    input.id = element.name;
+                    input.value = element.name;
+                    var label = document.createElement('label');
+
+                    label.setAttribute("for", element.name);
+                    label.innerHTML = element.title;
+                    list_item.appendChild(input);
+                    list_item.appendChild(label);
+                    list_item_wrap.appendChild(list_item);
+                    $("#column_show_checkboxes").prepend(list_item_wrap);
+                }
+            });
+            $("#show_hide_checkboxes").click(function () {
+                if (this.checked != true) {
+                    $("#column_show_checkboxes").hide(1000);
+                }
+                else {
+                    $("#column_show_checkboxes").show(1000);
+                }
+            });
+
+            var settings = $("#jsGrid").data("JSGrid").fields;
+            $("#setColumnsVisible").click(function () {
+                $(".column_checkbox").each(function (index, element) {
+                    //console.log(element.value);
+                    settings.forEach(function (value, index, array) {
+                        if (element.value == value.name) {
+                            console.log(element.checked);
+                            value.visible = element.checked;
+                        }
+                    })
+                });
+                $("#jsGrid").jsGrid("option", "fields", settings);
+                $("#column_show_checkboxes").hide(1000);
+                $("#show_hide_checkboxes").prop("checked", false);
+            });
+        })
+        ;*/
+    </script>
+
+{% endblock %}

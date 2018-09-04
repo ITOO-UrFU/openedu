@@ -432,6 +432,10 @@ def courses_edit(request):
         return_data.append(new_course)
     return HttpResponse(json.dumps(return_data), content_type='application/json')
 
+@roo_member_required
+def expertises_list(request):
+    context = dict()
+    return render(request, "roo/expertises_edit.html", context)
 
 @roo_member_required
 def expertises(request):

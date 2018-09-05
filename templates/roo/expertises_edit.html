@@ -182,10 +182,11 @@ $("#jsGrid").data("JSGrid")._showLoading()
                                     && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
                                     && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)*/
                             });
+                            $("#jsGrid").data("JSGrid")._hideLoading()
                             d.resolve(result)
                         }
 
-/*._hideLoading();*/$("#jsGrid").data("JSGrid")._hideLoading()
+/*._hideLoading();*/
                         return d.promise();
                     }
                     /* , updateItem: function (item) {

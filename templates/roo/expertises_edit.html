@@ -122,7 +122,10 @@
                 onRefreshed: function () {
                     $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
                 },
-
+    onDataLoading: function(args) {
+        // cancel loading data if 'name' is empty
+        console.log("KEKUS");
+    },
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();

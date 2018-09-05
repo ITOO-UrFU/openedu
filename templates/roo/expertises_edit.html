@@ -42,22 +42,17 @@
         }*/
 
         #jsGridWrapper {
-            flex:1;
-            background: lightgrey;
-    {#display: flex;#}
-    /*flex-direction: row;*/
 
-    justify-content: flex-start; /* align items in Main Axis */
-    align-items: stretch; /* align items in Cross Axis */
-    align-content: stretch;
         }
 
         #jsGridTableWrapper {
-            {#position: initial;#}
-            {#height: 100%;#}
-
-            {#width: 100%;#}
-            {# bottom: 0;#}
+    flex: 1; /* same as flex: 1 1 auto; */
+        display: flex;
+    flex-direction: row;
+    background:green;
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
 
         }
 
@@ -66,7 +61,7 @@
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
 
    <!-- <div id="jsGridWrapper"> -->
-      <div class="ui horizontal segments">
+      <div id="jsGridWrapper" class="ui horizontal segments">
             <div class="ui segment">
                 <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
                 столбцы</label>
@@ -81,7 +76,7 @@
             </div>
 
         </div>
-        <div id="jsGridTableWrapper">-->
+        <div id="jsGridTableWrapper">
             <div id="jsGrid"></div>
          </div>
     <!-- </div> -->

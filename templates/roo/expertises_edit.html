@@ -119,12 +119,15 @@
                 rowClick: function (args) {
                     return;
                 },
+                    onInit: function(args) {
+        gridInstance = args.grid;
+    }
                 onRefreshed: function () {
                     $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
                 },
     onDataLoaded: function(args) {
         // cancel loading data if 'name' is empty
-         $("#jsGrid").data("JSGrid")._hideLoading();
+         $("#jsGrid").data("JSGrid")._loadIndicator.hide()
         console.log("KEKUS");
     },
                 controller: {
@@ -147,8 +150,9 @@
                         else {
                             /*loadIndicator._showLoading();*/
                             console.log($("#jsGrid").data("JSGrid"));
-                            $("#jsGrid").data("JSGrid")._showLoading();
+                           $("#jsGrid").data("JSGrid")._loadIndicator.show()
                             console.log("LOLOLOLOLO");
+                           console.log("gridInstance", gridInstance);
                             result = $.grep(expertises, function (item) {
                                 return item;
                                 /*return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)

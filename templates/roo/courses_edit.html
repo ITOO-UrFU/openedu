@@ -191,6 +191,15 @@
                 onRefreshed: function () {
                     $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
                 },
+                onInit: function (args) {
+                    gridInstance = args.grid;
+                },
+                onDataLoading: function (args) {
+                    gridInstance._loadIndicator.show()
+                },
+                onDataLoaded: function (args) {
+                    gridInstance._loadIndicator.hide()
+                },
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();

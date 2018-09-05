@@ -99,6 +99,8 @@
             var expertisesLoaded = false;
             var expertisesCount = 0;
 
+            var loadIndicator = new jsGrid.LoadIndicator();
+
             $("#jsGrid").jsGrid({
                 height: "100%",
                 width: "100%",
@@ -138,6 +140,8 @@
                             });
                         }
                         else {
+                            loadIndicator.show();
+
                             {#console.log(courses);#}
                             result = $.grep(expertises, function (item) {
                                 return item;
@@ -180,7 +184,7 @@
                             d.resolve(result)
                         }
 
-
+loadIndicator.hide();
                         return d.promise();
                     }
                     /* , updateItem: function (item) {

@@ -124,7 +124,7 @@
                     $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
                 },
                 onDataLoading: function (args) {
-                    gridInstance._loadIndicator.hide()
+                    gridInstance._loadIndicator.show()
                     console.log("LOLUS");
                 },
                 onDataLoaded: function (args) {

@@ -207,14 +207,15 @@
                                 }
                             });
                             return expertise_link;
-                        }, name: "course", type: "text", filtering: true, editing: false
+                        }, name: "course", type: "text", filtering: true, editing: false, width: 150
                     },
 // добавить datenam
                     {
                         title: "Cостояние процесса (этап)",
                         name: "state",
                         editing: false,
-                        type: "text"
+                        type: "text",
+                        width: 100
                     },
                     {
                         title: "Вид экспертизы",
@@ -223,246 +224,288 @@
                         items: EX_TYPES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        width: 100
                     },
                     {
                         name: "executed",
                         type: "checkbox",
                         title: "Отметка об исполнении эксперизы",
-                        sorting: false
+                        sorting: false,
+                        width: 100
                     },
                     {
                         title: "Эксперт",
                         name: "expert",
                         type: "text",
+                        width: 100
 
                     },
                     {
                         title: "Кто от ИТОО контролирует",
                         name: "supervisor",
                         type: "text",
+                        width: 100
 
                     },
                     {
                         title: "Организатор экспертизы сотрудники или партнеры",
                         name: "organizer",
                         type: "text",
+                        width: 100
 
                     },
                     {
                         title: "Примечание",
                         name: "comment",
                         type: "text",
+                        width: 100
 
                     },
                     {
                         title: "Комментарии по отсутствию обязательных полей ОК",
                         name: "comment_fieldset_1",
                         type: "text",
+                        width: 100
 
                     },
                     {
                         title: "Комментарии по отсутствию обязательных полей ОК претендующих на зачет ОП",
                         name: "comment_fieldset_2",
                         type: "text",
+                        width: 100
 
                     },
                     {
                         name: "has_length",
                         type: "checkbox",
                         title: "Длительность",
-                        sorting: false
+                        sorting: false,
+                        width: 100
                     },
                     {
                         name: "has_description",
                         type: "checkbox",
                         title: "Описание",
-                        sorting: false
+                        sorting: false,
+                        width: 100
                     },
                     {
                         name: "has_authors",
                         type: "checkbox",
                         title: "Авторы",
-                        sorting: false
+                        sorting: false,
+                        width: 100
                     },
                     {
                         title: "Язык содержания",
                         name: "language",
                         type: "text",
+                        width: 100
 
                     },
                     {
                         name: "has_prerequisites",
                         type: "checkbox",
                         title: "Рекомендуемые \"входные\" требования к обучающемуся",
-                        sorting: false
+                        sorting: false,
+                        width: 100
                     },
                     {
                         name: "has_certificate",
                         type: "checkbox",
                         title: "Сертификат (выдается или нет)",
-                        sorting: false
+                        sorting: false,
+                        width: 100
                     },
 
                     {
                         name: "has_dates",
                         type: "checkbox",
                         sorting: false,
-                        title: "Даты ближайшего запуска"
+                        title: "Даты ближайшего запуска",
+                        width: 100
                     },
                     {
                         name: "has_admin_email",
                         type: "checkbox",
                         sorting: false,
-                        title: "Адрес эл. почты администратора ОК"
+                        title: "Адрес эл. почты администратора ОК",
+                        width: 100
                     },
                     {
                         name: "has_labor",
                         type: "checkbox",
                         sorting: false,
-                        title: "Трудоемкость"
+                        title: "Трудоемкость",
+                        width: 100
                     },
                     {
                         name: "has_competences",
                         type: "checkbox",
                         sorting: false,
-                        title: "Компетенции"
+                        title: "Компетенции",
+                        width: 100
                     },
                     {
                         name: "has_results",
                         type: "checkbox",
                         sorting: false,
-                        title: "Результаты обучения"
+                        title: "Результаты обучения",
+                        width: 100
                     },
                     {
                         name: "has_evaluation_tools",
                         type: "checkbox",
                         sorting: false,
-                        title: "Оценочные средства"
+                        title: "Оценочные средства",
+                        width: 100
                     },
                     {
                         name: "has_recommended_directions",
                         type: "checkbox",
                         sorting: false,
-                        title: "Рекомендуемые направления подготовки"
+                        title: "Рекомендуемые направления подготовки",
+                        width: 100
                     },
                     {
                         name: "has_proctoring",
                         type: "checkbox",
                         sorting: false,
-                        title: "Наличие подтвержденного сертификата (сервис прокторинга)"
+                        title: "Наличие подтвержденного сертификата (сервис прокторинга)",
+                        width: 100
                     },
                     {
                         name: "has_labor_costs",
                         type: "checkbox",
                         sorting: false,
-                        title: "Трудозатраты"
+                        title: "Трудозатраты",
+                        width: 100
                     },
                     {
                         name: "has_short_description",
                         type: "checkbox",
                         sorting: false,
-                        title: "Короткое описание"
+                        title: "Короткое описание",
+                        width: 100
                     },
                     {
                         name: "has_learning_plan",
                         type: "checkbox",
                         sorting: false,
-                        title: "Учебный план"
+                        title: "Учебный план",
+                        width: 100
                     },
                     {
                         name: "has_promo_clip",
                         type: "checkbox",
                         sorting: false,
-                        title: "Проморолик"
+                        title: "Проморолик",
+                        width: 100
                     },
                     {
                         title: "Язык видео",
                         name: "language_video",
-                        type: "text"
+                        type: "text",
+                        width: 100
                     }, {
                         title: "Язык субтитров",
                         name: "language_subtitles",
-                        type: "text"
+                        type: "text",
+                        width: 100
                     },
                     {
                         name: "has_course_subject",
                         type: "checkbox",
                         sorting: false,
-                        title: "Предмет курса"
+                        title: "Предмет курса",
+                        width: 100
                     },
                     {
                         name: "is_open",
                         type: "checkbox",
                         sorting: false,
-                        title: "Открытость курса"
+                        title: "Открытость курса",
+                        width: 100
                     },
                     {
                         name: "has_expertises_types",
                         type: "checkbox",
                         sorting: false,
-                        title: "Типы экспертиз для допуска"
+                        title: "Типы экспертиз для допуска",
+                        width: 100
                     },
                     {
                         name: "has_ownership_document_scan",
                         type: "checkbox",
                         sorting: false,
-                        title: "Скан документа, подтверждающего правообладание"
+                        title: "Скан документа, подтверждающего правообладание",
+                        width: 100
                     },
                     {
                         name: "has_not_prohibited",
                         type: "checkbox",
                         sorting: false,
-                        title: "В курсе отсутствуют запрещенные материалы"
+                        title: "В курсе отсутствуют запрещенные материалы",
+                        width: 100
                     },
                     {
                         name: "has_text_materials",
                         type: "checkbox",
                         sorting: false,
-                        title: "Текстовые материалы"
+                        title: "Текстовые материалы",
+                        width: 100
                     },
                     {
                         name: "has_illustrations",
                         type: "checkbox",
                         sorting: false,
-                        title: "Иллюстрации"
+                        title: "Иллюстрации",
+                        width: 100
                     },
                     {
                         name: "has_audio",
                         type: "checkbox",
                         sorting: false,
-                        title: "Аудиоматериалы"
+                        title: "Аудиоматериалы",
+                        width: 100
                     },
                     {
                         name: "has_video",
                         type: "checkbox",
                         sorting: false,
-                        title: "Видеоматериалы"
+                        title: "Видеоматериалы",
+                        width: 100
                     },
                     {
                         name: "has_quality_checking",
                         title: "прошел проверку обязательной оценки качества",
                         type: "text",
+                        width: 100
                     },
                     {
                         name: "no_permission_of_owners",
                         title: "Нет разрешения правообладелей",
                         type: "text",
+                        width: 100
                     },
                     {
                         name: "got_into_record",
                         title: "попал в отчет",
                         type: "text",
+                        width: 100
                     },
                     {
                         name: "got_expertise_2018",
                         title: "прошел экспертизу в 2018 (1 квартал)",
                         type: "text",
+                        width: 100
                     },
                     {
                         name: "additional_info",
                         title: "Дополнительная информация",
                         type: "text",
+                        width: 100
                     },
                     {
                         type: "control",

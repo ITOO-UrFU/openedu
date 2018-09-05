@@ -194,14 +194,14 @@
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
-                        if (!coursesLoaded) {
+                        if (!expertisesLoaded) {
                             $.ajax({
                                 type: "GET",
                                 url: "/roo/expertises_edit/",
                             }).done(function (result) {
                                 expertises = result;
                                 console.log(expertises);
-                                expertisesCount = courses.length;
+                                expertisesCount = expertises.length;
                                 expertisesLoaded = true;
                                 d.resolve($.map(result, function (item) {
                                     return item;
@@ -210,7 +210,7 @@
                         }
                         else {
                             {#console.log(courses);#}
-                            result = $.grep(courses, function (item) {
+                            result = $.grep(expertises, function (item) {
                                     return item;
                                 /*return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
                                     && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
@@ -264,7 +264,7 @@
                 fields: [
                     {
                         title: "Наименование", width: "150", itemTemplate: function (value, item) {
-                            var course_link = $('<a>', {
+                            var expertise_link = $('<a>', {
                                 text: value,
                                 title: value,
                                 href: '#',
@@ -273,7 +273,7 @@
                                     return false;
                                 }
                             });
-                            return course_link;
+                            return expertise_link;
                         }, name: "course", type: "text", filtering: true, editing: false
                     },
 

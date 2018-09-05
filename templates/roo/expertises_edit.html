@@ -46,13 +46,11 @@
         }
 
         #jsGridTableWrapper {
-    flex: 1; /* same as flex: 1 1 auto; */
-        display: flex;
-    {#flex-direction: row;#}
-
-    justify-content: flex-start; /* align items in Main Axis */
-    align-items: stretch; /* align items in Cross Axis */
-    align-content: stretch; /* Extra space in Cross Axis */
+            flex: 1; /* same as flex: 1 1 auto; */
+            display: flex;
+        {#flex-direction: row;#} justify-content: flex-start; /* align items in Main Axis */
+            align-items: stretch; /* align items in Cross Axis */
+            align-content: stretch; /* Extra space in Cross Axis */
 
         }
 
@@ -60,25 +58,25 @@
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
 
-   <!-- <div id="jsGridWrapper"> -->
-      <div id="jsGridWrapper" class="ui horizontal segments">
-            <div class="ui segment">
-                <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
-                столбцы</label>
-                <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
-                    <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
-                    </p>
-                    <button id="setColumnsVisible">Применить</button>
-                </div>
+    <!-- <div id="jsGridWrapper"> -->
+    <div id="jsGridWrapper" class="ui horizontal segments">
+        <div class="ui segment">
+            <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
+            столбцы</label>
+            <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
+                <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
+                </p>
+                <button id="setColumnsVisible">Применить</button>
             </div>
-            <div class="ui segment">
-                <div id="courseCounter"></div>
-            </div>
-
         </div>
-        <div id="jsGridTableWrapper">
-            <div id="jsGrid"></div>
-         </div>
+        <div class="ui segment">
+            <div id="courseCounter"></div>
+        </div>
+
+    </div>
+    <div id="jsGridTableWrapper">
+        <div id="jsGrid"></div>
+    </div>
     <!-- </div> -->
     <script src='{% static "/js/jsgrid.min.js" %}'></script>
     <script type="text/javascript">
@@ -99,7 +97,7 @@
             var expertisesLoaded = false;
             var expertisesCount = 0;
 
-           /* var loadIndicator = new jsGrid.LoadIndicator();*/
+            /* var loadIndicator = new jsGrid.LoadIndicator();*/
 
             $("#jsGrid").jsGrid({
                 height: "100%",
@@ -119,17 +117,20 @@
                 rowClick: function (args) {
                     return;
                 },
-                    onInit: function(args) {
-        gridInstance = args.grid;
-    },
+                onInit: function (args) {
+                    gridInstance = args.grid;
+                },
                 onRefreshed: function () {
                     $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
                 },
-    onDataLoaded: function(args) {
-        // cancel loading data if 'name' is empty
-         $("#jsGrid").data("JSGrid")._loadIndicator.hide()
-        console.log("KEKUS");
-    },
+                onDataLoading: function (args) {
+                    gridInstance._loadIndicator.hide()
+                    console.log("LOLUS");
+                },
+                onDataLoaded: function (args) {
+                    gridInstance._loadIndicator.hide()
+                    console.log("KEKUS");
+                },
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -149,10 +150,6 @@
                         }
                         else {
                             /*loadIndicator._showLoading();*/
-                            console.log($("#jsGrid").data("JSGrid"));
-                           $("#jsGrid").data("JSGrid")._loadIndicator.show()
-                            console.log("LOLOLOLOLO");
-                           console.log("gridInstance", gridInstance);
                             result = $.grep(expertises, function (item) {
                                 return item;
                                 /*return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
@@ -162,9 +159,11 @@
 
 
 
+
                                 {#&& (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)#}
                                     && (item.reg_data !== null && !filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
                                     && (!filter.contacts || item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1)
+
 
 
 
@@ -193,11 +192,10 @@
                             });
 
                             d.resolve(result);
-                                                        console.log("FINISH HIM");
 
                         }
 
-/*._hideLoading();*/
+                        /*._hideLoading();*/
                         return d.promise();
                     }
                     /* , updateItem: function (item) {

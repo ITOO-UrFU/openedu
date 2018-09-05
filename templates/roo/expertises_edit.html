@@ -310,14 +310,79 @@
                         title: "Отметка об исполнении эксперизы",
                         sorting: false
                     },
-                    /*  {
-                        title: "Комментарий ответсвенного за платформу",
-                        name: "platform_responsible_comment",
+                   {
+                        title: "Эксперт",
+                        name: "expert",
                         type: "text",
-                        filtering: false,
 
+                     },
+                    {
+                        title:  "Кто от ИТОО контролирует",
+                        name: "supervisor",
+                        type: "text",
+
+                     },
+                    {
+                        title: "Организатор экспертизы сотрудники или партнеры",
+                        name: "organizer",
+                        type: "text",
+
+                     },
+                    {
+                        title: "Примечание",
+                        name: "comment",
+                        type: "text",
+
+                     },
+                    {
+                        title: "Комментарии по отсутствию обязательных полей ОК",
+                        name: "comment_fieldset_1",
+                        type: "text",
+
+                     },
+                    {
+                        title: "Комментарии по отсутствию обязательных полей ОК претендующих на зачет ОП",
+                        name: "comment_fieldset_2",
+                        type: "text",
+
+                     },
+                    {
+                        name: "has_length",
+                        type: "checkbox",
+                        title: "Длительность",
+                        sorting: false
                     },
                     {
+                        name: "has_description",
+                        type: "checkbox",
+                        title: "Описание",
+                        sorting: false
+                    },
+                    {
+                        name: "has_authors",
+                        type: "checkbox",
+                        title: "Авторы",
+                        sorting: false
+                    },
+                                        {
+                        title: "Язык содержания",
+                        name: "language",
+                        type: "text",
+
+                     },
+                    {
+                        name: "has_prerequisites",
+                        type: "checkbox",
+                        title: "Рекомендуемые \\\"входные\\\" требования к обучающемуся",
+                        sorting: false
+                    },
+                    {
+                        name: "has_certificate",
+                        type: "checkbox",
+                        title: "\"Сертификат (выдается или нет)",
+                        sorting: false
+                    },
+                     /* {
                         title: "Ссылка на онлайн-курс на сайте Платформы", itemTemplate: function (value, item) {
                             if (value && value != "") {
                                 var course_link = $('<a>', {

@@ -142,7 +142,7 @@
                         }
                         else {
                             /*loadIndicator._showLoading();*/
-
+$("#jsGrid").data("JSGrid")._showLoading()
                             console.log("LOLOLOLOLO");
                             result = $.grep(expertises, function (item) {
                                 return item;
@@ -185,7 +185,7 @@
                             d.resolve(result)
                         }
 
-/*._hideLoading();*/
+/*._hideLoading();*/$("#jsGrid").data("JSGrid")._hideLoading()
                         return d.promise();
                     }
                     /* , updateItem: function (item) {

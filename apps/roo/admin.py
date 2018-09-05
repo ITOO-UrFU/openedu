@@ -58,6 +58,7 @@ class ExpertiseAdmin(admin.ModelAdmin):
                     "organizer",
                     )
     list_filter = ("type",)
+    search_fields = ("course__title",)
 
 
 @admin.register(Owner)

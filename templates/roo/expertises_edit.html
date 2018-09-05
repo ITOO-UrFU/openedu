@@ -124,6 +124,7 @@
                 },
     onDataLoaded: function(args) {
         // cancel loading data if 'name' is empty
+         $("#jsGrid").data("JSGrid")._hideLoading();
         console.log("KEKUS");
     },
                 controller: {
@@ -188,7 +189,7 @@ $("#jsGrid").data("JSGrid")._showLoading()
 
                             d.resolve(result);
                                                         console.log("FINISH HIM");
-                            $("#jsGrid").data("JSGrid")._hideLoading();
+
                         }
 
 /*._hideLoading();*/

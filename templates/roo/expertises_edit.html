@@ -42,10 +42,13 @@
         }*/
 
         #jsGridWrapper {
-        {#height: 100%;#}{#position: absolute;#}
-            /* bottom: 0; */
-            width: 100%;
-            flex-grow: 1;
+            flex:1;
+    display: flex;
+    flex-direction: row;
+
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch;
         }
 
         #jsGridTableWrapper {

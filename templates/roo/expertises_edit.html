@@ -99,7 +99,7 @@
             var expertisesLoaded = false;
             var expertisesCount = 0;
 
-            var loadIndicator = new jsGrid.LoadIndicator();
+           /* var loadIndicator = new jsGrid.LoadIndicator();*/
 
             $("#jsGrid").jsGrid({
                 height: "100%",
@@ -141,7 +141,7 @@
                             });
                         }
                         else {
-                            loadIndicator._showLoading();
+                            /*loadIndicator._showLoading();*/
 
                             console.log("LOLOLOLOLO");
                             result = $.grep(expertises, function (item) {
@@ -185,7 +185,7 @@
                             d.resolve(result)
                         }
 
-loadIndicator._hideLoading();
+/*._hideLoading();*/
                         return d.promise();
                     }
                     /* , updateItem: function (item) {

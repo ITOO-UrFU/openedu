@@ -79,9 +79,9 @@
     <script src='{% static "/js/jsgrid.min.js" %}'></script>
     <script type="text/javascript">
 
-      /*  $(function () {
+      $(function () {
 
-            var COMMUNICATION_OWNER_STATES = [
+           /* var COMMUNICATION_OWNER_STATES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Согласование не начато"},
                 {Id: "1", Name: "В процессе согласования"},
@@ -164,11 +164,11 @@
                 {Id: "0", Name: "Нет данных"},
                 {Id: "1", Name: "Выдается"},
                 {Id: "2", Name: "Не выдается"}
-            ];
+            ];*/
 
-            var courses = [];
-            var coursesLoaded = false;
-            var coursesCount = 0;
+            var expertises = [];
+            var expertisesLoaded = false;
+            var expertisesCount = 0;
 
             $("#jsGrid").jsGrid({
                 height: "auto",
@@ -182,14 +182,14 @@
 
                 pageButtonCount: 5,
                 pageLoading: false,
-                noDataContent: "Нет курсов для отображения",
-                pagerFormat: "Найдено курсов: {itemCount}",
+                noDataContent: "Нет экстпертиз для отображения",
+                pagerFormat: "Найдено экспертиз: {itemCount}",
                 loadMessage: "Идет загрузка...",
                 rowClick: function (args) {
                     return;
                 },
                 onRefreshed: function () {
-                    $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
+                    $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
                 },
                 controller: {
                     loadData: function (filter) {
@@ -197,11 +197,12 @@
                         if (!coursesLoaded) {
                             $.ajax({
                                 type: "GET",
-                                url: "/roo/courses_edit/",
+                                url: "/roo/expertises_edit/",
                             }).done(function (result) {
-                                courses = result;
-                                coursesCount = courses.length;
-                                coursesLoaded = true;
+                                expertises = result;
+                                console.log(expertises);
+                                expertisesCount = courses.length;
+                                expertisesLoaded = true;
                                 d.resolve($.map(result, function (item) {
                                     return item;
                                 }));
@@ -210,8 +211,8 @@
                         else {
                             {#console.log(courses);#}
                             result = $.grep(courses, function (item) {
-
-                                return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
+                                    return item;
+                                /*return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
                                     && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
                                     && (!filter.institution || item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)
                                     {#&& (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)#}
@@ -237,7 +238,7 @@
                                     && (!filter.passport_responsible || item.passport_responsible === filter.passport_responsible)
                                     && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
                                     && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
-                                    && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)
+                                    && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)*/
                             });
                             d.resolve(result)
                         }
@@ -245,7 +246,7 @@
 
                         return d.promise();
                     }
-                    , updateItem: function (item) {
+                   /* , updateItem: function (item) {
                         //console.log(item);
                         return $.ajax({
                             type: "POST",
@@ -258,7 +259,7 @@
                                 alert("По некоторым причинам не удалось произвести сохранение курса. Для разрешения этой ситуации, пожалуйста, обратитесь к Никите.")
                             }
                         })
-                    }
+                    }*/
                 },
                 fields: [
                     {
@@ -268,15 +269,15 @@
                                 title: value,
                                 href: '#',
                                 click: function () {
-                                    CourseEdit = window.open('http://openedu.urfu.ru/roo/' + item.pk, value, width = 600, height = 300);
+                                   // CourseEdit = window.open('http://openedu.urfu.ru/roo/' + item.pk, value, width = 600, height = 300);
                                     return false;
                                 }
                             });
                             return course_link;
-                        }, name: "title", type: "text", filtering: true, editing: false
+                        }, name: "course", type: "text", filtering: true, editing: false
                     },
 
-                    {
+                    /*{
                         title: "Платформа",
                         name: "partner",
                         editing: false,
@@ -472,22 +473,23 @@
                         textField: "Name",
                         validate: "required",
                         visible: false,
-                    },
+                    },*/
+
                     {
                         type: "control",
                         width: "100",
                         deleteButton: false,
-                        headerTemplate: function () {
+                       /* headerTemplate: function () {
                             return $("<button>").attr("type", "button").text("Добавить курс")
                                 .on("click", function () {
                                     AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
                                     return false;
                                 });
-                        }
+                        }*/
                     }
                 ]
             });
-
+/*
             $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
                 if (element.type != 'control') {
                     var list_item_wrap = document.createElement('div');

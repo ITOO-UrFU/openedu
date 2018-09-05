@@ -99,7 +99,7 @@
             var expertisesLoaded = false;
             var expertisesCount = 0;
 
-            {#var loadIndicator = new jsGrid.LoadIndicator();#}
+            var loadIndicator = new jsGrid.LoadIndicator();
 
             $("#jsGrid").jsGrid({
                 height: "100%",
@@ -122,19 +122,7 @@
                 onRefreshed: function () {
                     $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
                 },
-                    loadIndicator: function(config) {
-        var container = config.container[0];
-        var spinner = new Spinner();
 
-        return {
-            show: function() {
-                spinner.spin(container);
-            },
-            hide: function() {
-                spinner.stop();
-            }
-        };
-    }
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
@@ -153,7 +141,7 @@
                             });
                         }
                         else {
-                            loadIndicator.show();
+                            loadIndicator._showLoading();
 
                             console.log("LOLOLOLOLO");
                             result = $.grep(expertises, function (item) {
@@ -197,7 +185,7 @@
                             d.resolve(result)
                         }
 
-loadIndicator.hide();
+loadIndicator._hideLoading();
                         return d.promise();
                     }
                     /* , updateItem: function (item) {

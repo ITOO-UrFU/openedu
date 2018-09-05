@@ -146,7 +146,8 @@
                         }
                         else {
                             /*loadIndicator._showLoading();*/
-$("#jsGrid").data("JSGrid")._showLoading()
+                            console.log($("#jsGrid").data("JSGrid"));
+                            $("#jsGrid").data("JSGrid")._showLoading();
                             console.log("LOLOLOLOLO");
                             result = $.grep(expertises, function (item) {
                                 return item;

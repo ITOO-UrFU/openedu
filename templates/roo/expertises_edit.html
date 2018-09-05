@@ -572,6 +572,8 @@
 
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
+                $("#jsGrid").data("JSGrid")._loadIndicator.show()
+                $("#column_show_checkboxes").hide();
                 $(".column_checkbox").each(function (index, element) {
                     //console.log(element.value);
                     settings.forEach(function (value, index, array) {

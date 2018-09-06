@@ -563,17 +563,20 @@
             });
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
-                    $("#column_show_checkboxes").hide(1000);
+                    {#$("#column_show_checkboxes").hide(1000);#}
+                $("#column_show_checkboxes").css({ 'display': "none" });
                 }
                 else {
-                    $("#column_show_checkboxes").show(1000);
+                                    $("#column_show_checkboxes").css({ 'display': "block" });
+
+                    {#$("#column_show_checkboxes").show(1000);#}
                 }
             });
 
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
-                $("#jsGrid").data("JSGrid")._loadIndicator.show()
-                $("#column_show_checkboxes").hide();
+                $("#jsGrid").data("JSGrid")._loadIndicator.show();
+                $("#column_show_checkboxes").css({ 'display': "none" });
                 $(".column_checkbox").each(function (index, element) {
                     //console.log(element.value);
                     settings.forEach(function (value, index, array) {

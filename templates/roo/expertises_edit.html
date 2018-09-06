@@ -149,44 +149,51 @@
                         else {
                             /*loadIndicator._showLoading();*/
                             result = $.grep(expertises, function (item) {
-                                return item;
-                                /*return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
-                                    && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
-                                    && (!filter.institution || item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)
-
-
-
-
-
-                                {#&& (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)#}
-                                    && (item.reg_data !== null && !filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
-                                    && (!filter.contacts || item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1)
-
-
-
-
-
-                                {#&& (!filter.responsible_comment || item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1)#}
-
-                                    && (!filter.admin_email || item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1)
-                                    && (!filter.cabinet_course_url || item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1)
-                                    && (!filter.version || item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1)
-                                    && (!filter.language || item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1)
-                                    && (!filter.duration || item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1)
-                                    && (!filter.expert_account || item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1)
-
-                                    && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
-                                    && (!filter.communication_platform || item.communication_platform === filter.communication_platform)
-                                    && (!filter.expertise_status || item.expertise_status === filter.expertise_status)
-                                    && (!filter.passport_status || item.passport_status === filter.passport_status)
-                                    && (!filter.required_ratings_state || item.required_ratings_state === filter.required_ratings_state)
-                                    && (!filter.unforced_ratings_state || item.unforced_ratings_state === filter.unforced_ratings_state)
-                                    && (!filter.roo_status || item.roo_status === filter.roo_status)
-                                    && (!filter.expert_access || item.expert_access === filter.expert_access)
-                                    && (!filter.passport_responsible || item.passport_responsible === filter.passport_responsible)
-                                    && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
-                                    && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
-                                    && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)*/
+                                //return item;
+                                return (!filter.type || item.type === filter.type)
+                                    && (filter.Married === undefined || client.Married === filter.Married)
+                                    && (filter.executed === undefined || client.executed === filter.executed)
+                                    && (filter.has_length === undefined || client.has_length === filter.has_length)
+                                    && (filter.has_description === undefined || client.has_description === filter.has_description)
+                                    && (filter.has_authors === undefined || client.has_authors === filter.has_authors)
+                                    && (filter.has_prerequisites === undefined || client.has_prerequisites === filter.has_prerequisites)
+                                    && (filter.has_certificate === undefined || client.has_certificate === filter.has_certificate)
+                                    && (filter.has_dates === undefined || client.has_dates === filter.has_dates)
+                                    && (filter.has_admin_email === undefined || client.has_admin_email === filter.has_admin_email)
+                                    && (filter.has_labor === undefined || client.has_labor === filter.has_labor)
+                                    && (filter.has_competences === undefined || client.has_competences === filter.has_competences)
+                                    && (filter.has_results === undefined || client.has_results === filter.has_results)
+                                    && (filter.has_evaluation_tools === undefined || client.has_evaluation_tools === filter.has_evaluation_tools)
+                                    && (filter.has_recommended_directions === undefined || client.has_recommended_directions === filter.has_recommended_directions)
+                                    && (filter.has_proctoring === undefined || client.has_proctoring === filter.has_proctoring)
+                                    && (filter.has_labor_costs === undefined || client.has_labor_costs === filter.has_labor_costs)
+                                    && (filter.has_short_description === undefined || client.has_short_description === filter.has_short_description)
+                                    && (filter.has_learning_plan === undefined || client.has_learning_plan === filter.has_learning_plan)
+                                    && (filter.has_promo_clip === undefined || client.has_promo_clip === filter.has_promo_clip)
+                                    && (filter.has_course_subject === undefined || client.has_course_subject === filter.has_course_subject)
+                                    && (filter.is_open === undefined || client.is_open === filter.is_open)
+                                    && (filter.has_expertises_types === undefined || client.has_expertises_types === filter.has_expertises_types)
+                                    && (filter.has_ownership_document_scan === undefined || client.has_ownership_document_scan === filter.has_ownership_document_scan)
+                                    && (filter.has_not_prohibited === undefined || client.has_not_prohibited === filter.has_not_prohibited)
+                                    && (filter.has_text_materials === undefined || client.has_text_materials === filter.has_text_materials)
+                                    && (filter.has_illustrations === undefined || client.has_illustrations === filter.has_illustrations)
+                                    && (filter.has_audio === undefined || client.has_audio === filter.has_audio)
+                                    && (filter.has_video === undefined || client.has_video === filter.has_video)
+                                    && (item.additional_info !== null && !filter.additional_info || item.additional_info.toLowerCase().indexOf(filter.additional_info.toLowerCase()) > -1)
+                                    && (item.got_expertise_2018 !== null && !filter.got_expertise_2018 || item.got_expertise_2018.toLowerCase().indexOf(filter.got_expertise_2018.toLowerCase()) > -1)
+                                    && (item.got_into_record !== null && !filter.got_into_record || item.got_into_record.toLowerCase().indexOf(filter.got_into_record.toLowerCase()) > -1)
+                                    && (item.has_quality_checking !== null && !filter.has_quality_checking || item.has_quality_checking.toLowerCase().indexOf(filter.has_quality_checking.toLowerCase()) > -1)
+                                    && (item.no_permission_of_owners !== null && !filter.no_permission_of_owners || item.no_permission_of_owners.toLowerCase().indexOf(filter.no_permission_of_owners.toLowerCase()) > -1)
+                                    && (item.language_subtitles !== null && !filter.language_subtitles || item.language_subtitles.toLowerCase().indexOf(filter.language_subtitles.toLowerCase()) > -1)
+                                    && (item.language_video !== null && !filter.language_video || item.language_video.toLowerCase().indexOf(filter.language_video.toLowerCase()) > -1)
+                                    && (item.language !== null && !filter.language || item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1)
+                                    && (item.comment_fieldset_2 !== null && !filter.comment_fieldset_2 || item.comment_fieldset_2.toLowerCase().indexOf(filter.comment_fieldset_2.toLowerCase()) > -1)
+                                    && (item.comment_fieldset_1 !== null && !filter.comment_fieldset_1 || item.comment_fieldset_1.toLowerCase().indexOf(filter.comment_fieldset_1.toLowerCase()) > -1)
+                                    && (item.comment !== null && !filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)
+                                    && (item.supervisor !== null && !filter.supervisor || item.supervisor.toLowerCase().indexOf(filter.supervisor.toLowerCase()) > -1)
+                                    && (item.expert !== null && !filter.expert || item.expert.toLowerCase().indexOf(filter.expert.toLowerCase()) > -1)
+                                    && (item.state !== null && !filter.state || item.state.toLowerCase().indexOf(filter.state.toLowerCase()) > -1)
+                                    && (item.course !== null && !filter.course || item.course.toLowerCase().indexOf(filter.course.toLowerCase()) > -1)
                             });
 
                             d.resolve(result);
@@ -564,10 +571,10 @@
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
                     {#$("#column_show_checkboxes").hide(1000);#}
-                $("#column_show_checkboxes").css({ 'display': "none" });
+                    $("#column_show_checkboxes").css({'display': "none"});
                 }
                 else {
-                                    $("#column_show_checkboxes").css({ 'display': "block" });
+                    $("#column_show_checkboxes").css({'display': "block"});
 
                     {#$("#column_show_checkboxes").show(1000);#}
                 }
@@ -576,7 +583,7 @@
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
                 $("#jsGrid").data("JSGrid")._loadIndicator.show();
-                $("#column_show_checkboxes").css({ 'display': "none" });
+                $("#column_show_checkboxes").css({'display': "none"});
                 $(".column_checkbox").each(function (index, element) {
                     //console.log(element.value);
                     settings.forEach(function (value, index, array) {

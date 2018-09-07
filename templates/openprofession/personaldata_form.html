@@ -101,6 +101,18 @@
                     заявления</a></p>
                 <p>В случае, если Вы проживаете не в Екатеринбурге, необходимо прикрепить скан заявления о почтовой пересылке оригинала документа об обучении.</p>
 
+                   <p><label for="id_mail_index"> Почтовый индекс:</label>
+                    {{ form.mail_index.errors }}
+                    <input name="mail_index" maxlength="255"
+                           id="id_mail_index" type="text"></p>
+
+                <p><label for="id_country"> Страна:</label>
+                    {{ form.country.errors }}
+                    <input name="country" maxlength="255"
+                           id="id_country" type="text"></p>
+
+                 <p><label for="id_address_living">Адрес проживания:</label>
+                <textarea name="address_living" cols="40" rows="10" required="" id="id_address_living"></textarea></p>
             </div>
 
             <!--<div class="subsection">-->

@@ -121,7 +121,7 @@
                 },
                 onInit: function (args) {
                     gridInstance = args.grid;
-                    gridInstance.forEach((field) => {
+                    gridInstance.fields.forEach((field) => {
                         if (field.type != "control") {
                             gridFields[field.name] = field.type
                         }
@@ -155,7 +155,7 @@
                         }
                         else {
                             /*loadIndicator._showLoading();*/
-                            console.log(gridInstance.fields)
+                            {#console.log(gridInstance.fields)#}
                             result = $.grep(expertises, function (item) {
                                 {#console.log(item);#}
                                 return (!filter.type || item.type === filter.type)

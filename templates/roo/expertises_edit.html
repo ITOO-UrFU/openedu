@@ -579,9 +579,10 @@
                 }
             });
 
-           $(".column_checkbox").click(function () {
+         /*  $(".column_checkbox").click(function () {
                 console.log(this)
             });
+*/
 
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
@@ -597,7 +598,7 @@
                     })
                 });
                 $("#jsGrid").jsGrid("option", "fields", settings);
-                $("#column_show_checkboxes").hide(1000);
+                /*$("#column_show_checkboxes").hide(1000);*/
                 $("#jsGrid").jsGrid("refresh");
                 $("#show_hide_checkboxes").prop("checked", false);
             });

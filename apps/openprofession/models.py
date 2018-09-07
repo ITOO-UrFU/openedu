@@ -205,9 +205,9 @@ class PersonalData(models.Model):
     doc_forwarding = models.FileField("Скан заявления о пересылке", upload_to=generate_new_filename, null=True,
                                       blank=True)
 
-    mail_index = models.CharField("Почтовый индекс", max_length=8, null=True, blank=True)
-    country = models.CharField("Страна", default='Россия', max_length=32, null=True, blank=True)
-    address_living = models.TextField("Адрес проживания", blank=True, null=True)
+    mail_index = models.CharField("Почтовый индекс", max_length=255, null=True, blank=True)
+    country = models.CharField("Страна", default='Россия', max_length=255, null=True, blank=True)
+    address_living = models.TextField("Адрес проживания", max_length=255, blank=True, null=True)
 
     possible_id = models.IntegerField(blank=True, default=0)
     courses = models.ManyToManyField(Program, related_name='%(class)s_requests_created', blank=True)

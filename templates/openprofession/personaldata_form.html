@@ -109,10 +109,12 @@
                 <p><label for="id_country"> Страна:</label>
                     {{ form.country.errors }}
                     <input name="country" maxlength="255"
-                           id="id_country" type="text"></p>
+                           id="id_country" type="text" value="Россия"></p>
 
-                 <p><label for="id_address_living">Адрес проживания:</label>
-                <textarea name="address_living" cols="40" rows="10" required="" id="id_address_living"></textarea></p>
+                            <p><label for="id_address_living">Адрес проживания:</label>
+                    {{ form.address_living.errors }}
+                    <input name="address_living" maxlength="255"
+                           id="id_address_living" type="text" value="Россия"></p>
             </div>
 
             <!--<div class="subsection">-->

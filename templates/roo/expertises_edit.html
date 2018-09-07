@@ -578,7 +578,16 @@
                     {#$("#column_show_checkboxes").show(1000);#}
                 }
             });
+function sleep(seconds) {
+    var start = new Date().getTime(),
+        delay = seconds * 1000;
 
+    while (true) {
+        if ((new Date().getTime() - start) > delay) {
+            break;
+        }
+    }
+}​
          /*  $(".column_checkbox").click(function () {
                 console.log(this)
             });
@@ -588,6 +597,7 @@
             $("#setColumnsVisible").click(function () {
                 $("#jsGrid").data("JSGrid")._loadIndicator.show();
                 $("#column_show_checkboxes").css({'display': "none"});
+                sleep(2);
                 $(".column_checkbox").each(function (index, element) {
                     //console.log(element.value);
                     settings.forEach(function (value, index, array) {

@@ -89,6 +89,16 @@
     <script type="text/javascript">
 
         $(function () {
+            function sleep(seconds) {
+    var start = new Date().getTime(),
+        delay = seconds * 1000;
+
+    while (true) {
+        if ((new Date().getTime() - start) > delay) {
+            break;
+        }
+    }
+}​
             var EX_TYPES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Обязательная"},
@@ -578,16 +588,7 @@
                     {#$("#column_show_checkboxes").show(1000);#}
                 }
             });
-function sleep(seconds) {
-    var start = new Date().getTime(),
-        delay = seconds * 1000;
 
-    while (true) {
-        if ((new Date().getTime() - start) > delay) {
-            break;
-        }
-    }
-}​
          /*  $(".column_checkbox").click(function () {
                 console.log(this)
             });

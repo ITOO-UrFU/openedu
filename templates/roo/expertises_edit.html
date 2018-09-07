@@ -45,6 +45,13 @@
 
         }
 
+        .hidden_column{
+        display: none !important;
+        }
+        .show_column{
+            display: block !important;
+        }
+
         #jsGridTableWrapper {
             flex: 1; /* same as flex: 1 1 auto; */
             display: flex;
@@ -570,6 +577,10 @@
 
                     {#$("#column_show_checkboxes").show(1000);#}
                 }
+            });
+
+           $(".column_checkbox").click(function () {
+                console.log(this)
             });
 
             var settings = $("#jsGrid").data("JSGrid").fields;

@@ -10,7 +10,3 @@ def page_view(request, link="home"):
         return render(request, "home/page.html", {"page": page})
     else:
         raise Http404
-
-
-def login(request):
-    return render(request, "home/login.html")

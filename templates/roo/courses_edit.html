@@ -56,11 +56,6 @@
 
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
-{% if request.user|has_group:"roo" %}
-    <p>user v roo </p>
-{% else %}
-    <p>User not in roo</p>
-{% endif %}
 
     <div id="jsGridWrapper">
         <div class="ui horizontal segments">
@@ -182,7 +177,11 @@
 
                 filtering: true,
 
-                editing: true,
+                {% if request.user|has_group:"roo" %}
+                    editing: false,
+                {% else %}
+                    editing: true,
+                {% endif %}
                 sorting: true,
 
                 autoload: true,

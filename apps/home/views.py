@@ -1,8 +1,5 @@
-from django.shortcuts import render
 from django.http import Http404
-
-from oauthlib.oauth2 import BackendApplicationClient
-from requests_oauthlib import OAuth2Session
+from django.shortcuts import render
 
 from .models import Page
 
@@ -14,5 +11,6 @@ def page_view(request, link="home"):
     else:
         raise Http404
 
+
 def login(request):
-    return render("home/login.html")
+    return render(request, "home/login.html")

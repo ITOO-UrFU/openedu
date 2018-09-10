@@ -124,7 +124,14 @@ function sleep(seconds) {
                 width: "100%",
 
                 filtering: true,
-                editing: true,
+
+
+                {% if request.user|has_group:"roo" %}
+                    editing: false,
+                {% else %}
+                    editing: true,
+                {% endif %}
+
                 sorting: true,
 
                 autoload: true,

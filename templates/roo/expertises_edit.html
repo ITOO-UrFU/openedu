@@ -1,6 +1,7 @@
 {% extends "roo/courses_base.html" %}
 {% load static %}
 {% load semanticui %}
+{% load roo_extras %}
 {% block content %}
 
     <link href='{% static "css/jsgrid.min.css" %}' rel="stylesheet"/>
@@ -125,7 +126,11 @@ function sleep(seconds) {
 
                 filtering: true,
 
+                {% if request.user|has_group:"roo" %}
+                editing: false,
+                {% else %}
                 editing: true,
+                {% endif %}
 
                 sorting: true,
 

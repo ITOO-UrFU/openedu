@@ -602,7 +602,7 @@ function sleep(seconds) {
             });
 */
          async function setSettings(){
-                $("#jsGrid").data("JSGrid")._loadIndicator.show();
+                {#$("#jsGrid").data("JSGrid")._loadIndicator.show();#}
                 $(".column_checkbox").each(function (index, element) {
                     //console.log(element.value);
                     settings.forEach(function (value, index, array) {
@@ -621,7 +621,8 @@ function sleep(seconds) {
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
                 $("#column_show_checkboxes").css({'display': "none"});
-                window.setTimeout(setSettings, 100);
+                $("#jsGrid").data("JSGrid")._loadIndicator.show();
+                window.setTimeout(setSettings, 10);
                 //();
                 //sleep(2);
 

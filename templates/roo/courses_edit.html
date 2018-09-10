@@ -1,6 +1,7 @@
 {% extends "roo/courses_base.html" %}
 {% load static %}
 {% load semanticui %}
+{% load roo_extras %}
 {% block content %}
 
     <link href='{% static "css/jsgrid.min.css" %}' rel="stylesheet"/>
@@ -37,44 +38,48 @@
             padding: 5px 0px !important;
         }
 
-        /*.jsgrid-pager-container {
-            display: block !important;
-        }*/
-
         #jsGridWrapper {
-        {#height: 100%;#}{#position: absolute;#}
-            /* bottom: 0; */
+
+        }
+
+        .hidden_column{
+        display: none !important;
+        }
+        .show_column{
+            display: block !important;
         }
 
         #jsGridTableWrapper {
-            position: absolute;
-            height: 100%;
-        {#bottom: 0;#}{#    height: 100%;#}
+            flex: 1; /* same as flex: 1 1 auto; */
+            display: flex;
+        {#flex-direction: row;#} justify-content: flex-start; /* align items in Main Axis */
+            align-items: stretch; /* align items in Cross Axis */
+            align-content: stretch; /* Extra space in Cross Axis */
+
         }
+
 
 
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
 
-    <div id="jsGridWrapper">
-        <div class="ui horizontal segments">
-            <div class="ui segment">
-                <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
-                столбцы</label>
-                <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
-                    <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
-                    </p>
-                    <button id="setColumnsVisible">Применить</button>
-                </div>
+    <div id="jsGridWrapper" class="ui horizontal segments">
+        <div class="ui segment">
+            <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
+            столбцы</label>
+            <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
+                <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
+                </p>
+                <button id="setColumnsVisible">Применить</button>
             </div>
-            <div class="ui segment">
-                <div id="courseCounter"></div>
-            </div>
+        </div>
+        <div class="ui segment">
+            <div id="courseCounter"></div>
+        </div>
 
-        </div>
-        <div id="jsGridTableWrapper">
-            <div id="jsGrid"></div>
-        </div>
+    </div>
+    <div id="jsGridTableWrapper">
+        <div id="jsGrid"></div>
     </div>
     <script src='{% static "/js/jsgrid.min.js" %}'></script>
     <script type="text/javascript">
@@ -171,30 +176,43 @@
             var coursesCount = 0;
 
             $("#jsGrid").jsGrid({
-                height: "auto",
+                height: "100%",
                 width: "100%",
 
                 filtering: true,
+
+                {% if request.user|has_group:"roo" %}
+                editing: false,
+                {% else %}
                 editing: true,
+                {% endif %}
                 sorting: true,
-                {#paging: true,#}
+
                 autoload: true,
-                {#pageSize: 1500,#}
+
                 pageButtonCount: 5,
                 pageLoading: false,
                 noDataContent: "Нет курсов для отображения",
                 pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
-                rowClick: function (args) { return; },
+                rowClick: function (args) {
+                    return;
+                },
                 onRefreshed: function () {
-                     $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
-                 },
+                    $("#courseCounter").html('Найдено курсов: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + coursesCount);
+                },
+                onInit: function (args) {
+                    gridInstance = args.grid;
+                },
+                onDataLoading: function (args) {
+                    gridInstance._loadIndicator.show()
+                },
+                onDataLoaded: function (args) {
+                    gridInstance._loadIndicator.hide()
+                },
                 controller: {
                     loadData: function (filter) {
                         var d = $.Deferred();
-                        console.log(filter);
-                        console.log("!!!!!!!!!!!!!!!!", coursesLoaded);
-
                         if (!coursesLoaded) {
                             $.ajax({
                                 type: "GET",
@@ -256,7 +274,7 @@
                         });
                     },*/
                     , updateItem: function (item) {
-                        console.log(item);
+                        //console.log(item);
                         return $.ajax({
                             type: "POST",
                             url: "/roo/update_course/",
@@ -293,23 +311,68 @@
                         }, name: "title", type: "text", filtering: true, editing: false
                     },
 
-                    {title: "Платформа", name: "partner", editing: false, type: "text"},
-                    {title: "Ссылка на онлайн-курс на сайте Платформы",itemTemplate: function (value, item) {
-                        if(value && value!="")
-                            {
+                    {
+                        title: "Платформа",
+                        name: "partner",
+                        editing: false,
+                        type: "text"
+                    },
+                    {
+                        title: "Ответсвенный за платформу",
+                        name: "platform_responsible",
+                        type: "select",
+                        items: platform_responsible_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
+                    {
+                        title: "Комментарий ответсвенного за платформу",
+                        name: "platform_responsible_comment",
+                        type: "text",
+                        filtering: false,
+
+                    },
+                    {
+                        title: "Ссылка на онлайн-курс на сайте Платформы", itemTemplate: function (value, item) {
+                            if (value && value != "") {
                                 var course_link = $('<a>', {
                                     text: "Сслыка",
                                     title: value,
                                     href: value,
                                 });
-                                course_link.attr('target','_blank');
+                                course_link.attr('target', '_blank');
                                 return course_link;
                             }
-                            else{
+                            else {
                                 return "";
                             }
-                        }, name:"external_url", filtering: false, editing: false, type: "text"},
-                    {title: "Правообладатель", width: "150", name: "institution", type: "text", editing: false},
+                        }, name: "external_url", filtering: false, editing: false, type: "text"
+                    },
+                    {
+                        title: "Правообладатель",
+                        width: "150",
+                        name: "institution",
+                        type: "text",
+                        editing: false
+                    },
+                    {
+                        title: "Ответсвенный за правообладателя",
+                        name: "owner_responsible",
+                        type: "select",
+                        items: owner_responsible_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required"
+                    },
+                    {
+                        title: "Комментарий ответсвенного за правообладателя",
+                        name: "owner_responsible_comment",
+                        type: "text",
+                        filtering: false,
+
+                    },
+                    {title: "Примечание", name: "comment", type: "text", filtering: false},
                     {
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",
@@ -317,8 +380,10 @@
                         items: COMMUNICATION_OWNER_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
+
                     {
                         title: "Статус коммуникации с платформой",
                         name: "communication_platform",
@@ -326,7 +391,8 @@
                         items: COMMUNICATION_PLATFORM_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Статус экспертизы",
@@ -335,7 +401,8 @@
                         items: EX_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+
                     },
                     {
                         title: "Статус паспорта",
@@ -354,7 +421,8 @@
                         items: REQUIRED_RATINGS_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
                     {
                         title: "Состояние загрузки добровольных оценок",
@@ -363,9 +431,10 @@
                         items: UNFORCED_RATINGS_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
+                        visible: false
                     },
-                    {title: "Примечание", name: "comment", type: "text", filtering: false},
+
                     {
                         title: "Статус загрузки На РОО",
                         name: "roo_status",
@@ -375,30 +444,7 @@
                         textField: "Name",
                         validate: "required"
                     },
-                    {
-                        title: "Ответсвенный за платформу",
-                        name: "platform_responsible",
-                        type: "select",
-                        items: platform_responsible_STATES,
-                        valueField: "Id",
-                        textField: "Name",
-                        validate: "required"
-                    },
-                    {
-                        title: "Ответсвенный за правообладателя",
-                        name: "owner_responsible",
-                        type: "select",
-                        items: owner_responsible_STATES,
-                        valueField: "Id",
-                        textField: "Name",
-                        validate: "required"
-                    },
-                    {
-                        title: "Комментарий ответсвенного за платформу",
-                        name: "responsible_comment",
-                        type: "text",
-                        filtering: false
-                    },
+
                     {
                         title: "Ответсвенный за паспорт",
                         name: "passport_responsible",
@@ -406,7 +452,7 @@
                         items: passport_responsible_STATES,
                         valueField: "Id",
                         textField: "Name",
-                        validate: "required"
+                        validate: "required",
                     },
                     {
                         title: "Контакты", name: "contacts", type: "text",
@@ -462,9 +508,11 @@
                         validate: "required",
                         visible: false,
                     },
+                    {% if  not request.user|has_group:"roo" %}
                     {
                         type: "control",
                         width: "100",
+                        deleteButton: false,
                         headerTemplate: function () {
                             return $("<button>").attr("type", "button").text("Добавить курс")
                                 .on("click", function () {
@@ -473,6 +521,7 @@
                                 });
                         }
                     }
+                    {% endif %}
                 ]
             });
 
@@ -488,16 +537,6 @@
                     input.checked = element.visible;
                     input.id = element.name;
                     input.value = element.name;
-                    /*input.oninput = function () {
-                        var settings = $("#jsGrid").data("JSGrid").fields;
-                        for (var s in settings) {
-                            if (settings[s].name == element.name) {
-                                settings[s].visible = input.checked;
-                                break;
-                            }
-                        }
-                        $("#jsGrid").jsGrid("option", "fields", settings)
-                    };*/
                     var label = document.createElement('label');
 
                     label.setAttribute("for", element.name);
@@ -510,24 +549,16 @@
             });
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
-                    $("#column_show_checkboxes").hide();
+                    $("#column_show_checkboxes").css({'display': "none"});
                 }
                 else {
-                    $("#column_show_checkboxes").show();
+                    $("#column_show_checkboxes").css({'display': "block"});
                 }
             });
 
-            var settings = $("#jsGrid").data("JSGrid").fields;
-
-               /* .filter(obj => {
-                return obj.type != 'control';
-            });*/
-            $("#setColumnsVisible").click(function () {
-                {#var settings = $("#jsGrid").data("JSGrid").fields;#}
-                {#console.log(settings);#}
-
+         function setSettings(){
+             console.log("Начали экспертизы");
                 $(".column_checkbox").each(function (index, element) {
-                    console.log(element.value);
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
                             console.log(element.checked);
@@ -536,68 +567,17 @@
                     })
                 });
                 $("#jsGrid").jsGrid("option", "fields", settings);
+                $("#jsGrid").jsGrid("refresh");
+
+         }
+
+            var settings = $("#jsGrid").data("JSGrid").fields;
+            $("#setColumnsVisible").click(function () {
+                $("#show_hide_checkboxes").prop("checked", false);
+                $("#column_show_checkboxes").css({'display': "none"});
+                $("#jsGrid").data("JSGrid")._loadIndicator.show();
+                window.setTimeout(setSettings, 50);
             });
-
-            /*
-            <li>
-                <input type='checkbox' class='box' value='title' checked> Наименование
-            </li>
-            * */
-            /* $(".box").click(function () {
-                 var fields = $("#jsGrid").data("JSGrid").fields;
-                 var colValue = $(this).val();
-                 var check = $(this);
-
-                 $.each(fields, function (idx, value) {
-                     if (value.name.toLowerCase() === colValue) {
-                         value.visible = check.prop("checked");
-                     }
-                 });
-
-                 $("#jsGrid").jsGrid("option", "fields", fields);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {#for (var n in fields)#}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {#       console.log('fields: ',fields[n].name.toLowerCase());#}
-            });
-            $(".boxAll").click(function () {
-                if (this.checked != true) {
-                    $("ul").hide();
-                }
-                else {
-                    $("ul").show();
-                }
-            });*/
         })
         ;
     </script>

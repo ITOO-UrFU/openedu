@@ -340,10 +340,16 @@ class Course(models.Model):
                                            choices=platform_responsible_STATES, default="0")
     owner_responsible = models.CharField("Ответсвенный за правообладателя", max_length=1,
                                            choices=owner_responsible_STATES, default="0")
-    responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
+
+    # responsible_comment = models.TextField("Комментарий ответсвенного", blank=True, null=True)
+    platform_responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
+    owner_responsible_comment = models.TextField("Комментарий ответсвенного за правообладателя", blank=True, null=True)
 
     passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
                                          choices=passport_responsible_STATES, default="0")
+    def natural_key(self):
+        return (self.title)
+
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
 
@@ -470,6 +476,7 @@ class Course(models.Model):
             else:
                 return
 
+
         get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
 
         # logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
@@ -530,6 +537,9 @@ class Expert(models.Model):
     login = models.CharField("Логин эксперта", blank=True, null=True, max_length=512)
     expert = models.TextField(blank=True)
     contacts = models.TextField(blank=True)
+
+    def natural_key(self):
+        return (self.expert)
 
     def __str__(self):
         if self.expert:

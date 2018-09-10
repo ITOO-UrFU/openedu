@@ -1,0 +1,653 @@
+{% extends "roo/courses_base.html" %}
+{% load static %}
+{% load semanticui %}
+{% load roo_extras %}
+{% block content %}
+
+    <link href='{% static "css/jsgrid.min.css" %}' rel="stylesheet"/>
+    <link href='{% static "css/jsgrid-theme.min.css" %}' rel="stylesheet"/>
+    <style>
+
+        input.column_checkbox {
+            margin-right: 5px;
+        }
+
+        #column_show_checkboxes {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        ul {
+            margin: 20px;
+            list-style: none;
+            padding: 0px;
+        }
+
+        ul li {
+            list-style: none;
+            margin-right: 10px;
+            border-right: 1px solid #c8c8c8;
+            padding-right: 10px;
+        }
+
+        .boxAll {
+            margin: 15px auto;
+        }
+
+        div.field {
+            padding: 5px 0px !important;
+        }
+
+        /*.jsgrid-pager-container {
+            display: block !important;
+        }*/
+
+        #jsGridWrapper {
+
+        }
+
+        .hidden_column{
+        display: none !important;
+        }
+        .show_column{
+            display: block !important;
+        }
+
+        #jsGridTableWrapper {
+            flex: 1; /* same as flex: 1 1 auto; */
+            display: flex;
+        {#flex-direction: row;#} justify-content: flex-start; /* align items in Main Axis */
+            align-items: stretch; /* align items in Cross Axis */
+            align-content: stretch; /* Extra space in Cross Axis */
+
+        }
+
+
+    </style>
+    <!-- <button type="button" id="saveSettings">Save Settings</button> -->
+
+    <!-- <div id="jsGridWrapper"> -->
+    <div id="jsGridWrapper" class="ui horizontal segments">
+        <div class="ui segment">
+            <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
+            столбцы</label>
+            <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
+                <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
+                </p>
+                <button id="setColumnsVisible">Применить</button>
+            </div>
+        </div>
+        <div class="ui segment">
+            <div id="courseCounter"></div>
+        </div>
+
+    </div>
+    <div id="jsGridTableWrapper">
+        <div id="jsGrid"></div>
+    </div>
+    <!-- </div> -->
+    <script src='{% static "/js/jsgrid.min.js" %}'></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+function sleep(seconds) {
+    var start = new Date().getTime(),
+        delay = seconds * 1000;
+
+    while (true) {
+        if ((new Date().getTime() - start) > delay) {
+            break;
+        }
+    }
+}
+            var EX_TYPES = [
+                {Id: "", Name: ""},
+                {Id: "0", Name: "Обязательная"},
+                {Id: "1", Name: "ОО"},
+                {Id: "2", Name: "Независимая"},
+                {Id: "3", Name: "Работодатель"},
+                {Id: "4", Name: "Пользовательская"},
+                {Id: "5", Name: "ФУМО"},
+                {Id: "6", Name: "Большие данные"},
+                {Id: "7", Name: "Лучшие практики"}
+            ];
+            var expertises = [];
+            var expertisesLoaded = false;
+            var expertisesCount = 0;
+
+            var gridFields = {};
+
+            /* var loadIndicator = new jsGrid.LoadIndicator();*/
+
+            $("#jsGrid").jsGrid({
+                height: "100%",
+                width: "100%",
+
+                filtering: true,
+
+                editing: true,
+
+                sorting: true,
+
+                autoload: true,
+
+                pageButtonCount: 5,
+                pageLoading: false,
+                noDataContent: "Нет экстпертиз для отображения",
+                pagerFormat: "Найдено экспертиз: {itemCount}",
+                loadMessage: "Идет загрузка...",
+                rowClick: function (args) {
+                    return;
+                },
+                onInit: function (args) {
+                    gridInstance = args.grid;
+                    gridInstance.fields.forEach((field) => {
+                        if (field.type != "control") {
+                            gridFields[field.name] = field.type
+                        }
+                    });
+                },
+                onRefreshed: function () {
+                    $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
+                },
+                onDataLoading: function (args) {
+                    gridInstance._loadIndicator.show()
+                },
+                onDataLoaded: function (args) {
+                    gridInstance._loadIndicator.hide()
+                },
+                controller: {
+                    loadData: function (filter) {
+                        var d = $.Deferred();
+                        if (!expertisesLoaded) {
+                            $.ajax({
+                                type: "GET",
+                                url: "/roo/expertises_edit/",
+                            }).done(function (result) {
+                                expertises = result;
+                                console.log(expertises);
+                                expertisesCount = expertises.length;
+                                expertisesLoaded = true;
+                                d.resolve($.map(result, function (item) {
+                                    return item;
+                                }));
+                            });
+                        }
+                        else {
+                            /*loadIndicator._showLoading();*/
+                            {#console.log(gridInstance.fields)#}
+                            result = $.grep(expertises, function (item) {
+                                return item
+                                {#console.log(item);#}
+                         /*       return (!filter.type || item.type === filter.type)
+&& (filter.executed === undefined || item.executed === filter.executed)
+&& (filter.has_length === undefined || item.has_length === filter.has_length)
+&& (filter.has_description === undefined || item.has_description === filter.has_description)
+&& (filter.has_authors === undefined || item.has_authors === filter.has_authors)
+&& (filter.has_prerequisites === undefined || item.has_prerequisites === filter.has_prerequisites)
+&& (filter.has_certificate === undefined || item.has_certificate === filter.has_certificate)
+&& (filter.has_dates === undefined || item.has_dates === filter.has_dates)
+&& (filter.has_admin_email === undefined || item.has_admin_email === filter.has_admin_email)
+&& (filter.has_labor === undefined || item.has_labor === filter.has_labor)
+&& (filter.has_competences === undefined || item.has_competences === filter.has_competences)
+&& (filter.has_results === undefined || item.has_results === filter.has_results)
+&& (filter.has_evaluation_tools === undefined || item.has_evaluation_tools === filter.has_evaluation_tools)
+&& (filter.has_recommended_directions === undefined || item.has_recommended_directions === filter.has_recommended_directions)
+&& (filter.has_proctoring === undefined || item.has_proctoring === filter.has_proctoring)
+&& (filter.has_labor_costs === undefined || item.has_labor_costs === filter.has_labor_costs)
+&& (filter.has_short_description === undefined || item.has_short_description === filter.has_short_description)
+&& (filter.has_learning_plan === undefined || item.has_learning_plan === filter.has_learning_plan)
+&& (filter.has_promo_clip === undefined || item.has_promo_clip === filter.has_promo_clip)
+&& (filter.has_course_subject === undefined || item.has_course_subject === filter.has_course_subject)
+&& (filter.is_open === undefined || item.is_open === filter.is_open)
+&& (filter.has_expertises_types === undefined || item.has_expertises_types === filter.has_expertises_types)
+&& (filter.has_ownership_document_scan === undefined || item.has_ownership_document_scan === filter.has_ownership_document_scan)
+&& (filter.has_not_prohibited === undefined || item.has_not_prohibited === filter.has_not_prohibited)
+&& (filter.has_text_materials === undefined || item.has_text_materials === filter.has_text_materials)
+&& (filter.has_illustrations === undefined || item.has_illustrations === filter.has_illustrations)
+&& (filter.has_audio === undefined || item.has_audio === filter.has_audio)
+&& (filter.has_video === undefined || item.has_video === filter.has_video)*/
+                            });
+
+                            d.resolve(result);
+
+                        }
+
+                        /*._hideLoading();*/
+                        return d.promise();
+                    }
+                     , updateItem: function (item) {
+                         //console.log(item);
+                         return $.ajax({
+                             type: "POST",
+                             url: "/roo/update_expertise/",
+                             data: JSON.stringify(item),
+                             success: function () {
+                                 console.log("курс сохранен")
+                             },
+                             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                 alert("По некоторым причинам не удалось произвести сохранение экспертизы. Для разрешения этой ситуации, пожалуйста, обратитесь к Никите.")
+                             }
+                         })
+                     }
+                },
+                fields: [
+                    {
+                        title: "Наименование", width: "150", itemTemplate: function (value, item) {
+                            var expertise_link = $('<a>', {
+                                text: value,
+                                title: value,
+                                href: '#',
+                                click: function () {
+                                    ExpertiseEdit = window.open('http://openedu.urfu.ru/roo/expertise/' + item.pk, value, width = 600, height = 300);
+                                    return false;
+                                }
+                            });
+                            return expertise_link;
+                        }, name: "course", type: "text", filtering: true, editing: false, width: 150
+                    },
+// добавить datenam
+                    {
+                        title: "Cостояние процесса (этап)",
+                        name: "state",
+                        editing: false,
+                        type: "text",
+                        width: 100
+                    },
+                    {
+                        title: "Вид экспертизы",
+                        name: "type",
+                        type: "select",
+                        items: EX_TYPES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        width: 100
+                    },
+                    {
+                        name: "executed",
+                        type: "checkbox",
+                        title: "Отметка об исполнении эксперизы",
+                        sorting: false,
+                        width: 100
+                    },
+                    {
+                        title: "Эксперт",
+                        name: "expert",
+                        type: "text",
+                        width: 100,
+                        editing: false,
+
+                    },
+                    {
+                        title: "Кто от ИТОО контролирует",
+                        name: "supervisor",
+                        type: "text",
+                        width: 100
+
+                    },
+                    {
+                        title: "Организатор экспертизы сотрудники или партнеры",
+                        name: "organizer",
+                        type: "text",
+                        width: 100
+
+                    },
+                    {
+                        title: "Примечание",
+                        name: "comment",
+                        type: "text",
+                        width: 100
+
+                    },
+                    {
+                        title: "Комментарии по отсутствию обязательных полей ОК",
+                        name: "comment_fieldset_1",
+                        type: "text",
+                        width: 100
+
+                    },
+                    {
+                        title: "Комментарии по отсутствию обязательных полей ОК претендующих на зачет ОП",
+                        name: "comment_fieldset_2",
+                        type: "text",
+                        width: 100
+
+                    },
+                    {
+                        name: "has_length",
+                        type: "checkbox",
+                        title: "Длительность",
+                        sorting: false,
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_description",
+                        type: "checkbox",
+                        title: "Описание",
+                        sorting: false,
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_authors",
+                        type: "checkbox",
+                        title: "Авторы",
+                        sorting: false,
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        title: "Язык содержания",
+                        name: "language",
+                        type: "text",
+                        width: 100,
+                        visible: false,
+
+                    },
+                    {
+                        name: "has_prerequisites",
+                        type: "checkbox",
+                        title: "Рекомендуемые \"входные\" требования к обучающемуся",
+                        sorting: false,
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_certificate",
+                        type: "checkbox",
+                        title: "Сертификат (выдается или нет)",
+                        sorting: false,
+                        width: 100,
+                        visible: false,
+                    },
+
+                    {
+                        name: "has_dates",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Даты ближайшего запуска",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_admin_email",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Адрес эл. почты администратора ОК",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_labor",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Трудоемкость",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_competences",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Компетенции",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_results",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Результаты обучения",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_evaluation_tools",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Оценочные средства",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_recommended_directions",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Рекомендуемые направления подготовки",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_proctoring",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Наличие подтвержденного сертификата (сервис прокторинга)",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_labor_costs",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Трудозатраты",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_short_description",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Короткое описание",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_learning_plan",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Учебный план",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_promo_clip",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Проморолик",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        title: "Язык видео",
+                        name: "language_video",
+                        type: "text",
+                        width: 100,
+                        visible: false,
+                    }, {
+                        title: "Язык субтитров",
+                        name: "language_subtitles",
+                        type: "text",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_course_subject",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Предмет курса",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "is_open",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Открытость курса",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_expertises_types",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Типы экспертиз для допуска",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_ownership_document_scan",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Скан документа, подтверждающего правообладание",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_not_prohibited",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "В курсе отсутствуют запрещенные материалы",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_text_materials",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Текстовые материалы",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_illustrations",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Иллюстрации",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_audio",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Аудиоматериалы",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_video",
+                        type: "checkbox",
+                        sorting: false,
+                        title: "Видеоматериалы",
+                        width: 100,
+                        visible: false,
+                    },
+                    {
+                        name: "has_quality_checking",
+                        title: "прошел проверку обязательной оценки качества",
+                        type: "text",
+                        width: 100,
+                    },
+                    {
+                        name: "no_permission_of_owners",
+                        title: "Нет разрешения правообладелей",
+                        type: "text",
+                        width: 100,
+                    },
+                    {
+                        name: "got_into_record",
+                        title: "попал в отчет",
+                        type: "text",
+                        width: 100,
+                    },
+                    {
+                        name: "got_expertise_2018",
+                        title: "прошел экспертизу в 2018 (1 квартал)",
+                        type: "text",
+                        width: 100,
+                    },
+                    {
+                        name: "additional_info",
+                        title: "Дополнительная информация",
+                        type: "text",
+                        width: 100
+                    },
+                    {% if  not request.user|has_group:"roo" %}
+                 {
+                        type: "control",
+                        width: "100",
+                        deleteButton: false,
+                        /* headerTemplate: function () {
+                             return $("<button>").attr("type", "button").text("Добавить курс")
+                                 .on("click", function () {
+                                     AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
+                                     return false;
+                                 });
+                         }*/
+                    }
+                {% endif %}
+
+                ]
+            });
+
+            $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+                if (element.type != 'control') {
+                    var list_item_wrap = document.createElement('div');
+                    list_item_wrap.setAttribute("class", "field");
+                    var list_item = document.createElement('div');
+                    list_item.setAttribute("class", "ui slider checkbox");
+                    var input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.setAttribute("class", 'column_checkbox');
+                    input.checked = element.visible;
+                    input.id = element.name;
+                    input.value = element.name;
+                    var label = document.createElement('label');
+
+                    label.setAttribute("for", element.name);
+                    label.innerHTML = element.title;
+                    list_item.appendChild(input);
+                    list_item.appendChild(label);
+                    list_item_wrap.appendChild(list_item);
+                    $("#column_show_checkboxes").prepend(list_item_wrap);
+                }
+            });
+            $("#show_hide_checkboxes").click(function () {
+                if (this.checked != true) {
+                    $("#column_show_checkboxes").css({'display': "none"});
+                }
+                else {
+                    $("#column_show_checkboxes").css({'display': "block"});
+                }
+            });
+
+         function setSettings(){
+             console.log("Начали экспертизы");
+                $(".column_checkbox").each(function (index, element) {
+                    settings.forEach(function (value, index, array) {
+                        if (element.value == value.name) {
+                            console.log(element.checked);
+                            value.visible = element.checked;
+                        }
+                    })
+                });
+                $("#jsGrid").jsGrid("option", "fields", settings);
+                $("#jsGrid").jsGrid("refresh");
+
+         }
+
+            var settings = $("#jsGrid").data("JSGrid").fields;
+            $("#setColumnsVisible").click(function () {
+                $("#show_hide_checkboxes").prop("checked", false);
+                $("#column_show_checkboxes").css({'display': "none"});
+                $("#jsGrid").data("JSGrid")._loadIndicator.show();
+                window.setTimeout(setSettings, 50);
+            });
+        })
+
+    </script>
+
+{% endblock %}

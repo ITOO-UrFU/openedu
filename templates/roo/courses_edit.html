@@ -38,44 +38,48 @@
             padding: 5px 0px !important;
         }
 
-        /*.jsgrid-pager-container {
-            display: block !important;
-        }*/
-
         #jsGridWrapper {
-        {#height: 100%;#}{#position: absolute;#}
-            /* bottom: 0; */
+
+        }
+
+        .hidden_column{
+        display: none !important;
+        }
+        .show_column{
+            display: block !important;
         }
 
         #jsGridTableWrapper {
-            position: absolute;
-            height: 100%;
-        {#bottom: 0;#}{#    height: 100%;#}
+            flex: 1; /* same as flex: 1 1 auto; */
+            display: flex;
+        {#flex-direction: row;#} justify-content: flex-start; /* align items in Main Axis */
+            align-items: stretch; /* align items in Cross Axis */
+            align-content: stretch; /* Extra space in Cross Axis */
+
         }
+
 
 
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
 
-    <div id="jsGridWrapper">
-        <div class="ui horizontal segments">
-            <div class="ui segment">
-                <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
-                столбцы</label>
-                <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
-                    <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
-                    </p>
-                    <button id="setColumnsVisible">Применить</button>
-                </div>
+    <div id="jsGridWrapper" class="ui horizontal segments">
+        <div class="ui segment">
+            <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые
+            столбцы</label>
+            <div id="column_show_checkboxes" style="display:none;" class="grouped fields">
+                <p><b>Обратите внимание!</b> При изменении набора видимых столбцов сбрасываются примененные фильтры.
+                </p>
+                <button id="setColumnsVisible">Применить</button>
             </div>
-            <div class="ui segment">
-                <div id="courseCounter"></div>
-            </div>
+        </div>
+        <div class="ui segment">
+            <div id="courseCounter"></div>
+        </div>
 
-        </div>
-        <div id="jsGridTableWrapper">
-            <div id="jsGrid"></div>
-        </div>
+    </div>
+    <div id="jsGridTableWrapper">
+        <div id="jsGrid"></div>
     </div>
     <script src='{% static "/js/jsgrid.min.js" %}'></script>
     <script type="text/javascript">

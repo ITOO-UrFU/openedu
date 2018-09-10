@@ -588,10 +588,10 @@ function sleep(seconds) {
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
                     {#$("#column_show_checkboxes").hide(1000);#}
-                    $("#column_show_checkboxes").hide(500);
+                    $("#column_show_checkboxes").hide(1000);
                 }
                 else {
-                    $("#column_show_checkboxes").show(500);
+                    $("#column_show_checkboxes").show(1000);
 
                     {#$("#column_show_checkboxes").show(1000);#}
                 }
@@ -602,7 +602,7 @@ function sleep(seconds) {
             });
 */
          async function setSettings(){
-             console.log("Начали");
+             console.log("Начали")
                 {#$("#jsGrid").data("JSGrid")._loadIndicator.show();#}
                 $(".column_checkbox").each(function (index, element) {
                     //console.log(element.value);
@@ -622,7 +622,7 @@ function sleep(seconds) {
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
                 $("#show_hide_checkboxes").prop("checked", false);
-                $("#column_show_checkboxes").hide(500);
+                $("#column_show_checkboxes").css({'display': "none"});
                 $("#jsGrid").data("JSGrid")._loadIndicator.show();
                 window.setTimeout(setSettings, 10);
                 //();

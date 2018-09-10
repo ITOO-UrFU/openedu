@@ -556,13 +556,9 @@
                 }
             });
 
-            var settings = $("#jsGrid").data("JSGrid").fields;
-            $("#setColumnsVisible").click(function () {
-                $("#jsGrid").data("JSGrid")._loadIndicator.show();
-                $("#column_show_checkboxes").css({'display': "none"});
-                //sleep(2);
+         function setSettings(){
+             console.log("Начали экспертизы");
                 $(".column_checkbox").each(function (index, element) {
-                    //console.log(element.value);
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
                             console.log(element.checked);
@@ -571,9 +567,16 @@
                     })
                 });
                 $("#jsGrid").jsGrid("option", "fields", settings);
-                /*$("#column_show_checkboxes").hide(1000);*/
                 $("#jsGrid").jsGrid("refresh");
+
+         }
+
+            var settings = $("#jsGrid").data("JSGrid").fields;
+            $("#setColumnsVisible").click(function () {
                 $("#show_hide_checkboxes").prop("checked", false);
+                $("#column_show_checkboxes").css({'display': "none"});
+                $("#jsGrid").data("JSGrid")._loadIndicator.show();
+                window.setTimeout(setSettings, 30);
             });
         })
         ;

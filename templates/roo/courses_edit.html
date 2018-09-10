@@ -504,6 +504,7 @@
                         validate: "required",
                         visible: false,
                     },
+                    {% if  not request.user|has_group:"roo" %}
                     {
                         type: "control",
                         width: "100",
@@ -516,6 +517,7 @@
                                 });
                         }
                     }
+                    {% endif %}
                 ]
             });
 

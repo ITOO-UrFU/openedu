@@ -126,11 +126,7 @@ function sleep(seconds) {
 
                 filtering: true,
 
-                {% if request.user|has_group:"roo" %}
-                editing: false,
-                {% else %}
                 editing: true,
-                {% endif %}
 
                 sorting: true,
 
@@ -548,7 +544,8 @@ function sleep(seconds) {
                         type: "text",
                         width: 100
                     },
-                    {
+                    {% if  not request.user|has_group:"roo" %}
+                 {
                         type: "control",
                         width: "100",
                         deleteButton: false,
@@ -560,6 +557,8 @@ function sleep(seconds) {
                                  });
                          }*/
                     }
+                {% endif %}
+
                 ]
             });
 

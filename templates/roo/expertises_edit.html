@@ -620,28 +620,9 @@ function sleep(seconds) {
 
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {
-
-                let getData = () => {
-                    return new Promise(function(resolve, reject) {
-                        setTimeout(() => {
-                            $("#column_show_checkboxes").css({'display': "none"});
-                            resolve('Great job, everyone...');
-                        }, 500);
-                    });
-                };
-
-                (async () => {
-                    let main = async ()=> {
-                        console.log(await getData());
-                    };
-
-                    await main();
-                    setSettings();
-                    console.log('Ron once said,');
-                })();
-
-
-
+                $("#column_show_checkboxes").css({'display': "none"});
+                window.setTimeout(setSettings, 100);
+                //();
                 //sleep(2);
 
             });

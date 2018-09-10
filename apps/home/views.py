@@ -14,3 +14,5 @@ def page_view(request, link="home"):
     else:
         raise Http404
 
+def login(request):
+    return render("home/login.html")

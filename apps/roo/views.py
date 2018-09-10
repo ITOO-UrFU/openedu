@@ -338,7 +338,6 @@ def TableExpertiseUpdate(request):
         expertise.comment_fieldset_2 = request_data['comment_fieldset_2']
         expertise.ex_date = request_data['ex_date']
         expertise.executed = request_data['executed']
-        expertise.expert = request_data['expert']
         expertise.got_expertise_2018 = request_data['got_expertise_2018']
         expertise.got_into_record = request_data['got_into_record']
         expertise.has_admin_email = request_data['has_admin_email']

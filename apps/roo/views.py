@@ -329,61 +329,61 @@ def data(request):
 
 def TableExpertiseUpdate(request):
     if request.method == "POST":
-        # try:
-        request_data = json.loads(request.body)
-        expertise = Expertise.objects.get(pk=request_data['pk'])
-        expertise.additional_info = request_data['additional_info']
-        expertise.comment = request_data['comment']
-        expertise.comment_fieldset_1 = request_data['comment_fieldset_1']
-        expertise.comment_fieldset_2 = request_data['comment_fieldset_2']
-        expertise.ex_date = request_data['ex_date']
-        expertise.executed = request_data['executed']
-        expertise.got_expertise_2018 = request_data['got_expertise_2018']
-        expertise.got_into_record = request_data['got_into_record']
-        expertise.has_admin_email = request_data['has_admin_email']
-        expertise.has_audio = request_data['has_audio']
-        expertise.has_authors = request_data['has_authors']
-        expertise.has_certificate = request_data['has_certificate']
-        expertise.has_competences = request_data['has_competences']
-        expertise.has_course_subject = request_data['has_course_subject']
-        expertise.has_dates = request_data['has_dates']
-        expertise.has_description = request_data['has_description']
-        expertise.has_evaluation_tools = request_data['has_evaluation_tools']
-        expertise.has_expertises_types = request_data['has_expertises_types']
-        expertise.has_illustrations = request_data['has_illustrations']
-        expertise.has_labor = request_data['has_labor']
-        expertise.has_labor_costs = request_data['has_labor_costs']
-        expertise.has_learning_plan = request_data['has_learning_plan']
-        expertise.has_length = request_data['has_length']
-        expertise.has_not_prohibited = request_data['has_not_prohibited']
-        expertise.has_ownership_document_scan = request_data['has_ownership_document_scan']
-        expertise.has_prerequisites = request_data['has_prerequisites']
-        expertise.has_proctoring = request_data['has_proctoring']
-        expertise.has_promo_clip = request_data['has_promo_clip']
-        expertise.has_quality_checking = request_data['has_quality_checking']
-        expertise.has_recommended_directions = request_data['has_recommended_directions']
-        expertise.has_results = request_data['has_results']
-        expertise.has_short_description = request_data['has_short_description']
-        expertise.has_text_materials = request_data['has_text_materials']
-        expertise.has_video = request_data['has_video']
-        expertise.is_open = request_data['is_open']
-        expertise.language = request_data['language']
-        expertise.language_subtitles = request_data['language_subtitles']
-        expertise.language_video = request_data['language_video']
-        expertise.no_permission_of_owners = request_data['no_permission_of_owners']
-        expertise.organizer = request_data['organizer']
-        expertise.state = request_data['state']
-        expertise.supervisor = request_data['supervisor']
-        expertise.type = request_data['type']
+        try:
+            request_data = json.loads(request.body)
+            expertise = Expertise.objects.get(pk=request_data['pk'])
+            expertise.additional_info = request_data['additional_info']
+            expertise.comment = request_data['comment']
+            expertise.comment_fieldset_1 = request_data['comment_fieldset_1']
+            expertise.comment_fieldset_2 = request_data['comment_fieldset_2']
+            expertise.ex_date = request_data['ex_date']
+            expertise.executed = request_data['executed']
+            expertise.got_expertise_2018 = request_data['got_expertise_2018']
+            expertise.got_into_record = request_data['got_into_record']
+            expertise.has_admin_email = request_data['has_admin_email']
+            expertise.has_audio = request_data['has_audio']
+            expertise.has_authors = request_data['has_authors']
+            expertise.has_certificate = request_data['has_certificate']
+            expertise.has_competences = request_data['has_competences']
+            expertise.has_course_subject = request_data['has_course_subject']
+            expertise.has_dates = request_data['has_dates']
+            expertise.has_description = request_data['has_description']
+            expertise.has_evaluation_tools = request_data['has_evaluation_tools']
+            expertise.has_expertises_types = request_data['has_expertises_types']
+            expertise.has_illustrations = request_data['has_illustrations']
+            expertise.has_labor = request_data['has_labor']
+            expertise.has_labor_costs = request_data['has_labor_costs']
+            expertise.has_learning_plan = request_data['has_learning_plan']
+            expertise.has_length = request_data['has_length']
+            expertise.has_not_prohibited = request_data['has_not_prohibited']
+            expertise.has_ownership_document_scan = request_data['has_ownership_document_scan']
+            expertise.has_prerequisites = request_data['has_prerequisites']
+            expertise.has_proctoring = request_data['has_proctoring']
+            expertise.has_promo_clip = request_data['has_promo_clip']
+            expertise.has_quality_checking = request_data['has_quality_checking']
+            expertise.has_recommended_directions = request_data['has_recommended_directions']
+            expertise.has_results = request_data['has_results']
+            expertise.has_short_description = request_data['has_short_description']
+            expertise.has_text_materials = request_data['has_text_materials']
+            expertise.has_video = request_data['has_video']
+            expertise.is_open = request_data['is_open']
+            expertise.language = request_data['language']
+            expertise.language_subtitles = request_data['language_subtitles']
+            expertise.language_video = request_data['language_video']
+            expertise.no_permission_of_owners = request_data['no_permission_of_owners']
+            expertise.organizer = request_data['organizer']
+            expertise.state = request_data['state']
+            expertise.supervisor = request_data['supervisor']
+            expertise.type = request_data['type']
 
-        expertise.save()
-        data = serialize('json', [expertise, ], use_natural_foreign_keys=True)
-        struct = json.loads(data)[0]
-        new_expertise = struct['fields']
-        new_expertise['pk'] = struct['pk']
-        return JsonResponse(new_expertise)
-        # except:
-        #     return HttpResponse(status=500)
+            expertise.save()
+            data = serialize('json', [expertise, ], use_natural_foreign_keys=True)
+            struct = json.loads(data)[0]
+            new_expertise = struct['fields']
+            new_expertise['pk'] = struct['pk']
+            return JsonResponse(new_expertise)
+        except:
+            return HttpResponse(status=500)
     else:
         return HttpResponse(status=500)
 

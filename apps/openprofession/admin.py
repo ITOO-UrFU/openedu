@@ -81,6 +81,7 @@ class PersonalDataAdmin(AdminAdvancedFiltersMixin, VersionAdmin):
     list_filter = ('program__start', 'in_quote', 'paid', 'proctoring_status')
     advanced_filter_fields = ('program__start', 'in_quote', 'paid')
     raw_id_fields = ("program",)
+    exclude = ("entries", "courses")
 
 
 @admin.register(SeminarData)

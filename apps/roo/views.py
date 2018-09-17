@@ -1,27 +1,21 @@
 # -*- coding: utf-8 -*-
-import json
 import string
 
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
 from django import forms
-from django.views.generic.edit import UpdateView, CreateView
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
-
-import logging
-
-from openedu.celery import app
-from .tasks import *
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.generic.edit import UpdateView, CreateView
+from django_tables2 import RequestConfig
 
 from .decorators import roo_member_required
-
 from .models import \
     Course, CoursesTable, \
     Expertise, ExpertisesTable, \
     Owner, Expert, Teacher
-from django_tables2 import RequestConfig
+from .tasks import *
 
 logger = logging.getLogger('celery_logging')
 
@@ -344,6 +338,7 @@ def data(request):
 
         # Statistics
         context["courses_count"] = Course.objects.all().count()
+        context["passport"] = Course.get_passport_responsibles()
         context["expertises_count"] = Expertise.objects.all().count()
         context["owners_count"] = Owner.objects.all().count()
 
@@ -364,6 +359,7 @@ def data(request):
                 globals()[task].delay()
 
         return JsonResponse({"status": "sucess"})
+
 
 def TableExpertiseUpdate(request):
     if request.method == "POST":
@@ -425,65 +421,61 @@ def TableExpertiseUpdate(request):
     else:
         return HttpResponse(status=500)
 
+
 def TableCourseUpdate(request):
     if request.method == "POST":
-        try:
-            request_data = json.loads(request.body)
-            course = Course.objects.get(pk=request_data['pk'])
-            course.credits = request_data['credits']
-            course.record_end_at = request_data['record_end_at']
-            course.title = request_data['title']
-            course.image = request_data['image']
-            course.created_at = request_data['created_at']
-            course.visitors_rating = request_data['visitors_rating']
-            course.duration = request_data['duration']
-            course.finished_at = request_data['finished_at']
-            course.competences = request_data['competences']
-            course.accreditation = request_data['accreditation']
-            course.description = request_data['description']
-            course.expert_rating_count = request_data['expert_rating_count']
-            course.has_sertificate = request_data['has_sertificate']
-            course.language = request_data['language']
-            course.course_item_url = request_data['course_item_url']
-            course.content = request_data['content']
-            course.started_at = request_data['started_at']
-            course.rating = request_data['rating']
-            course.external_url = request_data['external_url']
-            course.lectures_number = request_data['lectures_number']
-            course.version = request_data['version']
-            course.visitors_rating_count = request_data['visitors_rating_count']
-            course.total_visitors_number = request_data['total_visitors_number']
-            course.experts_rating = request_data['experts_rating']
-            course.requirements = request_data['requirements']
-            course.cabinet_course_url = request_data['cabinet_course_url']
-            course.admin_email = request_data['admin_email']
-            course.newest = request_data['newest']
-            course.expert_account = request_data['expert_account']
-            course.communication_owner = request_data['communication_owner']
-            course.communication_platform = request_data['communication_platform']
-            course.expertise_status = request_data['expertise_status']
-            course.passport_status = request_data['passport_status']
-            course.roo_status = request_data['roo_status']
-            course.required_ratings_state = request_data['required_ratings_state']
-            course.unforced_ratings_state = request_data['unforced_ratings_state']
-            course.comment = request_data['comment']
-            course.expert_access = request_data['expert_access']
-            course.reg_data = request_data['reg_data']
-            course.contacts = request_data['contacts']
-            course.platform_responsible = request_data['platform_responsible']
-            course.owner_responsible = request_data['owner_responsible']
-            course.responsible_comment = request_data['responsible_comment']
-            course.passport_responsible = request_data['passport_responsible']
-            course.save()
-            data = serialize('json', [course, ], use_natural_foreign_keys=True)
-            struct = json.loads(data)[0]
-            new_course = struct['fields']
-            new_course['pk'] = struct['pk']
-            return JsonResponse(new_course)
-        except:
-            return HttpResponse(status=500)
-    else:
-        return HttpResponse(status=500)
+        request_data = json.loads(request.body)
+        course = Course.objects.get(pk=request_data['pk'])
+        course.credits = request_data['credits']
+        course.record_end_at = request_data['record_end_at']
+        course.title = request_data['title']
+        course.image = request_data['image']
+        course.created_at = request_data['created_at']
+        course.visitors_rating = request_data['visitors_rating']
+        course.duration = request_data['duration']
+        course.finished_at = request_data['finished_at']
+        course.competences = request_data['competences']
+        course.accreditation = request_data['accreditation']
+        course.description = request_data['description']
+        course.expert_rating_count = request_data['expert_rating_count']
+        course.has_sertificate = request_data['has_sertificate']
+        course.language = request_data['language']
+        course.course_item_url = request_data['course_item_url']
+        course.content = request_data['content']
+        course.started_at = request_data['started_at']
+        course.rating = request_data['rating']
+        course.external_url = request_data['external_url']
+        course.lectures_number = request_data['lectures_number']
+        course.version = request_data['version']
+        course.visitors_rating_count = request_data['visitors_rating_count']
+        course.total_visitors_number = request_data['total_visitors_number']
+        course.experts_rating = request_data['experts_rating']
+        course.requirements = request_data['requirements']
+        course.cabinet_course_url = request_data['cabinet_course_url']
+        course.admin_email = request_data['admin_email']
+        course.newest = request_data['newest']
+        course.expert_account = request_data['expert_account']
+        course.communication_owner = request_data['communication_owner']
+        course.communication_platform = request_data['communication_platform']
+        course.expertise_status = request_data['expertise_status']
+        course.passport_status = request_data['passport_status']
+        course.roo_status = request_data['roo_status']
+        course.required_ratings_state = request_data['required_ratings_state']
+        course.unforced_ratings_state = request_data['unforced_ratings_state']
+        course.comment = request_data['comment']
+        course.expert_access = request_data['expert_access']
+        course.reg_data = request_data['reg_data']
+        course.contacts = request_data['contacts']
+        course.platform_responsible = request_data['platform_responsible']
+        course.owner_responsible = request_data['owner_responsible']
+        course.responsible_comment = request_data.get('responsible_comment', "")
+        course.passport_responsible = request_data['passport_responsible']
+        course.save()
+        data = serialize('json', [course, ], use_natural_foreign_keys=True)
+        struct = json.loads(data)[0]
+        new_course = struct['fields']
+        new_course['pk'] = struct['pk']
+        return JsonResponse(new_course)
 
 
 def get_active_tasks(request):
@@ -529,6 +521,7 @@ def courses_edit(request):
         return_data.append(new_course)
     return HttpResponse(json.dumps(return_data), content_type='application/json')
 
+
 @roo_member_required
 def expertises_edit(request):
     # context = dict()
@@ -541,10 +534,12 @@ def expertises_edit(request):
         return_data.append(new_course)
     return HttpResponse(json.dumps(return_data), content_type='application/json')
 
+
 @roo_member_required
 def expertises_list(request):
     context = dict()
     return render(request, "roo/expertises_edit.html", context)
+
 
 @roo_member_required
 def expertises(request):

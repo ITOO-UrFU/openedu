@@ -371,6 +371,14 @@ class Course(models.Model):
             if self.partner.image:
                 return f"<img height=\"100\" src=\"{self.partner.image}\"></img><p>{self.partner.title}</p>"
 
+    @classmethod
+    def get_passport_responsibles(cls):
+        rs = {}
+        for r in cls.passport_responsible_STATES[1:]:
+            rs[r[1]] = cls.objects.filter(passport_responsible=r[0]).count()
+
+        return rs
+
     get_image.allow_tags = True
     get_description.allow_tags = True
     get_platform.allow_tags = True

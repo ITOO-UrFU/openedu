@@ -129,7 +129,6 @@ def upload_comments(request):
             # print(course["course_title"])
             course_exsist = False
             print(course_count, "/", sum)
-            # print(sum)
             for our_course in Course.objects.all():
                 # if our_course.title.lower().translate(tbl).replace(' ', '') == course["course_title"].lower().translate(tbl).replace(' ',''):
                 #     if our_course.partner.title == 'OpenProfession' and our_course.institution.title == "Уральский федеральный университет имени первого Президента России Б.Н.Ельцина, ТГУ":
@@ -146,7 +145,7 @@ def upload_comments(request):
                     course_exsist = True
                     break
             if not course_exsist:
-                print(course["course_title"])
+                print(course["course_title"], course["comment"])
 
             sum += 1
 

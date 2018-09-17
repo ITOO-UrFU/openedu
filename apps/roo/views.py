@@ -120,9 +120,19 @@ def upload_comments(request):
     if request.method == "POST":
         courses = json.loads(request.POST.get("json_value", None))
         tbl = str.maketrans('', '', string.punctuation)
+        course_count =
         for course in courses:
             print(course["course_title"])
-        # print('Курсов не найдено: ', not_found_count)
+            for our_course in Course.objects.all():
+                if our_course.external_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == expertise[
+                    "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
+                    tbl).replace(' ', '') == expertise["course_partner"].lower().translate(tbl).replace(' ', ''):
+                    course_count +=1
+                    break
+
+
+
+        print('Курсов найдено: ', course_count)
         return render(request, 'roo/upload_from_json.html')
     else:
         return render(request, 'roo/upload_from_json.html')

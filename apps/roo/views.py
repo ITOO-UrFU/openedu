@@ -122,10 +122,12 @@ def upload_comments(request):
         tbl = str.maketrans('', '', string.punctuation)
         course_count = 0
         sum = 0
+        # course_exsist = False
         for course in courses:
             # if course["comment"] == "":
             #     break
             # print(course["course_title"])
+            course_exsist = False
             print(course_count, "/", sum)
             # print(sum)
             for our_course in Course.objects.all():
@@ -140,8 +142,12 @@ def upload_comments(request):
                 if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
                     "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
                     tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
-                    course_count +=1
+                    course_count += 1
+                    course_exsist = True
                     break
+            if not course_exsist:
+                print(course["course_title"])
+
             sum += 1
 
 

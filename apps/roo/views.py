@@ -136,6 +136,8 @@ def upload_comments(request):
                     "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
                     tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
                     course_count += 1
+                    our_course.comment = course["comment"]
+                    our_course.save()
                     course_exsist = True
                     break
                 elif our_course_url.lower().translate(tbl).replace(' ', '') == course[
@@ -145,6 +147,8 @@ def upload_comments(request):
                                                                    '') and our_course.institution.title.lower().translate(
                     tbl).replace(' ', '') == course["course_institution"].lower().translate(tbl).replace(' ', ''):
                     course_count += 1
+                    our_course.comment = course["comment"]
+                    our_course.save()
                     course_exsist = True
                     break
             if not course_exsist:

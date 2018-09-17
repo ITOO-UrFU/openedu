@@ -129,6 +129,10 @@ class Expertise(models.Model):
         verbose_name = 'экспертиза'
         verbose_name_plural = 'экспертизы'
 
+    @classmethod
+    def main_expertise_count(cls):
+        return cls.objects.filter(type="0").count()
+
 
 class Teacher(models.Model):
     title = models.CharField("ФИО лектора", blank=True, null=True, max_length=512)
@@ -378,7 +382,6 @@ class Course(models.Model):
             rs.append(cls.objects.filter(passport_responsible=r[0]).count())
 
         return f'''
-        <div class="ui horizontal statistics">
           <div class="statistic">
             <div class="value">
               {rs[0]}
@@ -395,9 +398,7 @@ class Course(models.Model):
               Талапов В.А.
             </div>
           </div>
-        </div>
         '''
-
 
 
     get_image.allow_tags = True

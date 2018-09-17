@@ -373,11 +373,32 @@ class Course(models.Model):
 
     @classmethod
     def get_passport_responsibles(cls):
-        rs = {}
+        rs = []
         for r in cls.passport_responsible_STATES[1:]:
-            rs[r[1]] = cls.objects.filter(passport_responsible=r[0]).count()
+            rs.append(cls.objects.filter(passport_responsible=r[0]).count())
 
-        return rs
+        return f'''
+        <div class="ui horizontal statistics">
+          <div class="statistic">
+            <div class="value">
+              {r[0]}
+            </div>
+            <div class="label">
+              Возисова О.С.
+            </div>
+          </div>
+          <div class="statistic">
+            <div class="value">
+              {r[1]}
+            </div>
+            <div class="label">
+              Талапов В.А.
+            </div>
+          </div>
+        </div>
+        '''
+
+
 
     get_image.allow_tags = True
     get_description.allow_tags = True

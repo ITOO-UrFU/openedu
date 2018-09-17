@@ -468,7 +468,7 @@ def TableCourseUpdate(request):
         course.contacts = request_data['contacts']
         course.platform_responsible = request_data['platform_responsible']
         course.owner_responsible = request_data['owner_responsible']
-        course.responsible_comment = request_data['responsible_comment']
+        course.responsible_comment = request_data.get('responsible_comment', "")
         course.passport_responsible = request_data['passport_responsible']
         course.save()
         data = serialize('json', [course, ], use_natural_foreign_keys=True)

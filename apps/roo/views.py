@@ -123,15 +123,25 @@ def upload_comments(request):
         course_count = 0
         sum = 0
         for course in courses:
-            print(course["course_title"])
-            print(course_count, "/", sum)
+            # if course["comment"] == "":
+            #     break
+            # print(course["course_title"])
+            # print(course_count, "/", sum)
+            print(sum)
             for our_course in Course.objects.all():
-                our_course_url = "" if our_course.external_url is None else our_course.external_url
-                if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
-                    "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
-                    tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
-                    course_count +=1
-                    break
+                if our_course.title.lower().translate(tbl).replace(' ', '') == course["course_title"].lower().translate(tbl).replace(' ',''):
+                    if our_course.institution.title == "Московский педагогический государственный университет" and our_course.partner.title == "Универсариум":
+                        our_course.external_url = course["external_url"]
+                        our_course.save()
+                        print(course["course_title"])
+                        # print(course_count, "/", sum)
+                        # Геометрия: аналитический метод решения задач
+                # our_course_url = "" if our_course.external_url is None else our_course.external_url
+                # if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
+                #     "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
+                #     tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
+                #     course_count +=1
+                #     break
             sum += 1
 
 

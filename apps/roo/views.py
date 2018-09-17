@@ -124,9 +124,9 @@ def upload_comments(request):
         for course in courses:
             print(course["course_title"])
             for our_course in Course.objects.all():
-                if our_course.external_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == expertise[
+                if our_course.external_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
                     "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
-                    tbl).replace(' ', '') == expertise["course_partner"].lower().translate(tbl).replace(' ', ''):
+                    tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
                     course_count +=1
                     break
 

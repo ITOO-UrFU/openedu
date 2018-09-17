@@ -403,6 +403,7 @@ class Course(models.Model):
     get_image.allow_tags = True
     get_description.allow_tags = True
     get_platform.allow_tags = True
+    get_passport_responsibles.allow_tags = True
 
     get_image.short_description = "Изображение курса"
     get_description.short_description = "Описание"

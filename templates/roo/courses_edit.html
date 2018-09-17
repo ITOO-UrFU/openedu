@@ -508,7 +508,7 @@
                         validate: "required",
                         visible: false,
                     },
-                    {% if  request.user|has_group:"roo" %}
+                    {% if  request.user|has_group:"roo"  or request.user.is_superuser %}
                     {
                         type: "control",
                         width: "100",

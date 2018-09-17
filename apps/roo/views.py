@@ -130,7 +130,7 @@ def upload_comments(request):
             print(sum)
             for our_course in Course.objects.all():
                 if our_course.title.lower().translate(tbl).replace(' ', '') == course["course_title"].lower().translate(tbl).replace(' ',''):
-                    if our_course.partner.title == "Нетология": # and our_course.institution.title == "GeekBrains University":
+                    if our_course.partner.title == 'АНО "еНано"': # and our_course.institution.title == "GeekBrains University":
                         our_course.external_url = course["external_url"]
                         our_course.save()
                         print(course["course_title"])

@@ -116,6 +116,16 @@ def add_expertises(course, our_course):
             #             expertise.expert = expert[0]
             #             expertise.save()
 
+def upload_comments(request):
+    if request.method == "POST":
+        courses = json.loads(request.POST.get("json_value", None))
+        tbl = str.maketrans('', '', string.punctuation)
+        for course in courses:
+            print(course["course_title"])
+        # print('Курсов не найдено: ', not_found_count)
+        return render(request, 'roo/upload_from_json.html')
+    else:
+        return render(request, 'roo/upload_from_json.html')
 
 def upload_expertises(request):
     if request.method == "POST":

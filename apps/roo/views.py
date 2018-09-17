@@ -120,7 +120,7 @@ def upload_comments(request):
     if request.method == "POST":
         courses = json.loads(request.POST.get("json_value", None))
         tbl = str.maketrans('', '', string.punctuation)
-        course_count =
+        course_count = 0
         for course in courses:
             print(course["course_title"])
             for our_course in Course.objects.all():

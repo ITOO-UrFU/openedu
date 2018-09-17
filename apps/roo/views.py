@@ -126,8 +126,8 @@ def upload_comments(request):
             # if course["comment"] == "":
             #     break
             # print(course["course_title"])
-            # print(course_count, "/", sum)
-            print(sum)
+            print(course_count, "/", sum)
+            # print(sum)
             for our_course in Course.objects.all():
                 # if our_course.title.lower().translate(tbl).replace(' ', '') == course["course_title"].lower().translate(tbl).replace(' ',''):
                 #     if our_course.partner.title == 'OpenProfession' and our_course.institution.title == "Уральский федеральный университет имени первого Президента России Б.Н.Ельцина, ТГУ":

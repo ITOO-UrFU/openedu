@@ -138,6 +138,15 @@ def upload_comments(request):
                     course_count += 1
                     course_exsist = True
                     break
+                elif our_course_url.lower().translate(tbl).replace(' ', '') == course[
+                    "external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(
+                        tbl).replace(' ', '') == course[
+                    "course_title"].lower().translate(tbl).replace(' ',
+                                                                   '') and our_course.institution.title.lower().translate(
+                    tbl).replace(' ', '') == course["course_institution"].lower().translate(tbl).replace(' ', ''):
+                    course_count += 1
+                    course_exsist = True
+                    break
             if not course_exsist:
                 print(course["course_title"], course["comment"])
 

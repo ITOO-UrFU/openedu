@@ -381,7 +381,7 @@ class Course(models.Model):
         <div class="ui horizontal statistics">
           <div class="statistic">
             <div class="value">
-              {r[0]}
+              {rs[0]}
             </div>
             <div class="label">
               Возисова О.С.
@@ -389,7 +389,7 @@ class Course(models.Model):
           </div>
           <div class="statistic">
             <div class="value">
-              {r[1]}
+              {rs[1]}
             </div>
             <div class="label">
               Талапов В.А.

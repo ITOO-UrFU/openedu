@@ -617,7 +617,7 @@
                 console.log(result);
                 if (result) {
                     settings.forEach(function (field) {
-                        if (result[field.name]) {
+                        if (typeof result[field.name] != 'undefined') {
                             field.visible = result[field.name]
                         }
                     });

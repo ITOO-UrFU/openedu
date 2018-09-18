@@ -431,7 +431,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: true
+                       // visible: true
                     },
 
                     {
@@ -442,7 +442,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: true
+                       // visible: true
                     },
                     {
                         title: "Статус экспертизы",
@@ -462,7 +462,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                       // visible: false
                     },
                     {
                         title: "Состояние загрузки обязательных оценок",
@@ -472,7 +472,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                      //  visible: false
                     },
                     {
                         title: "Состояние загрузки добровольных оценок",
@@ -482,7 +482,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                      //  visible: false
                     },
 
                     {
@@ -506,37 +506,37 @@
                     },
                     {
                         title: "Контакты", name: "contacts", type: "text",
-                        visible: false,
+                     //   visible: false,
                     },
                     {
                         title: "Регистрационные данные для доступа к курсу", name: "reg_data", type: "text",
-                        visible: false,
+                     //   visible: false,
                     },
                     {
                         title: "Доступ эксперта", name: "expert_account", type: "text", filtering: false,
-                        visible: false,
+                      //  visible: false,
                     },
 
 
                     {
                         title: "Адрес эл. почты администратора ОК", name: "admin_email", type: "text", filtering: false,
-                        visible: false,
+                      //  visible: false,
                     },
                     {
                         title: "Ссылка на курс в кабинете", name: "cabinet_course_url", type: "text", filtering: false,
-                        visible: false,
+                     //   visible: false,
                     },
                     {
                         title: "Версия курса", name: "version", type: "text", filtering: false,
-                        visible: false,
+                     //   visible: false,
                     },
                     {
                         title: "Язык контента", name: "language", type: "text", filtering: false,
-                        visible: false,
+                     //   visible: false,
                     },
                     {
                         title: "Длительность в неделях", name: "duration", type: "text", filtering: false,
-                        visible: false,
+                     //   visible: false,
                     },
                     {
                         title: "Возможность получить сертификат",
@@ -546,7 +546,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false,
+                      //  visible: false,
                     },
                     {
                         title: "Доступ к курсу для экспертов обязательной оценки",
@@ -556,7 +556,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false,
+                     //   visible: false,
                     },
                     {% if  request.user|has_group:"roo"  or request.user.is_superuser %}
                         {

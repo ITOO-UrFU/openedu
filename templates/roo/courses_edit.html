@@ -239,16 +239,7 @@
                 },
                 onInit: function (args) {
                     gridInstance = args.grid;
-                    $.ajax({
-                        type: "GET",
-                        url: "/roo/visible_columns_courses/",
-                    }).done(function (result) {
-                        console.log(result);
-                        result = JSON.parse(result);
-                        if(result) {
-                            gridInstance.fields.forEach( field => field.visible = result[field.name]) ;
-                        }
-                    });
+
                     {#console.log(gridInstance)#}
                 },
                 onDataLoading: function (args) {
@@ -431,7 +422,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                       // visible: true
+                        // visible: true
                     },
 
                     {
@@ -442,7 +433,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                       // visible: true
+                        // visible: true
                     },
                     {
                         title: "Статус экспертизы",
@@ -462,7 +453,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                       // visible: false
+                        // visible: false
                     },
                     {
                         title: "Состояние загрузки обязательных оценок",
@@ -472,7 +463,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                      //  visible: false
+                        //  visible: false
                     },
                     {
                         title: "Состояние загрузки добровольных оценок",
@@ -482,7 +473,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                      //  visible: false
+                        //  visible: false
                     },
 
                     {
@@ -506,37 +497,37 @@
                     },
                     {
                         title: "Контакты", name: "contacts", type: "text",
-                     //   visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Регистрационные данные для доступа к курсу", name: "reg_data", type: "text",
-                     //   visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Доступ эксперта", name: "expert_account", type: "text", filtering: false,
-                      //  visible: false,
+                        //  visible: false,
                     },
 
 
                     {
                         title: "Адрес эл. почты администратора ОК", name: "admin_email", type: "text", filtering: false,
-                      //  visible: false,
+                        //  visible: false,
                     },
                     {
                         title: "Ссылка на курс в кабинете", name: "cabinet_course_url", type: "text", filtering: false,
-                     //   visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Версия курса", name: "version", type: "text", filtering: false,
-                     //   visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Язык контента", name: "language", type: "text", filtering: false,
-                     //   visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Длительность в неделях", name: "duration", type: "text", filtering: false,
-                     //   visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Возможность получить сертификат",
@@ -546,7 +537,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                      //  visible: false,
+                        //  visible: false,
                     },
                     {
                         title: "Доступ к курсу для экспертов обязательной оценки",
@@ -556,7 +547,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                     //   visible: false,
+                        //   visible: false,
                     },
                     {% if  request.user|has_group:"roo"  or request.user.is_superuser %}
                         {
@@ -575,28 +566,7 @@
                 ]
             });
 
-            $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
-                if (element.type != 'control') {
-                    var list_item_wrap = document.createElement('div');
-                    list_item_wrap.setAttribute("class", "field");
-                    var list_item = document.createElement('div');
-                    list_item.setAttribute("class", "ui slider checkbox");
-                    var input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.setAttribute("class", 'column_checkbox');
-                    input.checked = element.visible;
-                    input.id = element.name;
-                    input.value = element.name;
-                    var label = document.createElement('label');
 
-                    label.setAttribute("for", element.name);
-                    label.innerHTML = element.title;
-                    list_item.appendChild(input);
-                    list_item.appendChild(label);
-                    list_item_wrap.appendChild(list_item);
-                    $("#column_show_checkboxes").prepend(list_item_wrap);
-                }
-            });
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
                     $("#column_show_checkboxes").css({'display': "none"});
@@ -637,6 +607,42 @@
             }
 
             var settings = $("#jsGrid").data("JSGrid").fields;
+
+            $.ajax({
+                type: "GET",
+                url: "/roo/visible_columns_courses/",
+            }).done(function (result) {
+
+                result = JSON.parse(result);console.log(result);
+                if (result) {
+                    settings.forEach(field => field.visible = result[field.name]);
+                    $("#jsGrid").jsGrid("option", "fields", settings);
+                    $("#jsGrid").jsGrid("refresh");
+                }
+                $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+                    if (element.type != 'control') {
+                        var list_item_wrap = document.createElement('div');
+                        list_item_wrap.setAttribute("class", "field");
+                        var list_item = document.createElement('div');
+                        list_item.setAttribute("class", "ui slider checkbox");
+                        var input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.setAttribute("class", 'column_checkbox');
+                        input.checked = element.visible;
+                        input.id = element.name;
+                        input.value = element.name;
+                        var label = document.createElement('label');
+
+                        label.setAttribute("for", element.name);
+                        label.innerHTML = element.title;
+                        list_item.appendChild(input);
+                        list_item.appendChild(label);
+                        list_item_wrap.appendChild(list_item);
+                        $("#column_show_checkboxes").prepend(list_item_wrap);
+                    }
+                });
+            });
+
             $("#setColumnsVisible").click(function () {
                 $("#show_hide_checkboxes").prop("checked", false);
                 $("#column_show_checkboxes").css({'display': "none"});

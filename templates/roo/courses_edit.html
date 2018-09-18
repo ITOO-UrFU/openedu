@@ -42,10 +42,11 @@
 
         }
 
-        .hidden_column{
-        display: none !important;
+        .hidden_column {
+            display: none !important;
         }
-        .show_column{
+
+        .show_column {
             display: block !important;
         }
 
@@ -57,7 +58,6 @@
             align-content: stretch; /* Extra space in Cross Axis */
 
         }
-
 
 
     </style>
@@ -174,40 +174,41 @@
             var courses = [];
             var coursesLoaded = false;
             var coursesCount = 0;
-(function(jsGrid, $, undefined) {
+            (function (jsGrid, $, undefined) {
 
-    var TextField = jsGrid.TextField;
+                var TextField = jsGrid.TextField;
 
-    function TextAreaField(config) {
-        TextField.call(this, config);
-    }
+                function TextAreaField(config) {
+                    TextField.call(this, config);
+                }
 
-    TextAreaField.prototype = new TextField({
+                TextAreaField.prototype = new TextField({
 
-        insertTemplate: function() {
-            if(!this.inserting)
-                return "";
+                    insertTemplate: function () {
+                        if (!this.inserting)
+                            return "";
 
-            return this.insertControl = this._createTextArea();
-        },
+                        return this.insertControl = this._createTextArea();
+                    },
 
-        editTemplate: function(value) {
-            if(!this.editing)
-                return this.itemTemplate.apply(this, arguments);
+                    editTemplate: function (value) {
+                        if (!this.editing)
+                            return this.itemTemplate.apply(this, arguments);
 
-            var $result = this.editControl = this._createTextArea();
-            $result.val(value);
-            return $result;
-        },
+                        var $result = this.editControl = this._createTextArea();
+                        $result.val(value);
+                        return $result;
+                    },
 
-        _createTextArea: function() {
-            return $("<textarea>").prop("readonly", !!this.readOnly);
-        }
-    });
+                    _createTextArea: function () {
+                        return $("<textarea>").attr("style", "min-height: 70px;").prop("readonly", !!this.readOnly);
+                    }
+                });
 
-    jsGrid.fields.textarea = jsGrid.TextAreaField = TextAreaField;
+                jsGrid.fields.textarea = jsGrid.TextAreaField = TextAreaField;
 
-}(jsGrid, jQuery));
+            }(jsGrid, jQuery));
+
             $("#jsGrid").jsGrid({
                 height: "100%",
                 width: "100%",
@@ -228,8 +229,6 @@
                 noDataContent: "Нет курсов для отображения",
                 pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
-
-
 
 
                 rowClick: function (args) {
@@ -267,22 +266,22 @@
                             console.log(filter);
                             result = $.grep(courses, function (item) {
 
-                                return (!filter.title || (item.title==null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
-                                        && (!filter.partner || (item.partner==null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))
-                                        && (!filter.institution || (item.institution==null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1))
-                                        && (!filter.comment || (item.comment==null ? false : item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1))
-                                        && (!filter.reg_data || (item.reg_data==null ? false : item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1))
-                                        && (!filter.contacts || (item.contacts==null ? false : item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1))
-                                        && (!filter.responsible_comment || (item.responsible_comment==null ? false : item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1))
+                                return (!filter.title || (item.title == null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
+                                    && (!filter.partner || (item.partner == null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))
+                                    && (!filter.institution || (item.institution == null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1))
+                                    && (!filter.comment || (item.comment == null ? false : item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1))
+                                    && (!filter.reg_data || (item.reg_data == null ? false : item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1))
+                                    && (!filter.contacts || (item.contacts == null ? false : item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1))
+                                    && (!filter.responsible_comment || (item.responsible_comment == null ? false : item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1))
 
-                                        /*
-                                        && (!filter.admin_email || (item.admin_email==null ? false : item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1))
-                                        && (!filter.cabinet_course_url || (item.cabinet_course_url==null ? false : item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1))
-                                        && (!filter.version || (item.version==null ? false : item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1))
-                                        && (!filter.language || (item.language==null ? false : item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1))
-                                        && (!filter.duration || (item.duration==null ? false : item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1))
-                                        && (!filter.expert_account || (item.expert_account==null ? false : item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1))
-                                           */
+                                    /*
+                                    && (!filter.admin_email || (item.admin_email==null ? false : item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1))
+                                    && (!filter.cabinet_course_url || (item.cabinet_course_url==null ? false : item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1))
+                                    && (!filter.version || (item.version==null ? false : item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1))
+                                    && (!filter.language || (item.language==null ? false : item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1))
+                                    && (!filter.duration || (item.duration==null ? false : item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1))
+                                    && (!filter.expert_account || (item.expert_account==null ? false : item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1))
+                                       */
 
                                     /*
                                     * Пошли селекты
@@ -369,7 +368,7 @@
                     {
                         title: "Комментарий ответсвенного за платформу",
                         name: "platform_responsible_comment",
-                        type: "text",
+                        type: "textarea",
                         filtering: false,
 
                     },
@@ -408,11 +407,11 @@
                     {
                         title: "Комментарий ответсвенного за правообладателя",
                         name: "owner_responsible_comment",
-                        type: "text",
+                        type: "textarea",
                         filtering: false,
 
                     },
-                    {title: "Примечание", name: "comment", type: "textarea", filtering: false,  },
+                    {title: "Примечание", name: "comment", type: "textarea", filtering: false,},
                     {
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",
@@ -549,18 +548,18 @@
                         visible: false,
                     },
                     {% if  request.user|has_group:"roo"  or request.user.is_superuser %}
-                    {
-                        type: "control",
-                        width: "100",
-                        deleteButton: false,
-                        headerTemplate: function () {
-                            return $("<button>").attr("type", "button").text("Добавить курс")
-                                .on("click", function () {
-                                    AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
-                                    return false;
-                                });
+                        {
+                            type: "control",
+                            width: "100",
+                            deleteButton: false,
+                            headerTemplate: function () {
+                                return $("<button>").attr("type", "button").text("Добавить курс")
+                                    .on("click", function () {
+                                        AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
+                                        return false;
+                                    });
+                            }
                         }
-                    }
                     {% endif %}
                 ]
             });
@@ -596,8 +595,8 @@
                 }
             });
 
-         function setSettings(){
-             {#console.log("Начали экспертизы");#}
+            function setSettings() {
+                {#console.log("Начали экспертизы");#}
                 $(".column_checkbox").each(function (index, element) {
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
@@ -609,7 +608,7 @@
                 $("#jsGrid").jsGrid("option", "fields", settings);
                 $("#jsGrid").jsGrid("refresh");
 
-         }
+            }
 
             var settings = $("#jsGrid").data("JSGrid").fields;
             $("#setColumnsVisible").click(function () {

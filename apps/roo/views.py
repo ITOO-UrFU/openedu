@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
-
+from django.contrib.auth.models import User
 from .decorators import roo_member_required
 from .models import \
     Course, CoursesTable, \
@@ -110,6 +110,7 @@ def add_expertises(course, our_course):
             #             expertise.expert = expert[0]
             #             expertise.save()
 
+
 def upload_comments(request):
     if request.method == "POST":
         courses = json.loads(request.POST.get("json_value", None))
@@ -132,8 +133,10 @@ def upload_comments(request):
                 #         # print(course_count, "/", sum)
                 #         # Геометрия: аналитический метод решения задач
                 our_course_url = "" if our_course.external_url is None else our_course.external_url
-                if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
-                    "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
+                if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(
+                        tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
+                    "course_title"].lower().translate(tbl).replace(' ',
+                                                                   '') and our_course.partner.title.lower().translate(
                     tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
                     course_count += 1
                     our_course.comment = course["comment"]
@@ -142,7 +145,7 @@ def upload_comments(request):
                     break
                 elif our_course_url.lower().translate(tbl).replace(' ', '') == course[
                     "external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(
-                        tbl).replace(' ', '') == course[
+                    tbl).replace(' ', '') == course[
                     "course_title"].lower().translate(tbl).replace(' ',
                                                                    '') and our_course.institution.title.lower().translate(
                     tbl).replace(' ', '') == course["course_institution"].lower().translate(tbl).replace(' ', ''):
@@ -156,11 +159,11 @@ def upload_comments(request):
 
             sum += 1
 
-
         print('Курсов найдено: ', course_count)
         return render(request, 'roo/upload_from_json.html')
     else:
         return render(request, 'roo/upload_from_json.html')
+
 
 def upload_expertises(request):
     if request.method == "POST":
@@ -500,6 +503,19 @@ def get_active_tasks(request):
             active_tasks += tasks
         return JsonResponse({"active_tasks": active_tasks})
 
+
+def visible_columns_courses(request):
+    if request.method == "POST":
+        # request_data = json.loads(request.body)
+        user = User.objects.get(pk=request.user.id)
+        user.profile.courses_columns = request.body
+        user.save()
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!", user.profile.courses_columns)
+    # elif request.method == "POST":
+    #
+    #     request_data = json.loads(request.body)
+    else:
+        return HttpResponse(json.dumps({}), content_type='application/json')
 
 @roo_member_required
 def courses(request):

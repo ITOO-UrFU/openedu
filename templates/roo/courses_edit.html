@@ -614,6 +614,28 @@
             $("#setColumnsVisible").click(function () {
                 $("#show_hide_checkboxes").prop("checked", false);
                 $("#column_show_checkboxes").css({'display': "none"});
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/roo/visible_columns_courses/",
+                    data: JSON.stringify({"test": true}),
+                    success: function () {
+                        console.log("настройки сохранен")
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("По некоторым причинам не удалось произвести сохранение настроек.")
+                    }
+                });
+
+               /* $.ajax({
+                    type: "POST",
+                    url: "/roo/visible_columns_courses/",
+                }).done(function () {
+                    console.log("ok")
+                });*/
+                //visible_columns_courses
+
                 $("#jsGrid").data("JSGrid")._loadIndicator.show();
                 window.setTimeout(setSettings, 50);
             });

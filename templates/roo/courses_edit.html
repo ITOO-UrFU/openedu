@@ -241,8 +241,9 @@
                     gridInstance = args.grid;
                     $.ajax({
                         type: "GET",
-                        url: "/roo/courses_edit/",
+                        url: "/roo/visible_columns_courses/",
                     }).done(function (result) {
+                        console.log(result);
                         if(result) {
                             gridInstance.fields.forEach( field => field.visible = result[field.name]) ;
                         }

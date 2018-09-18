@@ -508,9 +508,9 @@ def visible_columns_courses(request):
     if request.method == "POST":
         user.profile.courses_columns = request.body
         user.save()
-        return JsonResponse(json.loads(user.profile.courses_columns), safe=False)
+        return JsonResponse(user.profile.courses_columns, safe=False)
     elif request.method == "GET":
-        return JsonResponse(json.loads(user.profile.courses_columns), safe=False)
+        return JsonResponse(user.profile.courses_columns, safe=False)
     else:
         return HttpResponse(json.dumps({}), content_type='application/json')
 

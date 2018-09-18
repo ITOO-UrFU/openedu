@@ -174,29 +174,6 @@
             var courses = [];
             var coursesLoaded = false;
             var coursesCount = 0;
-
-            $("#jsGrid").jsGrid({
-                height: "100%",
-                width: "100%",
-
-                filtering: true,
-
-
-                //editing: false,
-
-                editing: true,
-
-                sorting: true,
-
-                autoload: true,
-
-                pageButtonCount: 5,
-                pageLoading: false,
-                noDataContent: "Нет курсов для отображения",
-                pagerFormat: "Найдено курсов: {itemCount}",
-                loadMessage: "Идет загрузка...",
-
-
 (function(jsGrid, $, undefined) {
 
     var TextField = jsGrid.TextField;
@@ -231,6 +208,29 @@
     jsGrid.fields.textarea = jsGrid.TextAreaField = TextAreaField;
 
 }(jsGrid, jQuery));
+            $("#jsGrid").jsGrid({
+                height: "100%",
+                width: "100%",
+
+                filtering: true,
+
+
+                //editing: false,
+
+                editing: true,
+
+                sorting: true,
+
+                autoload: true,
+
+                pageButtonCount: 5,
+                pageLoading: false,
+                noDataContent: "Нет курсов для отображения",
+                pagerFormat: "Найдено курсов: {itemCount}",
+                loadMessage: "Идет загрузка...",
+
+
+
 
                 rowClick: function (args) {
                     return;

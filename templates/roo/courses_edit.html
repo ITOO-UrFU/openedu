@@ -230,20 +230,23 @@
                             console.log(filter);
                             result = $.grep(courses, function (item) {
 
-                                return (!filter.title || item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1)
-                                    && (!filter.partner || item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1)
-                                    && (!filter.institution || (item.institution==null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1))
-                                    {#&& (!filter.comment || item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1)#}
-                                    && (item.reg_data !== null && !filter.reg_data || item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1)
-                                    && (!filter.contacts || item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1)
-                                    {#&& (!filter.responsible_comment || item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1)#}
+                                return (!filter.title || (item.title==null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
+                                        && (!filter.partner || (item.partner==null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))
+                                        && (!filter.institution || (item.institution==null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1))
+                                        && (!filter.comment || (item.comment==null ? false : item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1))
+                                        && (!filter.reg_data || (item.reg_data==null ? false : item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1))
+                                        && (!filter.contacts || (item.contacts==null ? false : item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1))
+                                        && (!filter.responsible_comment || (item.responsible_comment==null ? false : item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1))
 
-                                    && (!filter.admin_email || item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1)
-                                    && (!filter.cabinet_course_url || item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1)
-                                    && (!filter.version || item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1)
-                                    && (!filter.language || item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1)
-                                    && (!filter.duration || item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1)
-                                    && (!filter.expert_account || item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1)
+                                        /*
+                                        && (!filter.admin_email || (item.admin_email==null ? false : item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1))
+                                        && (!filter.cabinet_course_url || (item.cabinet_course_url==null ? false : item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1))
+                                        && (!filter.version || (item.version==null ? false : item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1))
+                                        && (!filter.language || (item.language==null ? false : item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1))
+                                        && (!filter.duration || (item.duration==null ? false : item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1))
+                                        && (!filter.expert_account || (item.expert_account==null ? false : item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1))
+                                           */
+
                                     /*
                                     * Пошли селекты
                                     * */
@@ -463,29 +466,29 @@
                         visible: false,
                     },
                     {
-                        title: "Доступ эксперта", name: "expert_account", type: "text",
+                        title: "Доступ эксперта", name: "expert_account", type: "text", filtering: false,
                         visible: false,
                     },
 
 
                     {
-                        title: "Адрес эл. почты администратора ОК", name: "admin_email", type: "text",
+                        title: "Адрес эл. почты администратора ОК", name: "admin_email", type: "text", filtering: false,
                         visible: false,
                     },
                     {
-                        title: "Ссылка на курс в кабинете", name: "cabinet_course_url", type: "text",
+                        title: "Ссылка на курс в кабинете", name: "cabinet_course_url", type: "text", filtering: false,
                         visible: false,
                     },
                     {
-                        title: "Версия курса", name: "version", type: "text",
+                        title: "Версия курса", name: "version", type: "text", filtering: false,
                         visible: false,
                     },
                     {
-                        title: "Язык контента", name: "language", type: "text",
+                        title: "Язык контента", name: "language", type: "text", filtering: false,
                         visible: false,
                     },
                     {
-                        title: "Длительность в неделях", name: "duration", type: "text",
+                        title: "Длительность в неделях", name: "duration", type: "text", filtering: false,
                         visible: false,
                     },
                     {

@@ -244,7 +244,7 @@
                         url: "/roo/courses_edit/",
                     }).done(function (result) {
                         if(result) {
-                            gridInstance.fields.forEach(field.visible =>result[field.name]) ;
+                            gridInstance.fields.forEach( field => field.visible = result[field.name]) ;
                         }
                     });
                     {#console.log(gridInstance)#}

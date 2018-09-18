@@ -244,6 +244,7 @@
                         url: "/roo/visible_columns_courses/",
                     }).done(function (result) {
                         console.log(result);
+                        result = JSON.parse(result);
                         if(result) {
                             gridInstance.fields.forEach( field => field.visible = result[field.name]) ;
                         }

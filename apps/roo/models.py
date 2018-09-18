@@ -17,8 +17,8 @@ from django.template.defaultfilters import truncatewords_html
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # bio = models.TextField(max_length=500, blank=True)
-    courses_columns = models.TextField("Колонки курсы", blank=True, null=True)
-    expertise_columns = models.TextField("Колонки эксперты", blank=True, null=True)
+    courses_columns = models.TextField("Колонки курсы", blank=True, null=True, default="{}")
+    expertise_columns = models.TextField("Колонки эксперты", blank=True, null=True, default="{}")
 
 
 @receiver(post_save, sender=User)

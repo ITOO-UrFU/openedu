@@ -615,7 +615,7 @@
 
                 result = JSON.parse(result);console.log(result);
                 if (result) {
-                    settings.forEach(field => if(result[field.name]){field.visible = result[field.name]});
+                    settings.forEach(field => function(){if(result[field.name]){field.visible = result[field.name]}});
                     $("#jsGrid").jsGrid("option", "fields", settings);
                     $("#jsGrid").jsGrid("refresh");
                 }

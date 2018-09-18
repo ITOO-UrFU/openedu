@@ -174,40 +174,40 @@
             var courses = [];
             var coursesLoaded = false;
             var coursesCount = 0;
-            (function (jsGrid, $, undefined) {
+            /*  (function (jsGrid, $, undefined) {
 
-                var TextField = jsGrid.TextField;
+                  var TextField = jsGrid.TextField;
 
-                function TextAreaField(config) {
-                    TextField.call(this, config);
-                }
+                  function TextAreaField(config) {
+                      TextField.call(this, config);
+                  }
 
-                TextAreaField.prototype = new TextField({
+                  TextAreaField.prototype = new TextField({
 
-                    insertTemplate: function () {
-                        if (!this.inserting)
-                            return "";
+                      insertTemplate: function () {
+                          if (!this.inserting)
+                              return "";
 
-                        return this.insertControl = this._createTextArea();
-                    },
+                          return this.insertControl = this._createTextArea();
+                      },
 
-                    editTemplate: function (value) {
-                        if (!this.editing)
-                            return this.itemTemplate.apply(this, arguments);
+                      editTemplate: function (value) {
+                          if (!this.editing)
+                              return this.itemTemplate.apply(this, arguments);
 
-                        var $result = this.editControl = this._createTextArea();
-                        $result.val(value);
-                        return $result;
-                    },
+                          var $result = this.editControl = this._createTextArea();
+                          $result.val(value);
+                          return $result;
+                      },
 
-                    _createTextArea: function () {
-                        return $("<textarea>").attr("style", "min-height: 70px;").prop("readonly", !!this.readOnly);
-                    }
-                });
+                      _createTextArea: function () {
+                          return $("<textarea>").attr("style", "min-height: 70px;").prop("readonly", !!this.readOnly);
+                      }
+                  });
 
-                jsGrid.fields.textarea = jsGrid.TextAreaField = TextAreaField;
+                  jsGrid.fields.textarea = jsGrid.TextAreaField = TextAreaField;
 
-            }(jsGrid, jQuery));
+              }(jsGrid, jQuery));*/
 
             $("#jsGrid").jsGrid({
                 height: "100%",
@@ -239,6 +239,15 @@
                 },
                 onInit: function (args) {
                     gridInstance = args.grid;
+                    $.ajax({
+                        type: "GET",
+                        url: "/roo/courses_edit/",
+                    }).done(function (result) {
+                        if(result) {
+                            gridInstance.fields.forEach(field.visible =>result[field.name]) ;
+                        }
+                    });
+                    {#console.log(gridInstance)#}
                 },
                 onDataLoading: function (args) {
                     gridInstance._loadIndicator.show()
@@ -631,14 +640,12 @@
                 $("#column_show_checkboxes").css({'display': "none"});
 
 
-
-
-               /* $.ajax({
-                    type: "POST",
-                    url: "/roo/visible_columns_courses/",
-                }).done(function () {
-                    console.log("ok")
-                });*/
+                /* $.ajax({
+                     type: "POST",
+                     url: "/roo/visible_columns_courses/",
+                 }).done(function () {
+                     console.log("ok")
+                 });*/
                 //visible_columns_courses
 
                 $("#jsGrid").data("JSGrid")._loadIndicator.show();

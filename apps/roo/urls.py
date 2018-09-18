@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)', CourseUpdate.as_view(), name="detail"),
     url(r'^expertise/(?P<pk>\d+)/$', ExpertiseUpdate.as_view(), name="detail"),
     url(r'data/$', data, name='data'),
+    url(r'visible_columns_courses/', visible_columns_courses, name='visible_columns_courses'),
     url(r'courses/', courses_list, name='courses_list'),
     # url(r'expertises/', expertises, name='expertises'),
     url(r'expertises/', expertises_list, name='expertises_list'),
@@ -25,5 +26,5 @@ urlpatterns = [
     url(r'update_course/', TableCourseUpdate, name='update_course'),
     url(r'update_expertise/', TableExpertiseUpdate, name='update_expertise'),
     url(r'^close/$', TemplateView.as_view(template_name='roo/close.html')),
-    url(r'visible_columns_courses/', visible_columns_courses, name='visible_columns_courses'),
+
 ]

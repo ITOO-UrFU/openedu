@@ -511,11 +511,13 @@ def visible_columns_courses(request):
         user = User.objects.get(pk=request.user.id)
         user.profile.courses_columns = request.body
         user.save()
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!", user.profile.courses_columns)
+        request_data = json.loads(request.body)
+        return JsonResponse(request_data)
     elif request.method == "GET":
         user = User.objects.get(pk=request.user.id)
         # user.profile.courses_columns = request.body
-        return HttpResponse(user.profile.courses_columns, content_type='application/json')
+        # return HttpResponse(, content_type='application/json')
+        return JsonResponse(json.loads(user.profile.courses_columns))
     else:
         return HttpResponse(json.dumps({}), content_type='application/json')
 

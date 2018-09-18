@@ -597,13 +597,28 @@
 
             function setSettings() {
                 {#console.log("Начали экспертизы");#}
+                var columns = {}
                 $(".column_checkbox").each(function (index, element) {
+
+
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
                             console.log(element.checked);
+                            columns[value] = element.checked;
                             value.visible = element.checked;
                         }
                     })
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/roo/visible_columns_courses/",
+                    data: JSON.stringify(columns),
+                    success: function () {
+                        console.log("настройки сохранен")
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("По некоторым причинам не удалось произвести сохранение настроек.")
+                    }
                 });
                 $("#jsGrid").jsGrid("option", "fields", settings);
                 $("#jsGrid").jsGrid("refresh");
@@ -616,17 +631,7 @@
                 $("#column_show_checkboxes").css({'display': "none"});
 
 
-                $.ajax({
-                    type: "POST",
-                    url: "/roo/visible_columns_courses/",
-                    data: JSON.stringify({"test": true}),
-                    success: function () {
-                        console.log("настройки сохранен")
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert("По некоторым причинам не удалось произвести сохранение настроек.")
-                    }
-                });
+
 
                /* $.ajax({
                     type: "POST",

@@ -597,14 +597,14 @@
 
             function setSettings() {
                 {#console.log("Начали экспертизы");#}
-                var columns = {}
+                var columns = {};
                 $(".column_checkbox").each(function (index, element) {
 
 
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
                             console.log(element.checked);
-                            columns[value] = element.checked;
+                            columns[element.value] = element.checked;
                             value.visible = element.checked;
                         }
                     })

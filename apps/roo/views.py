@@ -505,6 +505,7 @@ def get_active_tasks(request):
 
 
 def visible_columns_courses(request):
+    print("&&&&&&&&&&&&&&&&&&&&&&")
     if request.method == "POST":
         # request_data = json.loads(request.body)
         user = User.objects.get(pk=request.user.id)

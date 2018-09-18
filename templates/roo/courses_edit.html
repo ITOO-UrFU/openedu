@@ -375,7 +375,7 @@
                         filtering: false,
 
                     },
-                    {title: "Примечание", name: "comment", type: "text", filtering: false,  itemTemplate: function (value, item) {
+                    {title: "Примечание", name: "comment", type: "text", filtering: false,  editTemplate: function (value, item) {
                             var course_link = $('<textarea>', {
                                 text: value,
                             });

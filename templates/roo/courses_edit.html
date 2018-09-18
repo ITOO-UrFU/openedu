@@ -375,7 +375,12 @@
                         filtering: false,
 
                     },
-                    {title: "Примечание", name: "comment", type: "text", filtering: false},
+                    {title: "Примечание", name: "comment", type: "text", filtering: false,  itemTemplate: function (value, item) {
+                            var course_link = $('<textarea>', {
+                                text: value,
+                            });
+                            return course_link;
+                        } },
                     {
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",

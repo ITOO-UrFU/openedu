@@ -503,17 +503,32 @@ def get_active_tasks(request):
             active_tasks += tasks
         return JsonResponse({"active_tasks": active_tasks})
 
-
 def visible_columns_courses(request):
     user = User.objects.get(pk=request.user.id)
     if request.method == "POST":
         user.profile.courses_columns = request.body
         user.save()
-        return JsonResponse(user.profile.courses_columns, safe=False)
+        return JsonResponse(json.loads(user.profile.courses_columns), safe=False)
     elif request.method == "GET":
-        return JsonResponse(user.profile.courses_columns, safe=False)
+        return JsonResponse(json.loads(user.profile.courses_columns), safe=False)
     else:
         return HttpResponse(json.dumps({}), content_type='application/json')
+
+# def visible_columns_courses(request):
+#     if request.method == "POST":
+#         # request_data = json.loads(request.body)
+#         user = User.objects.get(pk=request.user.id)
+#         user.profile.courses_columns = request.body
+#         user.save()
+#         request_data = json.loads(request.body)
+#         return JsonResponse(request_data, safe=False)
+#     elif request.method == "GET":
+#         user = User.objects.get(pk=request.user.id)
+#         # user.profile.courses_columns = request.body
+#         # return HttpResponse(, content_type='application/json')
+#         return JsonResponse(user.profile.courses_columns, safe=False)
+#     else:
+#         return HttpResponse(json.dumps({}), content_type='application/json')
 
 @roo_member_required
 def courses(request):

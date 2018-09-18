@@ -1,16 +1,13 @@
-import requests
 # from time import gmtime, strftime
-from django.db import models
-from django.db.models import Q
-from django.template.defaultfilters import truncatewords_html, truncatewords
+import django_tables2 as tables
 import requests
 # from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.db.models import Q
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import json
-from urllib.parse import urlencode
-import django_tables2 as tables
+from django.template.defaultfilters import truncatewords_html
 
 
 # import logging
@@ -23,14 +20,20 @@ class Profile(models.Model):
     courses_columns = models.TextField("Колонки курсы", blank=True, null=True)
     expertise_columns = models.TextField("Колонки эксперты", blank=True, null=True)
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    try:
+        instance.profile.save()
+    except:
+        Profile.objects.create(user=instance)
+
 
 class Base(models.Model):
     class Meta:
@@ -359,16 +362,17 @@ class Course(models.Model):
     contacts = models.TextField("Контакты", blank=True, null=True)
 
     platform_responsible = models.CharField("Ответсвенный за платформу", max_length=1,
-                                           choices=platform_responsible_STATES, default="0")
+                                            choices=platform_responsible_STATES, default="0")
     owner_responsible = models.CharField("Ответсвенный за правообладателя", max_length=1,
-                                           choices=owner_responsible_STATES, default="0")
+                                         choices=owner_responsible_STATES, default="0")
 
     # responsible_comment = models.TextField("Комментарий ответсвенного", blank=True, null=True)
     platform_responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
     owner_responsible_comment = models.TextField("Комментарий ответсвенного за правообладателя", blank=True, null=True)
 
     passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
-                                         choices=passport_responsible_STATES, default="0")
+                                            choices=passport_responsible_STATES, default="0")
+
     def natural_key(self):
         return (self.title)
 
@@ -417,7 +421,6 @@ class Course(models.Model):
             </div>
           </div>
         '''
-
 
     get_image.allow_tags = True
     get_description.allow_tags = True
@@ -524,7 +527,6 @@ class Course(models.Model):
                 get_courses_from_page(response["next"])
             else:
                 return
-
 
         get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
 
@@ -752,7 +754,8 @@ class ChoiceColumn(tables.Column):
         # try:
         return self.choices[int(value)][1]
         # except:
-            # return "Ошибка"
+        # return "Ошибка"
+
 
 class CoursesTable(tables.Table):
     class Meta:
@@ -765,7 +768,7 @@ class CoursesTable(tables.Table):
             "image")
         fields = (
             "title", "partner", "platform_responsible", "institution", "owner_responsible", "communication_owner", "communication_platform", "expertise_status",
-            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status",  "responsible_comment", "passport_responsible")
+            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status", "responsible_comment", "passport_responsible")
         attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(

@@ -181,11 +181,11 @@
 
                 filtering: true,
 
-                {% if request.user|has_group:"roo" %}
-                editing: false,
-                {% else %}
+
+                //editing: false,
+
                 editing: true,
-                {% endif %}
+
                 sorting: true,
 
                 autoload: true,
@@ -560,7 +560,7 @@
             });
 
          function setSettings(){
-             console.log("Начали экспертизы");
+             {#console.log("Начали экспертизы");#}
                 $(".column_checkbox").each(function (index, element) {
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {

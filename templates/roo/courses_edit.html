@@ -74,6 +74,7 @@
             </div>
         </div>
         <div class="ui segment">
+            <div id="update_data"> Обновить данные</div>
             <div id="courseCounter"></div>
         </div>
 
@@ -250,6 +251,7 @@
                 },
                 controller: {
                     loadData: function (filter) {
+                        console.log("start loading");
                         var d = $.Deferred();
                         if (!coursesLoaded) {
                             $.ajax({
@@ -566,6 +568,10 @@
                 ]
             });
 
+            $("#update_data").click()(function () {
+                coursesLoaded = false;
+                gridInstance.loadData();
+            });
 
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {

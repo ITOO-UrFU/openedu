@@ -376,10 +376,8 @@
 
                     },
                     {title: "Примечание", name: "comment", type: "text", filtering: false,  editTemplate: function (value, item) {
-                            var course_link = $('<textarea>', {
-                                text: value,
-                            });
-                            return course_link;
+                            var $result =  jsGrid.fields.textarea.prototype.editTemplate.apply(this, arguments);
+                            return $result;
                         } },
                     {
                         title: "Статус коммуникации с правообладателем",

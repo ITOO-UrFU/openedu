@@ -197,6 +197,10 @@
                 loadMessage: "Идет загрузка...",
                 var TextField = jsGrid.TextField;
 
+(function(jsGrid, $, undefined) {
+
+    var TextField = jsGrid.TextField;
+
     function TextAreaField(config) {
         TextField.call(this, config);
     }
@@ -225,6 +229,9 @@
     });
 
     jsGrid.fields.textarea = jsGrid.TextAreaField = TextAreaField;
+
+}(jsGrid, jQuery));
+
                 rowClick: function (args) {
                     return;
                 },

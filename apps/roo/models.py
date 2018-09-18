@@ -4,6 +4,10 @@ from django.db import models
 from django.db.models import Q
 from django.template.defaultfilters import truncatewords_html, truncatewords
 import requests
+# from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import json
 from urllib.parse import urlencode
 import django_tables2 as tables
@@ -13,6 +17,20 @@ import django_tables2 as tables
 
 # logger = logging.getLogger('celery_logging')
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # bio = models.TextField(max_length=500, blank=True)
+    courses_columns = models.TextField("Колонки курсы", blank=True, null=True)
+    expertise_columns = models.TextField("Колонки эксперты", blank=True, null=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 class Base(models.Model):
     class Meta:

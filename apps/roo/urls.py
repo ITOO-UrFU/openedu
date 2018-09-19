@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.views.generic.base import RedirectView, TemplateView
 from .views import data, get_active_tasks, courses, CourseUpdate, expertises, ExpertiseUpdate, upload_from_json, \
     courses_list, courses_edit, ExpertiseCreate, TeacherCreate, upload_expertises, CourseCreate, TableCourseUpdate, \
-    expertises_list, expertises_edit, TableExpertiseUpdate, upload_comments, expertises_list, visible_columns_courses
+    expertises_list, expertises_edit, TableExpertiseUpdate, upload_comments, expertises_list, visible_columns_courses, visible_columns_expertises
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/roo/courses/', permanent=False), name='index'),

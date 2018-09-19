@@ -5,7 +5,7 @@
 
     <div class="main_content">
         <form class="ui form" method="post">{% csrf_token %}
-        <input id="course" value="{{ expertise.course }}"/>
+        <input id="course" hidden id="id_course" value="{{ expertise.course.id }}"/>
             <p>Эксперт: {{ expertise.expert }}</p>
             <p>Курс: {{ expertise.course }}</p>
 

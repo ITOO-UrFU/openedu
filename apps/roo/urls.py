@@ -2,12 +2,13 @@ from django.conf.urls import url
 from django.views.generic.base import RedirectView, TemplateView
 from .views import data, get_active_tasks, courses, CourseUpdate, expertises, ExpertiseUpdate, upload_from_json, \
     courses_list, courses_edit, ExpertiseCreate, TeacherCreate, upload_expertises, CourseCreate, TableCourseUpdate, \
-    expertises_list, expertises_edit, TableExpertiseUpdate, upload_comments, expertises_list, visible_columns_courses, visible_columns_expertises
+    expertises_list, expertises_edit, TableExpertiseUpdate, upload_comments, expertises_list, visible_columns_courses, visible_columns_expertises, ExpertiseUpdate1
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/roo/courses/', permanent=False), name='index'),
     url(r'^(?P<pk>\d+)', CourseUpdate.as_view(), name="detail"),
     url(r'^expertise/(?P<pk>\d+)/$', ExpertiseUpdate.as_view(), name="detail"),
+    url(r'^expertise1/(?P<pk>\d+)/$', ExpertiseUpdate1.as_view(), name="detail1"),
     url(r'data/$', data, name='data'),
     url(r'visible_columns_courses/', visible_columns_courses, name='visible_columns_courses'),
     url(r'visible_columns_expertises/', visible_columns_expertises, name='visible_columns_expertises'),

@@ -1,0 +1,19 @@
+{% extends "roo/base_simple.html" %}
+{% load static %}
+{% load semanticui %}
+{% block content %}
+
+    <div class="main_content">
+        <form class="ui form" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        </form>
+
+    </div>
+    <script>
+        $('.ui.dropdown')
+            .dropdown();
+        $('#id_record_end_at').calendar();
+
+    </script>
+
+{% endblock %}

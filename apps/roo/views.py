@@ -2,6 +2,7 @@
 import string
 
 from django import forms
+from django.contrib.auth.models import User
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
@@ -9,12 +10,12 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
-from django.contrib.auth.models import User
+
 from .decorators import roo_member_required
 from .models import \
-    Course, CoursesTable, \
+    CoursesTable, \
     Expertise, ExpertisesTable, \
-    Owner, Expert, Teacher
+    Expert, Teacher
 from .tasks import *
 
 logger = logging.getLogger('celery_logging')
@@ -515,6 +516,7 @@ def visible_columns_expertises(request):
     else:
         return HttpResponse(json.dumps({}), content_type='application/json')
 
+
 def visible_columns_courses(request):
     user = User.objects.get(pk=request.user.id)
     if request.method == "POST":
@@ -525,6 +527,7 @@ def visible_columns_courses(request):
         return JsonResponse(user.profile.courses_columns, safe=False)
     else:
         return HttpResponse(json.dumps({}), content_type='application/json')
+
 
 # def visible_columns_courses(request):
 #     if request.method == "POST":
@@ -676,3 +679,9 @@ class ExpertiseUpdate(UpdateView):
             setattr(self.object, attr, value)
             self.object.save()
         return super(ExpertiseUpdate, self).post(request, *args, **kwargs)
+
+
+class ExpertiseUpdate1(UpdateView):
+    form_class = ExpertiseLayout
+    model = Expertise
+    template_name_suffix = '_update_form1'

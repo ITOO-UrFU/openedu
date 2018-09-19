@@ -503,6 +503,18 @@ def get_active_tasks(request):
             active_tasks += tasks
         return JsonResponse({"active_tasks": active_tasks})
 
+
+def visible_columns_expertises(request):
+    user = User.objects.get(pk=request.user.id)
+    if request.method == "POST":
+        user.profile.expertise_columns = request.body
+        user.save()
+        return JsonResponse(json.dumps({"success": True}), safe=False)
+    elif request.method == "GET":
+        return JsonResponse(user.profile.expertise_columns, safe=False)
+    else:
+        return HttpResponse(json.dumps({}), content_type='application/json')
+
 def visible_columns_courses(request):
     user = User.objects.get(pk=request.user.id)
     if request.method == "POST":

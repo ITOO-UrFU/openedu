@@ -362,7 +362,7 @@ class Course(models.Model):
     contacts = models.TextField("Контакты", blank=True, null=True)
 
     platform_responsible = models.CharField("Ответсвенный за платформу", max_length=1,
-                                            choices=platform_responsible_STATES, default="0")
+                                            choices=platform_responsible_STATES, default="0", blank=True, null=True)
     owner_responsible = models.CharField("Ответсвенный за правообладателя", max_length=1,
                                          choices=owner_responsible_STATES, default="0", blank=True, null=True)
 

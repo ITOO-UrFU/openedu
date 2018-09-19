@@ -674,7 +674,7 @@ class ExpertiseUpdate(UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        print(kwargs)
+        print(kwargs, args)
         for attr, value in kwargs.items():
             setattr(self.object, attr, value)
             self.object.save()

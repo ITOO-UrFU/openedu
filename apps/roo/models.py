@@ -364,7 +364,7 @@ class Course(models.Model):
     platform_responsible = models.CharField("Ответсвенный за платформу", max_length=1,
                                             choices=platform_responsible_STATES, default="0")
     owner_responsible = models.CharField("Ответсвенный за правообладателя", max_length=1,
-                                         choices=owner_responsible_STATES, default="0")
+                                         choices=owner_responsible_STATES, default="0", blank=True, null=True)
 
     # responsible_comment = models.TextField("Комментарий ответсвенного", blank=True, null=True)
     platform_responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)

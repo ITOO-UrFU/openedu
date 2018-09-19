@@ -42,10 +42,11 @@
 
         }
 
-        .hidden_column{
-        display: none !important;
+        .hidden_column {
+            display: none !important;
         }
-        .show_column{
+
+        .show_column {
             display: block !important;
         }
 
@@ -57,7 +58,6 @@
             align-content: stretch; /* Extra space in Cross Axis */
 
         }
-
 
 
     </style>
@@ -174,6 +174,40 @@
             var courses = [];
             var coursesLoaded = false;
             var coursesCount = 0;
+            /*  (function (jsGrid, $, undefined) {
+
+                  var TextField = jsGrid.TextField;
+
+                  function TextAreaField(config) {
+                      TextField.call(this, config);
+                  }
+
+                  TextAreaField.prototype = new TextField({
+
+                      insertTemplate: function () {
+                          if (!this.inserting)
+                              return "";
+
+                          return this.insertControl = this._createTextArea();
+                      },
+
+                      editTemplate: function (value) {
+                          if (!this.editing)
+                              return this.itemTemplate.apply(this, arguments);
+
+                          var $result = this.editControl = this._createTextArea();
+                          $result.val(value);
+                          return $result;
+                      },
+
+                      _createTextArea: function () {
+                          return $("<textarea>").attr("style", "min-height: 70px;").prop("readonly", !!this.readOnly);
+                      }
+                  });
+
+                  jsGrid.fields.textarea = jsGrid.TextAreaField = TextAreaField;
+
+              }(jsGrid, jQuery));*/
 
             $("#jsGrid").jsGrid({
                 height: "100%",
@@ -181,11 +215,11 @@
 
                 filtering: true,
 
-                {% if request.user|has_group:"roo" %}
-                editing: false,
-                {% else %}
+
+                //editing: false,
+
                 editing: true,
-                {% endif %}
+
                 sorting: true,
 
                 autoload: true,
@@ -195,6 +229,8 @@
                 noDataContent: "Нет курсов для отображения",
                 pagerFormat: "Найдено курсов: {itemCount}",
                 loadMessage: "Идет загрузка...",
+
+
                 rowClick: function (args) {
                     return;
                 },
@@ -203,6 +239,8 @@
                 },
                 onInit: function (args) {
                     gridInstance = args.grid;
+
+                    {#console.log(gridInstance)#}
                 },
                 onDataLoading: function (args) {
                     gridInstance._loadIndicator.show()
@@ -212,8 +250,10 @@
                 },
                 controller: {
                     loadData: function (filter) {
+
                         var d = $.Deferred();
                         if (!coursesLoaded) {
+                            console.log("start loading");
                             $.ajax({
                                 type: "GET",
                                 url: "/roo/courses_edit/",
@@ -230,22 +270,22 @@
                             console.log(filter);
                             result = $.grep(courses, function (item) {
 
-                                return (!filter.title || (item.title==null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
-                                        && (!filter.partner || (item.partner==null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))
-                                        && (!filter.institution || (item.institution==null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1))
-                                        && (!filter.comment || (item.comment==null ? false : item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1))
-                                        && (!filter.reg_data || (item.reg_data==null ? false : item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1))
-                                        && (!filter.contacts || (item.contacts==null ? false : item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1))
-                                        && (!filter.responsible_comment || (item.responsible_comment==null ? false : item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1))
+                                return (!filter.title || (item.title == null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
+                                    && (!filter.partner || (item.partner == null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))
+                                    && (!filter.institution || (item.institution == null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1))
+                                    && (!filter.comment || (item.comment == null ? false : item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1))
+                                    && (!filter.reg_data || (item.reg_data == null ? false : item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1))
+                                    && (!filter.contacts || (item.contacts == null ? false : item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1))
+                                    && (!filter.responsible_comment || (item.responsible_comment == null ? false : item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1))
 
-                                        /*
-                                        && (!filter.admin_email || (item.admin_email==null ? false : item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1))
-                                        && (!filter.cabinet_course_url || (item.cabinet_course_url==null ? false : item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1))
-                                        && (!filter.version || (item.version==null ? false : item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1))
-                                        && (!filter.language || (item.language==null ? false : item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1))
-                                        && (!filter.duration || (item.duration==null ? false : item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1))
-                                        && (!filter.expert_account || (item.expert_account==null ? false : item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1))
-                                           */
+                                    /*
+                                    && (!filter.admin_email || (item.admin_email==null ? false : item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1))
+                                    && (!filter.cabinet_course_url || (item.cabinet_course_url==null ? false : item.cabinet_course_url.toLowerCase().indexOf(filter.cabinet_course_url.toLowerCase()) > -1))
+                                    && (!filter.version || (item.version==null ? false : item.version.toLowerCase().indexOf(filter.version.toLowerCase()) > -1))
+                                    && (!filter.language || (item.language==null ? false : item.language.toLowerCase().indexOf(filter.language.toLowerCase()) > -1))
+                                    && (!filter.duration || (item.duration==null ? false : item.duration.toLowerCase().indexOf(filter.duration.toLowerCase()) > -1))
+                                    && (!filter.expert_account || (item.expert_account==null ? false : item.expert_account.toLowerCase().indexOf(filter.expert_account.toLowerCase()) > -1))
+                                       */
 
                                     /*
                                     * Пошли селекты
@@ -332,7 +372,7 @@
                     {
                         title: "Комментарий ответсвенного за платформу",
                         name: "platform_responsible_comment",
-                        type: "text",
+                        type: "textarea",
                         filtering: false,
 
                     },
@@ -371,11 +411,11 @@
                     {
                         title: "Комментарий ответсвенного за правообладателя",
                         name: "owner_responsible_comment",
-                        type: "text",
+                        type: "textarea",
                         filtering: false,
 
                     },
-                    {title: "Примечание", name: "comment", type: "text", filtering: false},
+                    {title: "Примечание", name: "comment", type: "textarea", filtering: false,},
                     {
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",
@@ -384,7 +424,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                        // visible: true
                     },
 
                     {
@@ -395,7 +435,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                        // visible: true
                     },
                     {
                         title: "Статус экспертизы",
@@ -415,7 +455,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                        // visible: false
                     },
                     {
                         title: "Состояние загрузки обязательных оценок",
@@ -425,7 +465,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                        //  visible: false
                     },
                     {
                         title: "Состояние загрузки добровольных оценок",
@@ -435,7 +475,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false
+                        //  visible: false
                     },
 
                     {
@@ -459,37 +499,37 @@
                     },
                     {
                         title: "Контакты", name: "contacts", type: "text",
-                        visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Регистрационные данные для доступа к курсу", name: "reg_data", type: "text",
-                        visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Доступ эксперта", name: "expert_account", type: "text", filtering: false,
-                        visible: false,
+                        //  visible: false,
                     },
 
 
                     {
                         title: "Адрес эл. почты администратора ОК", name: "admin_email", type: "text", filtering: false,
-                        visible: false,
+                        //  visible: false,
                     },
                     {
                         title: "Ссылка на курс в кабинете", name: "cabinet_course_url", type: "text", filtering: false,
-                        visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Версия курса", name: "version", type: "text", filtering: false,
-                        visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Язык контента", name: "language", type: "text", filtering: false,
-                        visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Длительность в неделях", name: "duration", type: "text", filtering: false,
-                        visible: false,
+                        //   visible: false,
                     },
                     {
                         title: "Возможность получить сертификат",
@@ -499,7 +539,7 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false,
+                        //  visible: false,
                     },
                     {
                         title: "Доступ к курсу для экспертов обязательной оценки",
@@ -509,47 +549,26 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        visible: false,
+                        //   visible: false,
                     },
                     {% if  request.user|has_group:"roo"  or request.user.is_superuser %}
-                    {
-                        type: "control",
-                        width: "100",
-                        deleteButton: false,
-                        headerTemplate: function () {
-                            return $("<button>").attr("type", "button").text("Добавить курс")
-                                .on("click", function () {
-                                    AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
-                                    return false;
-                                });
+                        {
+                            type: "control",
+                            width: "100",
+                            deleteButton: false,
+                            headerTemplate: function () {
+                                return $("<button>").attr("type", "button").text("Добавить курс")
+                                    .on("click", function () {
+                                        AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
+                                        return false;
+                                    });
+                            }
                         }
-                    }
                     {% endif %}
                 ]
             });
 
-            $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
-                if (element.type != 'control') {
-                    var list_item_wrap = document.createElement('div');
-                    list_item_wrap.setAttribute("class", "field");
-                    var list_item = document.createElement('div');
-                    list_item.setAttribute("class", "ui slider checkbox");
-                    var input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.setAttribute("class", 'column_checkbox');
-                    input.checked = element.visible;
-                    input.id = element.name;
-                    input.value = element.name;
-                    var label = document.createElement('label');
 
-                    label.setAttribute("for", element.name);
-                    label.innerHTML = element.title;
-                    list_item.appendChild(input);
-                    list_item.appendChild(label);
-                    list_item_wrap.appendChild(list_item);
-                    $("#column_show_checkboxes").prepend(list_item_wrap);
-                }
-            });
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
                     $("#column_show_checkboxes").css({'display': "none"});
@@ -559,25 +578,91 @@
                 }
             });
 
-         function setSettings(){
-             console.log("Начали экспертизы");
+            function setSettings() {
+                {#console.log("Начали экспертизы");#}
+                var columns = {};
                 $(".column_checkbox").each(function (index, element) {
+
+
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
                             console.log(element.checked);
+                            columns[element.value] = element.checked;
                             value.visible = element.checked;
                         }
                     })
                 });
+                $.ajax({
+                    type: "POST",
+                    url: "/roo/visible_columns_courses/",
+                    data: JSON.stringify(columns),
+                    success: function () {
+                        console.log("настройки сохранен")
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("По некоторым причинам не удалось произвести сохранение настроек.")
+                    }
+                });
                 $("#jsGrid").jsGrid("option", "fields", settings);
                 $("#jsGrid").jsGrid("refresh");
 
-         }
+            }
 
             var settings = $("#jsGrid").data("JSGrid").fields;
+
+            $.ajax({
+                type: "GET",
+                url: "/roo/visible_columns_courses/",
+            }).done(function (result) {
+
+                result = JSON.parse(result);
+                console.log(result);
+                if (result) {
+                    settings.forEach(function (field) {
+                        if (typeof result[field.name] != 'undefined') {
+                            field.visible = result[field.name]
+                        }
+                    });
+                    $("#jsGrid").jsGrid("option", "fields", settings);
+                    $("#jsGrid").jsGrid("refresh");
+                }
+                $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+                    if (element.type != 'control') {
+                        var list_item_wrap = document.createElement('div');
+                        list_item_wrap.setAttribute("class", "field");
+                        var list_item = document.createElement('div');
+                        list_item.setAttribute("class", "ui slider checkbox");
+                        var input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.setAttribute("class", 'column_checkbox');
+                        input.checked = element.visible;
+                        input.id = element.name;
+                        input.value = element.name;
+                        var label = document.createElement('label');
+
+                        label.setAttribute("for", element.name);
+                        label.innerHTML = element.title;
+                        list_item.appendChild(input);
+                        list_item.appendChild(label);
+                        list_item_wrap.appendChild(list_item);
+                        $("#column_show_checkboxes").prepend(list_item_wrap);
+                    }
+                });
+            });
+
             $("#setColumnsVisible").click(function () {
                 $("#show_hide_checkboxes").prop("checked", false);
                 $("#column_show_checkboxes").css({'display': "none"});
+
+
+                /* $.ajax({
+                     type: "POST",
+                     url: "/roo/visible_columns_courses/",
+                 }).done(function () {
+                     console.log("ok")
+                 });*/
+                //visible_columns_courses
+
                 $("#jsGrid").data("JSGrid")._loadIndicator.show();
                 window.setTimeout(setSettings, 50);
             });

@@ -9,12 +9,12 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
-
+from django.contrib.auth.models import User
 from .decorators import roo_member_required
 from .models import \
-    CoursesTable, \
+    Course, CoursesTable, \
     Expertise, ExpertisesTable, \
-    Expert, Teacher
+    Owner, Expert, Teacher
 from .tasks import *
 
 logger = logging.getLogger('celery_logging')
@@ -133,8 +133,10 @@ def upload_comments(request):
                 #         # print(course_count, "/", sum)
                 #         # Геометрия: аналитический метод решения задач
                 our_course_url = "" if our_course.external_url is None else our_course.external_url
-                if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
-                    "course_title"].lower().translate(tbl).replace(' ', '') and our_course.partner.title.lower().translate(
+                if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(
+                        tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
+                    "course_title"].lower().translate(tbl).replace(' ',
+                                                                   '') and our_course.partner.title.lower().translate(
                     tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
                     course_count += 1
                     our_course.comment = course["comment"]
@@ -501,6 +503,44 @@ def get_active_tasks(request):
             active_tasks += tasks
         return JsonResponse({"active_tasks": active_tasks})
 
+
+def visible_columns_expertises(request):
+    user = User.objects.get(pk=request.user.id)
+    if request.method == "POST":
+        user.profile.expertise_columns = request.body
+        user.save()
+        return JsonResponse(json.dumps({"success": True}), safe=False)
+    elif request.method == "GET":
+        return JsonResponse(user.profile.expertise_columns, safe=False)
+    else:
+        return HttpResponse(json.dumps({}), content_type='application/json')
+
+def visible_columns_courses(request):
+    user = User.objects.get(pk=request.user.id)
+    if request.method == "POST":
+        user.profile.courses_columns = request.body
+        user.save()
+        return JsonResponse(json.dumps({"success": True}), safe=False)
+    elif request.method == "GET":
+        return JsonResponse(user.profile.courses_columns, safe=False)
+    else:
+        return HttpResponse(json.dumps({}), content_type='application/json')
+
+# def visible_columns_courses(request):
+#     if request.method == "POST":
+#         # request_data = json.loads(request.body)
+#         user = User.objects.get(pk=request.user.id)
+#         user.profile.courses_columns = request.body
+#         user.save()
+#         request_data = json.loads(request.body)
+#         return JsonResponse(request_data, safe=False)
+#     elif request.method == "GET":
+#         user = User.objects.get(pk=request.user.id)
+#         # user.profile.courses_columns = request.body
+#         # return HttpResponse(, content_type='application/json')
+#         return JsonResponse(user.profile.courses_columns, safe=False)
+#     else:
+#         return HttpResponse(json.dumps({}), content_type='application/json')
 
 @roo_member_required
 def courses(request):

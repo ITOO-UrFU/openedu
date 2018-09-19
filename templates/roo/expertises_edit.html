@@ -46,10 +46,11 @@
 
         }
 
-        .hidden_column{
-        display: none !important;
+        .hidden_column {
+            display: none !important;
         }
-        .show_column{
+
+        .show_column {
             display: block !important;
         }
 
@@ -91,16 +92,6 @@
 
         $(function () {
 
-function sleep(seconds) {
-    var start = new Date().getTime(),
-        delay = seconds * 1000;
-
-    while (true) {
-        if ((new Date().getTime() - start) > delay) {
-            break;
-        }
-    }
-}
             var EX_TYPES = [
                 {Id: "", Name: ""},
                 {Id: "0", Name: "Обязательная"},
@@ -142,11 +133,11 @@ function sleep(seconds) {
                 },
                 onInit: function (args) {
                     gridInstance = args.grid;
-                    gridInstance.fields.forEach((field) => {
+                   /* gridInstance.fields.forEach((field) => {
                         if (field.type != "control") {
                             gridFields[field.name] = field.type
                         }
-                    });
+                    });*/
                 },
                 onRefreshed: function () {
                     $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
@@ -178,36 +169,36 @@ function sleep(seconds) {
                             /*loadIndicator._showLoading();*/
                             {#console.log(gridInstance.fields)#}
                             result = $.grep(expertises, function (item) {
-                                return item
+                                return item;
                                 {#console.log(item);#}
-                         /*       return (!filter.type || item.type === filter.type)
-&& (filter.executed === undefined || item.executed === filter.executed)
-&& (filter.has_length === undefined || item.has_length === filter.has_length)
-&& (filter.has_description === undefined || item.has_description === filter.has_description)
-&& (filter.has_authors === undefined || item.has_authors === filter.has_authors)
-&& (filter.has_prerequisites === undefined || item.has_prerequisites === filter.has_prerequisites)
-&& (filter.has_certificate === undefined || item.has_certificate === filter.has_certificate)
-&& (filter.has_dates === undefined || item.has_dates === filter.has_dates)
-&& (filter.has_admin_email === undefined || item.has_admin_email === filter.has_admin_email)
-&& (filter.has_labor === undefined || item.has_labor === filter.has_labor)
-&& (filter.has_competences === undefined || item.has_competences === filter.has_competences)
-&& (filter.has_results === undefined || item.has_results === filter.has_results)
-&& (filter.has_evaluation_tools === undefined || item.has_evaluation_tools === filter.has_evaluation_tools)
-&& (filter.has_recommended_directions === undefined || item.has_recommended_directions === filter.has_recommended_directions)
-&& (filter.has_proctoring === undefined || item.has_proctoring === filter.has_proctoring)
-&& (filter.has_labor_costs === undefined || item.has_labor_costs === filter.has_labor_costs)
-&& (filter.has_short_description === undefined || item.has_short_description === filter.has_short_description)
-&& (filter.has_learning_plan === undefined || item.has_learning_plan === filter.has_learning_plan)
-&& (filter.has_promo_clip === undefined || item.has_promo_clip === filter.has_promo_clip)
-&& (filter.has_course_subject === undefined || item.has_course_subject === filter.has_course_subject)
-&& (filter.is_open === undefined || item.is_open === filter.is_open)
-&& (filter.has_expertises_types === undefined || item.has_expertises_types === filter.has_expertises_types)
-&& (filter.has_ownership_document_scan === undefined || item.has_ownership_document_scan === filter.has_ownership_document_scan)
-&& (filter.has_not_prohibited === undefined || item.has_not_prohibited === filter.has_not_prohibited)
-&& (filter.has_text_materials === undefined || item.has_text_materials === filter.has_text_materials)
-&& (filter.has_illustrations === undefined || item.has_illustrations === filter.has_illustrations)
-&& (filter.has_audio === undefined || item.has_audio === filter.has_audio)
-&& (filter.has_video === undefined || item.has_video === filter.has_video)*/
+                                /*       return (!filter.type || item.type === filter.type)
+       && (filter.executed === undefined || item.executed === filter.executed)
+       && (filter.has_length === undefined || item.has_length === filter.has_length)
+       && (filter.has_description === undefined || item.has_description === filter.has_description)
+       && (filter.has_authors === undefined || item.has_authors === filter.has_authors)
+       && (filter.has_prerequisites === undefined || item.has_prerequisites === filter.has_prerequisites)
+       && (filter.has_certificate === undefined || item.has_certificate === filter.has_certificate)
+       && (filter.has_dates === undefined || item.has_dates === filter.has_dates)
+       && (filter.has_admin_email === undefined || item.has_admin_email === filter.has_admin_email)
+       && (filter.has_labor === undefined || item.has_labor === filter.has_labor)
+       && (filter.has_competences === undefined || item.has_competences === filter.has_competences)
+       && (filter.has_results === undefined || item.has_results === filter.has_results)
+       && (filter.has_evaluation_tools === undefined || item.has_evaluation_tools === filter.has_evaluation_tools)
+       && (filter.has_recommended_directions === undefined || item.has_recommended_directions === filter.has_recommended_directions)
+       && (filter.has_proctoring === undefined || item.has_proctoring === filter.has_proctoring)
+       && (filter.has_labor_costs === undefined || item.has_labor_costs === filter.has_labor_costs)
+       && (filter.has_short_description === undefined || item.has_short_description === filter.has_short_description)
+       && (filter.has_learning_plan === undefined || item.has_learning_plan === filter.has_learning_plan)
+       && (filter.has_promo_clip === undefined || item.has_promo_clip === filter.has_promo_clip)
+       && (filter.has_course_subject === undefined || item.has_course_subject === filter.has_course_subject)
+       && (filter.is_open === undefined || item.is_open === filter.is_open)
+       && (filter.has_expertises_types === undefined || item.has_expertises_types === filter.has_expertises_types)
+       && (filter.has_ownership_document_scan === undefined || item.has_ownership_document_scan === filter.has_ownership_document_scan)
+       && (filter.has_not_prohibited === undefined || item.has_not_prohibited === filter.has_not_prohibited)
+       && (filter.has_text_materials === undefined || item.has_text_materials === filter.has_text_materials)
+       && (filter.has_illustrations === undefined || item.has_illustrations === filter.has_illustrations)
+       && (filter.has_audio === undefined || item.has_audio === filter.has_audio)
+       && (filter.has_video === undefined || item.has_video === filter.has_video)*/
                             });
 
                             d.resolve(result);
@@ -217,20 +208,20 @@ function sleep(seconds) {
                         /*._hideLoading();*/
                         return d.promise();
                     }
-                     , updateItem: function (item) {
-                         //console.log(item);
-                         return $.ajax({
-                             type: "POST",
-                             url: "/roo/update_expertise/",
-                             data: JSON.stringify(item),
-                             success: function () {
-                                 console.log("курс сохранен")
-                             },
-                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                 alert("По некоторым причинам не удалось произвести сохранение экспертизы. Для разрешения этой ситуации, пожалуйста, обратитесь к Никите.")
-                             }
-                         })
-                     }
+                    , updateItem: function (item) {
+                        //console.log(item);
+                        return $.ajax({
+                            type: "POST",
+                            url: "/roo/update_expertise/",
+                            data: JSON.stringify(item),
+                            success: function () {
+                                console.log("экспертиза сохранена")
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("По некоторым причинам не удалось произвести сохранение экспертизы. Для разрешения этой ситуации, пожалуйста, обратитесь к Никите.")
+                            }
+                        })
+                    }
                 },
                 fields: [
                     {
@@ -321,7 +312,7 @@ function sleep(seconds) {
                         title: "Длительность",
                         sorting: false,
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_description",
@@ -329,7 +320,7 @@ function sleep(seconds) {
                         title: "Описание",
                         sorting: false,
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_authors",
@@ -337,14 +328,14 @@ function sleep(seconds) {
                         title: "Авторы",
                         sorting: false,
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         title: "Язык содержания",
                         name: "language",
                         type: "text",
                         width: 100,
-                        visible: false,
+                        //visible: false,
 
                     },
                     {
@@ -353,7 +344,7 @@ function sleep(seconds) {
                         title: "Рекомендуемые \"входные\" требования к обучающемуся",
                         sorting: false,
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_certificate",
@@ -361,7 +352,7 @@ function sleep(seconds) {
                         title: "Сертификат (выдается или нет)",
                         sorting: false,
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
 
                     {
@@ -370,7 +361,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Даты ближайшего запуска",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_admin_email",
@@ -378,7 +369,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Адрес эл. почты администратора ОК",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_labor",
@@ -386,7 +377,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Трудоемкость",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_competences",
@@ -394,7 +385,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Компетенции",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_results",
@@ -402,7 +393,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Результаты обучения",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_evaluation_tools",
@@ -410,7 +401,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Оценочные средства",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_recommended_directions",
@@ -418,7 +409,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Рекомендуемые направления подготовки",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_proctoring",
@@ -426,7 +417,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Наличие подтвержденного сертификата (сервис прокторинга)",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_labor_costs",
@@ -434,7 +425,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Трудозатраты",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_short_description",
@@ -442,7 +433,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Короткое описание",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_learning_plan",
@@ -450,7 +441,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Учебный план",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_promo_clip",
@@ -458,7 +449,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Проморолик",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         title: "Язык видео",
@@ -471,7 +462,7 @@ function sleep(seconds) {
                         name: "language_subtitles",
                         type: "text",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_course_subject",
@@ -479,7 +470,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Предмет курса",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "is_open",
@@ -487,7 +478,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Открытость курса",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_expertises_types",
@@ -495,7 +486,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Типы экспертиз для допуска",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_ownership_document_scan",
@@ -503,7 +494,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Скан документа, подтверждающего правообладание",
                         width: 100,
-                        visible: false,
+                        // visible: false,
                     },
                     {
                         name: "has_not_prohibited",
@@ -511,7 +502,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "В курсе отсутствуют запрещенные материалы",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_text_materials",
@@ -519,7 +510,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Текстовые материалы",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_illustrations",
@@ -527,7 +518,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Иллюстрации",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_audio",
@@ -535,7 +526,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Аудиоматериалы",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_video",
@@ -543,7 +534,7 @@ function sleep(seconds) {
                         sorting: false,
                         title: "Видеоматериалы",
                         width: 100,
-                        visible: false,
+                        //visible: false,
                     },
                     {
                         name: "has_quality_checking",
@@ -576,45 +567,46 @@ function sleep(seconds) {
                         width: 100
                     },
                     {% if  not request.user|has_group:"roo" %}
-                 {
-                        type: "control",
-                        width: "100",
-                        deleteButton: false,
-                        /* headerTemplate: function () {
-                             return $("<button>").attr("type", "button").text("Добавить курс")
-                                 .on("click", function () {
-                                     AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
-                                     return false;
-                                 });
-                         }*/
-                    }
-                {% endif %}
+                        {
+                            type: "control",
+                            width: "100",
+                            deleteButton: false,
+                            /* headerTemplate: function () {
+                                 return $("<button>").attr("type", "button").text("Добавить курс")
+                                     .on("click", function () {
+                                         AddCourse = window.open('//openedu.urfu.ru/roo/create_course/', width = 600, height = 300);
+                                         return false;
+                                     });
+                             }*/
+                        }
+                    {% endif %}
 
                 ]
             });
+            /*
+                        $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+                            if (element.type != 'control') {
+                                var list_item_wrap = document.createElement('div');
+                                list_item_wrap.setAttribute("class", "field");
+                                var list_item = document.createElement('div');
+                                list_item.setAttribute("class", "ui slider checkbox");
+                                var input = document.createElement('input');
+                                input.type = 'checkbox';
+                                input.setAttribute("class", 'column_checkbox');
+                                input.checked = element.visible;
+                                input.id = element.name;
+                                input.value = element.name;
+                                var label = document.createElement('label');
 
-            $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
-                if (element.type != 'control') {
-                    var list_item_wrap = document.createElement('div');
-                    list_item_wrap.setAttribute("class", "field");
-                    var list_item = document.createElement('div');
-                    list_item.setAttribute("class", "ui slider checkbox");
-                    var input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.setAttribute("class", 'column_checkbox');
-                    input.checked = element.visible;
-                    input.id = element.name;
-                    input.value = element.name;
-                    var label = document.createElement('label');
-
-                    label.setAttribute("for", element.name);
-                    label.innerHTML = element.title;
-                    list_item.appendChild(input);
-                    list_item.appendChild(label);
-                    list_item_wrap.appendChild(list_item);
-                    $("#column_show_checkboxes").prepend(list_item_wrap);
-                }
-            });
+                                label.setAttribute("for", element.name);
+                                label.innerHTML = element.title;
+                                list_item.appendChild(input);
+                                list_item.appendChild(label);
+                                list_item_wrap.appendChild(list_item);
+                                $("#column_show_checkboxes").prepend(list_item_wrap);
+                            }
+                        });
+                        */
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
                     $("#column_show_checkboxes").css({'display': "none"});
@@ -624,22 +616,76 @@ function sleep(seconds) {
                 }
             });
 
-         function setSettings(){
-             console.log("Начали экспертизы");
+            function setSettings() {
+                console.log("Начали экспертизы");
+                var columns = {};
                 $(".column_checkbox").each(function (index, element) {
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
                             console.log(element.checked);
+                            columns[element.value] = element.checked;
                             value.visible = element.checked;
                         }
                     })
                 });
+                $.ajax({
+                    type: "POST",
+                    url: "/roo/visible_columns_expertises/",
+                    data: JSON.stringify(columns),
+                    success: function () {
+                        console.log("настройки сохранен")
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("По некоторым причинам не удалось произвести сохранение настроек.")
+                    }
+                });
                 $("#jsGrid").jsGrid("option", "fields", settings);
                 $("#jsGrid").jsGrid("refresh");
 
-         }
+            }
 
             var settings = $("#jsGrid").data("JSGrid").fields;
+
+            $.ajax({
+                type: "GET",
+                url: "/roo/visible_columns_expertises/",
+            }).done(function (result) {
+
+                result = JSON.parse(result);
+                console.log(result);
+                if (result) {
+                    settings.forEach(function (field) {
+                        if (typeof result[field.name] != 'undefined') {
+                            field.visible = result[field.name]
+                        }
+                    });
+                    $("#jsGrid").jsGrid("option", "fields", settings);
+                    $("#jsGrid").jsGrid("refresh");
+                }
+                $("#jsGrid").data("JSGrid").fields.forEach(function (element) {
+                    if (element.type != 'control') {
+                        var list_item_wrap = document.createElement('div');
+                        list_item_wrap.setAttribute("class", "field");
+                        var list_item = document.createElement('div');
+                        list_item.setAttribute("class", "ui slider checkbox");
+                        var input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.setAttribute("class", 'column_checkbox');
+                        input.checked = element.visible;
+                        input.id = element.name;
+                        input.value = element.name;
+                        var label = document.createElement('label');
+
+                        label.setAttribute("for", element.name);
+                        label.innerHTML = element.title;
+                        list_item.appendChild(input);
+                        list_item.appendChild(label);
+                        list_item_wrap.appendChild(list_item);
+                        $("#column_show_checkboxes").prepend(list_item_wrap);
+                    }
+                });
+            });
+
             $("#setColumnsVisible").click(function () {
                 $("#show_hide_checkboxes").prop("checked", false);
                 $("#column_show_checkboxes").css({'display': "none"});

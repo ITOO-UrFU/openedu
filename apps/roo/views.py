@@ -12,9 +12,9 @@ from django_tables2 import RequestConfig
 
 from .decorators import roo_member_required
 from .models import \
-    Course, CoursesTable, \
+    CoursesTable, \
     Expertise, ExpertisesTable, \
-    Owner, Expert, Teacher
+    Expert, Teacher
 from .tasks import *
 
 logger = logging.getLogger('celery_logging')
@@ -110,6 +110,7 @@ def add_expertises(course, our_course):
             #             expertise.expert = expert[0]
             #             expertise.save()
 
+
 def upload_comments(request):
     if request.method == "POST":
         courses = json.loads(request.POST.get("json_value", None))
@@ -133,7 +134,7 @@ def upload_comments(request):
                 #         # Геометрия: аналитический метод решения задач
                 our_course_url = "" if our_course.external_url is None else our_course.external_url
                 if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
-                    "course_title"].lower().translate(tbl).replace(' ','') and our_course.partner.title.lower().translate(
+                    "course_title"].lower().translate(tbl).replace(' ', '') and our_course.partner.title.lower().translate(
                     tbl).replace(' ', '') == course["course_partner"].lower().translate(tbl).replace(' ', ''):
                     course_count += 1
                     our_course.comment = course["comment"]
@@ -142,7 +143,7 @@ def upload_comments(request):
                     break
                 elif our_course_url.lower().translate(tbl).replace(' ', '') == course[
                     "external_url"].lower().translate(tbl).replace(' ', '') and our_course.title.lower().translate(
-                        tbl).replace(' ', '') == course[
+                    tbl).replace(' ', '') == course[
                     "course_title"].lower().translate(tbl).replace(' ',
                                                                    '') and our_course.institution.title.lower().translate(
                     tbl).replace(' ', '') == course["course_institution"].lower().translate(tbl).replace(' ', ''):
@@ -156,11 +157,11 @@ def upload_comments(request):
 
             sum += 1
 
-
         print('Курсов найдено: ', course_count)
         return render(request, 'roo/upload_from_json.html')
     else:
         return render(request, 'roo/upload_from_json.html')
+
 
 def upload_expertises(request):
     if request.method == "POST":
@@ -627,3 +628,11 @@ class ExpertiseUpdate(UpdateView):
     # context_object_name = "expertise"
     # pk_url_kwarg = 'course__id'
     success_url = '/roo/close/'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        print(kwargs)
+        for attr, value in kwargs.iteritems():
+            setattr(self.object, attr, value)
+            self.object.save()
+        return super(ExpertiseUpdate, self).post(request, *args, **kwargs)

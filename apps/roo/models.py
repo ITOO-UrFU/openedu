@@ -238,7 +238,7 @@ class Course(models.Model):
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
     has_sertificate = models.CharField("Возможность получить сертификат",
-                                       default="0", max_length=1, choices=CERTS)  # слово сертификат у них неправильно
+                                       default="0", max_length=512, choices=CERTS)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)

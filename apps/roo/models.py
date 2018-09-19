@@ -371,11 +371,12 @@ class Course(models.Model):
     owner_responsible_comment = models.TextField("Комментарий ответсвенного за правообладателя", blank=True, null=True)
 
     passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
-                                            choices=passport_responsible_STATES, default="0")
+                                            choices=passport_responsible_STATES, default="0", null=True, blank=True)
 
     def natural_key(self):
         return (self.title)
 
+    passport_responsible
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
 

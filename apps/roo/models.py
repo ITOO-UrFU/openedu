@@ -238,7 +238,7 @@ class Course(models.Model):
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
     has_sertificate = models.CharField("Возможность получить сертификат",
-                                       default="0", max_length=1, choices=CERTS)  # слово сертификат у них неправильно
+                                       default="0", max_length=512, choices=CERTS)  # слово сертификат у них неправильно
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
@@ -362,20 +362,21 @@ class Course(models.Model):
     contacts = models.TextField("Контакты", blank=True, null=True)
 
     platform_responsible = models.CharField("Ответсвенный за платформу", max_length=1,
-                                            choices=platform_responsible_STATES, default="0")
+                                            choices=platform_responsible_STATES, default="0", blank=True, null=True)
     owner_responsible = models.CharField("Ответсвенный за правообладателя", max_length=1,
-                                         choices=owner_responsible_STATES, default="0")
+                                         choices=owner_responsible_STATES, default="0", blank=True, null=True)
 
     # responsible_comment = models.TextField("Комментарий ответсвенного", blank=True, null=True)
     platform_responsible_comment = models.TextField("Комментарий ответсвенного за платформу", blank=True, null=True)
     owner_responsible_comment = models.TextField("Комментарий ответсвенного за правообладателя", blank=True, null=True)
 
     passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
-                                            choices=passport_responsible_STATES, default="0")
+                                            choices=passport_responsible_STATES, default="0", null=True, blank=True)
 
     def natural_key(self):
         return (self.title)
 
+    passport_responsible
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
 

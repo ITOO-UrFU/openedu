@@ -613,13 +613,13 @@ class CourseUpdate(UpdateView):
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        for attr, value in kwargs.items():
-            setattr(self.object, attr, value)
-            self.object.save()
-        self.object.newest = True
-        return super(ExpertiseUpdate, self).post(request, *args, **kwargs)
+    # def post(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     for attr, value in kwargs.items():
+    #         setattr(self.object, attr, value)
+    #         self.object.save()
+    #     self.object.newest = True
+    #     return super(ExpertiseUpdate, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CourseUpdate, self).get_context_data(**kwargs)

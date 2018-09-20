@@ -634,6 +634,11 @@ class ExpertiseCreate(CreateView):
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        print(request)
+        return super(ExpertiseCreate, self).get(request, *args, **kwargs)
+
 
 class CourseCreate(CreateView):
     model = Course

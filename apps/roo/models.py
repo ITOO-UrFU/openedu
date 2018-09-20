@@ -377,7 +377,6 @@ class Course(models.Model):
     def natural_key(self):
         return (self.title)
 
-    passport_responsible
     def __str__(self):
         return f"Онлайн-курс: {self.title}"
 

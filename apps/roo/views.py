@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import string
 
-from django import forms
 from django.contrib.auth.models import User
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
@@ -634,10 +633,31 @@ class ExpertiseCreate(CreateView):
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        print([r for r in request])
-        return super(ExpertiseCreate, self).get(request, *args, **kwargs)
+
+from django import forms
+
+
+class ExForm(forms.ModelForm):
+    class Meta:
+        model = Expertise
+
+
+def new_expertise(request, course_id=None):
+    if request.method == 'POST':
+        form = ExForm(request.POST, request.FILES)
+        if form.is_valid():
+
+            ex = form.save(commit=False)
+            if course_id:
+                ex.course = Course.objects.get(id=course_id)
+            ex.save()
+
+    args = {}
+    # args.update(csrf(request))
+    args.update({"course_id": course_id})
+    args['form'] = ExForm()
+
+    return render(request, 'expertise__update_form.html', args)
 
 
 class CourseCreate(CreateView):

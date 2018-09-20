@@ -83,22 +83,14 @@
 
                 <tr>
                     <td>Даты ближайшего запуска</td>
-                    {% if expertise.course.started_at %}
                         <td>{{ expertise.course.started_at }}</td>
-                    {% else %}
-                        <td><i class="times icon"></i></td>
-                    {% endif %}
                     <td>{% render_field form.has_dates %}</td>
                 </tr>
 
                 <tr>
                     <td>Адрес эл. почты администратора ОК</td>
 
-                    {% if expertise.course.admin_email %}
                         <td>{{ expertise.course.admin_email }}</td>
-                    {% else %}
-                        <td><i class="times icon"></i></td>
-                    {% endif %}
                     <td>{% render_field form.has_admin_email %}</td>
                 </tr>
 

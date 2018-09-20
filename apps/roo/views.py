@@ -678,6 +678,7 @@ class ExpertiseUpdate(UpdateView):
         for attr, value in kwargs.items():
             setattr(self.object, attr, value)
             self.object.save()
+        self.object.type = "0"
         return super(ExpertiseUpdate, self).post(request, *args, **kwargs)
 
 

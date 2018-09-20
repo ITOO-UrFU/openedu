@@ -5,6 +5,7 @@
 
     <div class="main_content">
         <form class="ui form" method="post">{% csrf_token %}
+        <a href="/roo/course/{{ expertise.course.id }}">Вернуться к паспорту курса</a>
         <input hidden id="id_course" type="number" name="course" step="1" value="{{ expertise.course.id }}"/>
             <p>Эксперт: {{ expertise.expert }}</p>
             <p>Курс: {{ expertise.course }}</p>

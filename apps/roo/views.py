@@ -356,7 +356,7 @@ def data(request):
         # Statistics
         context["courses_count"] = Course.objects.all().count()
         context["passport"] = Course.get_passport_responsibles()
-        context["expertises_count"] = Expertise.objects.all().count()
+        context["expertises_count"] = Expertise.objects.filter(type="0").count()
         context["main_expertise_count"] = Expertise.main_expertise_count()
         context["owners_count"] = Owner.objects.all().count()
 

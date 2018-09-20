@@ -636,7 +636,7 @@ class ExpertiseCreate(CreateView):
 
     def get(self, request, *args, **kwargs):
         self.object = None
-        print(request)
+        print([r for r in request])
         return super(ExpertiseCreate, self).get(request, *args, **kwargs)
 
 

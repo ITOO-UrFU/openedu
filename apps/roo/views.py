@@ -640,6 +640,7 @@ from django import forms
 class ExForm(forms.ModelForm):
     class Meta:
         model = Expertise
+        fields = '__all__'
 
 
 def new_expertise(request, course_id=None):

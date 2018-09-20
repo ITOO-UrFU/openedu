@@ -133,11 +133,11 @@
                 },
                 onInit: function (args) {
                     gridInstance = args.grid;
-                   /* gridInstance.fields.forEach((field) => {
-                        if (field.type != "control") {
-                            gridFields[field.name] = field.type
-                        }
-                    });*/
+                    /* gridInstance.fields.forEach((field) => {
+                         if (field.type != "control") {
+                             gridFields[field.name] = field.type
+                         }
+                     });*/
                 },
                 onRefreshed: function () {
                     $("#courseCounter").html('Найдено экспертиз: ' + $("#jsGrid").jsGrid("_itemsCount") + ' из ' + expertisesCount);
@@ -169,7 +169,14 @@
                             /*loadIndicator._showLoading();*/
                             {#console.log(gridInstance.fields)#}
                             result = $.grep(expertises, function (item) {
-                                return item;
+                                return (!filter.course || (item.course == null ? false : item.course.toLowerCase().indexOf(filter.course.toLowerCase()) > -1))
+                                    && (!filter.type || item.type === filter.type)
+                                    && (!filter.executed || item.executed === filter.executed)
+                                    && (!filter.expert || (item.expert == null ? false : item.expert.toLowerCase().indexOf(filter.expert.toLowerCase()) > -1))
+                                    && (!filter.supervisor || (item.supervisor == null ? false : item.supervisor.toLowerCase().indexOf(filter.supervisor.toLowerCase()) > -1))
+                                    && (!filter.organizer || (item.organizer == null ? false : item.organizer.toLowerCase().indexOf(filter.organizer.toLowerCase()) > -1))
+
+
                                 {#console.log(item);#}
                                 /*       return (!filter.type || item.type === filter.type)
        && (filter.executed === undefined || item.executed === filter.executed)
@@ -244,7 +251,8 @@
                         name: "state",
                         editing: false,
                         type: "text",
-                        width: 100
+                        width: 100,
+                        filtering: false,
                     },
                     {
                         title: "Вид экспертизы",
@@ -254,14 +262,16 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
-                        width: 100
+                        width: 100,
+
                     },
                     {
                         name: "executed",
                         type: "checkbox",
                         title: "Отметка об исполнении эксперизы",
                         sorting: false,
-                        width: 100
+                        width: 100,
+
                     },
                     {
                         title: "Эксперт",
@@ -270,40 +280,46 @@
                         width: 100,
                         editing: false,
 
+
                     },
                     {
                         title: "Кто от ИТОО контролирует",
                         name: "supervisor",
                         type: "text",
-                        width: 100
+                        width: 100,
+
 
                     },
                     {
                         title: "Организатор экспертизы сотрудники или партнеры",
                         name: "organizer",
                         type: "text",
-                        width: 100
+                        width: 100,
+
 
                     },
                     {
                         title: "Примечание",
                         name: "comment",
                         type: "text",
-                        width: 100
+                        width: 100,
+                        filtering: false,
 
                     },
                     {
                         title: "Комментарии по отсутствию обязательных полей ОК",
                         name: "comment_fieldset_1",
                         type: "text",
-                        width: 100
+                        width: 100,
+                        filtering: false,
 
                     },
                     {
                         title: "Комментарии по отсутствию обязательных полей ОК претендующих на зачет ОП",
                         name: "comment_fieldset_2",
                         type: "text",
-                        width: 100
+                        width: 100,
+                        filtering: false,
 
                     },
                     {
@@ -312,6 +328,7 @@
                         title: "Длительность",
                         sorting: false,
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -320,6 +337,7 @@
                         title: "Описание",
                         sorting: false,
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -328,6 +346,7 @@
                         title: "Авторы",
                         sorting: false,
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -335,6 +354,7 @@
                         name: "language",
                         type: "text",
                         width: 100,
+                        filtering: false,
                         //visible: false,
 
                     },
@@ -344,6 +364,7 @@
                         title: "Рекомендуемые \"входные\" требования к обучающемуся",
                         sorting: false,
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -352,6 +373,7 @@
                         title: "Сертификат (выдается или нет)",
                         sorting: false,
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
 
@@ -361,6 +383,7 @@
                         sorting: false,
                         title: "Даты ближайшего запуска",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -369,6 +392,7 @@
                         sorting: false,
                         title: "Адрес эл. почты администратора ОК",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -377,6 +401,7 @@
                         sorting: false,
                         title: "Трудоемкость",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -385,6 +410,7 @@
                         sorting: false,
                         title: "Компетенции",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -393,6 +419,7 @@
                         sorting: false,
                         title: "Результаты обучения",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -401,6 +428,7 @@
                         sorting: false,
                         title: "Оценочные средства",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -409,6 +437,7 @@
                         sorting: false,
                         title: "Рекомендуемые направления подготовки",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -417,6 +446,7 @@
                         sorting: false,
                         title: "Наличие подтвержденного сертификата (сервис прокторинга)",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -425,6 +455,7 @@
                         sorting: false,
                         title: "Трудозатраты",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -433,6 +464,7 @@
                         sorting: false,
                         title: "Короткое описание",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -441,6 +473,7 @@
                         sorting: false,
                         title: "Учебный план",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -449,6 +482,7 @@
                         sorting: false,
                         title: "Проморолик",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -457,11 +491,13 @@
                         type: "text",
                         width: 100,
                         visible: false,
+                        filtering: false,
                     }, {
                         title: "Язык субтитров",
                         name: "language_subtitles",
                         type: "text",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -470,6 +506,7 @@
                         sorting: false,
                         title: "Предмет курса",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -478,6 +515,7 @@
                         sorting: false,
                         title: "Открытость курса",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -486,6 +524,7 @@
                         sorting: false,
                         title: "Типы экспертиз для допуска",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -494,6 +533,7 @@
                         sorting: false,
                         title: "Скан документа, подтверждающего правообладание",
                         width: 100,
+                        filtering: false,
                         // visible: false,
                     },
                     {
@@ -502,6 +542,7 @@
                         sorting: false,
                         title: "В курсе отсутствуют запрещенные материалы",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -510,6 +551,7 @@
                         sorting: false,
                         title: "Текстовые материалы",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -518,6 +560,7 @@
                         sorting: false,
                         title: "Иллюстрации",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -526,6 +569,7 @@
                         sorting: false,
                         title: "Аудиоматериалы",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -534,6 +578,7 @@
                         sorting: false,
                         title: "Видеоматериалы",
                         width: 100,
+                        filtering: false,
                         //visible: false,
                     },
                     {
@@ -541,30 +586,35 @@
                         title: "прошел проверку обязательной оценки качества",
                         type: "text",
                         width: 100,
+                        filtering: false,
                     },
                     {
                         name: "no_permission_of_owners",
                         title: "Нет разрешения правообладелей",
                         type: "text",
                         width: 100,
+                        filtering: false,
                     },
                     {
                         name: "got_into_record",
                         title: "попал в отчет",
                         type: "text",
                         width: 100,
+                        filtering: false,
                     },
                     {
                         name: "got_expertise_2018",
                         title: "прошел экспертизу в 2018 (1 квартал)",
                         type: "text",
                         width: 100,
+                        filtering: false,
                     },
                     {
                         name: "additional_info",
                         title: "Дополнительная информация",
                         type: "text",
-                        width: 100
+                        width: 100,
+                        filtering: false,
                     },
                     {% if  not request.user|has_group:"roo" %}
                         {

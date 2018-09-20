@@ -8,6 +8,7 @@
         <input hidden id="id_course" type="number" name="course" step="1" value="{{ expertise.course.id }}"/>
             <p>Эксперт: {{ expertise.expert }}</p>
             <p>Курс: {{ expertise.course }}</p>
+        <p>{% render_field form.executed %}</p>
 
             <h2>Обязательные поля паспорта ОК:</h2>
 

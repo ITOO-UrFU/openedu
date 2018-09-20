@@ -255,7 +255,7 @@ class Course(models.Model):
     total_visitors_number = models.CharField("Количество слушателей", blank=True, null=True,
                                              max_length=512)
     experts_rating = models.CharField("Рейтинг экспертов", blank=True, null=True, max_length=512)
-    requirements = models.TextField("Массив строк-требований", blank=True, null=True)  # массив
+    requirements = models.TextField("Входные требования", blank=True, null=True)  # массив
     cabinet_course_url = models.CharField("Ссылка на курс в кабинете", blank=True, null=True, max_length=512)
     teachers = models.ManyToManyField("Teacher", blank=True)  # список лекторов/аторов
     admin_email = models.CharField("Адрес эл. почты администратора ОК", blank=True, null=True, max_length=512)

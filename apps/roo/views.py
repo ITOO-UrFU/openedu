@@ -658,7 +658,7 @@ def new_expertise(request, course_id=None):
     args.update({"course_id": course_id})
     args['form'] = ExForm()
 
-    return render(request, 'expertise__update_form.html', args)
+    return render(request, 'expertise_update_form.html', args)
 
 
 class CourseCreate(CreateView):

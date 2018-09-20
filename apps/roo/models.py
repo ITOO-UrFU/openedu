@@ -239,7 +239,7 @@ class Course(models.Model):
                                            max_length=512)  # сильно не точно
     has_sertificate = models.CharField("Тип выдаваемого сертификата",
                                        default="0", max_length=512, choices=CERTS)  # слово сертификат у них неправильно
-    virufued_cert = models.BooleanField("Возможность получить подтвержденный сертификат", default=False)
+    verified_cert = models.BooleanField("Возможность получить подтвержденный сертификат", default=False)
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
     partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)

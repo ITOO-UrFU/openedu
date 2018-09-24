@@ -306,7 +306,7 @@
                                     /*
                                     * Пошли селекты
                                     * */
-                                    &&(!filter.institution ||( item.institution === null ? (filter.institution == "empty" ? true: false) : (item.institution.toString() === filter.institution.toString())     ))
+                                    &&(!filter.institution ||( filter.institution == "empty"? (item.institution === null ? true: false) : (item.institution.toString() === filter.institution.toString())     ))
 
                                   /*  && (!filter.institution || (item.institution === null ? (filter.institution == "empty" ? true : item.institution.toString() === filter.institution.toString()) : false))*/
 

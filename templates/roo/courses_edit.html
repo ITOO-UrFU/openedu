@@ -301,7 +301,7 @@
                                     /*
                                     * Пошли селектыs
                                     * */
-                                    && (!filter.partner || item.partner === filter.partner)
+                                    && (!filter.partner || item.partner.toString() === filter.partner.toString())
                                     && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
                                     && (!filter.communication_platform || item.communication_platform === filter.communication_platform)
                                     && (!filter.expertise_status || item.expertise_status === filter.expertise_status)

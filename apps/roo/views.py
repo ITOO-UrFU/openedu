@@ -572,11 +572,12 @@ def courses_list(request):
 def courses_edit(request):
     # context = dict()
     # return render(request, "roo/courses_edit.html", context)
-    data = serialize('json', Course.objects.all(), use_natural_foreign_keys=True)
+    data = serialize('json', Course.objects.all())
     return_data = []
     for course in json.loads(data):
         new_course = course['fields']
         new_course['pk'] = course['pk']
+        # new_course['partner_id'] =
         return_data.append(new_course)
     return HttpResponse(json.dumps(return_data), content_type='application/json')
 

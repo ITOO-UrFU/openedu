@@ -94,9 +94,7 @@
 
             var PLATFORMS_LIST = [
                 {Id: "", Name: ""},
-                {% for platform in platforms %}
-                    {Id: "{{ platform.pk }}", Name: "{{ platform.title }}"},
-                {% endfor %}
+                    {% for platform in platforms %}{Id: "{{ platform.pk }}", Name: "{{ platform.title }}"},{% endfor %}
             ]
 
             var COMMUNICATION_OWNER_STATES = [
@@ -284,7 +282,7 @@
                             result = $.grep(courses, function (item) {
 
                                 return (!filter.title || (item.title == null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
-                                    && (!filter.partner || (item.partner == null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))
+                                    /*&& (!filter.partner || (item.partner == null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))*/
                                     && (!filter.institution || (item.institution == null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1))
                                     && (!filter.comment || (item.comment == null ? false : item.comment.toLowerCase().indexOf(filter.comment.toLowerCase()) > -1))
                                     && (!filter.reg_data || (item.reg_data == null ? false : item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1))
@@ -368,10 +366,22 @@
                     },
 
                     {
+                        /*
+                        title: "Статус коммуникации с платформой",
+                        name: "communication_platform",
+                        type: "select",
+                        items: COMMUNICATION_PLATFORM_STATES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        */
                         title: "Платформа",
                         name: "partner",
                         editing: false,
-                        type: "text"
+                        type: "select",
+                        items: PLATFORMS_LIST,
+                        valueField: "Id",
+                        textField: "Name",
                     },
                     {
                         title: "Ответсвенный за платформу",

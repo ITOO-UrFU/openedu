@@ -94,7 +94,7 @@
 
             var PLATFORMS_LIST = [
                 {Id: "", Name: ""},
-                    {% for platform in platforms %}{Id: "{{ platform.pk }}", Name: "{{ platform.title }}"},{% endfor %}
+                    {% for platform in platforms %}{Id: {{ platform.pk }}, Name: "{{ platform.title }}"},{% endfor %}
             ]
 
             var COMMUNICATION_OWNER_STATES = [

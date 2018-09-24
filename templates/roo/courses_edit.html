@@ -62,7 +62,11 @@
 
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
-
+    <div>
+        {% for platform in platforms %}
+            <p>platforms.title , platform.pk</p>
+        {% endfor %}
+    </div>
     <div id="jsGridWrapper" class="ui horizontal segments">
         <div class="ui segment">
             <input type='checkbox' id='show_hide_checkboxes'> <label for="show_hide_checkboxes">Изменить видимые

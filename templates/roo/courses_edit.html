@@ -95,7 +95,11 @@
             var PLATFORMS_LIST = [
                 {Id: "", Name: ""},
                     {% for platform in platforms %}{Id: {{ platform.pk }}, Name: "{{ platform.title }}"},{% endfor %}
-            ]
+            ];
+            var OWNERS_LIST = [
+                {Id: "", Name: ""},
+                    {% for owner in owners %}{Id: {{ owner.pk }}, Name: "{{ owner.title }}"},{% endfor %}
+            ];
 
             var COMMUNICATION_OWNER_STATES = [
                 {Id: "", Name: ""},
@@ -420,8 +424,11 @@
                         title: "Правообладатель",
                         width: "150",
                         name: "institution",
-                        type: "text",
-                        editing: false
+                        editing: false,
+                        type: "select",
+                        items: OWNERS_LIST,
+                        valueField: "Id",
+                        textField: "Name",
                     },
                     {
                         title: "Ответсвенный за правообладателя",

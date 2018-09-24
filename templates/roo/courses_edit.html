@@ -63,9 +63,11 @@
     </style>
     <!-- <button type="button" id="saveSettings">Save Settings</button> -->
     <div>
+        <!--
         {% for platform in platforms %}
             <p>{{ platform.title }} , {{ platform.pk }}, {{ platform.id }}</p>
         {% endfor %}
+        -->
     </div>
     <div id="jsGridWrapper" class="ui horizontal segments">
         <div class="ui segment">
@@ -89,6 +91,13 @@
     <script type="text/javascript">
 
         $(function () {
+
+            var PLATFORMS_LIST = [
+                {Id: "", Name: ""},
+                {% for platform in platforms %}
+                    {Id: "{{ platform.pk }}", Name: "{{ platform.title }}"},
+                {% endfor %}
+            ]
 
             var COMMUNICATION_OWNER_STATES = [
                 {Id: "", Name: ""},

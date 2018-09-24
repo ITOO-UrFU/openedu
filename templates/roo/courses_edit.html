@@ -98,6 +98,7 @@
             ];
             var OWNERS_LIST = [
                 {Id: "", Name: ""},
+                {Id: "empty", Name: "ПРАВООБЛАДАТЕЛЬ ОТСУТСТВУЕТ!"},
                     {% for owner in owners %}{Id: {{ owner.pk }}, Name: "{{ owner.title }}"},{% endfor %}
             ];
 
@@ -303,21 +304,24 @@
                                        */
 
                                     /*
-                                    * Пошли селектыs
+                                    * Пошли селекты
                                     * */
-                                    && (!filter.partner || item.partner.toString() === filter.partner.toString())
-                                    && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
-                                    && (!filter.communication_platform || item.communication_platform === filter.communication_platform)
-                                    && (!filter.expertise_status || item.expertise_status === filter.expertise_status)
-                                    && (!filter.passport_status || item.passport_status === filter.passport_status)
-                                    && (!filter.required_ratings_state || item.required_ratings_state === filter.required_ratings_state)
-                                    && (!filter.unforced_ratings_state || item.unforced_ratings_state === filter.unforced_ratings_state)
-                                    && (!filter.roo_status || item.roo_status === filter.roo_status)
-                                    && (!filter.expert_access || item.expert_access === filter.expert_access)
-                                    && (!filter.passport_responsible || item.passport_responsible === filter.passport_responsible)
-                                    && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
-                                    && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
-                                    && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)
+
+                                    && (!filter.institution || (item.institution === null ? (filter.institution == "empty" ? true : false) : item.institution.toString() === filter.institution.toString()))
+
+                                && (!filter.partner || item.partner.toString() === filter.partner.toString())
+                                && (!filter.communication_owner || item.communication_owner === filter.communication_owner)
+                                && (!filter.communication_platform || item.communication_platform === filter.communication_platform)
+                                && (!filter.expertise_status || item.expertise_status === filter.expertise_status)
+                                && (!filter.passport_status || item.passport_status === filter.passport_status)
+                                && (!filter.required_ratings_state || item.required_ratings_state === filter.required_ratings_state)
+                                && (!filter.unforced_ratings_state || item.unforced_ratings_state === filter.unforced_ratings_state)
+                                && (!filter.roo_status || item.roo_status === filter.roo_status)
+                                && (!filter.expert_access || item.expert_access === filter.expert_access)
+                                && (!filter.passport_responsible || item.passport_responsible === filter.passport_responsible)
+                                && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
+                                && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
+                                && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)
                             });
                             d.resolve(result)
                         }

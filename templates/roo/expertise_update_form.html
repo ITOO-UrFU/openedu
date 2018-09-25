@@ -27,7 +27,7 @@
                     {#                    <td>{% render_field form.platform %}</td>#}
                 </tr>
                 <tr>
-                    <td>Ссылка на ОК на платформе (версию ОК)</td>
+                    <td>Ссылка на онлайн-курс на сайте Платформы</td>
                     <td>{{ expertise.course.external_url }}</td>
                 </tr>
                 <tr>
@@ -39,7 +39,7 @@
                     <td>{{ expertise.course.institution }}</td>
                 </tr>
                 <tr>
-                    <td>Название курса</td>
+                    <td>Наименование</td>
                     <td>{{ expertise.course.title }}</td>
                 </tr>
                 <tr>
@@ -63,7 +63,7 @@
                 </tr>
 
                 <tr>
-                    <td>Язык содержания</td>
+                    <td>Язык контента</td>
                     <td>{{ expertise.course.language }}</td>
                     <td>{% render_field form.language %}</td>
                 </tr>
@@ -80,6 +80,13 @@
                     <td>{{ expertise.course.get_has_sertificate_display }}</td>
 
                     <td>{% render_field form.has_certificate %}</td>
+                </tr>
+
+                <tr>
+                    <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
+                    <td>{{ expertise.course.has_proctoring }}</td>
+
+                    <td>{% render_field form.has_proctoring %}</td>
                 </tr>
 
                 <tr>

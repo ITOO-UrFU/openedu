@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import string
+import csv
 
 from django.contrib.auth.models import User
 from django.core.serializers import serialize
@@ -19,6 +20,31 @@ from .tasks import *
 
 logger = logging.getLogger('celery_logging')
 
+def some_view(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['roo_status', 'rating', 'duration', 'global_id', 'lectures_number', 'course_item_url', 'title', 'communication_owner', 'expert_access', 'unapproved_changes', 'platform_responsible_comment', 'expert_account', 'created_at', 'expert_rating_count', 'reg_data', 'total_visitors_number', 'requirements', 'communication_platform', 'experts_rating', 'external_url', 'newest', 'competences', 'contacts', 'finished_at', 'image', 'expertise_status', 'version', 'credits', 'has_sertificate', 'id', 'platform_responsible', 'owner_responsible_comment', 'comment', 'passport_status', 'language', 'visitors_rating', 'started_at', 'visitors_number', 'verified_cert', 'accreditation', 'required_ratings_state', 'passport_responsible', 'record_end_at', 'unforced_ratings_state', 'owner_responsible', 'description', 'content', 'cabinet_course_url', 'admin_email', 'visitors_rating_count', 'partner', 'institution'])
+    count = 0
+    for course in Course.objects.all():
+        try:
+            courses_equal = Course.objects.filter(title=course.title, institution__title=course.institution.title,
+                                                  partner__title=course.partner.title)
+            if (courses_equal.count() > 1):
+                if courses_equal[0].global_id is not None and courses_equal[1].global_id is not None:
+                    if courses_equal[0].global_id != courses_equal[1].global_id:
+                        writer.writerow([courses_equal[0].roo_status, courses_equal[0].rating, courses_equal[0].duration, courses_equal[0].global_id, courses_equal[0].lectures_number, courses_equal[0].course_item_url, courses_equal[0].title, courses_equal[0].communication_owner, courses_equal[0].expert_access, courses_equal[0].unapproved_changes, courses_equal[0].platform_responsible_comment, courses_equal[0].expert_account, courses_equal[0].created_at, courses_equal[0].expert_rating_count, courses_equal[0].reg_data, courses_equal[0].total_visitors_number, courses_equal[0].requirements, courses_equal[0].communication_platform, courses_equal[0].experts_rating, courses_equal[0].external_url, courses_equal[0].newest, courses_equal[0].competences, courses_equal[0].contacts, courses_equal[0].finished_at, courses_equal[0].image, courses_equal[0].expertise_status, courses_equal[0].version, courses_equal[0].credits, courses_equal[0].has_sertificate, courses_equal[0].id, courses_equal[0].platform_responsible, courses_equal[0].owner_responsible_comment, courses_equal[0].comment, courses_equal[0].passport_status, courses_equal[0].language, courses_equal[0].visitors_rating, courses_equal[0].started_at, courses_equal[0].visitors_number, courses_equal[0].verified_cert, courses_equal[0].accreditation, courses_equal[0].required_ratings_state, courses_equal[0].passport_responsible, courses_equal[0].record_end_at, courses_equal[0].unforced_ratings_state, courses_equal[0].owner_responsible, courses_equal[0].description, courses_equal[0].content, courses_equal[0].cabinet_course_url, courses_equal[0].admin_email, courses_equal[0].visitors_rating_count, courses_equal[0].partner.title, courses_equal[0].institution.title])
+                        writer.writerow([courses_equal[1].roo_status, courses_equal[1].rating, courses_equal[1].duration, courses_equal[1].global_id, courses_equal[1].lectures_number, courses_equal[1].course_item_url, courses_equal[1].title, courses_equal[1].communication_owner, courses_equal[1].expert_access, courses_equal[1].unapproved_changes, courses_equal[1].platform_responsible_comment, courses_equal[1].expert_account, courses_equal[1].created_at, courses_equal[1].expert_rating_count, courses_equal[1].reg_data, courses_equal[1].total_visitors_number, courses_equal[1].requirements, courses_equal[1].communication_platform, courses_equal[1].experts_rating, courses_equal[1].external_url, courses_equal[1].newest, courses_equal[1].competences, courses_equal[1].contacts, courses_equal[1].finished_at, courses_equal[1].image, courses_equal[1].expertise_status, courses_equal[1].version, courses_equal[1].credits, courses_equal[1].has_sertificate, courses_equal[1].id, courses_equal[1].platform_responsible, courses_equal[1].owner_responsible_comment, courses_equal[1].comment, courses_equal[1].passport_status, courses_equal[1].language, courses_equal[1].visitors_rating, courses_equal[1].started_at, courses_equal[1].visitors_number, courses_equal[1].verified_cert, courses_equal[1].accreditation, courses_equal[1].required_ratings_state, courses_equal[1].passport_responsible, courses_equal[1].record_end_at, courses_equal[1].unforced_ratings_state, courses_equal[1].owner_responsible, courses_equal[1].description, courses_equal[1].content, courses_equal[1].cabinet_course_url, courses_equal[1].admin_email, courses_equal[1].visitors_rating_count, courses_equal[1].partner.title, courses_equal[1].institution.title])
+                        count += 1
+
+        except:
+            pass
+
+    # writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+
+    return response
 
 def get_choises_id(q, choises):
     for e in choises:
@@ -574,11 +600,12 @@ def courses_list(request):
 def courses_edit(request):
     # context = dict()
     # return render(request, "roo/courses_edit.html", context)
-    data = serialize('json', Course.objects.all(), use_natural_foreign_keys=True)
+    data = serialize('json', Course.objects.all())
     return_data = []
     for course in json.loads(data):
         new_course = course['fields']
         new_course['pk'] = course['pk']
+        # new_course['partner_id'] =
         return_data.append(new_course)
     return HttpResponse(json.dumps(return_data), content_type='application/json')
 

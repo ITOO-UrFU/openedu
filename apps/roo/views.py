@@ -384,8 +384,8 @@ def data(request):
         context["expertises_count"] = Expertise.objects.filter(type="0").count()
         context["main_expertise_count"] = Expertise.main_expertise_count()
         context["owners_count"] = Owner.objects.all().count()
-        context["need_admin_owner"] = Course.objects.filer(communication_owner="2").count()
-        context["need_platform_owner"] = Course.objects.filer(communication_platform="2").count()
+        context["need_admin_owner"] = Course.objects.filter(communication_owner="2").count()
+        context["need_platform_owner"] = Course.objects.filter(communication_platform="2").count()
 
         for tasks in i.active().values():
             context["active"] += tasks

@@ -394,6 +394,10 @@ class Course(models.Model):
         result = Course.objects.filter(pk__in=[x['id'] for x in json.loads(self.identical)])
         return result
 
+    def find_identical(self):
+        courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
+                                              partner__title=self.partner.title)
+        return courses_identical
 
     def natural_key(self):
         return (self.title)

@@ -1,4 +1,5 @@
 # from time import gmtime, strftime
+import json
 import django_tables2 as tables
 import requests
 # from django.db import models
@@ -375,6 +376,17 @@ class Course(models.Model):
 
     passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
                                             choices=passport_responsible_STATES, default="0", null=True, blank=True)
+
+    identical = models.CharField("Список таких же", max_length=512, default="[]", null=True, blank=True)
+
+    def append_identaical(self, x):
+        print(x.pk)
+        self.identical = "[]"
+
+    def get_identical(self):
+        result = Course.objects.filter(pk__in=[x['id'] for x in json.loads(self.identical)])
+        return result
+
 
     def natural_key(self):
         return (self.title)

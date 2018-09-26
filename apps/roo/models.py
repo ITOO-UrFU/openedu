@@ -380,9 +380,7 @@ class Course(models.Model):
     identical = models.CharField("Список таких же", max_length=512, default="[]", null=True, blank=True)
 
     def append_identaical(self, x):
-        print(x.pk)
         if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:
-            print("Append: ", x.pk)
             identical_list = json.loads(self.identical)
             identical_list.append({"id": str(x.pk)})
             self.identical = json.dumps(identical_list)
@@ -395,8 +393,11 @@ class Course(models.Model):
         return result
 
     def find_identical(self):
-        courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
+        if self.institution is not None:
+            courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
                                               partner__title=self.partner.title)
+        else:
+            courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
         return courses_identical
 
     def natural_key(self):

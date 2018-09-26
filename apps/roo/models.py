@@ -381,7 +381,10 @@ class Course(models.Model):
 
     def append_identaical(self, x):
         print(x.pk)
-        self.identical = "[]"
+        if str(x.pk not in [x['id'] for x in json.loads(self.identical)]):
+            identical_list = json.loads(self.identical)
+            identical_list.append({"id": str(x.pk)})
+            self.identical = json.dumps(identical_list)
 
     def get_identical(self):
         result = Course.objects.filter(pk__in=[x['id'] for x in json.loads(self.identical)])

@@ -400,6 +400,13 @@ class Course(models.Model):
             courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
         return courses_identical
 
+    def set_identical(self):
+        self.identical = "[]"
+        self.save()
+        for course in self.find_identical():
+            self.append_identaical(course)
+        self.save()
+
     def natural_key(self):
         return (self.title)
 

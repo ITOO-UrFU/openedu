@@ -374,27 +374,6 @@
                             return course_link;
                         }, name: "title", type: "text", filtering: true, editing: false
                     },
-                    {
-                        title: "Дубликаты", width: "150", itemTemplate: function (value, item) {
-                            //console.log(typeof(value), item);
-                            var duplicates = JSON.parse(value);
-                            var links = $('<div>');
-                            duplicates.forEach(function (element) {
-                                console.log(element);
-                                var course_link = $('<a>', {
-                                    text: "Дубликат",
-                                    title: element.id,
-                                    href: '#',
-                                    click: function () {
-                                        CourseEdit = window.open('http://openedu.urfu.ru/roo/' + element.id, value, width = 600, height = 300);
-                                        return false;
-                                    }
-                                });
-                                links.append(course_link)
-                            });
-                            return links;
-                        }, name: "identical", type: "text", filtering: false, editing: false
-                    },
 
                     {
                         /*
@@ -607,6 +586,34 @@
                         textField: "Name",
                         validate: "required",
                         //   visible: false,
+                    },
+                    {
+                        title: "Дубликаты", width: "100", itemTemplate: function (value, item) {
+                            //console.log(typeof(value), item);
+                            var duplicates = JSON.parse(value);
+                            var links = $('<div>');
+                            if (duplicates.length > 0) {
+                                duplicates.forEach(function (element, num) {
+                                    console.log(element);
+                                    var course_link = $('<a>', {
+                                        text: "Дубликат " + (num + 1).toString(),
+                                        title: element.id,
+                                        href: '#',
+                                        click: function () {
+                                            CourseEdit = window.open('http://openedu.urfu.ru/roo/' + element.id, value, width = 600, height = 300);
+                                            return false;
+                                        }
+                                    });
+                                    var course_link_wrap = $('<p>');
+                                    course_link_wrap.append(course_link);
+                                    links.append(course_link_wrap)
+                                });
+                            }
+                            else{
+                                links.append('<p>Дубликатов не найдено</p>');
+                            }
+                            return links;
+                        }, name: "identical", type: "text", filtering: false, editing: false
                     },
                     {% if  request.user|has_group:"roo"  or request.user.is_superuser %}
                         {

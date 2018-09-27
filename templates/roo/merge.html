@@ -3,29 +3,37 @@
 {% load semanticui %}
 {% block content %}
 
-    <div class="main_content">
-        <table>
-            <tr>
-                {% for field1 in form1 %}
-                    {% for field2 in form2 %}
-                        <td>
-                            {% render_field field1 %}
 
-                        </td>
-                        <td>
-                            {% render_field field2 %}
-                        </td>
-                    {% endfor %}
-                {% endfor %}
-            </tr>
-        </table>
+
+<div class="ui grid">
+        <div class="sixteen wide mobile eight wide tablet four wide computer column">
+    <table>
+    <tr>
+        <td>
+            <div class="main_content">
+        <form class="ui form" method="post">{% csrf_token %}
+            {% for field in form1 %}
+                {% render_field field %}
+            {% endfor %}
+        </form>
     </div>
+        </table>
+        </div>
+        <div class="sixteen wide mobile eight wide tablet four wide computer column">
+    <table>
+    <tr>
+        <td>
+            <div class="main_content">
+        <form class="ui form" method="post">{% csrf_token %}
+            {% for field in form2 %}
+                {% render_field field %}
+            {% endfor %}
+        </form>
+    </div>
+        </table>
+        </div>
 
-
-    <form class="ui form" method="post">{% csrf_token %}
-
-
-    </form>
+    </div>
 
 
 {% endblock %}

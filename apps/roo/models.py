@@ -395,7 +395,6 @@ class Course(models.Model):
     def find_identical(self):
         courses_identical = []
         if self.institution is not None:
-            print("!!!!", self.id)
             courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
                                               partner__title=self.partner.title).exclude(id=self.id)
         # else:
@@ -405,7 +404,6 @@ class Course(models.Model):
     def set_identical(self):
         self.identical = "[]"
         self.save()
-        # identical_list = self.find_identical()
         for course in self.find_identical():
             self.append_identaical(course)
             course.identical = "[]"

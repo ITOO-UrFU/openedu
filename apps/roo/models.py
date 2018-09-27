@@ -408,6 +408,8 @@ class Course(models.Model):
         # identical_list = self.find_identical()
         for course in self.find_identical():
             self.append_identaical(course)
+            course.identical = "[]"
+            course.save()
             for sub_course in course.find_identical():
                 course.append_identaical(sub_course)
         self.save()

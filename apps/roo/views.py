@@ -36,8 +36,8 @@ class CourseForm(forms.ModelForm):
 def merge(request, pk_1, pk_2):
     course1 = Course.objects.get(pk=pk_1)
     course2 = Course.objects.get(pk=pk_2)
-    form1 = CourseForm(course1)
-    form2 = CourseForm(course2)
+    form1 = CourseForm(instance=course1)
+    form2 = CourseForm(instance=course2)
     return render(request, "roo/merge.html", {"form1": form1, "form2": form2})
 
 

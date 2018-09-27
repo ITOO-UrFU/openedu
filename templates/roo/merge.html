@@ -3,13 +3,22 @@
 {% load semanticui %}
 {% block content %}
 
-{% for field in form1 %}
-    {% render_field field %}
-{% endfor %}
+    <div class="main_content">
+        <form class="ui form" method="post">{% csrf_token %}
+            {% for field in form1 %}
+                {% render_field field %}
+            {% endfor %}
+        </form>
+    </div>
 
 
-{% for field in form2 %}
-    {% render_field field %}
-{% endfor %}
+    <div class="main_content">
+    <form class="ui form" method="post">{% csrf_token %}
+
+    {% for field in form2 %}
+        {% render_field field %}
+    {% endfor %}
 
 {% endblock %}
+</form>
+</div>

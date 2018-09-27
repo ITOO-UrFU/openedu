@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
+from django import forms
 
 from .decorators import roo_member_required
 from .models import \
@@ -19,6 +20,17 @@ from .models import \
 from .tasks import *
 
 logger = logging.getLogger('celery_logging')
+
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+
+def merge(request, pk_1, pk_2):
+    course1 = Course.objects.get(pk=pk_1)
+    course2= Course.objects.get(pk=pk_2)
+    form1 = CourseForm(course1)
+    form2 = CourseForm(course2)
+    return render(request, "roo/merge.html", {"form1": form1, "form2: "form2})
 
 
 def some_view(request):
@@ -685,7 +697,7 @@ class ExpertiseCreate(CreateView):
     success_url = '/roo/close/'
 
 
-from django import forms
+
 
 
 class ExForm(forms.ModelForm):

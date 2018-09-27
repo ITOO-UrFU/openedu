@@ -3,24 +3,13 @@
 {% load semanticui %}
 {% block content %}
 
-    {% for field in form1 %}
-    <div class="fieldWrapper">
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
-    </div>
+{% for field in form1 %}
+    {% render_field field %}
 {% endfor %}
 
-    {% for field in form2 %}
-    <div class="fieldWrapper">
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
-    </div>
+
+{% for field in form2 %}
+    {% render_field field %}
 {% endfor %}
 
 {% endblock %}

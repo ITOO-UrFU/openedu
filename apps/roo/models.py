@@ -396,7 +396,7 @@ class Course(models.Model):
         courses_identical = []
         if self.institution is not None:
             courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
-                                              partner__title=self.partner.title)
+                                              partner__title=self.partner.title).exclude(id=self.id)
         # else:
         #     courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
         return courses_identical

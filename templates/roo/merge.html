@@ -3,6 +3,13 @@
 {% load semanticui %}
 {% block content %}
 
-{% render_form form1 %}
+{% for field in form1 %}
+    {% render_field field %}
+{% endfor %}
+
+
+{% for field in form2 %}
+    {% render_field field %}
+{% endfor %}
 
 {% endblock %}

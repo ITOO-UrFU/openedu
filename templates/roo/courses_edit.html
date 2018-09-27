@@ -377,7 +377,6 @@
                     {
                         title: "Дубликаты", width: "150", itemTemplate: function (value, item) {
                             console.log(typeof(value), item);
-                            console.log(JSON.parse(item));
                             var duplicates = JSON.parse(value);
                             var links = $('<div>');
                             duplicates.forEach(function (element) {

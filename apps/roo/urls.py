@@ -3,14 +3,13 @@ from django.views.generic.base import RedirectView, TemplateView
 from .views import data, get_active_tasks, courses, CourseUpdate, expertises, ExpertiseUpdate, upload_from_json, \
     courses_list, courses_edit, ExpertiseCreate, TeacherCreate, upload_expertises, CourseCreate, TableCourseUpdate, \
     expertises_list, expertises_edit, TableExpertiseUpdate, upload_comments, expertises_list, visible_columns_courses, \
-    visible_columns_expertises, ExpertiseUpdate1, new_expertise, some_view, merge
+    visible_columns_expertises, new_expertise, some_view, merge
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/roo/courses/', permanent=False), name='index'),
     url(r'^(?P<pk>\d+)', CourseUpdate.as_view(), name="detail"),
-    url(r'^expertise/(?P<pk>\d+)/$', merge, name="merge"),
-    url(r'^merge/(?P<pk_1>\d+)/(?P<pk_2>\d+)/$', ExpertiseUpdate.as_view(), name="detail"),
-    url(r'^expertise1/(?P<pk>\d+)/$', ExpertiseUpdate1.as_view(), name="detail1"),
+    url(r'^expertise/(?P<pk>\d+)/$', ExpertiseUpdate.as_view(), name="detail"),
+    url(r'^merge/(?P<pk_1>\d+)/(?P<pk_2>\d+)/$', merge, name="merge"),
     url(r'data/$', data, name='data'),
     url(r'some_view/', some_view, name='some_view'),
     url(r'visible_columns_courses/', visible_columns_courses, name='visible_columns_courses'),

@@ -1,4 +1,5 @@
 # from time import gmtime, strftime
+import json
 import django_tables2 as tables
 import requests
 # from django.db import models
@@ -375,6 +376,36 @@ class Course(models.Model):
 
     passport_responsible = models.CharField("Ответсвенный за паспорт", max_length=1,
                                             choices=passport_responsible_STATES, default="0", null=True, blank=True)
+
+    identical = models.CharField("Список таких же", max_length=512, default="[]", null=True, blank=True)
+
+    def append_identaical(self, x):
+        if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:
+            identical_list = json.loads(self.identical)
+            identical_list.append({"id": str(x.pk)})
+            self.identical = json.dumps(identical_list)
+            self.save()
+        else:
+            pass
+
+    def get_identical(self):
+        result = Course.objects.filter(pk__in=[x['id'] for x in json.loads(self.identical)])
+        return result
+
+    def find_identical(self):
+        if self.institution is not None:
+            courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
+                                              partner__title=self.partner.title)
+        else:
+            courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
+        return courses_identical
+
+    def set_identical(self):
+        self.identical = "[]"
+        self.save()
+        for course in self.find_identical():
+            self.append_identaical(course)
+        self.save()
 
     def natural_key(self):
         return (self.title)

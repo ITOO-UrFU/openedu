@@ -379,6 +379,7 @@ class Course(models.Model):
 
     identical = models.CharField("Список таких же", max_length=512, default="[]", null=True, blank=True)
 
+    @staticmethod
     def append_identaical(self, x):
         if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:
             identical_list = json.loads(self.identical)

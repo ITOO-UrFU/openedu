@@ -393,18 +393,22 @@ class Course(models.Model):
         return result
 
     def find_identical(self):
+        courses_identical = []
         if self.institution is not None:
             courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
                                               partner__title=self.partner.title)
-        else:
-            courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
+        # else:
+        #     courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
         return courses_identical
 
     def set_identical(self):
         self.identical = "[]"
         self.save()
+        # identical_list = self.find_identical()
         for course in self.find_identical():
             self.append_identaical(course)
+            for sub_course in course.find_identical():
+                sub_course.append_identical(sub_course)
         self.save()
 
     def natural_key(self):

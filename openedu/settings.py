@@ -231,7 +231,7 @@ MEDIA_URL = '/uploads/'
 LMS = "http://courses.openedu.urfu.ru/"
 LMS_API_COURSES = "api/courses/v1/courses/"
 
-DEFAULT_FROM_EMAIL = "openedu@urfu.ru"
+DEFAULT_FROM_EMAIL = "itoo@urfu.ru"
 
 SOCIAL_AUTH_EDX_OAUTH2_ENDPOINT = "https://courses.openedu.urfu.ru/oauth2"
 

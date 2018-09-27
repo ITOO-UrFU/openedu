@@ -13,12 +13,11 @@
 
 
     <div class="main_content">
-    <form class="ui form" method="post">{% csrf_token %}
+        <form class="ui form" method="post">{% csrf_token %}
 
-    {% for field in form2 %}
-        {% render_field field %}
-    {% endfor %}
-
+            {% for field in form2 %}
+                {% render_field field %}
+            {% endfor %}
+        </form>
+    </div>
 {% endblock %}
-</form>
-</div>

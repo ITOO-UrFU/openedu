@@ -4,12 +4,12 @@
 {% block content %}
 
 {% for field in form1 %}
-    {% render_field field %}
+    {% render_field form1.field %}
 {% endfor %}
 
 
 {% for field in form2 %}
-    {% render_field field %}
+    {% render_field form2.field %}
 {% endfor %}
 
 {% endblock %}

@@ -24,6 +24,7 @@ logger = logging.getLogger('celery_logging')
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
+        fields = "__all__"
 
 def merge(request, pk_1, pk_2):
     course1 = Course.objects.get(pk=pk_1)

@@ -3,21 +3,34 @@
 {% load semanticui %}
 {% block content %}
 
-    <div class="main_content">
-        <form class="ui form" method="post">{% csrf_token %}
-            {% for field in form1 %}
-                {% render_field field %}
-            {% endfor %}
-        </form>
-    </div>
+    <table>
+        <tr>
+            <td>
+                <div class="main_content">
+                    <form class="ui form" method="post">{% csrf_token %}
+                        {% for field in form1 %}
+                            {% render_field field %}
+                        {% endfor %}
+                    </form>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="main_content">
+                    <form class="ui form" method="post">{% csrf_token %}
+
+                        {% for field in form2 %}
+                            {% render_field field %}
+                        {% endfor %}
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
 
 
-    <div class="main_content">
-        <form class="ui form" method="post">{% csrf_token %}
 
-            {% for field in form2 %}
-                {% render_field field %}
-            {% endfor %}
-        </form>
-    </div>
+
 {% endblock %}

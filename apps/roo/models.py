@@ -408,7 +408,7 @@ class Course(models.Model):
         for course in self.find_identical():
             self.append_identaical(course)
             for sub_course in course.find_identical():
-                sub_course.append_identical(sub_course)
+                course.append_identical(sub_course)
         self.save()
 
     def natural_key(self):

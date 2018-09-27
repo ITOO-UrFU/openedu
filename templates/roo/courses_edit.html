@@ -376,6 +376,8 @@
                     },
                     {
                     title: "Дубликаты", width: "150", itemTemplate: function (value, item) {
+                        console.log(value, item);
+                        console.log(JSON.parse(item));
                             var course_link = $('<a>', {
                                 text: "LE<KM",
                                 title: JSON.parse(item),

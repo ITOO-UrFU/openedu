@@ -374,6 +374,20 @@
                             return course_link;
                         }, name: "title", type: "text", filtering: true, editing: false
                     },
+                    {
+                    title: "Дубликаты", width: "150", itemTemplate: function (value, item) {
+                            var course_link = $('<a>', {
+                                text: JSON.parse(item).toString(),
+                                title: value,
+                                href: '#',
+                                /*click: function () {
+                                    CourseEdit = window.open('http://openedu.urfu.ru/roo/' + item.pk, value, width = 600, height = 300);
+                                    return false;
+                                }*/
+                            });
+                            return course_link;
+                        }, name: "identical", type: "text", filtering: false, editing: false
+                    },
 
                     {
                         /*

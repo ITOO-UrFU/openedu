@@ -4,24 +4,28 @@
 {% block content %}
 
   <div class="ui stackable four column grid">
-        <div class="column">
+
+                              <form class="ui form" method="post">{% csrf_token %}
+                                {% for field in form1 %}
+                                    {% render_field field %}
+                                {% endfor %}
+                            </form>
+
+  <!--      <div class="column"
             <table>
                 <tr>
                     <td>
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
-
                                 {% for field in form1 %}
-                                    <table><tr><td>{% render_field field %}</td><td><a>Заменить</a></td></tr></table>
-
+                                    {% render_field field %}
                                 {% endfor %}
-
                             </form>
                         </div>
             </table>
         </div>
 
-       <!-- <div class="column">{% for field in form1 %} кнопка {% endfor %}</div>-->
+        <div class="column">{% for field in form1 %} кнопка {% endfor %}</div>
 
         <div class="column">
             <table>
@@ -36,7 +40,7 @@
                         </div>
             </table>
         </div>
-
+-->
     </div>
 
 

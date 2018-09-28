@@ -20,7 +20,7 @@
     </style>
 
     <table>
-
+<form class="ui form" method="post">{% csrf_token %}
             {% for field in form1 %}
                 <tr>
             <td id="t1_{{ field.name }}">{% render_field field %}</td>
@@ -32,9 +32,10 @@
             {% endfor %}
                  </tr>
         {% endfor %}
-
+</form>
 
     </table>
+     <button class="ui submit button">Submit</button>
     <!-- /container -->
 
     <!--   <div class="ui stackable four column grid">

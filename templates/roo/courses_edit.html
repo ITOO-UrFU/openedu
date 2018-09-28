@@ -612,7 +612,7 @@
                                 links.append('<p>Дубликатов не найдено</p>');
                             }
                             return links;
-                        }, name: "identical", type: "text", filtering: false, editing: false
+                        }, name: "identical", type: "text", filtering: true, editing: false
                     },
                     {% if  request.user|has_group:"roo"  or request.user.is_superuser %}
                         {

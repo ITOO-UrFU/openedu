@@ -12,12 +12,17 @@ th, td { display: block; border: 1px solid black; }
 <table>
 <tr>
                     {% for field in form1 %}
-                        <td>{% render_field field %}</td>
+                        <td id="t1_{% field.name %}">{% render_field field %}</td>
                                 {% endfor %}
 </tr>
 <tr>
                     {% for field in form2 %}
-                       <td>{% render_field field %}</td>
+                       <td id="button_{% field.name %}">Кнопка</td>
+                                {% endfor %}
+ </tr>
+    <tr>
+                    {% for field in form2 %}
+                       <td id="t2_{% field.name %}">{% render_field field %}</td>
                                 {% endfor %}
  </tr>
 </table>

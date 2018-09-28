@@ -5,11 +5,10 @@
 
   <div class="ui stackable four column grid">
 
-                              <form class="ui form" method="post">{% csrf_token %}
-                                {% for field in form1 %}
-                                    {% render_field form1.field %}
-                                {% endfor %}
-                            </form>
+<form class="ui form" method="POST">
+	{% csrf_token %}
+	{% render_form form1 %}
+</form>
 
   <!--      <div class="column"
             <table>

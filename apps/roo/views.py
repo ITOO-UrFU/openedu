@@ -26,11 +26,11 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = "__all__"
-        exclude = (
-            "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at",
-            "language",
-            "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
-            "image")
+       # exclude = (
+       #      "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at",
+       #      "language",
+       #      "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
+       #      "image")
 
 
 def merge(request, pk_1, pk_2):

@@ -11,7 +11,7 @@
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form1 %}
-                                    {% render_field field %}
+                                    <div>{% render_field field %}<div style=""><a>Заменить</a></div></div>
                                 {% endfor %}
                             </form>
                         </div>

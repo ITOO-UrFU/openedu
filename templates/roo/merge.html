@@ -10,16 +10,19 @@
                     <td>
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
-
+                            <table>
                                 {% for field in form1 %}
-                                    {% render_field field %}
+                                    <tr>
+                                        <td>{% render_field field %}</td><td<a>Заменить</a></td>
+                                    </tr>
                                 {% endfor %}
+                            </table>
                             </form>
                         </div>
             </table>
         </div>
 
-        <div class="column">{% for field in form1 %} кнопка {% endfor %}</div>
+       <!-- <div class="column">{% for field in form1 %} кнопка {% endfor %}</div>-->
 
         <div class="column">
             <table>

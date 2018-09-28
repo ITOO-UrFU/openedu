@@ -2,23 +2,26 @@
 {% load static %}
 {% load semanticui %}
 {% block content %}
-<style>
-@media only screen and (min-width: 1200px)
-.ui.container {
-    width: 1885px !important;
-}
-.ui.form .field:last-child, .ui.form .fields:last-child .field {
-margin-bottom: 1em;
-}
-.ui.grid>.column:not(.row) {
-    padding-left: 80px;
-}
-.ui.multiple.dropdown {
-    height: 200px;
-    overflow: overlay;
-}
+    <style>
+        @media only screen and (min-width: 1200px)
+            .ui.container {
+                width: 1885px !important;
+            }
+
+            .ui.form .field:last-child, .ui.form .fields:last-child .field {
+                margin-bottom: 1em;
+            }
+
+            .ui.grid > .column:not(.row) {
+                padding-left: 80px;
+            }
+
+            .ui.multiple.dropdown {
+                height: 200px;
+                overflow: overlay;
+            }
     </style>
-  <div class="ui stackable two column grid">
+    <div class="ui stackable two column grid">
         <div class="column">
             <table>
                 <tr>
@@ -26,7 +29,11 @@ margin-bottom: 1em;
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form1 %}
-                                    <div style="position: relative;" id="t1_{{ field.name }}">{% render_field field %}<div class="change-button" id="change_{{ field.name }}" style="top: 50%;right: -70px;position: absolute;z-index: 10000;"><a>Заменить</a></div></div>
+                                    <div style="position: relative;" id="t1_{{ field.name }}">{% render_field field %}
+                                        <div class="change-button" id="change_{{ field.name }}"
+                                             style="top: 50%;right: -70px;position: absolute;z-index: 10000;"><a>Заменить</a>
+                                        </div>
+                                    </div>
                                 {% endfor %}
                             </form>
                         </div>
@@ -41,7 +48,8 @@ margin-bottom: 1em;
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form2 %}
-                                    <div style="position: relative;"id="t2_{{ field.name }}">{% render_field field %}</div>
+                                    <div style="position: relative;"
+                                         id="t2_{{ field.name }}">{% render_field field %}</div>
                                 {% endfor %}
                             </form>
                         </div>
@@ -52,5 +60,13 @@ margin-bottom: 1em;
 
     <script>
         $('.ui.dropdown').dropdown({fullTextSearch: "exact", allowAdditions: true});
+        $(".change-button").click(function () {
+            var arr = this.id.split("_");
+            arr.shift()
+            var id = arr.join("_");
+            console.log(id);
+            $("#t1_"+id+" .field").html($("#t2_"+id+" .field").html())
+        });
+
     </script>
 {% endblock %}

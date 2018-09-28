@@ -36,8 +36,7 @@
                 <tr>
                     <td>
                         <div class="main_content">
-                        {{ form1.as_p }}
-                            <form class="ui form" method="post" action="/roo/{{ form1.id.value }}/">{% csrf_token %}
+                            <form class="ui form" method="post" action="/roo/{{ pk_1 }}/">{% csrf_token %}
                                 {% for field in form1 %}
                                     <div style="position: relative;" id="t1_{{ field.name }}">{% render_field field %}
                                         <div class="change-button" id="change_{{ field.name }}"

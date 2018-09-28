@@ -26,11 +26,11 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = "__all__"
-       # exclude = (
-       #      "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at",
-       #      "language",
-       #      "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
-       #      "image")
+    # exclude = (
+    #      "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at",
+    #      "language",
+    #      "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
+    #      "image")
 
 
 def merge(request, pk_1, pk_2):
@@ -38,7 +38,7 @@ def merge(request, pk_1, pk_2):
     course2 = Course.objects.get(pk=pk_2)
     form1 = CourseForm(instance=course1)
     form2 = CourseForm(instance=course2)
-    return render(request, "roo/merge.html", {"form1": form1, "form2": form2})
+    return render(request, "roo/merge.html", {"form1": form1, "form2": form2, "pk_1": pk_1, "pk_2": pk_2})
 
 
 def some_view(request):

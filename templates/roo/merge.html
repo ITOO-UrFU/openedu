@@ -7,7 +7,7 @@
 
                               <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form1 %}
-                                    {% render_field field %}
+                                    {% render_field form1.field %}
                                 {% endfor %}
                             </form>
 

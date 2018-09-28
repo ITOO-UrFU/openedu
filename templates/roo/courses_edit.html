@@ -293,6 +293,7 @@
                                     && (!filter.reg_data || (item.reg_data == null ? false : item.reg_data.toLowerCase().indexOf(filter.reg_data.toLowerCase()) > -1))
                                     && (!filter.contacts || (item.contacts == null ? false : item.contacts.toLowerCase().indexOf(filter.contacts.toLowerCase()) > -1))
                                     && (!filter.responsible_comment || (item.responsible_comment == null ? false : item.responsible_comment.toLowerCase().indexOf(filter.responsible_comment.toLowerCase()) > -1))
+                                    && (!filter.identical || (item.identical == null ? false : item.identical.toLowerCase().indexOf(filter.identical.toLowerCase()) > -1))
 
                                     /*
                                     && (!filter.admin_email || (item.admin_email==null ? false : item.admin_email.toLowerCase().indexOf(filter.admin_email.toLowerCase()) > -1))
@@ -599,7 +600,7 @@
                                         title: element.id,
                                         href: '#',
                                         click: function () {
-                                            CourseEdit = window.open('http://openedu.urfu.ru/roo/merge/'+item.pk + "/" + element.id + "/", value, width = 600, height = 300);
+                                            CourseEdit = window.open('http://openedu.urfu.ru/roo/merge/' + item.pk + "/" + element.id + "/", value, width = 600, height = 300);
                                             return false;
                                         }
                                     });
@@ -608,7 +609,7 @@
                                     links.append(course_link_wrap)
                                 });
                             }
-                            else{
+                            else {
                                 links.append('<p>Дубликатов не найдено</p>');
                             }
                             return links;

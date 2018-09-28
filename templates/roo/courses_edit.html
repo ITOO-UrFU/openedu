@@ -599,7 +599,7 @@
                                         title: element.id,
                                         href: '#',
                                         click: function () {
-                                            CourseEdit = window.open('http://openedu.urfu.ru/roo/' + element.id, value, width = 600, height = 300);
+                                            CourseEdit = window.open('http://openedu.urfu.ru/roo/merge/'+value.pk + "/" + element.id + "/", value, width = 600, height = 300);
                                             return false;
                                         }
                                     });

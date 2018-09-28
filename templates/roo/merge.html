@@ -3,9 +3,30 @@
 {% load semanticui %}
 {% block content %}
 
+<div class="container-fluid mycontainer">
 
 
-    <div class="ui stackable four column grid">
+<header class="row">
+	<div class="">
+
+		<nav>
+                    {% for field in form1 %}
+                                   <p class="navitem" href="#"> {% render_field field %} </p>
+                                {% endfor %}
+
+                    {% for field in form2 %}
+                                   <p class="navitem" href="#"> {% render_field field %} </p>
+                                {% endfor %}
+		</nav>
+
+	</div>
+</header>
+
+
+
+</div><!-- /container -->
+
+ <!--   <div class="ui stackable four column grid">
         <div class="column">
             <table>
                 <tr>
@@ -38,6 +59,6 @@
         </div>
 
     </div>
-
+-->
 
 {% endblock %}

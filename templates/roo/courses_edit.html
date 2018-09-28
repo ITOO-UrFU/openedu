@@ -255,8 +255,6 @@
                 },
                 onInit: function (args) {
                     gridInstance = args.grid;
-
-                    {#console.log(gridInstance)#}
                 },
                 onDataLoading: function (args) {
                     gridInstance._loadIndicator.show()
@@ -266,10 +264,8 @@
                 },
                 controller: {
                     loadData: function (filter) {
-
                         var d = $.Deferred();
                         if (!coursesLoaded) {
-                            console.log("start loading");
                             $.ajax({
                                 type: "GET",
                                 url: "/roo/courses_edit/",
@@ -283,9 +279,7 @@
                             });
                         }
                         else {
-                            console.log(filter);
                             result = $.grep(courses, function (item) {
-                                console.log(item.identical);
                                 return (!filter.title || (item.title == null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
                                     /*&& (!filter.partner || (item.partner == null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))*/
                                     /* && (!filter.institution || (item.institution == null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)) */
@@ -590,7 +584,6 @@
                     },
                     {
                         title: "Дубликаты", width: "100", itemTemplate: function (value, item) {
-                            //console.log(typeof(value), item);
                             var duplicates = JSON.parse(value);
                             var links = $('<div>');
                             if (duplicates.length > 0) {
@@ -643,14 +636,12 @@
             });
 
             function setSettings() {
-                {#console.log("Начали экспертизы");#}
                 var columns = {};
                 $(".column_checkbox").each(function (index, element) {
 
 
                     settings.forEach(function (value, index, array) {
                         if (element.value == value.name) {
-                            console.log(element.checked);
                             columns[element.value] = element.checked;
                             value.visible = element.checked;
                         }
@@ -680,7 +671,6 @@
             }).done(function (result) {
 
                 result = JSON.parse(result);
-                console.log(result);
                 if (result) {
                     settings.forEach(function (field) {
                         if (typeof result[field.name] != 'undefined') {

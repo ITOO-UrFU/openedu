@@ -26,7 +26,7 @@ margin-bottom: 1em;
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form1 %}
-                                    <div style="position: relative;">{% render_field field %}<div style="top: 50%;right: -70px;position: absolute;"><a>Заменить</a></div></div>
+                                    <div style="position: relative;" id="t1_{{ field.name }}">{% render_field field %}<div class="change-button" id="change_{{ field.name }}" style="top: 50%;right: -70px;position: absolute;z-index: 10000;"><a>Заменить</a></div></div>
                                 {% endfor %}
                             </form>
                         </div>
@@ -41,7 +41,7 @@ margin-bottom: 1em;
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form2 %}
-                                    <div style="position: relative;">{% render_field field %}</div>
+                                    <div style="position: relative;"id="t2_{{ field.name }}">{% render_field field %}</div>
                                 {% endfor %}
                             </form>
                         </div>

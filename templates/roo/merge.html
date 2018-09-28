@@ -36,7 +36,7 @@
                 <tr>
                     <td>
                         <div class="main_content">
-                            <form class="ui form" method="post">{% csrf_token %}
+                            <form class="ui form" method="post" action="/roo/{{ form1.id.value }}/">{% csrf_token %}
                                 {% for field in form1 %}
                                     <div style="position: relative;" id="t1_{{ field.name }}">{% render_field field %}
                                         <div class="change-button" id="change_{{ field.name }}"
@@ -56,7 +56,7 @@
                 <tr>
                     <td>
                         <div class="main_content">
-                            <form class="ui form" method="post">{% csrf_token %}
+                            <form class="ui form" method="post"">{% csrf_token %}
                                 {% for field in form2 %}
                                     <div style="position: relative;"
                                          id="t2_{{ field.name }}">{% render_field field %}</div>

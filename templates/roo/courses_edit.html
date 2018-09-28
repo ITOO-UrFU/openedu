@@ -285,7 +285,7 @@
                         else {
                             console.log(filter);
                             result = $.grep(courses, function (item) {
-
+                                console.log(item.identical);
                                 return (!filter.title || (item.title == null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
                                     /*&& (!filter.partner || (item.partner == null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))*/
                                     /* && (!filter.institution || (item.institution == null ? false : item.institution.toLowerCase().indexOf(filter.institution.toLowerCase()) > -1)) */

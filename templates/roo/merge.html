@@ -20,10 +20,11 @@
                 height: 200px;
                 overflow: overlay;
             }
-        .change-button:hover{
-            cursor: pointer;
-            font-weight: bold;
-        }
+
+            .change-button:hover {
+                cursor: pointer;
+                font-weight: bold;
+            }
     </style>
     <div class="ui stackable two column grid">
         <div class="column"><h2>Курс реципиент</h2></div>
@@ -43,7 +44,7 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-                            <button class="ui submit button">Submit</button>
+                                <button class="ui submit button">Submit</button>
                             </form>
                         </div>
             </table>
@@ -73,8 +74,15 @@
             var arr = this.id.split("_");
             arr.shift()
             var id = arr.join("_");
-            console.log(id);
-            $("#t1_"+id+" .field").html($("#t2_"+id+" .field").html())
+            console.log($("#t1_" + id + " .field input"));
+
+
+            if ($("#t1_" + id + " .field input").attr('type') === "checkbox") {
+                $("#t1_" + id + " .field input").prop('checked', $("#t2_" + id + " .field input").is(':checked'));
+            }
+            else {
+                $("#t1_" + id + " .field").html($("#t2_" + id + " .field").html());
+            }
         });
 
     </script>

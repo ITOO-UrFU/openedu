@@ -600,7 +600,7 @@ def TableCourseUpdate(request):
         course.responsible_comment = request_data.get('responsible_comment', "")
         course.passport_responsible = request_data['passport_responsible']
         course.save()
-        data = serialize('json', [course, ], use_natural_foreign_keys=True)
+        data = serialize('json', [course, ])
         struct = json.loads(data)[0]
         new_course = struct['fields']
         new_course['pk'] = struct['pk']

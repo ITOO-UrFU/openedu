@@ -10,12 +10,12 @@
                     <td>
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
-                            <table>
+
                                 {% for field in form1 %}
-                                    <tr><td>{% render_field field %}</td><td<a>Заменить</a></td></tr>
+                                    <table><tr><td>{% render_field field %}</td><td><a>Заменить</a></td></tr></table>
 
                                 {% endfor %}
-                            </table>
+
                             </form>
                         </div>
             </table>

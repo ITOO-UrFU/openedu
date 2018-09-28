@@ -3,42 +3,7 @@
 {% load semanticui %}
 {% block content %}
 
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        tr {
-            display: block;
-            float: left;
-        }
-
-        th, td {
-            display: block;
-            border: 1px solid black;
-        }
-    </style>
-
-    <table>
-<form class="ui form" method="post">{% csrf_token %}
-            {% for field in form1 %}
-                <tr>
-            <td id="t1_{{ field.name }}">{% render_field field %}</td>
-
-            {% for field1 in form2 %}
-                {% if field.name == field1.name %}
-                    <td id="t2_{{ field1.name }}">{% render_field field1 %}</td>
-                {% endif %}
-            {% endfor %}
-                 </tr>
-        {% endfor %}
-</form>
-
-    </table>
-     <button class="ui submit button">Submit</button>
-    <!-- /container -->
-
-    <!--   <div class="ui stackable four column grid">
+  <div class="ui stackable four column grid">
         <div class="column">
             <table>
                 <tr>
@@ -71,6 +36,6 @@
         </div>
 
     </div>
--->
+
 
 {% endblock %}

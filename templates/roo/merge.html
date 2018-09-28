@@ -15,11 +15,11 @@ nav{
 	flex-wrap: wrap;
   justify-content: space-between;
 }
-.navitem{
+.field{
 	display: flex;
   justify-content: center;
 }
-.navitem:hover{
+.field:hover{
 	background-color: rgba(0,0,0, .20);
 	color: white;
 }
@@ -33,11 +33,11 @@ nav{
 
 		<nav>
                     {% for field in form1 %}
-                                   <p class="navitem" href="#"> {% render_field field %} </p>
+                                   {% render_field field %}
                                 {% endfor %}
 
                     {% for field in form2 %}
-                                   <p class="navitem" href="#"> {% render_field field %} </p>
+                               {% render_field field %}
                                 {% endfor %}
 		</nav>
 

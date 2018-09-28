@@ -2,8 +2,13 @@
 {% load static %}
 {% load semanticui %}
 {% block content %}
-
-  <div class="ui stackable four column grid">
+<style>
+@media only screen and (min-width: 1200px)
+.ui.container {
+    width: 1885px !important;
+}
+    </style>
+  <div class="ui stackable two column grid">
         <div class="column">
             <table>
                 <tr>
@@ -11,14 +16,13 @@
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form1 %}
-                                    <div>{% render_field field %}<div style=""><a>Заменить</a></div></div>
+                                    <div style="position: relative;">{% render_field field %}<div style="top: 50%;right: -70px;position: absolute;"><a>Заменить</a></div></div>
                                 {% endfor %}
                             </form>
                         </div>
             </table>
         </div>
 
-        <div class="column">{% for field in form1 %} кнопка {% endfor %}</div>
 
         <div class="column">
             <table>
@@ -27,7 +31,7 @@
                         <div class="main_content">
                             <form class="ui form" method="post">{% csrf_token %}
                                 {% for field in form2 %}
-                                    {% render_field field %}
+                                    <div style="position: relative;">{% render_field field %}</div>
                                 {% endfor %}
                             </form>
                         </div>

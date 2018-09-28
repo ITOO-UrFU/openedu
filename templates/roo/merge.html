@@ -3,11 +3,12 @@
 {% load semanticui %}
 {% block content %}
 
-  <div class="ui stackable four column grid">
+<div class="main_content ui segment">
 
 <form class="ui form" method="POST">
 	{% csrf_token %}
 	{% render_form form1 %}
+    <button class="ui submit button">Submit</button>
 </form>
 
   <!--      <div class="column"

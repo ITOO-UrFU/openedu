@@ -378,6 +378,7 @@ class Course(models.Model):
                                             choices=passport_responsible_STATES, default="0", null=True, blank=True)
 
     identical = models.CharField("Список таких же", max_length=512, default="[]", null=True, blank=True)
+    in_archive = models.BooleanField("Курс находится в архиве", default=False)
 
     def append_identaical(self, x):
         if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:

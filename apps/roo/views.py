@@ -740,14 +740,9 @@ class CourseUpdate(UpdateView):
             arch_course = Course.objects.get(pk=request.POST.get('archive_course_id'))
             arch_course.in_archive = True
             arch_course.save()
-
-
         print("............................")
-        # for attr, value in kwargs.items():
-        #     setattr(self.object, attr, value)
-        #     self.object.save()
-        # self.object.newest = True
-        # return super(ExpertiseUpdate, self).post(request, *args, **kwargs)
+
+        return super(CourseUpdate, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CourseUpdate, self).get_context_data(**kwargs)

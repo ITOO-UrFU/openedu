@@ -463,7 +463,7 @@ def data(request):
         context["active"] = []
 
         # Statistics
-        context["courses_count"] = Course.objects.all().count()
+        context["courses_count"] = Course.objects.filter(in_archive=False).count()
         context["passport"] = Course.get_passport_responsibles()
         context["expertises_count"] = Expertise.objects.filter(type="0").count()
         context["main_expertise_count"] = Expertise.main_expertise_count()
@@ -684,7 +684,7 @@ def courses_list(request):
 def courses_edit(request):
     # context = dict()
     # return render(request, "roo/courses_edit.html", context)
-    data = serialize('json', Course.objects.all())
+    data = serialize('json', Course.objects.filter(in_archive=False))
     return_data = []
     for course in json.loads(data):
         new_course = course['fields']

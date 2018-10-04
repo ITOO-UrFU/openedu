@@ -390,13 +390,13 @@ class Course(models.Model):
             pass
 
     def get_identical(self):
-        result = Course.objects.filter(pk__in=[x['id'] for x in json.loads(self.identical)])
+        result = Course.objects.filter(in_archive=False, pk__in=[x['id'] for x in json.loads(self.identical)])
         return result
 
     def find_identical(self):
         courses_identical = []
         if self.institution is not None:
-            courses_identical = Course.objects.filter(title=self.title, institution__title=self.institution.title,
+            courses_identical = Course.objects.filter(in_archive=False, title=self.title, institution__title=self.institution.title,
                                               partner__title=self.partner.title).exclude(id=self.id)
         # else:
         #     courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
@@ -441,7 +441,7 @@ class Course(models.Model):
     def get_passport_responsibles(cls):
         rs = []
         for r in cls.passport_responsible_STATES[1:]:
-            rs.append(cls.objects.filter(passport_responsible=r[0]).count())
+            rs.append(cls.objects.filter(in_archive=False, passport_responsible=r[0]).count())
 
         return f'''
           <div class="statistic">

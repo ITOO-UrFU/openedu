@@ -733,9 +733,16 @@ class CourseUpdate(UpdateView):
         # request.POST = request.POST.copy()
         # request.POST['some_key'] = 'some_value'
         print("!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print(self.object)
-        print(request.POST)
-        print("&&&&&&&&&&&&&&&&&&&&&&&&&")
+        # print(self.object)
+        if request.POST.get('archive_course_id'):
+            print("&&&&&&&&&&&&&&&&&&&&&&&&&")
+            print(request.POST.get('archive_course_id'))
+            arch_course = Course.objects.get(pk=request.POST.get('archive_course_id'))
+            arch_course.in_archive = True
+            arch_course.save()
+
+
+        print("............................")
         # for attr, value in kwargs.items():
         #     setattr(self.object, attr, value)
         #     self.object.save()

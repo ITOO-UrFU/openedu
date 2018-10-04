@@ -735,6 +735,7 @@ class CourseUpdate(UpdateView):
         print("!!!!!!!!!!!!!!!!!!!!!!!!!")
         print(self.object)
         print(request.POST)
+        print("&&&&&&&&&&&&&&&&&&&&&&&&&")
         # for attr, value in kwargs.items():
         #     setattr(self.object, attr, value)
         #     self.object.save()

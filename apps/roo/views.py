@@ -26,7 +26,7 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = "__all__"
-        exclude = ("in_archive",)
+        exclude = ("in_archive", "identical",)
     # exclude = (
     #      "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at",
     #      "language",

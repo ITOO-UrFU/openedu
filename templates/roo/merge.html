@@ -37,6 +37,7 @@
                     <td>
                         <div class="main_content">
                             <form class="ui form" method="post" action="/roo/{{ pk_1 }}/">{% csrf_token %}
+                            <input type="hidden" name="archive_course_id" value="{{ pk_2 }}">
                                 {% for field in form1 %}
                                     <div style="position: relative;" id="t1_{{ field.name }}">{% render_field field %}
                                         <div class="change-button" id="change_{{ field.name }}"

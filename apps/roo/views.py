@@ -730,10 +730,10 @@ class CourseUpdate(UpdateView):
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('archive_course_id'):
-            self.get_object().set_identical()
             arch_course = Course.objects.get(pk=request.POST.get('archive_course_id'))
             arch_course.in_archive = True
             arch_course.save()
+            self.get_object().set_identical()
         return super(CourseUpdate, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

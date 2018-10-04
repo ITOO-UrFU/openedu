@@ -730,6 +730,7 @@ class CourseUpdate(UpdateView):
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('archive_course_id'):
+            self.object.set_identical()
             arch_course = Course.objects.get(pk=request.POST.get('archive_course_id'))
             arch_course.in_archive = True
             arch_course.save()

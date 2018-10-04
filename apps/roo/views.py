@@ -729,19 +729,10 @@ class CourseUpdate(UpdateView):
     success_url = '/roo/close/'
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        # request.POST = request.POST.copy()
-        # request.POST['some_key'] = 'some_value'
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!")
-        # print(self.object)
         if request.POST.get('archive_course_id'):
-            print("&&&&&&&&&&&&&&&&&&&&&&&&&")
-            print(request.POST.get('archive_course_id'))
             arch_course = Course.objects.get(pk=request.POST.get('archive_course_id'))
             arch_course.in_archive = True
             arch_course.save()
-        print("............................")
-
         return super(CourseUpdate, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

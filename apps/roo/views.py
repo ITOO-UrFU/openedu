@@ -726,6 +726,7 @@ def expertises(request):
 class CourseUpdate(UpdateView):
     model = Course
     fields = '__all__'
+    exclude = ("in_archive", "identical")
     template_name_suffix = '_update_form'
     success_url = '/roo/close/'
 

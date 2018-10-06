@@ -740,6 +740,7 @@ class CourseUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(CourseUpdate, self).get_context_data(**kwargs)
         context['expertises'] = Expertise.objects.filter(course=self.object)
+        context["course_id"] = self.object.id
         return context
 
 

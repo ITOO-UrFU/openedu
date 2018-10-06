@@ -24,9 +24,7 @@
                     <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
                 {% endfor %}
 
-{{ form.id }}
-            {{ form.id.value }}
-                <button onClick="window.open('/roo/create_expertise/{{ form.id.value }}test');" class="ui blue basic button">Добавить экспертизу</button>
+                <button onClick="window.open('/roo/create_expertise/{{ course_id }}');" class="ui blue basic button">Добавить экспертизу</button>
                 <button onClick="window.open('/roo/create_teacher/');" class="ui blue basic button">Добавить автора</button>
 
             </div>

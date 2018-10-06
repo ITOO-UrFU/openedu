@@ -3,197 +3,199 @@
 {% load semanticui %}
 {% block content %}
 
-    <div class="main_content">
-        <form class="ui form" method="post">{% csrf_token %}
+<div class="main_content">
+    <form class="ui form" method="post">{% csrf_token %}
         <a href="/roo/{{ expertise.course.id }}">Вернуться к паспорту курса</a>
+        {% if expertise.course %}
         <input hidden id="id_course" type="number" name="course" step="1" value="{{ expertise.course.id }}"/>
+            {% else %}
+        <input hidden id="id_course" type="number" name="course" step="1" value="{{ course_id }}"/>
+        {% endif %}
         <input hidden id="id_expert" type="number" name="expert" step="1" value="{{ expertise.expert.id }}"/>
-            <p>Эксперт: {{ expertise.expert }}</p>
-            <p>Курс: {{ expertise.course }}</p>
+        <p>Эксперт: {{ expertise.expert }}</p>
+        <p>Курс: {{ expertise.course }}</p>
         <p>{% render_field form.executed %}</p>
 
-            <h2>Обязательные поля паспорта ОК:</h2>
+        <h2>Обязательные поля паспорта ОК:</h2>
 
-            <table class="ui celled table">
-                <thead>
-                <tr>
-                    <th>Поле</th>
-                    <th>Значение</th>
-                    <th>Результат проверки</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Платформа</td>
-                    <td>{{ expertice.course.partner }}</td>
-                    {#                    <td>{% render_field form.platform %}</td>#}
-                </tr>
-                <tr>
-                    <td>Ссылка на онлайн-курс на сайте Платформы</td>
-                    <td>{{ expertise.course.external_url }}</td>
-                </tr>
-                <tr>
-                    <td>Версия курса</td>
-                    <td>{{ expertise.course.version }}</td>
-                </tr>
-                <tr>
-                    <td>Правообладатель</td>
-                    <td>{{ expertise.course.institution }}</td>
-                </tr>
-                <tr>
-                    <td>Наименование</td>
-                    <td>{{ expertise.course.title }}</td>
-                </tr>
-                <tr>
-                    <td>Длительность</td>
-                    <td>{{ expertise.course.duration }}</td>
-                    <td>{% render_field form.has_length %}</td>
-                </tr>
-                <tr>
-                    <td>Описание</td>
-                    <td>{{ expertise.course.description|safe }}</td>
-                    <td>{% render_field form.has_description %}</td>
-                </tr>
-                <tr>
-                    <td>Авторы</td>
-                    <td>
-                        {% for author in  expertise.course.authors %}
-                            <p>{{ author }}</p>
-                        {% endfor %}
-                    </td>
-                    <td>{% render_field form.has_authors %}</td>
-                </tr>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Значение</th>
+                <th>Результат проверки</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Платформа</td>
+                <td>{{ expertice.course.partner }}</td>
+                {#                    <td>{% render_field form.platform %}</td>#}
+            </tr>
+            <tr>
+                <td>Ссылка на онлайн-курс на сайте Платформы</td>
+                <td>{{ expertise.course.external_url }}</td>
+            </tr>
+            <tr>
+                <td>Версия курса</td>
+                <td>{{ expertise.course.version }}</td>
+            </tr>
+            <tr>
+                <td>Правообладатель</td>
+                <td>{{ expertise.course.institution }}</td>
+            </tr>
+            <tr>
+                <td>Наименование</td>
+                <td>{{ expertise.course.title }}</td>
+            </tr>
+            <tr>
+                <td>Длительность</td>
+                <td>{{ expertise.course.duration }}</td>
+                <td>{% render_field form.has_length %}</td>
+            </tr>
+            <tr>
+                <td>Описание</td>
+                <td>{{ expertise.course.description|safe }}</td>
+                <td>{% render_field form.has_description %}</td>
+            </tr>
+            <tr>
+                <td>Авторы</td>
+                <td>
+                    {% for author in  expertise.course.authors %}
+                        <p>{{ author }}</p>
+                    {% endfor %}
+                </td>
+                <td>{% render_field form.has_authors %}</td>
+            </tr>
 
-                <tr>
-                    <td>Язык контента</td>
-                    <td>{{ expertise.course.language }}</td>
-                    <td>{% render_field form.language %}</td>
-                </tr>
+            <tr>
+                <td>Язык контента</td>
+                <td>{{ expertise.course.language }}</td>
+                <td>{% render_field form.language %}</td>
+            </tr>
 
-                <tr>
-                    <td>Рекомендуемые "входные" требования к обучающемуся</td>
-                    <td>{{ expertise.course.requirements }}</td>
+            <tr>
+                <td>Рекомендуемые "входные" требования к обучающемуся</td>
+                <td>{{ expertise.course.requirements }}</td>
 
-                    <td>{% render_field form.has_prerequisites %}</td>
-                </tr>
+                <td>{% render_field form.has_prerequisites %}</td>
+            </tr>
 
-                <tr>
-                    <td>Сертификат (выдается или нет)</td>
-                    <td>{{ expertise.course.get_has_sertificate_display }}</td>
+            <tr>
+                <td>Сертификат (выдается или нет)</td>
+                <td>{{ expertise.course.get_has_sertificate_display }}</td>
 
-                    <td>{% render_field form.has_certificate %}</td>
-                </tr>
+                <td>{% render_field form.has_certificate %}</td>
+            </tr>
 
-                <tr>
-                    <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
-                    <td>{{ expertise.course.has_proctoring }}</td>
+            <tr>
+                <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
+                <td>{{ expertise.course.has_proctoring }}</td>
 
-                    <td>{% render_field form.has_proctoring %}</td>
-                </tr>
+                <td>{% render_field form.has_proctoring %}</td>
+            </tr>
 
-                <tr>
-                    <td>Даты ближайшего запуска</td>
-                        <td>{{ expertise.course.started_at }}</td>
-                    <td>{% render_field form.has_dates %}</td>
-                </tr>
+            <tr>
+                <td>Даты ближайшего запуска</td>
+                <td>{{ expertise.course.started_at }}</td>
+                <td>{% render_field form.has_dates %}</td>
+            </tr>
 
-                <tr>
-                    <td>Адрес эл. почты администратора ОК</td>
+            <tr>
+                <td>Адрес эл. почты администратора ОК</td>
 
-                        <td>{{ expertise.course.admin_email }}</td>
-                    <td>{% render_field form.has_admin_email %}</td>
-                </tr>
+                <td>{{ expertise.course.admin_email }}</td>
+                <td>{% render_field form.has_admin_email %}</td>
+            </tr>
 
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
-            {% render_field form.is_open %}
-            {% render_field form.comment_fieldset_1 %}
+        {% render_field form.is_open %}
+        {% render_field form.comment_fieldset_1 %}
 
-            <h2>Обязательные поля для ОК, претендующих на зачет результатов их освоения ОО в основных и дополнительных ОП:</h2>
-            <table class="ui celled table">
-                <thead>
-                <tr>
-                    <th>Поле</th>
-                    <th>Значение</th>
-                    <th>Результат проверки</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Трудоемкость</td>
-                    <td></td>
-                    <td>{% render_field form.has_labor %}</td>
-                </tr>
-                <tr>
-                    <td>Компетенции</td>
-                    <td>{{ expertise.course.competences|safe }}</td>
-                    <td>{% render_field form.has_competences %}</td>
-                </tr>
-                <tr>
-                    <td>Результаты обучения</td>
-                    <td></td>
-                    <td>{% render_field form.has_results %}</td>
-                </tr>
-                <tr>
-                    <td>Оценочные средства</td>
-                    <td></td>
-                    <td>{% render_field form.has_evaluation_tools %}</td>
-                </tr>
-                <tr>
-                    <td>Рекомендуемые направления подготовки</td>
-                    <td>{{ expertise.course.directions }}</td>
-                    <td>{% render_field form.has_recommended_directions %}</td>
-                </tr>
-                <tr>
-                    <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
-                    <td></td>
-                    <td>{% render_field form.has_proctoring %}</td>
-                </tr>
-                </tbody>
-            </table>
+        <h2>Обязательные поля для ОК, претендующих на зачет результатов их освоения ОО в основных и дополнительных ОП:</h2>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Значение</th>
+                <th>Результат проверки</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Трудоемкость</td>
+                <td></td>
+                <td>{% render_field form.has_labor %}</td>
+            </tr>
+            <tr>
+                <td>Компетенции</td>
+                <td>{{ expertise.course.competences|safe }}</td>
+                <td>{% render_field form.has_competences %}</td>
+            </tr>
+            <tr>
+                <td>Результаты обучения</td>
+                <td></td>
+                <td>{% render_field form.has_results %}</td>
+            </tr>
+            <tr>
+                <td>Оценочные средства</td>
+                <td></td>
+                <td>{% render_field form.has_evaluation_tools %}</td>
+            </tr>
+            <tr>
+                <td>Рекомендуемые направления подготовки</td>
+                <td>{{ expertise.course.directions }}</td>
+                <td>{% render_field form.has_recommended_directions %}</td>
+            </tr>
+            <tr>
+                <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
+                <td></td>
+                <td>{% render_field form.has_proctoring %}</td>
+            </tr>
+            </tbody>
+        </table>
 
-            {% render_field form.comment_fieldset_2 %}
-            {% render_field form.has_not_prohibited %}
+        {% render_field form.comment_fieldset_2 %}
+        {% render_field form.has_not_prohibited %}
 
-            <h2>Проверка работоспособности компонентов онлайн-курса</h2>
-            <table class="ui celled table">
-                <thead>
-                <tr>
-                    <th>Поле</th>
-                    <th>Результат проверки</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Текстовые материалы</td>
-                    <td>{% render_field form.has_text_materials %}</td>
-                </tr>
-                <tr>
-                    <td>Иллюстрации</td>
-                    <td>{% render_field form.has_illustrations %}</td>
-                </tr>
-                <tr>
-                    <td>Аудиоматериалы</td>
-                    <td>{% render_field form.has_audio %}</td>
-                </tr>
-                <tr>
-                    <td>Видеоматериалы</td>
+        <h2>Проверка работоспособности компонентов онлайн-курса</h2>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Результат проверки</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Текстовые материалы</td>
+                <td>{% render_field form.has_text_materials %}</td>
+            </tr>
+            <tr>
+                <td>Иллюстрации</td>
+                <td>{% render_field form.has_illustrations %}</td>
+            </tr>
+            <tr>
+                <td>Аудиоматериалы</td>
+                <td>{% render_field form.has_audio %}</td>
+            </tr>
+            <tr>
+                <td>Видеоматериалы</td>
 
-                    <td>{% render_field form.has_video %}</td>
-                </tr>
-                </tbody>
-            </table>
-
-
+                <td>{% render_field form.has_video %}</td>
+            </tr>
+            </tbody>
+        </table>
 
 
-            <button class="ui button" type="submit">Обновить</button>
-        </form>
+        <button class="ui button" type="submit">Обновить</button>
+    </form>
 
-    </div>
-    <script>
-        $('.ui.dropdown')
-            .dropdown();
-        $('#id_record_end_at').calendar();
+</div>
+<script>
+    $('.ui.dropdown')
+        .dropdown();
+    $('#id_record_end_at').calendar();
 
-    </script>
+</script>
 
 {% endblock %}

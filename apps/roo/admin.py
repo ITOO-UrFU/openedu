@@ -37,10 +37,15 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 class CourseResource(resources.ModelResource):
     directions_all = Field(column_name='Массив идентификаторов направлений')
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')
+    expertise_status = Field(
+        attribute='get_expertise_status_display',
+        column_name=_(u'Статус экспертизы')
+    )
 
     class Meta:
         model = Course
-        fields = ('id', 'title', 'competences', 'institution__title', 'partner__title', 'directions_all', 'activities_all')
+        fields = (
+        'id', 'title', 'competences', 'institution__title', 'partner__title', 'directions_all', 'activities_all')
 
     def dehydrate_directions_all(self, course):
         dirs = ""

@@ -35,8 +35,8 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 
 
 class CourseResource(resources.ModelResource):
-    directions_all = Field(column_name='Массив идентификаторов направлений')
-    activities_all = Field(column_name='Массив идентификаторов областей деятельности')
+    directions_all = Field()
+    activities_all = Field()
 
     class Meta:
         model = Course

@@ -25,23 +25,22 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
     list_display = ('title',)
 
 
+# @admin.register(Course)
+# class CourseAdmin(admin.ModelAdmin):
+#     list_display = ("title", "get_platform", "institution", "get_description", "get_image")
+#     list_filter = ("partner", "roo_status", "institution")
+#     filter_horizontal = ("directions", "activities", "teachers")
+#     search_fields = ("title",)
+
+
 class CourseResource(resources.ModelResource):
     class Meta:
         model = Course
         fields = ('id', 'title', 'institution__title',)
 
 
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin, ImportExportModelAdmin):
+class CourseAdmin(ImportExportModelAdmin):
     resource_class = CourseResource
-    list_display = ("title", "get_platform", "institution", "get_description", "get_image")
-    list_filter = ("partner", "roo_status", "institution")
-    filter_horizontal = ("directions", "activities", "teachers")
-    search_fields = ("title",)
-
-
-# class CourseAdmin(ImportExportModelAdmin):
-# resource_class = CourseResource
 
 
 @admin.register(Platform)

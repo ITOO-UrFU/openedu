@@ -52,7 +52,7 @@ class CourseResource(resources.ModelResource):
         activs = ""
         for activ in course.activities.all():
             activs += activ.title + "\n"
-    return activs
+        return activs
 
 
 @admin.register(Course)

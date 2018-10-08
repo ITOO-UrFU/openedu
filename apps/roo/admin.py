@@ -25,6 +25,12 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
     list_display = ('title',)
 
 
+class CourseResource(resources.ModelResource):
+    class Meta:
+        model = Course
+        fields = ('id', 'title', 'institution__title',)
+
+
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin, ImportExportModelAdmin):
     resource_class = CourseResource
@@ -34,14 +40,8 @@ class CourseAdmin(admin.ModelAdmin, ImportExportModelAdmin):
     search_fields = ("title",)
 
 
-class CourseResource(resources.ModelResource):
-    class Meta:
-        model = Course
-        fields = ('id', 'title', 'institution__title',)
-
-
 # class CourseAdmin(ImportExportModelAdmin):
-    # resource_class = CourseResource
+# resource_class = CourseResource
 
 
 @admin.register(Platform)

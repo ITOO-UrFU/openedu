@@ -41,6 +41,8 @@ class CourseResource(resources.ModelResource):
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
     resource_class = CourseResource
+    list_display = ("title", "get_platform", "institution", "get_description", "get_image")
+    list_filter = ("partner", "roo_status", "institution")
 
 
 @admin.register(Platform)

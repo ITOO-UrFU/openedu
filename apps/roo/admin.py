@@ -38,7 +38,7 @@ class CourseResource(resources.ModelResource):
         model = Course
         fields = ('id', 'title', 'institution__title',)
 
-
+@admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
     resource_class = CourseResource
 

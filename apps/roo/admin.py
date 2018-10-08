@@ -41,6 +41,8 @@ class CourseResource(resources.ModelResource):
         attribute='get_expertise_status_display',
         column_name='Статус экспертизы'
     )
+    title = Field(column_name='Наименование')
+    partner__title = Field(column_name='Платформа')
 
     class Meta:
         model = Course

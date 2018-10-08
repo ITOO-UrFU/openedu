@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, EvaluationTool, ProctoringService
-
+from import_export import resources
 
 @admin.register(Competence)
 class CompetenceAdmin(admin.ModelAdmin):
@@ -29,6 +29,10 @@ class CourseAdmin(admin.ModelAdmin):
     filter_horizontal = ("directions", "activities", "teachers")
     search_fields = ("title",)
 
+class CourseResource(resources.ModelResource):
+    class Meta:
+        model = Course
+        fields = ('id', 'title', 'owner__title',)
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):

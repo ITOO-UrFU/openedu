@@ -32,7 +32,7 @@ class CourseAdmin(admin.ModelAdmin):
 class CourseResource(resources.ModelResource):
     class Meta:
         model = Course
-        fields = ('id', 'title', 'owner__title',)
+        fields = ('id', 'title', 'institution__title',)
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):

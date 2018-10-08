@@ -41,7 +41,7 @@ class CourseResource(resources.ModelResource):
 
     def dehydrate_directions_all(self, course):
         dirs = ""
-        for direction in course.directions.objects():
+        for direction in course.directions:
             dirs += direction.title + "/n"
         return dirs
 

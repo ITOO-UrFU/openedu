@@ -468,6 +468,16 @@
                         // visible: true
                     },
                     {
+                        title: "Доступ к курсу для экспертов обязательной оценки",
+                        name: "expert_access",
+                        type: "select",
+                        items: EX_ACCESSES,
+                        valueField: "Id",
+                        textField: "Name",
+                        validate: "required",
+                        //   visible: false,
+                    },
+                    {
                         title: "Статус экспертизы",
                         name: "expertise_status",
                         type: "select",
@@ -571,16 +581,7 @@
                         validate: "required",
                         //  visible: false,
                     },
-                    {
-                        title: "Доступ к курсу для экспертов обязательной оценки",
-                        name: "expert_access",
-                        type: "select",
-                        items: EX_ACCESSES,
-                        valueField: "Id",
-                        textField: "Name",
-                        validate: "required",
-                        //   visible: false,
-                    },
+
                     {
                         title: "Дубликаты", width: "100", itemTemplate: function (value, item) {
                             var duplicates = JSON.parse(value);

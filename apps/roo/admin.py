@@ -42,7 +42,7 @@ class CourseResource(resources.ModelResource):
         column_name='Статус экспертизы'
     )
     title = Field(column_name='Наименование')
-    partner__title = Field(column_name='Платформа')
+    partner__title = Field(attribute='partner__title', column_name='Платформа')
 
     class Meta:
         model = Course

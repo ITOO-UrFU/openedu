@@ -3,7 +3,7 @@ from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, D
     EvaluationTool, ProctoringService
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-
+from import_export.fields import Field
 
 @admin.register(Competence)
 class CompetenceAdmin(admin.ModelAdmin):

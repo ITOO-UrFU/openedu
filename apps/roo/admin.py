@@ -5,6 +5,7 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
 
+
 @admin.register(Competence)
 class CompetenceAdmin(admin.ModelAdmin):
     list_display = ('title',)
@@ -35,15 +36,24 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 
 class CourseResource(resources.ModelResource):
     directions_all = Field()
+    activities_all = Field()
+
     class Meta:
         model = Course
-        fields = ('id', 'title', 'institution__title', 'directions_all')
+        fields = ('id', 'title', 'competences', 'institution__title', 'directions_all', 'activities_all')
 
     def dehydrate_directions_all(self, course):
         dirs = ""
         for direction in course.directions.all():
             dirs += direction.title + "\n"
         return dirs
+
+    def dehydrate_activities_all(self, course):
+        activs = ""
+        for activ in course.activities.all():
+            activs += activ.title + "\n"
+    return activs
+
 
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):

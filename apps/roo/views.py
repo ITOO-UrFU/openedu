@@ -676,8 +676,8 @@ class LazyEncoder(DjangoJSONEncoder):
 @roo_member_required
 def courses_list(request):
     context = dict()
-    context["platforms"] = Platform.objects.all()
-    context["owners"] = Owner.objects.all()
+    context["platforms"] = Platform.objects.all().order_by('title')
+    context["owners"] = Owner.objects.all().order_by('title')
     return render(request, "roo/courses_edit.html", context)
 
 

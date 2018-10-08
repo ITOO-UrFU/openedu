@@ -39,7 +39,7 @@ class CourseResource(resources.ModelResource):
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')
     expertise_status = Field(
         attribute='get_expertise_status_display',
-        column_name=_(u'Статус экспертизы')
+        column_name='Статус экспертизы'
     )
 
     class Meta:

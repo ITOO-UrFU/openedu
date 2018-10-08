@@ -34,15 +34,24 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 
 
 class CourseResource(resources.ModelResource):
+    directions_all = Field()
     class Meta:
         model = Course
-        fields = ('id', 'title', 'institution__title',)
+        fields = ('id', 'title', 'institution__title', 'directions_all')
+
+    def dehydrate_directions_all(self, course):
+        dirs = ""
+        for direction in course.directions.objects():
+            dirs += direction.title + "/n"
+        return dirs
 
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
     resource_class = CourseResource
     list_display = ("title", "get_platform", "institution", "get_description", "get_image")
     list_filter = ("partner", "roo_status", "institution")
+    filter_horizontal = ("directions", "activities", "teachers")
+    search_fields = ("title",)
 
 
 @admin.register(Platform)

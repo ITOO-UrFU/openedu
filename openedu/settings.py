@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'advanced_filters',
     'django_tables2',
     'semanticuiforms',
+    'import_export',
 ]
 
 SITE_ID = 1

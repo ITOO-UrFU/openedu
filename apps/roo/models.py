@@ -498,6 +498,11 @@ class Course(models.Model):
                 partner_object = Platform.objects.get(global_id=d["partner_id"])
                 self.partner = partner_object
                 self.save()
+            elif attr == "has_sertificate":
+                if val:
+                    self.has_sertificate = "1"
+                else:
+                    self.has_sertificate = "2"
             else:
                 setattr(self, attr, val)
 

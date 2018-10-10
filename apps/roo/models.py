@@ -135,10 +135,12 @@ class Expertise(models.Model):
     has_illustrations = models.BooleanField("Иллюстрации", default=False)
     has_audio = models.BooleanField("Аудиоматериалы", default=False)
     has_video = models.BooleanField("Видеоматериалы", default=False)
-    has_quality_checking = models.CharField("прошел проверку обязательной оценки качества", blank=True, null=True, max_length=512)
+    has_quality_checking = models.CharField("прошел проверку обязательной оценки качества", blank=True, null=True,
+                                            max_length=512)
     no_permission_of_owners = models.TextField("Нет разрешения правообладелей", null=True, blank=True)
     got_into_record = models.CharField("попал в отчет", max_length=255, null=True, blank=True)
-    got_expertise_2018 = models.CharField("прошел экспертизу в 2018 (1 квартал)", default=False, blank=True, null=True, max_length=512)
+    got_expertise_2018 = models.CharField("прошел экспертизу в 2018 (1 квартал)", default=False, blank=True, null=True,
+                                          max_length=512)
     additional_info = models.TextField("Дополнительная информация", null=True, blank=True)
 
     def get_platform(self):
@@ -396,8 +398,9 @@ class Course(models.Model):
     def find_identical(self):
         courses_identical = []
         if self.institution is not None:
-            courses_identical = Course.objects.filter(in_archive=False, title=self.title, institution__title=self.institution.title,
-                                              partner__title=self.partner.title).exclude(id=self.id)
+            courses_identical = Course.objects.filter(in_archive=False, title=self.title,
+                                                      institution__title=self.institution.title,
+                                                      partner__title=self.partner.title).exclude(id=self.id)
         # else:
         #     courses_identical = Course.objects.filter(title=self.title, partner__title=self.partner.title)
         return courses_identical
@@ -497,6 +500,9 @@ class Course(models.Model):
                 self.save()
             else:
                 setattr(self, attr, val)
+
+            self.set_identical()  # Надо ли вот
+            self.in_archive = False  # это вот все?
             self.communication_owner = 5
             self.communication_platform = 5
             self.save()
@@ -550,12 +556,22 @@ class Course(models.Model):
                 print(course["title"])
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
+                    # if not roo_course
 
                 except cls.DoesNotExist:
-                    roo_course = None
+
+                    try:
+                        roo_course = cls.objects.filter(title=course['title'], partner__id=course['partner_id'],
+                                                        institution__id=course['institution_id']).first()
+                    except:
+                        roo_course = None
+
+                    # if len(roo_courses) > 0:
+                    #     roo_course = roo_courses.first()
+                    # else:
+
 
                 if roo_course:
-
                     if not roo_course.newest:
                         roo_course.update_from_dict(course)
                 else:
@@ -807,8 +823,10 @@ class CoursesTable(tables.Table):
             "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
             "image")
         fields = (
-            "title", "partner", "platform_responsible", "institution", "owner_responsible", "communication_owner", "communication_platform", "expertise_status",
-            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status", "responsible_comment", "passport_responsible")
+            "title", "partner", "platform_responsible", "institution", "owner_responsible", "communication_owner",
+            "communication_platform", "expertise_status",
+            "passport_status", "required_ratings_state", "unforced_ratings_state", "comment", "roo_status",
+            "responsible_comment", "passport_responsible")
         attrs = {'class': 'ui celled striped table', 'id': 'coursesTable'}
 
     title = tables.TemplateColumn(

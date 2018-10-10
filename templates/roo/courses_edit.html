@@ -475,6 +475,11 @@
                         valueField: "Id",
                         textField: "Name",
                         validate: "required",
+                        {% if  request.user|has_group:"super_roo"  or request.user.is_superuser %}
+                        editing: true
+                        {% else %}
+                        editing: false
+                        {% endif %}
                         //   visible: false,
                     },
                     {

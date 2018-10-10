@@ -504,7 +504,10 @@ class Course(models.Model):
                 else:
                     self.has_sertificate = "2"
             else:
-                setattr(self, attr, val)
+                try:
+                    setattr(self, attr, val)
+                except:
+                    pass
 
             # self.set_identical()  # Надо ли вот
             # self.in_archive = False  # это вот все?

@@ -540,8 +540,16 @@ class Course(models.Model):
                 partner_object = Platform.objects.get(global_id=d["partner_id"])
                 c.partner = partner_object
                 c.save()
+            elif attr == "has_sertificate":
+                if val:
+                    c.has_sertificate = "1"
+                else:
+                    c.has_sertificate = "2"
             else:
-                setattr(c, attr, val)
+                try:
+                    setattr(c, attr, val)
+                except:
+                    pass
             c.communication_owner = 5
             c.communication_platform = 5
             c.roo_status = 3

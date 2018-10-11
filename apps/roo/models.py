@@ -269,7 +269,7 @@ class Course(models.Model):
 
     # необязательные поля
     # learning_plan = models.TextField("Учебный план", blank=True, null=True)
-    results = models.CharField("Результаты", blank=True, null=True, max_length=512)  # = models.ManyToManyField("Result", blank=True)
+    results = models.TextField("Результаты", blank=True, null=True)  # = models.ManyToManyField("Result", blank=True)
     evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
     proctoring_service = models.ForeignKey("ProctoringService", blank=True, null=True)
     expert_account = models.TextField("Доступ эксперта", blank=True, null=True)

@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, \
-    EvaluationTool, ProctoringService
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
+
+from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, \
+    EvaluationTool, ProctoringService
 
 
 @admin.register(Competence)
@@ -35,13 +36,12 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 
 
 class CourseResource(resources.ModelResource):
-
     # expertise_status = Field(
     #     attribute='get_expertise_status_display',
     #     column_name='Статус экспертизы'
     # )
 
-    title = Field(attribute='title',column_name='Наименование')
+    title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
     institution__title = Field(attribute='institution__title', column_name='Правообладатель')
 
@@ -53,7 +53,6 @@ class CourseResource(resources.ModelResource):
     results = Field(attribute="results", column_name="Результаты обучения")
     expertise_status = Field(attribute="expertise_status")
 
-
     class Meta:
         model = Course
         fields = ('title', 'institution__title', 'partner__title', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status')
@@ -63,6 +62,12 @@ class CourseResource(resources.ModelResource):
         for direction in course.directions.all():
             dirs += direction.title + "\n"
         return dirs
+
+    def dehydrate_results_all(self, course):
+        results = ""
+        for result in course.results.all():
+            results += result.title + "\n"
+        return results
 
     def dehydrate_activities_all(self, course):
         activs = ""

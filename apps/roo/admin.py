@@ -50,11 +50,12 @@ class CourseResource(resources.ModelResource):
     competences = Field(attribute='competences', column_name='Формируемые компетенции')
     in_archive = Field(attribute="in_archive", column_name="Архивный")
     roo_status = Field(attribute="roo_status", column_name="Статус загрузки на РОО")
+    results = Field(attribute="results", column_name="Результаты обучения")
 
 
     class Meta:
         model = Course
-        fields = ('title', 'institution__title', 'partner__title', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status')
+        fields = ('title', 'institution__title', 'partner__title', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status', 'results')
 
     def dehydrate_directions_all(self, course):
         dirs = ""

@@ -33,28 +33,28 @@
             </tr>
             <tr>
                 <td>Ссылка на онлайн-курс на сайте Платформы</td>
-                <td>{{ expertise.course.external_url }}</td>
+                <td>{{ expertise.course.external_url }}{{ course.external_url }}</td>
             </tr>
             <tr>
                 <td>Версия курса</td>
-                <td>{{ expertise.course.version }}</td>
+                <td>{{ expertise.course.version }}{{ course.version }}</td>
             </tr>
             <tr>
                 <td>Правообладатель</td>
-                <td>{{ expertise.course.institution }}</td>
+                <td>{{ expertise.course.institution }}{{ course.institution }}</td>
             </tr>
             <tr>
                 <td>Наименование</td>
-                <td>{{ expertise.course.title }}</td>
+                <td>{{ expertise.course.title }}{{ course.title }}</td>
             </tr>
             <tr>
                 <td>Длительность</td>
-                <td>{{ expertise.course.duration }}</td>
+                <td>{{ expertise.course.duration }}{{ course.duration }}</td>
                 <td>{% render_field form.has_length %}</td>
             </tr>
             <tr>
                 <td>Описание</td>
-                <td>{{ expertise.course.description|safe }}</td>
+                <td>{{ expertise.course.description|safe }}{{ course.description|safe }}</td>
                 <td>{% render_field form.has_description %}</td>
             </tr>
             <tr>
@@ -63,47 +63,52 @@
                     {% for author in  expertise.course.authors %}
                         <p>{{ author }}</p>
                     {% endfor %}
+                    {% if course %}
+                {% for author in  course.authors %}
+                        <p>{{ author }}</p>
+                    {% endfor %}
+                {% endif %}
                 </td>
                 <td>{% render_field form.has_authors %}</td>
             </tr>
 
             <tr>
                 <td>Язык контента</td>
-                <td>{{ expertise.course.language }}</td>
+                <td>{{ expertise.course.language }}{{ course.language }}</td>
                 <td>{% render_field form.language %}</td>
             </tr>
 
             <tr>
                 <td>Рекомендуемые "входные" требования к обучающемуся</td>
-                <td>{{ expertise.course.requirements }}</td>
+                <td>{{ expertise.course.requirements }}{{ course.requirements }}</td>
 
                 <td>{% render_field form.has_prerequisites %}</td>
             </tr>
 
             <tr>
                 <td>Сертификат (выдается или нет)</td>
-                <td>{{ expertise.course.get_has_sertificate_display }}</td>
+                <td>{{ expertise.course.get_has_sertificate_display }}{{ course.get_has_sertificate_display }}</td>
 
                 <td>{% render_field form.has_certificate %}</td>
             </tr>
 
             <tr>
                 <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
-                <td>{{ expertise.course.has_proctoring }}</td>
+                <td>{{ expertise.course.has_proctoring }}{{ course.has_proctoring }}</td>
 
                 <td>{% render_field form.has_proctoring %}</td>
             </tr>
 
             <tr>
                 <td>Даты ближайшего запуска</td>
-                <td>{{ expertise.course.started_at }}</td>
+                <td>{{ expertise.course.started_at }}{{ course.started_at }}</td>
                 <td>{% render_field form.has_dates %}</td>
             </tr>
 
             <tr>
                 <td>Адрес эл. почты администратора ОК</td>
 
-                <td>{{ expertise.course.admin_email }}</td>
+                <td>{{ expertise.course.admin_email }}{{ course.admin_email }}</td>
                 <td>{% render_field form.has_admin_email %}</td>
             </tr>
 
@@ -129,7 +134,7 @@
             </tr>
             <tr>
                 <td>Компетенции</td>
-                <td>{{ expertise.course.competences|safe }}</td>
+                <td>{{ expertise.course.competences|safe }}{{ course.competences|safe }}</td>
                 <td>{% render_field form.has_competences %}</td>
             </tr>
             <tr>
@@ -144,7 +149,7 @@
             </tr>
             <tr>
                 <td>Рекомендуемые направления подготовки</td>
-                <td>{{ expertise.course.directions }}</td>
+                <td>{{ expertise.course.directions }}{{ course.directions }}</td>
                 <td>{% render_field form.has_recommended_directions %}</td>
             </tr>
             <tr>

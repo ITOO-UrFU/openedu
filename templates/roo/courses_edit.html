@@ -355,6 +355,10 @@
                 },
                 fields: [
                     {
+                        title: "№", name: "num", type: "text", filtering: false, editing: false
+                        //   visible: false,
+                    },
+                    {
                         title: "Наименование", width: "150", itemTemplate: function (value, item) {
                             var course_link = $('<a>', {
                                 text: value,
@@ -483,7 +487,7 @@
                         //   visible: false,
                     },
                     {
-                        title: "Статус экспертизы",
+                        title: "Статус обязательной экспертизы",
                         name: "expertise_status",
                         type: "select",
                         items: EX_STATES,

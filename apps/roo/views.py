@@ -687,9 +687,12 @@ def courses_edit(request):
     # return render(request, "roo/courses_edit.html", context)
     data = serialize('json', Course.objects.filter(in_archive=False))
     return_data = []
+    i = 1
     for course in json.loads(data):
         new_course = course['fields']
         new_course['pk'] = course['pk']
+        new_course['num'] = 1
+        i += 1
         # new_course['partner_id'] =
         return_data.append(new_course)
     return HttpResponse(json.dumps(return_data), content_type='application/json')

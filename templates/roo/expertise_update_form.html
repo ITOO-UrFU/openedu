@@ -12,7 +12,11 @@
         <input hidden id="id_course" type="number" name="course" step="1" value="{{ course_id }}"/>
         {% endif %}
         <input hidden id="id_expert" type="number" name="expert" step="1" value="{{ expertise.expert.id }}"/>
-        <p>Эксперт: {{ expertise.expert }}</p>
+
+        {% if expertise.expert %}
+            <p>Эксперт: {{ expertise.expert }}</p>
+        {% endif %}
+
         <p>Курс: {{ expertise.course }}{{ course }}</p>
         <p>{% render_field form.executed %}</p>
 
@@ -28,7 +32,7 @@
             <tbody>
             <tr>
                 <td>Платформа</td>
-                <td>{{ expertice.course.partner }}{{ course.partner }}</td>
+                <td>{{ expertise.course.partner }}{{ course.partner }}</td>
                 {#                    <td>{% render_field form.platform %}</td>#}
             </tr>
             <tr>

@@ -691,7 +691,7 @@ def courses_edit(request):
     for course in json.loads(data):
         new_course = course['fields']
         new_course['pk'] = course['pk']
-        new_course['num'] = 1
+        new_course['num'] = i
         i += 1
         # new_course['partner_id'] =
         return_data.append(new_course)

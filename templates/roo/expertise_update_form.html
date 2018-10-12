@@ -64,11 +64,14 @@
             <tr>
                 <td>Авторы</td>
                 <td>
-                    {% for author in  expertise.course.authors %}
+                {% if expertise.course %}
+                    {% for author in  expertise.course.authors.all %}
                         <p>{{ author }}</p>
                     {% endfor %}
-                    {% if course %}
-                {% for author in  course.authors %}
+                {% endif %}
+
+                {% if course %}
+                    {% for author in  course.authors.all %}
                         <p>{{ author }}</p>
                     {% endfor %}
                 {% endif %}

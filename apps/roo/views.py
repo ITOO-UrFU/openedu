@@ -769,11 +769,14 @@ def new_expertise(request, course_id=None):
             ex = form.save(commit=False)
             if course_id:
                 ex.course = Course.objects.get(id=course_id)
+
             ex.save()
 
     args = {}
     # args.update(csrf(request))
     args.update({"course_id": course_id})
+    if course_id:
+        args.update({"course": Course.objects.get(id=course_id)})
     args['form'] = ExForm()
 
     return render(request, 'roo/expertise_update_form.html', args)

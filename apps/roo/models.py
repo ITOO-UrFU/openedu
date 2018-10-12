@@ -94,7 +94,7 @@ class Expertise(models.Model):
     ex_date = models.CharField("Дата", blank=True, null=True, max_length=512)
     type = models.CharField("Вид экспертизы", choices=EX_TYPES,
                             blank=True, null=True, max_length=1)
-    executed = models.BooleanField("Экспертиза пройдена", default=True)
+    executed = models.BooleanField("Экспертиза пройдена", default=False)
     # passed = models.BooleanField("Прошел обязательную экспертизу")
     expert = models.ForeignKey("Expert", verbose_name="Эксперт", null=True, blank=True)
     supervisor = models.CharField("Кто от ИТОО контролирует", blank=True, null=True, max_length=512)

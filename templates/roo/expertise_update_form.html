@@ -151,11 +151,11 @@
                 <td>Рекомендуемые направления подготовки</td>
                 <td>
                     {% if expertise.course %}
-                        {% for d in expertise.course.directions %}
+                        {% for d in expertise.course.directions.all %}
                             <p>{{ d.title }}</p>
                         {% endfor %}
                     {% else %}
-                        {% for d in course.directions %}
+                        {% for d in course.directions.all %}
                             <p>{{ d.title }}</p>
                         {% endfor %}
                     {% endif %}

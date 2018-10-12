@@ -149,7 +149,17 @@
             </tr>
             <tr>
                 <td>Рекомендуемые направления подготовки</td>
-                <td>{{ expertise.course.directions }}{{ course.directions }}</td>
+                <td>
+                    {% if expertise.course %}
+                        {% for d in expertise.course.directions %}
+                            <p>{{ d.title }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {% for d in course.directions %}
+                            <p>{{ d.title }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </td>
                 <td>{% render_field form.has_recommended_directions %}</td>
             </tr>
             <tr>

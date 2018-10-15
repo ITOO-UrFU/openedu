@@ -7,7 +7,7 @@ from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
 from django import forms
@@ -772,6 +772,7 @@ def new_expertise(request, course_id=None):
                 ex.type = "0"
 
             ex.save()
+        return redirect('/roo/close/')
 
     args = {}
     # args.update(csrf(request))

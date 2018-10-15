@@ -65,14 +65,14 @@
                 <td>Авторы</td>
                 <td>
                 {% if expertise.course %}
-                    {% for author in  expertise.course.authors.all %}
-                        <p>{{ author }}</p>
+                    {% for teachers in  expertise.course.teachers.all %}
+                        <p>{{ teacher }}</p>
                     {% endfor %}
                 {% endif %}
 
                 {% if course %}
-                    {% for author in  course.authors.all %}
-                        <p>{{ author }}</p>
+                    {% for teacher in  course.teachers.all %}
+                        <p>{{ teacher }}</p>
                     {% endfor %}
                 {% endif %}
                 </td>

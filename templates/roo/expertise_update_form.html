@@ -65,7 +65,7 @@
                 <td>Авторы</td>
                 <td>
                 {% if expertise.course %}
-                    {% for teachers in  expertise.course.teachers.all %}
+                    {% for teacher in  expertise.course.teachers.all %}
                         <p>{{ teacher }}</p>
                     {% endfor %}
                 {% endif %}

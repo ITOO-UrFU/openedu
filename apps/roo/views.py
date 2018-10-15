@@ -769,6 +769,7 @@ def new_expertise(request, course_id=None):
             ex = form.save(commit=False)
             if course_id:
                 ex.course = Course.objects.get(id=course_id)
+                ex.type = "0"
 
             ex.save()
 

@@ -277,7 +277,7 @@ class Course(models.Model):
     evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
     evaluation_tools_text = models.TextField("Оценочные средства (текстом)", blank=True, null=True)
     proctoring_service = models.ForeignKey("ProctoringService", blank=True, null=True)
-    expert_account = models.TextField("Доступ эксперта", blank=True, null=True)
+    expert_account = models.TextField("Комментарий эксперта", blank=True, null=True)
 
     COMMUNICATION_OWNER_STATES = (
         ("0", "Согласование не начато"),

@@ -367,7 +367,7 @@ class Course(models.Model):
                                               choices=REQUIRED_RATINGS_STATES, default="0")
     unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
                                               choices=UNFORCED_RATINGS_STATES, default="0")
-    comment = models.TextField("Примечание", blank=True, null=True)
+    comment = models.TextField("Примечание Шарыпова-Рачёва", blank=True, null=True)
     expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES,
                                      max_length=1, default="0")
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)

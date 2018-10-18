@@ -144,7 +144,7 @@ class Expertise(models.Model):
     additional_info = models.TextField("Дополнительная информация", null=True, blank=True)
 
     def get_platform(self):
-        return self.course.platform.title
+        return self.course.partner.title
 
     def __str__(self):
         return f"Экспертиза: {self.course}, Тип: {self.type}"

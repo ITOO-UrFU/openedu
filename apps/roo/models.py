@@ -585,7 +585,7 @@ class Course(models.Model):
                 except cls.DoesNotExist:
 
                     try:
-                        roo_course = cls.objects.filter(title=course['title'], partner__global_id=course['partner_id'],
+                        roo_course = cls.objects.filter(in_archive=False, title=course['title'], partner__global_id=course['partner_id'],
                                                         institution__global_id=course['institution_id']).first()
                     except:
                         roo_course = None

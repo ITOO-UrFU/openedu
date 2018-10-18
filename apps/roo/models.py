@@ -232,6 +232,8 @@ class Course(models.Model):
     created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=True, max_length=512)
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True,
                                        max_length=512)  # но это не точно
+
+    labor = models.CharField("Трудоемкость (з.е.)", blank=True, null=True, max_length=512)
     duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=512)
     finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=True, max_length=512)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True)

@@ -602,7 +602,6 @@ def TableCourseUpdate(request):
         course.platform_responsible_comment = request_data['platform_responsible_comment']
         course.owner_responsible_comment = request_data['owner_responsible_comment']
         course.passport_responsible = request_data['passport_responsible']
-        course.labor = request_data['labor']
         course.save()
         data = serialize('json', [course, ])
         struct = json.loads(data)[0]

@@ -135,6 +135,7 @@
                 {Id: "2", Name: "Требует доработки"},
                 {Id: "3", Name: "На согласовании с правообладателем"},
                 {Id: "4", Name: "Готов"},
+                {Id: "5", Name: "Готов без перезачета"},
             ];
             var REQUIRED_RATINGS_STATES = [
                 {Id: "", Name: ""},
@@ -449,7 +450,17 @@
                         filtering: false,
 
                     },
-                    {title: "Примечание", name: "comment", type: "textarea", filtering: false,},
+                    {
+                        title: "Примечание Шарыпова-Рачёва",
+                        name: "comment",
+                        type: "textarea",
+                        filtering: false,
+                        {% if  request.user|has_group:"super_roo"  or request.user.is_superuser %}
+                        editing: true
+                        {% else %}
+                        editing: false
+                        {% endif %}
+                    },
                     {
                         title: "Статус коммуникации с правообладателем",
                         name: "communication_owner",
@@ -555,7 +566,7 @@
                         //   visible: false,
                     },
                     {
-                        title: "Доступ эксперта", name: "expert_account", type: "text", filtering: false,
+                        title: "Комментарий эксперта", name: "expert_account", type: "textarea", filtering: false,
                         //  visible: false,
                     },
 

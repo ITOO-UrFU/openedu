@@ -224,12 +224,16 @@ class Course(models.Model):
     credits = models.CharField("Массив перезачётов", blank=True, null=True, max_length=512)
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=512)
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
-    image = models.URLField("Изображение курса", blank=True, null=True)
     institution = models.ForeignKey("Owner", verbose_name="Правообладатель", blank=True, null=True)
+    partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
+    external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
+    image = models.URLField("Изображение курса", blank=True, null=True)
     global_id = models.CharField("ИД курса на РОО", blank=True, null=True, max_length=512)
     created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=True, max_length=512)
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True,
                                        max_length=512)  # но это не точно
+
+    labor = models.CharField("Трудоемкость (з.е.)", blank=True, null=True, max_length=512)
     duration = models.CharField("Длительность в неделях", blank=True, null=True, max_length=512)
     finished_at = models.CharField("Дата окончания онлайн-курса", blank=True, null=True, max_length=512)
     competences = models.TextField("Формируемые компетенции", blank=True, null=True)
@@ -245,11 +249,11 @@ class Course(models.Model):
     verified_cert = models.BooleanField("Возможность получить подтвержденный сертификат", default=False)
     language = models.CharField("Язык контента", blank=True, null=True, max_length=512)
     course_item_url = models.CharField("", blank=True, null=True, max_length=512)  # неизвестная вестчь
-    partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
+
     content = models.TextField("Содержание онлайн-курса", blank=True, null=True, max_length=4096)
     started_at = models.CharField("Дата ближайшего запуска", blank=True, null=True, max_length=512)
     rating = models.CharField("Рейтинг пользователей", blank=True, null=True, max_length=512)
-    external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
+
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
     version = models.IntegerField("Версия курса", default=1)
     activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности", blank=True,
@@ -271,8 +275,9 @@ class Course(models.Model):
     # learning_plan = models.TextField("Учебный план", blank=True, null=True)
     results = models.TextField("Результаты", blank=True, null=True)  # = models.ManyToManyField("Result", blank=True)
     evaluation_tools = models.ManyToManyField("EvaluationTool", blank=True)
+    evaluation_tools_text = models.TextField("Оценочные средства (текстом)", blank=True, null=True)
     proctoring_service = models.ForeignKey("ProctoringService", blank=True, null=True)
-    expert_account = models.TextField("Доступ эксперта", blank=True, null=True)
+    expert_account = models.TextField("Комментарий эксперта", blank=True, null=True)
 
     COMMUNICATION_OWNER_STATES = (
         ("0", "Согласование не начато"),
@@ -301,12 +306,14 @@ class Course(models.Model):
         ("6", "Нет доступа"),
         ("7", "Почти прошел"),
     )
+
     PASSPORT_STATES = (
         ("0", "Не заполнен"),
         ("1", "Не проверен"),
         ("2", "Требует доработки"),
         ("3", "На согласовании с правообладателем"),
         ("4", "Готов"),
+        ("5", "Готов без перезачета")
     )
 
     EX_ACCESSES = (
@@ -360,7 +367,7 @@ class Course(models.Model):
                                               choices=REQUIRED_RATINGS_STATES, default="0")
     unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
                                               choices=UNFORCED_RATINGS_STATES, default="0")
-    comment = models.TextField("Примечание", blank=True, null=True)
+    comment = models.TextField("Примечание Шарыпова-Рачёва", blank=True, null=True)
     expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES,
                                      max_length=1, default="0")
     reg_data = models.TextField("Регистрационные данные для доступа к курсу", blank=True)
@@ -578,7 +585,7 @@ class Course(models.Model):
                 except cls.DoesNotExist:
 
                     try:
-                        roo_course = cls.objects.filter(title=course['title'], partner__global_id=course['partner_id'],
+                        roo_course = cls.objects.filter(in_archive=False, title=course['title'], partner__global_id=course['partner_id'],
                                                         institution__global_id=course['institution_id']).first()
                     except:
                         roo_course = None

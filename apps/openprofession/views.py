@@ -294,8 +294,8 @@ def handle_report(*args):
                                                                                                    "Certificate Eligible"] == "Y" else False,
                                                                   certificate_delivered=row["Certificate Delivered"],
                                                                   raw_data=json.dumps(row)))
-                    report.processed = True
-                    report.save()
+            report.processed = True
+            report.save()
         elif report.report_type == "proctored_exam_results_report":
             with open(filepath, 'r') as report_file:
                 reader = csv.DictReader(report_file)
@@ -309,8 +309,8 @@ def handle_report(*args):
                         completed_at=row["completed_at"],
                         status=row["status"]
                     ))
-                    report.processed = True
-                    report.save()
+            report.processed = True
+            report.save()
 
 
 app.control.rate_limit('openprofession.views.handle_report', '100/m')

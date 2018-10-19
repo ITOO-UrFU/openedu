@@ -122,7 +122,7 @@ def add_pd(request):
     else:
         QA = QuotesAvailable.objects.first()
         PDA = PDAvailable.objects.first()
-        programs = Program.objects.filter(active=True)
+        programs = Program.objects.filter(active=True).order_by('title')
         return render(request, "openprofession/personaldata_form.html", {"QA": QA, "PDA": PDA, 'programs': programs})
 
 

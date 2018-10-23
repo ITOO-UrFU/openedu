@@ -21,7 +21,9 @@
             <div class="ui segment">
                 <h2>Экспертизы:</h2>
                 {% for e in expertises %}
-                    <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
+                    {% if e.type == "0" %}
+                        <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
+                    {% endif %}
                 {% endfor %}
 
                 <button onClick="window.open('/roo/create_expertise/{{ course_id }}');" class="ui blue basic button">Добавить экспертизу</button>

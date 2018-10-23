@@ -552,14 +552,15 @@ def TableExpertiseUpdate(request):
         return HttpResponse(status=500)
 
 
-def course_json(request, pk):
+def course_json(request, course_id):
     if request.method == "GET":
-        course = Course.objects.get(pk=pk)
+        course = Course.objects.get(pk=course_id)
         data = serialize('json', [course, ])
         struct = json.loads(data)[0]
         new_course = struct['fields']
         new_course['pk'] = struct['pk']
         return JsonResponse(new_course)
+
 
 def TableCourseUpdate(request):
     if request.method == "POST":

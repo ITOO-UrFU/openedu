@@ -560,6 +560,7 @@ def course_json(request, course_id):
 
         new_course = struct['fields']
         new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
+        new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
         new_course['pk'] = struct['pk']
 
         return JsonResponse(new_course)

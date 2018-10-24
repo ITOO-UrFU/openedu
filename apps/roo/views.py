@@ -621,6 +621,7 @@ def TableCourseUpdate(request):
         struct = json.loads(data)[0]
         new_course = struct['fields']
         new_course['pk'] = struct['pk']
+        new_course['num'] = request_data['num']
         return JsonResponse(new_course)
 
 

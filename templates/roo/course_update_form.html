@@ -30,14 +30,12 @@
                                         <div class="header">
                                             {{ e.get_type_display }}
                                         </div>
-                                    </div>
-                                    <div class="content">
                                         <div class="right floated">
-                                    {% if e.executed == True %}
-                                        <i class="thumbs up icon"></i>
-                                    {% else %}
-                                        <i class="thumbs down icon"></i>
-                                    {% endif %}
+                                            {% if e.executed == True %}
+                                                <i class="thumbs up icon"></i>
+                                            {% else %}
+                                                <i class="thumbs down icon"></i>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

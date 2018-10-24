@@ -100,13 +100,6 @@
             </tr>
 
             <tr>
-                <td>Наличие подтвержденного сертификата (сервис прокторинга)</td>
-                <td>{{ expertise.course.has_proctoring }}{{ course.has_proctoring }}</td>
-
-                <td>{% render_field form.has_proctoring %}</td>
-            </tr>
-
-            <tr>
                 <td>Даты ближайшего запуска</td>
                 <td>{{ expertise.course.started_at }}{{ course.started_at }}</td>
                 <td>{% render_field form.has_dates %}</td>

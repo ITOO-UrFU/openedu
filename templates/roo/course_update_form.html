@@ -20,11 +20,31 @@
         <div class="ui right rail">
             <div class="ui segment">
                 <h2>Экспертизы:</h2>
-                {% for e in expertises %}
-                    {% if e.type == "0" or e.type == None %}
-                        <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
-                    {% endif %}
-                {% endfor %}
+
+                <div class="ui cards">
+                    {% for e in expertises %}
+                        {% if e.type == "0" or e.type == None %}
+                            <a href="/roo/expertise/{{ e.id }}/">
+                                <div class="card">
+                                    <div class="content">
+                                        <div class="header">
+                                            {{ e.get_type_display }}
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <span class="right floated">
+                                    {% if e.executed == True %}
+                                        <i class="thumbs up icon"></i>
+                                    {% else %}
+                                        <i class="thumbs down icon"></i>
+                                    {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                        </div>
+                    {% endfor %}
 
                 <button onClick="window.open('/roo/create_expertise/{{ course_id }}');" class="ui blue basic button">Добавить экспертизу</button>
                 <button onClick="window.open('/roo/create_teacher/');" class="ui blue basic button">Добавить автора</button>

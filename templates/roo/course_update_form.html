@@ -21,7 +21,7 @@
             <div class="ui segment">
                 <h2>Экспертизы:</h2>
                 {% for e in expertises %}
-                    {% if e.type == "0" %}
+                    {% if e.type == "0" or e.type == None %}
                         <a href="/roo/expertise/{{ e.id }}/">{{ e.get_type_display }}</a>
                     {% endif %}
                 {% endfor %}

@@ -842,15 +842,9 @@ class ExpertiseUpdate(UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        print(kwargs, args)
         for attr, value in kwargs.items():
             setattr(self.object, attr, value)
             self.object.save()
         self.object.type = "0"
+        self.object.save()
         return super(ExpertiseUpdate, self).post(request, *args, **kwargs)
-
-
-class ExpertiseUpdate1(UpdateView):
-    form_class = ExpertiseLayout
-    model = Expertise
-    template_name_suffix = '_update_form1'

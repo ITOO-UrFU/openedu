@@ -26,8 +26,16 @@
                         <a href="/roo/expertise/{{ e.id }}/">
                         <div class="ui card">
                             <div class="content">
-                                <div class="right floated meta">{{ e.date }}</div>
-                                {{ e.expert.login }}
+                                <div class="right floated meta">
+                                    {% if e.date %}
+                                        {{ e.date }}
+                                    {% endif %}
+                                </div>
+                                {% if e.expert %}
+                                    {{ e.expert.login }}
+                                {% else %}
+                                    ИТОО
+                                {% endif %}
                             </div>
 
                             <div class="content">
@@ -43,8 +51,7 @@
                             </div>
                             <div class="extra content">
                                 <div class="ui large transparent left icon input">
-                                    <i class="heart outline icon"></i>
-                                    <input placeholder="Add Comment..." type="text">
+                                    {{ e.comment }}
                                 </div>
                             </div>
                         </div>

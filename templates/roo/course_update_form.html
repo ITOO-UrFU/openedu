@@ -21,28 +21,37 @@
             <div class="ui segment">
                 <h2>Экспертизы:</h2>
 
-                <div class="ui cards">
-                    {% for e in expertises %}
-                        {% if e.type == "0" or e.type == None %}
-                            <a href="/roo/expertise/{{ e.id }}/">
-                                <div class="card">
-                                    <div class="content">
-                                        <div class="header">
-                                            {{ e.get_type_display }}
-                                        </div>
-                                        <div class="right floated">
-                                            {% if e.executed == True %}
-                                                <i class="thumbs up icon"></i>
-                                            {% else %}
-                                                <i class="thumbs down icon"></i>
-                                            {% endif %}
-                                        </div>
-                                    </div>
+                {% for e in expertises %}
+                    {% if e.type == "0" or e.type == None %}
+                        <a href="/roo/expertise/{{ e.id }}/">
+                        <div class="ui card">
+                            <div class="content">
+                                <div class="right floated meta">{{ e.date }}</div>
+                                {{ e.expert.login }}
+                            </div>
+
+                            <div class="content">
+                                <span class="right floated">
+                                  {% if e.executed == True %}
+                                      <i class="thumbs up icon"></i> Пройдена
+                                  {% else %}
+                                      <i class="thumbs down icon"></i> Не пройдена
+                                  {% endif %}
+                                </span>
+                                <i class="comment icon"></i>
+                                {{ e.get_type_display }}
+                            </div>
+                            <div class="extra content">
+                                <div class="ui large transparent left icon input">
+                                    <i class="heart outline icon"></i>
+                                    <input placeholder="Add Comment..." type="text">
                                 </div>
-                            </a>
-                        {% endif %}
+                            </div>
                         </div>
-                    {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
+
 
                 <button onClick="window.open('/roo/create_expertise/{{ course_id }}');" class="ui blue basic button">Добавить экспертизу</button>
                 <button onClick="window.open('/roo/create_teacher/');" class="ui blue basic button">Добавить автора</button>

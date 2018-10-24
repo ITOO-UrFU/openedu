@@ -12,6 +12,7 @@
         <input hidden id="id_course" type="number" name="course" step="1" value="{{ course_id }}"/>
         {% endif %}
         <input hidden id="id_expert" type="number" name="expert" step="1" value="{{ expertise.expert.id }}"/>
+        <input hidden id="id_type" type="number" name="type" step="1" value="0"/>
 
         {% if expertise.expert %}
             <p>Эксперт: {{ expertise.expert }}</p>

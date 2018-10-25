@@ -519,8 +519,8 @@ class Course(models.Model):
 
             # self.set_identical()  # Надо ли вот
             # self.in_archive = False  # это вот все?
-            self.communication_owner = 5
-            self.communication_platform = 5
+            # self.communication_owner = 5
+            # self.communication_platform = 5
             self.save()
 
     @classmethod

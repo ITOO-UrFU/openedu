@@ -2,6 +2,7 @@
 import csv
 import string
 
+from django import forms
 from django.contrib.auth.models import User
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,7 +11,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
-from django import forms
 
 from .decorators import roo_member_required
 from .models import \
@@ -563,7 +563,7 @@ def course_json(request, course_id):
         new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
         new_course['pk'] = struct['pk']
 
-        return JsonResponse(new_course)
+        return JsonResponse({"partnerId": new_course['partner'], "package": {"items": [new_course]}})
 
 
 def TableCourseUpdate(request):

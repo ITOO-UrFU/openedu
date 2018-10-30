@@ -582,7 +582,7 @@ def course_json(request, course_id):
 
         new_course['business_version'] = new_course["version"]
         del new_course['directions']
-        del lectures_number['directions']
+        del new_course['lectures_number']
 
         new_course['pk'] = struct['pk']
 

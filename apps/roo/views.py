@@ -561,10 +561,27 @@ def course_json(request, course_id):
         new_course = struct['fields']
         new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
         new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
+        new_course['lectures'] = new_course['lectures_number']
+        if new_course['has_sertificate'] == "1":
+            new_course['cert'] = True
+        else:
+            new_course['cert'] = False
+        new_course["promo_url"] = ""
+        new_course["promo_lang"] = ""
+        new_course["subtitles_lang"] = ""
+        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
+        new_course["proctoring_service"] = ""
+        new_course["sessionid"] = ""
+
+        new_course["enrollment_finished_at"] = new_course["record_end_at"]
+
+        new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
 
 
         new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
         del new_course['directions']
+        # lectures_number
+
         new_course['pk'] = struct['pk']
 
         return JsonResponse({"partnerId": new_course['partner'], "package": {"items": [new_course]}})

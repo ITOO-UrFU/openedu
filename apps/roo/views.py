@@ -561,6 +561,9 @@ def course_json(request, course_id):
         new_course = struct['fields']
         new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
         new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
+
+        new_course['direction'] = [ x.code for x in Direction.objects.filter(pk__in=new_course['direction'])]
+
         new_course['pk'] = struct['pk']
 
         return JsonResponse({"partnerId": new_course['partner'], "package": {"items": [new_course]}})

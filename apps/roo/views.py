@@ -561,7 +561,7 @@ def course_json(request, course_id):
         new_course = struct['fields']
         new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
         new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
-        new_course['lectures'] = new_course['lectures_number']
+        new_course['lectures'] = int(new_course['lectures_number'])
         if new_course['has_sertificate'] == "1":
             new_course['cert'] = True
         else:
@@ -577,10 +577,12 @@ def course_json(request, course_id):
 
         new_course['teachers'] = [{"image": x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
 
-
+        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
         new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
+
+        new_course['business_version'] = new_course["version"]
         del new_course['directions']
-        # lectures_number
+        del lectures_number['directions']
 
         new_course['pk'] = struct['pk']
 

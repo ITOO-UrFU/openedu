@@ -776,6 +776,12 @@ class CourseUpdate(UpdateView):
     def post(self, request, *args, **kwargs):
         if request.POST.get('archive_course_id'):
             arch_course = Course.objects.get(pk=request.POST.get('archive_course_id'))
+
+            for arch_ex in Expertise.objects.filter(course=arch_course):
+                arch_ex.pk = None
+                arch_ex.course = self.get_object()
+                arch_ex.save()
+
             arch_course.in_archive = True
             arch_course.save()
             self.get_object().set_identical()

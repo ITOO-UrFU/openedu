@@ -561,6 +561,29 @@ def course_json(request, course_id):
         new_course = struct['fields']
         new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
         new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
+        new_course['lectures'] = int(new_course['lectures_number'])
+        if new_course['has_sertificate'] == "1":
+            new_course['cert'] = True
+        else:
+            new_course['cert'] = False
+        new_course["promo_url"] = ""
+        new_course["promo_lang"] = ""
+        new_course["subtitles_lang"] = ""
+        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
+        new_course["proctoring_service"] = ""
+        new_course["sessionid"] = ""
+
+        new_course["enrollment_finished_at"] = new_course["record_end_at"]
+
+        new_course['teachers'] = [{"image": x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
+
+        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
+
+        new_course['business_version'] = new_course["version"]
+        del new_course['directions']
+        del new_course['lectures_number']
+
         new_course['pk'] = struct['pk']
 
         return JsonResponse({"partnerId": new_course['partner'], "package": {"items": [new_course]}})
@@ -753,6 +776,12 @@ class CourseUpdate(UpdateView):
     def post(self, request, *args, **kwargs):
         if request.POST.get('archive_course_id'):
             arch_course = Course.objects.get(pk=request.POST.get('archive_course_id'))
+
+            for arch_ex in Expertise.objects.filter(course=arch_course):
+                arch_ex.pk = None
+                arch_ex.course = self.get_object()
+                arch_ex.save()
+
             arch_course.in_archive = True
             arch_course.save()
             self.get_object().set_identical()

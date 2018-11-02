@@ -105,7 +105,7 @@ class CourseResource(resources.ModelResource):
 
     class Meta:
         model = Course
-        fields = ('title', 'institution__title', 'partner__title', 'course_link_all', 'ex_link_all', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
+        fields = ('title', 'institution__title', 'partner__title', 'course_link_all', 'expertises', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
 
     def dehydrate_directions_all(self, course):
         dirs = ""
@@ -131,11 +131,11 @@ class CourseResource(resources.ModelResource):
         #     activs += activ.title + "\n"
         return course_link
 
-    def dehydrate_ex_link_all(self, course, expertises):
-        ex_links = ""
-        for idx,ex in expertises.filter(course=course):
-            ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
-        return ex_links
+    # def dehydrate_expertises(self, course, expertises):
+    #     ex_links = ""
+    #     for idx,ex in expertises.filter(course=course):
+    #         ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
+    #     return ex_links
 
 
 @admin.register(Course)

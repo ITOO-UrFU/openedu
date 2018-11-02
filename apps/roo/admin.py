@@ -1,7 +1,8 @@
 from django.contrib import admin
-from import_export import resources
+from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
+from import_export.widgets import ManyToManyWidget
 
 from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, \
     EvaluationTool, ProctoringService
@@ -53,7 +54,7 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
      #    )
 
 class CourseResource(resources.ModelResource):
-
+    expertises = fields.Field(widget=ManyToManyWidget(Expertise))
 
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
@@ -130,9 +131,9 @@ class CourseResource(resources.ModelResource):
         #     activs += activ.title + "\n"
         return course_link
 
-    def dehydrate_ex_link_all(self, course):
+    def dehydrate_ex_link_all(self, course, expertises):
         ex_links = ""
-        for idx,ex in Expertise.objects.filter(course=course):
+        for idx,ex in expertises.objects.filter(course=course):
             ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
         return ex_links
 

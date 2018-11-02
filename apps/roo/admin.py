@@ -54,7 +54,6 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
      #    )
 
 class CourseResource(resources.ModelResource):
-    # expertises = fields.Field(widget=ManyToManyWidget(Expertise))
 
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
@@ -64,7 +63,6 @@ class CourseResource(resources.ModelResource):
     directions_all = Field(column_name='Массив идентификаторов направлений')
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')
     course_link_all = Field(column_name='Курс в базе')
-    # ex_link_all = Field(column_name='Обязательные экспертизы в базе')
     competences = Field(attribute='competences', column_name='Формируемые компетенции')
     in_archive = Field(attribute="in_archive", column_name="Архивный")
     roo_status = Field(attribute="roo_status", column_name="Статус загрузки на РОО")
@@ -128,16 +126,7 @@ class CourseResource(resources.ModelResource):
 
     def dehydrate_course_link_all(self, course):
         course_link = "http://openedu.urfu.ru/roo/"+str(course.pk)
-        # for activ in course.activities.all():
-        #     activs += activ.title + "\n"
         return course_link
-
-    # def dehydrate_expertises(self, expertises):
-    #     ex_links = expertises[0].pk
-    #     # for idx,ex in expertises.filter(course=course):
-    #     #     ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
-    #     return ex_links
-
 
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):

@@ -59,7 +59,7 @@ class CourseResource(resources.ModelResource):
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
     institution__title = Field(attribute='institution__title', column_name='Правообладатель')
-    get_expertises = Field(attribute='get_expertises', column_name='rcgthnbps')
+    get_expertises = Field(attribute='get_expertises', column_name='Ссылки на обязательные эксертизы в базе')
 
     directions_all = Field(column_name='Массив идентификаторов направлений')
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')

@@ -390,8 +390,12 @@ class Course(models.Model):
     in_archive = models.BooleanField("Курс находится в архиве", default=False)
     course_item_url = models.CharField("Ссылка на РОО", max_length=512, blank=True, null=True)
 
-    def get_expertises(self):
-        return Expertise.objects.filter(course=self)
+    def get_required_expertises_links(self):
+        ex_links = ""
+        for idx, ex in Expertise.objects.filter(course=self, type="0"):
+            ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
+        return ex_links
+
 
     def append_identaical(self, x):
         if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:

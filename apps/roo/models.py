@@ -390,6 +390,9 @@ class Course(models.Model):
     in_archive = models.BooleanField("Курс находится в архиве", default=False)
     course_item_url = models.CharField("Ссылка на РОО", max_length=512, blank=True, null=True)
 
+    def get_expertises(self):
+        return Expertise.objects.filter(course=self)
+
     def append_identaical(self, x):
         if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:
             identical_list = json.loads(self.identical)

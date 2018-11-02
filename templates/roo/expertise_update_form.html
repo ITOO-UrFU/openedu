@@ -130,7 +130,7 @@
             <tbody>
             <tr>
                 <td>Трудоемкость</td>
-                <td></td>
+                <td>{{ expertise.course.labor }}</td>
                 <td>{% render_field form.has_labor %}</td>
             </tr>
             <tr>
@@ -140,12 +140,12 @@
             </tr>
             <tr>
                 <td>Результаты обучения</td>
-                <td>{{ course.results }}</td>
+                <td>{{ expertise.course.results }}</td>
                 <td>{% render_field form.has_results %}</td>
             </tr>
             <tr>
                 <td>Оценочные средства</td>
-                <td></td>
+                <td>{{ expertise.course.evaluation_tools_text }}</td>
                 <td>{% render_field form.has_evaluation_tools %}</td>
             </tr>
             <tr>

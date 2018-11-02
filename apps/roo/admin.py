@@ -131,11 +131,11 @@ class CourseResource(resources.ModelResource):
         #     activs += activ.title + "\n"
         return course_link
 
-    def dehydrate_expertises(self, course):
-        ex_links = "expertises" + self
+    def dehydrate_expertises(self, expertises):
+        ex_links = expertises
         # for idx,ex in expertises.filter(course=course):
         #     ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
-        return ex_links
+        return expertises
 
 
 @admin.register(Course)

@@ -36,10 +36,7 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 
 
 class CourseResource(resources.ModelResource):
-    # expertise_status = Field(
-    #     attribute='get_expertise_status_display',
-    #     column_name='Статус экспертизы'
-    # )
+
 
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
@@ -51,7 +48,10 @@ class CourseResource(resources.ModelResource):
     in_archive = Field(attribute="in_archive", column_name="Архивный")
     roo_status = Field(attribute="roo_status", column_name="Статус загрузки на РОО")
     results = Field(attribute="results", column_name="Результаты обучения")
-    expertise_status = Field(attribute="expertise_status")
+    expertise_status = Field(
+        attribute='get_expertise_status_display',
+        column_name='Статус экспертизы'
+    )
     course_item_url = Field(attribute="course_item_url", column_name="Ссылка на РОО")
 
     class Meta:

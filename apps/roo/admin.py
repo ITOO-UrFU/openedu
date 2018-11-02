@@ -133,7 +133,7 @@ class CourseResource(resources.ModelResource):
 
     def dehydrate_ex_link_all(self, course, expertises):
         ex_links = ""
-        for idx,ex in expertises.objects.filter(course=course):
+        for idx,ex in expertises.filter(course=course):
             ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
         return ex_links
 

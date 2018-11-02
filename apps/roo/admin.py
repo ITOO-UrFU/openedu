@@ -54,7 +54,7 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
      #    )
 
 class CourseResource(resources.ModelResource):
-    expertises = fields.Field(attribute='expertises__pk', widget=ManyToManyWidget(Expertise))
+    expertises = fields.Field(widget=ManyToManyWidget(Expertise))
 
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
@@ -132,10 +132,10 @@ class CourseResource(resources.ModelResource):
         return course_link
 
     def dehydrate_expertises(self, expertises):
-        ex_links = expertises
+        ex_links = expertises[0].pk
         # for idx,ex in expertises.filter(course=course):
         #     ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
-        return expertises
+        return ex_links
 
 
 @admin.register(Course)

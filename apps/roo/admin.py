@@ -125,7 +125,7 @@ class CourseResource(resources.ModelResource):
         return activs
 
     def dehydrate_course_link_all(self, course):
-        course_link = "http://openedu.urfu.ru/roo/"+course.pk
+        course_link = "http://openedu.urfu.ru/roo/"+str(course.pk)
         # for activ in course.activities.all():
         #     activs += activ.title + "\n"
         return course_link
@@ -133,7 +133,7 @@ class CourseResource(resources.ModelResource):
     def ex_link_all(self, course):
         ex_links = ""
         for idx,ex in Expertise.objects.filter(course=course):
-            ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + ex.pk + "/"
+            ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
 
 
 @admin.register(Course)

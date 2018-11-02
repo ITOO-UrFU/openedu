@@ -62,7 +62,7 @@ class CourseResource(resources.ModelResource):
     directions_all = Field(column_name='Массив идентификаторов направлений')
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')
     course_link_all = Field(column_name='Курс в базе')
-    ex_link_all = Field(column_name='Обязательные экспертизы в базе ')
+    ex_link_all = Field(column_name='Обязательные экспертизы в базе')
     competences = Field(attribute='competences', column_name='Формируемые компетенции')
     in_archive = Field(attribute="in_archive", column_name="Архивный")
     roo_status = Field(attribute="roo_status", column_name="Статус загрузки на РОО")
@@ -130,10 +130,11 @@ class CourseResource(resources.ModelResource):
         #     activs += activ.title + "\n"
         return course_link
 
-    def ex_link_all(self, course):
+    def dehydrate_ex_link_all(self, course):
         ex_links = ""
         for idx,ex in Expertise.objects.filter(course=course):
             ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
+        return ex_links
 
 
 @admin.register(Course)

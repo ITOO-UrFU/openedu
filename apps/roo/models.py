@@ -393,7 +393,7 @@ class Course(models.Model):
     def get_required_expertises_links(self):
         ex_links = ""
         exs = Expertise.objects.filter(course=self, type="0")
-        for idx, ex in exs:
+        for idx, ex in enumerate(exs):
             ex_links += ("\n" if idx > 0 else "") + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
         return ex_links
 

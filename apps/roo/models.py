@@ -860,14 +860,6 @@ class CoursesTable(tables.Table):
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     image = tables.TemplateColumn('<img src="{{record.image}}" height="100"/>')
-    # roo_status = ChoiceColumn(Course.ROO_STATES)
-    # communication_owner = ChoiceColumn(Course.COMMUNICATION_OWNER_STATES)
-    # communication_platform = ChoiceColumn(Course.COMMUNICATION_PLATFORM_STATES)
-    # expertise_status = ChoiceColumn(Course.EX_STATES)
-    # passport_status = ChoiceColumn(Course.PASSPORT_STATES)
-    # required_ratings_state = ChoiceColumn(Course.REQUIRED_RATINGS_STATES)
-    # unforced_ratings_state = ChoiceColumn(Course.UNFORCED_RATINGS_STATES)
-
 
 class ExpertisesTable(tables.Table):
     class Meta:

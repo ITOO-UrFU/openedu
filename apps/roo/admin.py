@@ -54,7 +54,7 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
      #    )
 
 class CourseResource(resources.ModelResource):
-    expertises = fields.Field(attribute='expertises', widget=ManyToManyWidget(Expertise))
+    expertises = fields.Field(attribute='expertises__pk', widget=ManyToManyWidget(Expertise))
 
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')

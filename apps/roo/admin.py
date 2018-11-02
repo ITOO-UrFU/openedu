@@ -59,6 +59,7 @@ class CourseResource(resources.ModelResource):
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
     institution__title = Field(attribute='institution__title', column_name='Правообладатель')
+    get_expertises = Field(attribute='get_expertises', column_name='Правообладатель')
 
     directions_all = Field(column_name='Массив идентификаторов направлений')
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')
@@ -105,7 +106,7 @@ class CourseResource(resources.ModelResource):
 
     class Meta:
         model = Course
-        fields = ('title', 'institution__title', 'partner__title', 'course_link_all', 'expertises', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
+        fields = ('title', 'institution__title', 'partner__title', 'course_link_all', 'get_expertises', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
 
     def dehydrate_directions_all(self, course):
         dirs = ""
@@ -131,11 +132,11 @@ class CourseResource(resources.ModelResource):
         #     activs += activ.title + "\n"
         return course_link
 
-    def dehydrate_expertises(self, expertises):
-        ex_links = expertises[0].pk
-        # for idx,ex in expertises.filter(course=course):
-        #     ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
-        return ex_links
+    # def dehydrate_expertises(self, expertises):
+    #     ex_links = expertises[0].pk
+    #     # for idx,ex in expertises.filter(course=course):
+    #     #     ex_links += "\n" if idx > 0 else "" + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
+    #     return ex_links
 
 
 @admin.register(Course)

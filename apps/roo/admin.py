@@ -100,11 +100,23 @@ class CourseResource(resources.ModelResource):
         column_name='Статус коммуникации с платформой'
     )
 
+    ###
+    passport_responsible = Field(
+        attribute='get_passport_responsible_display',
+        column_name='Ответсвенный за паспорт'
+    )
+    comment = Field(attribute='comment', column_name='Примечание Шарыпова-Рачёва')
+
+    platform_responsible_comment = Field(attribute='platform_responsible_comment', column_name='Комментарий ответсвенного за платформу')
+    owner_responsible_comment = Field(attribute='owner_responsible_comment', column_name='Комментарий ответсвенного за правообладателя')
+
+    ###
+
     course_item_url = Field(attribute="course_item_url", column_name="Ссылка на РОО")
 
     class Meta:
         model = Course
-        fields = ('title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links', 'competences', 'directions_all', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
+        fields = ('title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links', 'competences', 'directions_all', 'comment', 'passport_responsible', 'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
 
     def dehydrate_directions_all(self, course):
         dirs = ""

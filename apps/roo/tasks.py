@@ -40,5 +40,11 @@ def update_direction_from_roo_task(*args):
     # logger.info("Direction Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
     Direction.get()
 
+
+@app.task(bind=True)
+def courses_set_identical_task(*args):
+    # logger.info("Areas Начали: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
+    Course.find_duplicates()
+
 # app.control.rate_limit('roo.tasks,update_courses_from_roo_task', '5/m')
 # app.control.rate_limit('roo.tasks,update_platform_from_roo_task', '5/m')

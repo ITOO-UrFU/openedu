@@ -1,5 +1,6 @@
 # from time import gmtime, strftime
 import json
+
 import django_tables2 as tables
 import requests
 # from django.db import models
@@ -449,6 +450,12 @@ class Course(models.Model):
                 return f"<img height=\"100\" src=\"{self.partner.image}\"></img><p>{self.partner.title}</p>"
 
     @classmethod
+    def find_duplicates(cls):
+        for c in cls.objects.filter(in_archive=False):
+            c.set_identical()
+            c.save()
+
+    @classmethod
     def get_passport_responsibles(cls):
         rs = []
         for r in cls.passport_responsible_STATES[1:]:
@@ -593,7 +600,6 @@ class Course(models.Model):
                     # if len(roo_courses) > 0:
                     #     roo_course = roo_courses.first()
                     # else:
-
 
                 if roo_course:
                     if not roo_course.newest:

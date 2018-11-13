@@ -1,10 +1,10 @@
-from django.contrib import admin
-from reversion.admin import VersionAdmin
 from advanced_filters.admin import AdminAdvancedFiltersMixin
-from django.utils.html import format_html
+from django.conf.urls import url
+from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
-from django.conf.urls import url
+from django.utils.html import format_html
+from reversion.admin import VersionAdmin
 
 from .models import Entry, PersonalData, Program, QuotesAvailable, Report, ReportEntry, CourseUserGrade, PDAvailable, \
     SimulizatorData, ProctoredReportEntry, SeminarData
@@ -29,12 +29,15 @@ class SimulizatorDataAdmin(admin.ModelAdmin):
 
 @admin.register(Program)
 class ProgramAdmin(VersionAdmin):
-    list_display = ('title', 'course_id', 'session', 'active', 'has_report', 'start', 'get_url', 'program_actions')
+    list_display = ('title', 'course_id', 'session', 'active', 'has_report', 'start', 'get_url', 'get_data_download', 'program_actions')
     search_fields = ('course_id', 'session', 'active')
     list_filter = ('course_id', 'session', 'active', 'start')
 
     def get_url(self, obj):
-        return f"<a class='button' href=\"https://courses.openprofession.ru/courses/course-v1:{obj.org}+{obj.course_id}+{obj.session}/courseware/\" target=\"_blank\">Courseware</a>"
+        return f"<a class='button' href=\"https://learn.openprofession.ru/courses/course-v1:{obj.org}+{obj.course_id}+{obj.session}/courseware/\" target=\"_blank\">Courseware</a>"
+
+    def get_data_download(self, obj):
+        return f"<a class='button' href=\"https://learn.openprofession.ru/courses/course-v1:{obj.org}+{obj.course_id}+{obj.session}/instructor#view-data_download\" target=\"_blank\">Скачивание данных</a>"
 
     get_url.allow_tags = True
     get_url.short_description = "Ссылки"

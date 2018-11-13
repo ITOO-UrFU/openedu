@@ -42,6 +42,9 @@ class ProgramAdmin(VersionAdmin):
     get_url.allow_tags = True
     get_url.short_description = "Ссылки"
 
+    get_data_download.allow_tags = True
+    get_data_download.short_description = "Скачивание данных"
+
     def program_actions(self, obj):
         if obj.active:
             return format_html(

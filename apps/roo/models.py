@@ -391,6 +391,14 @@ class Course(models.Model):
     in_archive = models.BooleanField("Курс находится в архиве", default=False)
     course_item_url = models.CharField("Ссылка на РОО", max_length=512, blank=True, null=True)
 
+    def get_required_expertises_links(self):
+        ex_links = ""
+        exs = Expertise.objects.filter(course=self, type="0")
+        for idx, ex in enumerate(exs):
+            ex_links += ("\n" if idx > 0 else "") + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
+        return ex_links
+
+
     def append_identaical(self, x):
         if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:
             identical_list = json.loads(self.identical)
@@ -866,14 +874,6 @@ class CoursesTable(tables.Table):
     description = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     image = tables.TemplateColumn('<img src="{{record.image}}" height="100"/>')
-    # roo_status = ChoiceColumn(Course.ROO_STATES)
-    # communication_owner = ChoiceColumn(Course.COMMUNICATION_OWNER_STATES)
-    # communication_platform = ChoiceColumn(Course.COMMUNICATION_PLATFORM_STATES)
-    # expertise_status = ChoiceColumn(Course.EX_STATES)
-    # passport_status = ChoiceColumn(Course.PASSPORT_STATES)
-    # required_ratings_state = ChoiceColumn(Course.REQUIRED_RATINGS_STATES)
-    # unforced_ratings_state = ChoiceColumn(Course.UNFORCED_RATINGS_STATES)
-
 
 class ExpertisesTable(tables.Table):
     class Meta:

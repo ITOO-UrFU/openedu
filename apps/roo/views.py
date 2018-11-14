@@ -637,12 +637,6 @@ def send_course(request, course_id):
 
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-        SendedCourse.objects.create(
-            title=course.title,
-            course_json=passport,
-            expertise_json=expertise_json
-        )
-
         r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
         prepared = r.prepare()
         _pretty_print(prepared)
@@ -651,6 +645,11 @@ def send_course(request, course_id):
         resp = s.send(prepared)
 
         if resp.status_code == '200':
+            SendedCourse.objects.create(
+                title=course.title,
+                course_json=passport,
+                expertise_json=expertise_json
+            )
             return JsonResponse(resp.json())
         else:
             return JsonResponse({"status": resp.status_code, "data": passport})

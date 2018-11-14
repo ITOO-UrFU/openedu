@@ -636,7 +636,10 @@ def send_course(request, course_id):
         )
 
         r = requests.post('https://online.edu.ru/api/courses/v0/course', auth=HTTPBasicAuth('user', 'pass'), data=passport)
-        return JsonResponse(r.json())
+        if r.status_code == '200':
+            return JsonResponse(r.json())
+        else:
+            return JsonResponse({"status": r.status_code})
 
 
 def TableCourseUpdate(request):

@@ -642,7 +642,7 @@ def send_course(request, course_id):
             expertise_json=expertise_json
         )
 
-        r = requests.Request('https://online.edu.ru/api/courses/v0/course', auth=('vesloguzov', 'ye;yj,jkmitrjlf'), json=passport)
+        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', auth=('vesloguzov', 'ye;yj,jkmitrjlf'), json=passport)
         prepared = r.prepare()
         _pretty_print(prepared)
 

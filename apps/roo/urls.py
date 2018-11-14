@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)', CourseUpdate.as_view(), name="detail"),
     url(r'^expertise/(?P<pk>\d+)/$', ExpertiseUpdate.as_view(), name="detail"),
     url(r'course_json/(?P<course_id>\d+)/$', course_json, name='course_json'),
+    url(r'send_course/(?P<course_id>\d+)/$', send_course, name='send_course'),
     url(r'^merge/(?P<pk_1>\d+)/(?P<pk_2>\d+)/$', merge, name="merge"),
     url(r'data/$', data, name='data'),
     url(r'some_view/', some_view, name='some_view'),

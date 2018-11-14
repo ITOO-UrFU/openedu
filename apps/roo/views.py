@@ -643,12 +643,11 @@ def send_course(request, course_id):
             expertise_json=expertise_json
         )
 
-        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvOl9fX0NhbnRkM3N0cm9Z'}, json=passport)
+        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdjp5ZTt5aixqa21pdHJqbGY='}, json=passport)
         prepared = r.prepare()
         _pretty_print(prepared)
 
         s = requests.Session()
-        # s.auth = ('vesloguzov', 'ye;yj,jkmitrjlf')
         resp = s.send(prepared)
 
         if resp.status_code == '200':

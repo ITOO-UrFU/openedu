@@ -2,6 +2,7 @@
 import csv
 import string
 
+import requests
 from django import forms
 from django.contrib.auth.models import User
 from django.core.serializers import serialize
@@ -11,6 +12,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
+from requests.auth import HTTPBasicAuth
 
 from .decorators import roo_member_required
 from .models import \
@@ -633,13 +635,16 @@ def send_course(request, course_id):
             expertise_json=expertise_json
         )
 
+        r = requests.post('https://online.edu.ru/api/courses/v0/course', auth=HTTPBasicAuth('user', 'pass'), data=passport)
+        return JsonResponse(r.json())
+
 
 def TableCourseUpdate(request):
     if request.method == "POST":
         request_data = json.loads(request.body)
         course = Course.objects.get(pk=request_data['pk'])
         # course.credits = request_data['credits']
-        # course.record_end_at = request_data['record_end_at']
+        # course.record_end_at = request_data['record_end_at']k
         # course.title = request_data['title']
         # course.image = request_data['image']
         # course.created_at = request_data['created_at']

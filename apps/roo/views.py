@@ -631,7 +631,7 @@ def send_course(request, course_id):
         new_course['business_version'] = new_course["version"]
         del new_course['directions']
         del new_course['lectures_number']
-        del new_course['global_id']
+        # del new_course['global_id']
 
         new_course['pk'] = struct['pk']
 

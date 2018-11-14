@@ -891,7 +891,7 @@ class SendedCourse(models.Model):
     title = models.CharField("Наименование", blank=False, null=False, max_length=2048)
     course_json = models.TextField("Отправленный JSON", blank=False, null=False)
     expertise_json = models.TextField("JSON обязательной экспертизы", blank=False, null=False)
-    date = models.DateTimeField("Дата и время отправки", auto_created=True)
+    date = models.DateTimeField("Дата и время отправки", auto_now_add=True)
 
     def __str__(self):
         return self.title

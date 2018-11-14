@@ -1,8 +1,7 @@
 from django.contrib import admin
-from import_export import resources, fields
+from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
-from import_export.widgets import ManyToManyWidget
 
 from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, \
     EvaluationTool, ProctoringService
@@ -38,23 +37,22 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 #                                            choices=COMMUNICATION_OWNER_STATES, default="0")
 #     communication_platform = models.CharField("Статус коммуникации с платформой", max_length=1,
 #                                               choices=COMMUNICATION_PLATFORM_STATES, default="0")
-    # expertise_status = models.CharField("Статус экспертизы", max_length=1, choices=EX_STATES, default="0")
-    # passport_status = models.CharField("Статус паспорта", max_length=1, choices=PASSPORT_STATES, default="0")
-    # roo_status = models.CharField("Статус загрузки на роо", max_length=1, choices=ROO_STATES, default="0")
-    # required_ratings_state = models.CharField("Состояние загрузки обязательных оценок", max_length=1,
-    #                                           choices=REQUIRED_RATINGS_STATES, default="0")
-    # unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
-    #                                           choices=UNFORCED_RATINGS_STATES, default="0")
-    # comment = models.TextField("Примечание Шарыпова-Рачёва", blank=True, null=True)
-    # expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES,
-    #                                  max_length=1, default="0")
-     # = Field(
-     #        attribute='get__display',
-     #        column_name=''
-     #    )
+# expertise_status = models.CharField("Статус экспертизы", max_length=1, choices=EX_STATES, default="0")
+# passport_status = models.CharField("Статус паспорта", max_length=1, choices=PASSPORT_STATES, default="0")
+# roo_status = models.CharField("Статус загрузки на роо", max_length=1, choices=ROO_STATES, default="0")
+# required_ratings_state = models.CharField("Состояние загрузки обязательных оценок", max_length=1,
+#                                           choices=REQUIRED_RATINGS_STATES, default="0")
+# unforced_ratings_state = models.CharField("Состояние загрузки добровольных оценок", max_length=1,
+#                                           choices=UNFORCED_RATINGS_STATES, default="0")
+# comment = models.TextField("Примечание Шарыпова-Рачёва", blank=True, null=True)
+# expert_access = models.CharField("Доступ к курсу для экспертов обязательной оценки", choices=EX_ACCESSES,
+#                                  max_length=1, default="0")
+# = Field(
+#        attribute='get__display',
+#        column_name=''
+#    )
 
 class CourseResource(resources.ModelResource):
-
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
     institution__title = Field(attribute='institution__title', column_name='Правообладатель')
@@ -118,7 +116,9 @@ class CourseResource(resources.ModelResource):
 
     class Meta:
         model = Course
-        fields = ('title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links', 'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible', 'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status', 'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
+        fields = (
+        'title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links', 'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible', 'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status',
+        'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
 
     def dehydrate_directions_all(self, course):
         dirs = ""
@@ -139,8 +139,9 @@ class CourseResource(resources.ModelResource):
         return activs
 
     def dehydrate_course_link_all(self, course):
-        course_link = "http://openedu.urfu.ru/roo/"+str(course.pk)
+        course_link = "http://openedu.urfu.ru/roo/" + str(course.pk)
         return course_link
+
 
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
@@ -196,3 +197,8 @@ class AreasAdmin(admin.ModelAdmin):
 class DirectionAdmin(admin.ModelAdmin):
     list_display = ("title", "code", "activity")
     list_filter = ("activity",)
+
+
+@admin.register(Direction)
+class DirectionAdmin(admin.ModelAdmin):
+    list_display = ("title", "date")

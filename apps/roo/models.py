@@ -398,7 +398,6 @@ class Course(models.Model):
             ex_links += ("\n" if idx > 0 else "") + "http://openedu.urfu.ru/roo/expertise/" + str(ex.pk) + "/"
         return ex_links
 
-
     def append_identaical(self, x):
         if str(x.pk) not in [x['id'] for x in json.loads(self.identical)]:
             identical_list = json.loads(self.identical)
@@ -875,6 +874,7 @@ class CoursesTable(tables.Table):
     content = tables.TemplateColumn('{{ record.description | truncatewords_html:5 |safe}}')
     image = tables.TemplateColumn('<img src="{{record.image}}" height="100"/>')
 
+
 class ExpertisesTable(tables.Table):
     class Meta:
         model = Expertise
@@ -885,3 +885,17 @@ class ExpertisesTable(tables.Table):
     course = tables.TemplateColumn(
         '<a href="#" onClick="ExpertiseEdit=window.open(\'http://openedu.urfu.ru/roo/expertise/{{ record.id }}\',\'{{ record.course }}\',width=600,height=300); return false;">{{ record.course }}</a',
         footer="Курс")
+
+
+class SendedCourse(models.Model):
+    title = models.CharField("Наименование", blank=False, null=False, max_length=2048)
+    course_json = models.TextField("Отправленный JSON", blank=False, null=False)
+    expertise_json = models.TextField("JSON обязательной экспертизы", blank=False, null=False)
+    date = models.DateTimeField("Дата и время отправки", auto_created=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'отправленный курс'
+        verbose_name_plural = 'отправленные курсы'

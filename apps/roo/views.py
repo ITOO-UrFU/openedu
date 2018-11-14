@@ -642,17 +642,18 @@ def send_course(request, course_id):
             expertise_json=expertise_json
         )
 
-        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', auth=('vesloguzov', 'ye;yj,jkmitrjlf'), json=passport)
+        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', json=passport)
         prepared = r.prepare()
         _pretty_print(prepared)
 
         s = requests.Session()
-        s.send(prepared)
+        s.auth = ('vesloguzov', 'ye;yj,jkmitrjlf')
+        resp = s.send(prepared)
 
-        if r.status_code == '200':
-            return JsonResponse(r.json())
+        if resp.status_code == '200':
+            return JsonResponse(resp.json())
         else:
-            return JsonResponse({"status": r.status_code})
+            return JsonResponse({"status": resp.status_code})
 
 
 def TableCourseUpdate(request):

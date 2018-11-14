@@ -12,7 +12,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
-from requests.auth import HTTPBasicAuth
+from requests.auth import HTTPBasicAuth, HTTPDigestAuth
 
 from .decorators import roo_member_required
 from .models import \
@@ -635,7 +635,8 @@ def send_course(request, course_id):
             expertise_json=expertise_json
         )
 
-        r = requests.post('https://online.edu.ru/api/courses/v0/course', auth=HTTPBasicAuth('vesloguzov', 'ye;yj,jkmitrjlf'), json=passport)
+        r = requests.post('https://online.edu.ru/api/courses/v0/course', auth=HTTPDigestAuth('vesloguzov', 'ye;yj,jkmitrjlf'), json=passport)
+
         if r.status_code == '200':
             return JsonResponse(r.json())
         else:

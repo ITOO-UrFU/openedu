@@ -635,7 +635,7 @@ def send_course(request, course_id):
             expertise_json=expertise_json
         )
 
-        r = requests.post('https://online.edu.ru/api/courses/v0/course', auth=HTTPBasicAuth('user', 'pass'), data=passport)
+        r = requests.post('https://online.edu.ru/api/courses/v0/course', auth=HTTPBasicAuth('user', 'pass'), json=passport)
         if r.status_code == '200':
             return JsonResponse(r.json())
         else:

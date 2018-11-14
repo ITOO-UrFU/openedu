@@ -4,7 +4,7 @@ from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
 
 from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, \
-    EvaluationTool, ProctoringService
+    EvaluationTool, ProctoringService, SendedCourse
 
 
 @admin.register(Competence)
@@ -199,6 +199,6 @@ class DirectionAdmin(admin.ModelAdmin):
     list_filter = ("activity",)
 
 
-@admin.register(Direction)
-class DirectionAdmin(admin.ModelAdmin):
+@admin.register(SendedCourse)
+class SendedCourseAdmin(admin.ModelAdmin):
     list_display = ("title", "date")

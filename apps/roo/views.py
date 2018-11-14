@@ -12,7 +12,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView, CreateView
 from django_tables2 import RequestConfig
-from requests.auth import HTTPBasicAuth, HTTPDigestAuth
 
 from .decorators import roo_member_required
 from .models import \
@@ -592,6 +591,14 @@ def course_json(request, course_id):
 
 
 def send_course(request, course_id):
+    def _pretty_print(req):
+        print('{}\n{}\n{}\n\n{}'.format(
+            '-----------START-----------',
+            req.method + ' ' + req.url,
+            '\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+            req.body,
+        ))
+
     if request.method == "GET":
         course = Course.objects.get(pk=course_id)
         expertises = Expertise.objects.filter(course=course, type="0")
@@ -635,7 +642,12 @@ def send_course(request, course_id):
             expertise_json=expertise_json
         )
 
-        r = requests.post('https://online.edu.ru/api/courses/v0/course', auth=('vesloguzov', 'ye;yj,jkmitrjlf'), json=passport)
+        r = requests.Request('https://online.edu.ru/api/courses/v0/course', auth=('vesloguzov', 'ye;yj,jkmitrjlf'), json=passport)
+        prepared = r.prepare()
+        _pretty_print(prepared)
+
+        s = requests.Session()
+        s.send(prepared)
 
         if r.status_code == '200':
             return JsonResponse(r.json())

@@ -600,6 +600,10 @@ def send_course(request, course_id):
         ))
 
     if request.method == "GET":
+
+        if not request.user.is_superuser:
+            return JsonResponse({"status": "Not allowed"}, status=403)
+
         course = Course.objects.get(pk=course_id)
         expertises = Expertise.objects.filter(course=course, type="0")
         expertise_json = serialize('json', expertises)

@@ -600,6 +600,7 @@ def send_course(request, course_id):
         ))
 
     if request.method == "GET":
+        print(request.user.is_superuser)
 
         if not request.user.is_superuser:
             return JsonResponse({"status": "Not allowed"}, status=403)

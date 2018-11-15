@@ -472,6 +472,7 @@ def data(request):
         context["owners_count"] = Owner.objects.all().count()
         context["need_admin_owner"] = Course.objects.filter(communication_owner="2").count()
         context["need_platform_owner"] = Course.objects.filter(communication_platform="2").count()
+        context["has_access_count"] = Course.objects.filter(expert_access="2").count()
 
         for tasks in i.active().values():
             context["active"] += tasks

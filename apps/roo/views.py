@@ -651,13 +651,14 @@ def send_course(request, course_id):
 
         if new_course["global_id"]:
             new_course["id"] = new_course["global_id"]
-        # del new_course['global_id']
+
+        del new_course['pk']
 
         new_course['pk'] = struct['pk']
 
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+        r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
         prepared = r.prepare()
         _pretty_print(prepared)
 

@@ -637,6 +637,15 @@ def send_course(request, course_id):
         new_course['business_version'] = new_course["version"]
         del new_course['directions']
         del new_course['lectures_number']
+
+        if not new_course["started_at"]:
+            del new_course["started_at"]
+        if not new_course["finished_at"]:
+            del new_course["finished_at"]
+        if not new_course["record_end_at"]:
+            del new_course["record_end_at"]
+        if not new_course["created_at"]:
+            del new_course["created_at"]
         # del new_course['global_id']
 
         new_course['pk'] = struct['pk']

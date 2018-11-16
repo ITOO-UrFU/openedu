@@ -81,7 +81,7 @@
                 success: function (result) {
                     console.log(result);
                     if(result.status.toString() === "200"){
-                        alert("Курс отправлен" + "ид курса" );
+                        alert("Курс отправлен " + result.course_id );
                     }
                     else{
                         alert("Ошибка от РОО");

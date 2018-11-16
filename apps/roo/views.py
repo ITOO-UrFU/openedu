@@ -661,6 +661,87 @@ def send_course(request, course_id):
         s = requests.Session()
         resp = s.send(prepared)
 
+        if resp.status_code == 200:
+            SendedCourse.objects.create(
+                title=course.title,
+                course_json=passport,
+                expertise_json=expertise_json
+            )
+            return JsonResponse(resp.json())
+        else:
+            return JsonResponse({"status": resp.status_code, "data": passport})
+
+
+def update_course(request, course_id):
+    def _pretty_print(req):
+        print('{}\n{}\n{}\n\n{}'.format(
+            '-----------START-----------',
+            req.method + ' ' + req.url,
+            '\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+            req.body,
+        ))
+
+    if request.method == "GET":
+        print(request.user, request.user.is_superuser)
+
+        if not request.user.is_superuser:
+            return JsonResponse({"status": "Not allowed"}, status=403)
+
+        course = Course.objects.get(pk=course_id)
+        expertises = Expertise.objects.filter(course=course, type="0")
+        expertise_json = serialize('json', expertises)
+        data = serialize('json', [course, ])
+        struct = json.loads(data)[0]
+
+        new_course = struct['fields']
+        new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
+        new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
+        new_course['lectures'] = int(new_course['lectures_number'])
+        if new_course['has_sertificate'] == "1":
+            new_course['cert'] = True
+        else:
+            new_course['cert'] = False
+        new_course["promo_url"] = ""
+        new_course["promo_lang"] = ""
+        new_course["subtitles_lang"] = ""
+        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
+        new_course["proctoring_service"] = ""
+        new_course["sessionid"] = ""
+
+        new_course["enrollment_finished_at"] = new_course["record_end_at"]
+
+        new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
+
+        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
+
+        new_course['business_version'] = new_course["version"]
+        del new_course['directions']
+        del new_course['lectures_number']
+
+        if not new_course["started_at"]:
+            del new_course["started_at"]
+        if not new_course["finished_at"]:
+            del new_course["finished_at"]
+        if not new_course["record_end_at"]:
+            del new_course["record_end_at"]
+        if not new_course["created_at"]:
+            del new_course["created_at"]
+        if not new_course["enrollment_finished_at"]:
+            del new_course["enrollment_finished_at"]
+        # del new_course['global_id']
+
+        new_course['pk'] = struct['pk']
+
+        passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
+
+        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+        prepared = r.prepare()
+        _pretty_print(prepared)
+
+        s = requests.Session()
+        resp = s.send(prepared)
+
         if resp.status_code == '200':
             SendedCourse.objects.create(
                 title=course.title,

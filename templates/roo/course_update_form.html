@@ -18,7 +18,7 @@
         </form>
 
     {% if request.user.is_superuser %}
-        <button>послать на РОО</button>
+        <button id="send_too_ROO">послать на РОО</button>
     {% endif %}
 
         <div class="ui right rail">
@@ -73,6 +73,28 @@
     </div>
     <script>
         $('.ui.dropdown').dropdown({fullTextSearch: "exact", allowAdditions: true});
+        
+        $('#send_too_ROO').click(function () {
+            $.ajax({
+                type: "GET",
+                url: '/roo/send_course'+{{ course_id }},
+                success: function (result) {
+                    console.log(result);
+                    if(result.status.toString() === "200"){
+                        alert("Курс отправлен" + "ид курса" );
+                    }
+                    else{
+                        alert("Ошибка от РОО");
+                    }
+                },
+                error: function (jqXHR) {
+                    alert("Ошибка");
+                    console.log(jqXHR);
+                },
+                contentType: 'application/json; charset=utf-8'
+            });
+        })
+        
     </script>
 
 {% endblock %}

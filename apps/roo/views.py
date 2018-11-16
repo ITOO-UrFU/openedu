@@ -671,14 +671,16 @@ def send_course(request, course_id):
                 course_json=passport,
                 expertise_json=expertise_json
             )
+        print(str(resp))
 
-            course_id = resp.json().get('course_id', None)
-            if course_id:
-                course.global_id = course_id
-                course.save()
-            return JsonResponse({"status": resp.status_code, "course_id": course_id,"resp_raw": str(resp.json()) })
-        else:
-            return JsonResponse({"status": resp.status_code, "data": passport, "resp_raw": str(resp.json())})
+        return JsonResponse({"status": resp.status_code, "resp_raw": str(resp)})
+        #     course_id = resp.json().get('course_id', None)
+        #     if course_id:
+        #         course.global_id = course_id
+        #         course.save()
+        #     return JsonResponse({"status": resp.status_code, "course_id": course_id,"resp_raw": str(resp.json())})
+        # else:
+        #     return JsonResponse({"status": resp.status_code, "data": passport, "resp_raw": str(resp.json())})
 
 
 def update_course(request, course_id):

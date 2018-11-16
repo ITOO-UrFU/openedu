@@ -17,6 +17,10 @@
             <button class="ui submit button">Submit</button>
         </form>
 
+    {% if request.user.is_superuser %}
+        <button>послать на РОО</button>
+    {% endif %}
+
         <div class="ui right rail">
             <div class="ui segment">
                 <h2>Экспертизы:</h2>

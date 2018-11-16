@@ -652,7 +652,7 @@ def send_course(request, course_id):
         if new_course["global_id"]:
             new_course["id"] = new_course["global_id"]
 
-        del new_course['pk']
+        # del new_course['pk']
 
         new_course['pk'] = struct['pk']
 

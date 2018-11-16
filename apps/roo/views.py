@@ -675,7 +675,7 @@ def send_course(request, course_id):
             course.save()
             return JsonResponse({"status": resp.status_code, "course_id": resp.json()['course_id']})
         else:
-            return JsonResponse({"status": resp.status_code, "data": passport})
+            return JsonResponse({"status": resp.status_code, "data": passport, "resp_raw": resp})
 
 
 def update_course(request, course_id):

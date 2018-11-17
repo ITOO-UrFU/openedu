@@ -658,7 +658,7 @@ def send_course(request, course_id):
 
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-        r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
         prepared = r.prepare()
         _pretty_print(prepared)
 
@@ -674,7 +674,7 @@ def send_course(request, course_id):
 
         print(str(resp))
 
-        return JsonResponse({"status": resp.status_code, "resp_raw": str(resp), "data": passport})
+        return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
 
 
 def update_course(request, course_id):

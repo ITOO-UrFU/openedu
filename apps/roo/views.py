@@ -670,7 +670,7 @@ def send_course(request, course_id):
 
             course.global_id = resp.json()['course_id']
             course.save()
-            return JsonResponse({"status": resp.status_code, "course_id": resp.json()['course_id']})
+            return JsonResponse({"status": resp.status_code, "course_id": resp.json()['course_id'], "data": passport})
         else:
             return JsonResponse({"status": resp.status_code, "data": passport})
 
@@ -738,7 +738,7 @@ def update_course(request, course_id):
 
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+        r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
         prepared = r.prepare()
         _pretty_print(prepared)
 

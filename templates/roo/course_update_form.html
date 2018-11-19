@@ -80,16 +80,15 @@
                     type: "GET",
                     url: '/roo/send_course/'+{{ course_id }},
                     success: function (result) {
-                        console.log(result);
                         if(result.status.toString() === "200"){
                             alert("Курс отправлен " + result.course_id );
                         }
                         else{
-                            alert("Ошибка от РОО");
+                            alert("Курс не отправлен " + result.exception );
                         }
                     },
                     error: function (jqXHR) {
-                        alert(jqXHR);
+                        alert("Ошибка");
                         console.log(jqXHR);
                     },
                     contentType: 'application/json; charset=utf-8'

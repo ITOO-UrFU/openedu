@@ -589,7 +589,7 @@ def send_course(request, course_id):
 
             return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
         except Exception as e:
-            return JsonResponse({"exception": str(e)}, status=500)
+            return JsonResponse({"exception": str(e)}, status=200)
 
 
 def TableCourseUpdate(request):

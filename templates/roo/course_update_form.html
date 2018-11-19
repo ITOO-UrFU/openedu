@@ -84,7 +84,7 @@
                             alert("Курс отправлен " + result.course_id);
                         }
                         else if (result.status.toString() === "206") {
-                            alert("Курс не отправлен " + result.exception);
+                            alert("Курс не отправлен: \n\n" + result.exception);
                         }
                         else {
                             alert("Ошибка")

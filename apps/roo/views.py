@@ -571,7 +571,7 @@ def send_course(request, course_id):
             if new_course.get("global_id", True):
                 print("Обновляем курс", course.global_id is None)
                 new = False
-                new_course["id"] = new_course["global_id"]
+                new_course["id"] = course.global_id
                 r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
             else:
                 print("Отправляем новый курс", course.global_id)

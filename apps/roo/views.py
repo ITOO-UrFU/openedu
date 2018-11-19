@@ -510,83 +510,86 @@ def send_course(request, course_id):
         ))
 
     if request.method == "GET":
-        if not request.user.is_superuser:
-            return JsonResponse({"status": "Not allowed"}, status=403)
+        try:
+            if not request.user.is_superuser:
+                return JsonResponse({"status": "Not allowed"}, status=403)
 
-        course = Course.objects.get(pk=course_id)
-        expertises = Expertise.objects.filter(course=course, type="0")
-        expertise_json = serialize('json', expertises)
-        data = serialize('json', [course, ])
-        struct = json.loads(data)[0]
+            course = Course.objects.get(pk=course_id)
+            expertises = Expertise.objects.filter(course=course, type="0")
+            expertise_json = serialize('json', expertises)
+            data = serialize('json', [course, ])
+            struct = json.loads(data)[0]
 
-        new_course = struct['fields']
-        new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
-        new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
+            new_course = struct['fields']
+            new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
+            new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
 
-        if new_course['lectures_number']:
-            new_course['lectures'] = int(new_course['lectures_number'])
+            if new_course['lectures_number']:
+                new_course['lectures'] = int(new_course['lectures_number'])
 
-        if new_course['has_sertificate'] == "1":
-            new_course['cert'] = True
-        else:
-            new_course['cert'] = False
+            if new_course['has_sertificate'] == "1":
+                new_course['cert'] = True
+            else:
+                new_course['cert'] = False
 
-        new_course["promo_url"] = ""
-        new_course["promo_lang"] = ""
-        new_course["subtitles_lang"] = ""
-        new_course["proctoring_service"] = ""
-        new_course["sessionid"] = ""
+            new_course["promo_url"] = ""
+            new_course["promo_lang"] = ""
+            new_course["subtitles_lang"] = ""
+            new_course["proctoring_service"] = ""
+            new_course["sessionid"] = ""
 
-        new_course["enrollment_finished_at"] = new_course["record_end_at"]
-        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
+            new_course["enrollment_finished_at"] = new_course["record_end_at"]
+            new_course["estimation_tools"] = new_course["evaluation_tools_text"]
 
-        new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
-        new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
-        new_course['business_version'] = new_course["version"]
+            new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
+            new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
+            new_course['business_version'] = new_course["version"]
 
-        del new_course['directions']
-        del new_course['lectures_number']
+            del new_course['directions']
+            del new_course['lectures_number']
 
-        dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
+            dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
 
-        for d in dates:
-            if not new_course[d]:
-                del new_course[d]
+            for d in dates:
+                if not new_course[d]:
+                    del new_course[d]
 
-        if "ру" in new_course["language"]:
-            new_course["language"] = 'ru'
+            if "ру" in new_course["language"]:
+                new_course["language"] = 'ru'
 
-        if "н" in new_course["duration"]:
-            new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
+            if "н" in new_course["duration"]:
+                new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
 
-        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
 
-        if new_course["global_id"]:
-            new_course["id"] = new_course["global_id"]
+            if new_course["global_id"]:
+                new_course["id"] = new_course["global_id"]
 
-        new_course['pk'] = struct['pk']
+            new_course['pk'] = struct['pk']
 
-        passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
+            passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-        if new_course["id"]:
-            r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
-        else:
-            r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+            if new_course["id"]:
+                r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+            else:
+                r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
 
-        prepared = r.prepare()
-        _pretty_print(prepared)
+            prepared = r.prepare()
+            _pretty_print(prepared)
 
-        s = requests.Session()
-        resp = s.send(prepared)
+            s = requests.Session()
+            resp = s.send(prepared)
 
-        if resp.status_code == 200:
-            SendedCourse.objects.create(
-                title=course.title,
-                course_json=passport,
-                expertise_json=expertise_json
-            )
+            if resp.status_code == 200:
+                SendedCourse.objects.create(
+                    title=course.title,
+                    course_json=passport,
+                    expertise_json=expertise_json
+                )
 
-        return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
+            return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
+        except Exception as e:
+            return JsonResponse({"exception": str(e)})
 
 
 def TableCourseUpdate(request):

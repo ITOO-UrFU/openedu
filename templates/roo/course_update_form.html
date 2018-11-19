@@ -17,9 +17,9 @@
             <button class="ui submit button">Submit</button>
         </form>
 
-    {% if request.user.is_superuser %}
-        <button id="send_too_ROO">послать на РОО</button>
-    {% endif %}
+        {% if request.user.is_superuser %}
+            <button id="send_too_ROO">послать на РОО</button>
+        {% endif %}
 
         <div class="ui right rail">
             <div class="ui segment">
@@ -78,13 +78,16 @@
             $('#send_too_ROO').click(function () {
                 $.ajax({
                     type: "GET",
-                    url: '/roo/send_course/'+{{ course_id }},
+                    url: '/roo/send_course/' +{{ course_id }},
                     success: function (result) {
-                        if(result.status.toString() === "200"){
-                            alert("Курс отправлен " + result.course_id );
+                        if (result.status.toString() === "200") {
+                            alert("Курс отправлен " + result.course_id);
                         }
-                        else{
-                            alert("Курс не отправлен " + result.exception );
+                        else if (result.status.toString() === "206") {
+                            alert("Курс не отправлен " + result.exception);
+                        }
+                        else {
+                            alert("Ошибка")
                         }
                     },
                     error: function (jqXHR) {

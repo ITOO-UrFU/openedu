@@ -520,6 +520,8 @@ def send_course(request, course_id):
             data = serialize('json', [course, ])
             struct = json.loads(data)[0]
 
+            new = True
+
             new_course = struct['fields']
             new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
             new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
@@ -570,8 +572,10 @@ def send_course(request, course_id):
             passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
             if new_course["id"]:
+                new = True
                 r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
             else:
+                new = False
                 r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
 
             prepared = r.prepare()
@@ -586,6 +590,7 @@ def send_course(request, course_id):
                     course_json=passport,
                     expertise_json=expertise_json
                 )
+                course.global_id = resp.json()["course_id"]
 
             return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
         except Exception as e:

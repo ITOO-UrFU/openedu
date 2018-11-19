@@ -564,20 +564,18 @@ def send_course(request, course_id):
 
             new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
 
-            if new_course["global_id"]:
-                new_course["id"] = new_course["global_id"]
-
             new_course['pk'] = struct['pk']
 
             passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-            if course.global_id is not None:
+            if new_course["global_id"]:
                 print("Отправляем новый курс", course.global_id)
                 new = True
                 r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
-            elif course.global_id is None:
+            elif len(new_course["global_id"]) > 8:
                 print("Обновляем курс", course.global_id is None)
                 new = False
+                new_course["id"] = new_course["global_id"]
                 r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
 
             prepared = r.prepare()

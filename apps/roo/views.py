@@ -572,9 +572,11 @@ def send_course(request, course_id):
             passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
             if course.global_id == "":
+                print("Отправляем новый курс", course.global_id)
                 new = True
                 r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
             else:
+                print("Обновляем курс", course.global_id)
                 new = False
                 r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
 

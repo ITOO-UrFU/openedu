@@ -2,6 +2,7 @@
 import csv
 import string
 
+import re
 import requests
 from django import forms
 from django.contrib.auth.models import User
@@ -28,11 +29,6 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = "__all__"
         exclude = ("in_archive", "identical",)
-    # exclude = (
-    #      "credits", "record_end_at", "global_id", "created_at", "visitors_rating", "duration", "finished_at",
-    #      "language",
-    #      "content", "started_at", "started_at", "requirements", "competences", "accreditation", "description",
-    #      "image")
 
 
 def merge(request, pk_1, pk_2):
@@ -44,7 +40,6 @@ def merge(request, pk_1, pk_2):
 
 
 def some_view(request):
-    # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
 
@@ -65,7 +60,7 @@ def some_view(request):
         try:
             courses_equal = Course.objects.filter(title=course.title, institution__title=course.institution.title,
                                                   partner__title=course.partner.title)
-            if (courses_equal.count() > 1):
+            if courses_equal.count() > 1:
                 if courses_equal[0].global_id is not None and courses_equal[1].global_id is not None:
                     if courses_equal[0].global_id != courses_equal[1].global_id:
                         writer.writerow(
@@ -127,8 +122,6 @@ def some_view(request):
         except:
             pass
 
-    # writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
-
     return response
 
 
@@ -150,11 +143,9 @@ def add_expertises(course, our_course):
     if course["expertise_types"] is None:
         return False
     exel_expertise_types = [e.strip().lower() for e in course["expertise_types"].split(',')]
-    # print(course["title"], exel_expertise_types)
     expertise_types = list(set(exel_expertise_types) & set(
         [et[1].lower() for et in
          Expertise.EX_TYPES]))  # оставляем в expertise_types только то, что ТОЧНО есть в EX_TYPES
-    # print("TYPES: ", exel_expertise_types, "  ", expertise_types)
     for e_type in expertise_types:
         has_ex = False
         for expertise in Expertise.objects.filter(course=our_course):
@@ -179,22 +170,9 @@ def add_expertises(course, our_course):
                         expertise.expert = expert
                 expertise.save()
 
-                # if course.get("expert", ""):
-                #     if len(str(course["expert"]).strip()) > 0:
-                #         expert = Expert.objects.filter(expert=course["expert"])
-                #
-                #         if len(expert) == 0:
-                #             expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
-                #                                            contacts=course["contacts"])
-                #             expertise.expert = expert
-                #             expertise.save()
-                #         else:
-                #             expertise.expert = expert[0]
-                #             expertise.save()
         if not has_ex:
             _type = get_choises_id(e_type, Expertise.EX_TYPES)
-            # if course["expert"]:
-            #     expert =
+
             expertise = Expertise.objects.create(course=our_course, supervisor=course["supervisor"], type=_type,
                                                  state=course["state"], organizer=course["organizer"],
                                                  ex_date=course["date"], executed=True if course[
@@ -209,19 +187,6 @@ def add_expertises(course, our_course):
                     expertise.expert = expert
             expertise.save()
 
-            # if course.get("expert", ""):
-            #     if len(str(course["expert"]).strip()) > 0:
-            #         expert = Expert.objects.filter(expert=course["expert"])
-            #
-            #         if len(expert) == 0:
-            #             expert = Expert.objects.create(expert=course["expert"], login=course["expert_login"],
-            #                                            contacts=course["contacts"])
-            #             expertise.expert = expert
-            #             expertise.save()
-            #         else:
-            #             expertise.expert = expert[0]
-            #             expertise.save()
-
 
 def upload_comments(request):
     if request.method == "POST":
@@ -229,21 +194,10 @@ def upload_comments(request):
         tbl = str.maketrans('', '', string.punctuation)
         course_count = 0
         sum = 0
-        # course_exsist = False
         for course in courses:
-            # if course["comment"] == "":
-            #     break
-            # print(course["course_title"])
             course_exsist = False
             print(course_count, "/", sum)
             for our_course in Course.objects.all():
-                # if our_course.title.lower().translate(tbl).replace(' ', '') == course["course_title"].lower().translate(tbl).replace(' ',''):
-                #     if our_course.partner.title == 'OpenProfession' and our_course.institution.title == "Уральский федеральный университет имени первого Президента России Б.Н.Ельцина, ТГУ":
-                #         our_course.external_url = course["external_url"]
-                #         our_course.save()
-                #         print(course["course_title"])
-                #         # print(course_count, "/", sum)
-                #         # Геометрия: аналитический метод решения задач
                 our_course_url = "" if our_course.external_url is None else our_course.external_url
                 if our_course_url.lower().translate(tbl).replace(' ', '') == course["external_url"].lower().translate(
                         tbl).replace(' ', '') and our_course.title.lower().translate(tbl).replace(' ', '') == course[
@@ -297,47 +251,6 @@ def upload_expertises(request):
                     if our_course.external_url is None or our_course.external_url == "":
                         our_course.external_url = expertise["external_url"]
                     our_course.save()
-                    # ex = Expertise.objects.create(course=our_course, type="0", executed=expertise["executed"],
-                    #                               supervisor=expertise["supervisor"], organizer=expertise["organizer"],
-                    #                               comment=expertise["comment"],
-                    #                               comment_fieldset_1=expertise["comment_fieldset_1"],
-                    #                               comment_fieldset_2=expertise["comment_fieldset_2"],
-                    #                               has_length=expertise["has_length"],
-                    #                               has_description=expertise["has_description"],
-                    #                               has_authors=expertise["has_authors"],
-                    #                               language=expertise["language"],
-                    #                               has_prerequisites=expertise["has_prerequisites"],
-                    #                               has_certificate=expertise["has_certificate"],
-                    #                               has_dates=expertise["has_dates"],
-                    #                               has_admin_email=expertise["has_admin_email"],
-                    #                               has_labor=expertise["has_labor"],
-                    #                               has_competences=expertise["has_competences"],
-                    #                               has_results=expertise["has_results"],
-                    #                               has_evaluation_tools=expertise["has_evaluation_tools"],
-                    #                               has_recommended_directions=expertise["has_recommended_directions"],
-                    #                               has_proctoring=expertise["has_proctoring"],
-                    #                               has_labor_costs=expertise["has_labor_costs"],
-                    #                               has_short_description=expertise["has_short_description"],
-                    #                               has_learning_plan=expertise["has_learning_plan"],
-                    #                               has_promo_clip=expertise["has_promo_clip"],
-                    #                               language_video=expertise["language_video"],
-                    #                               language_subtitles=expertise["language_subtitles"],
-                    #                               has_course_subject=expertise["has_course_subject"],
-                    #                               is_open=expertise["is_open"],
-                    #                               has_expertises_types=expertise["has_expertises_types"],
-                    #                               has_ownership_document_scan=expertise["has_ownership_document_scan"],
-                    #                               has_not_prohibited=expertise["has_not_prohibited"],
-                    #                               has_text_materials=expertise["has_text_materials"],
-                    #                               has_illustrations=expertise["has_illustrations"],
-                    #                               has_audio=expertise["has_audio"], has_video=expertise["has_video"],
-                    #                               has_quality_checking=expertise["has_quality_checking"],
-                    #                               no_permission_of_owners=expertise["no_permission_of_owners"],
-                    #                               got_into_record=expertise["got_into_record"],
-                    #                               got_expertise_2018=expertise["got_expertise_2018"],
-                    #                               additional_info=expertise["additional_info"])
-                    # if expertise["expert"] is not None:
-                    #     ex.expert = Expert.objects.filter(expert=expertise["expert"]).first()
-                    #     ex.save()
 
                     expertise_count += 1
                     print('ОК:', expertise_count)
@@ -349,8 +262,6 @@ def upload_expertises(request):
             else:
                 print('КУРСА НЕТУ!!!!!', expertise['course_title'])
                 not_found_count += 1
-                # print(expertise_count, expertise['course_title'])
-                # print(expertise_count, expertise['course_partner'])
 
         print('Курсов не найдено: ', not_found_count)
         return render(request, 'roo/upload_from_json.html')
@@ -361,7 +272,6 @@ def upload_expertises(request):
 def upload_from_json(request):
     if request.method == 'POST':
         courses = json.loads(request.POST.get("json_value", None))
-        # logger.info(courses)
         i = 0
         tbl = str.maketrans('', '', string.punctuation)
         for course in courses:
@@ -408,7 +318,6 @@ def upload_from_json(request):
                         "owner"].lower().translate(tbl).replace(' ', '') and
                             our_course.partner.title.lower().translate(tbl).replace(' ', '') == course[
                         "platform"].lower().translate(tbl).replace(' ', '')):
-                        # print(course)
                         has_course = True
                         our_course.expertise_status = 3 if course["expertise_status"].strip().lower() == "да" else 0
 
@@ -601,8 +510,6 @@ def send_course(request, course_id):
         ))
 
     if request.method == "GET":
-        print(request.user, request.user.is_superuser)
-
         if not request.user.is_superuser:
             return JsonResponse({"status": "Not allowed"}, status=403)
 
@@ -615,50 +522,57 @@ def send_course(request, course_id):
         new_course = struct['fields']
         new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
         new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
-        new_course['lectures'] = int(new_course['lectures_number'])
+
+        if new_course['lectures_number']:
+            new_course['lectures'] = int(new_course['lectures_number'])
+
         if new_course['has_sertificate'] == "1":
             new_course['cert'] = True
         else:
             new_course['cert'] = False
+
         new_course["promo_url"] = ""
         new_course["promo_lang"] = ""
         new_course["subtitles_lang"] = ""
-        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
         new_course["proctoring_service"] = ""
         new_course["sessionid"] = ""
 
         new_course["enrollment_finished_at"] = new_course["record_end_at"]
+        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
 
         new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
-
-        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
         new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
-
         new_course['business_version'] = new_course["version"]
+
         del new_course['directions']
         del new_course['lectures_number']
 
-        if not new_course["started_at"]:
-            del new_course["started_at"]
-        if not new_course["finished_at"]:
-            del new_course["finished_at"]
-        if not new_course["record_end_at"]:
-            del new_course["record_end_at"]
-        if not new_course["created_at"]:
-            del new_course["created_at"]
-        if not new_course["enrollment_finished_at"]:
-            del new_course["enrollment_finished_at"]
+        dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
+
+        for d in dates:
+            if not new_course[d]:
+                del new_course[d]
+
+        if "ру" in new_course["language"]:
+            new_course["language"] = 'ru'
+
+        if "н" in new_course["duration"]:
+            new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
+
+        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
 
         if new_course["global_id"]:
             new_course["id"] = new_course["global_id"]
-
-        # del new_course['pk']
 
         new_course['pk'] = struct['pk']
 
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-        r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+        if new_course["id"]:
+            r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+        else:
+            r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+
         prepared = r.prepare()
         _pretty_print(prepared)
 
@@ -672,90 +586,7 @@ def send_course(request, course_id):
                 expertise_json=expertise_json
             )
 
-        print(str(resp))
-
         return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
-
-
-def update_course(request, course_id):
-    def _pretty_print(req):
-        print('{}\n{}\n{}\n\n{}'.format(
-            '-----------START-----------',
-            req.method + ' ' + req.url,
-            '\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
-            req.body,
-        ))
-
-    if request.method == "GET":
-        print(request.user, request.user.is_superuser)
-
-        if not request.user.is_superuser:
-            return JsonResponse({"status": "Not allowed"}, status=403)
-
-        course = Course.objects.get(pk=course_id)
-        expertises = Expertise.objects.filter(course=course, type="0")
-        expertise_json = serialize('json', expertises)
-        data = serialize('json', [course, ])
-        struct = json.loads(data)[0]
-
-        new_course = struct['fields']
-        new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
-        new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
-        new_course['lectures'] = int(new_course['lectures_number'])
-        if new_course['has_sertificate'] == "1":
-            new_course['cert'] = True
-        else:
-            new_course['cert'] = False
-        new_course["promo_url"] = ""
-        new_course["promo_lang"] = ""
-        new_course["subtitles_lang"] = ""
-        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
-        new_course["proctoring_service"] = ""
-        new_course["sessionid"] = ""
-
-        new_course["enrollment_finished_at"] = new_course["record_end_at"]
-
-        new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
-
-        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
-        new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
-
-        new_course['business_version'] = new_course["version"]
-        del new_course['directions']
-        del new_course['lectures_number']
-
-        if not new_course["started_at"]:
-            del new_course["started_at"]
-        if not new_course["finished_at"]:
-            del new_course["finished_at"]
-        if not new_course["record_end_at"]:
-            del new_course["record_end_at"]
-        if not new_course["created_at"]:
-            del new_course["created_at"]
-        if not new_course["enrollment_finished_at"]:
-            del new_course["enrollment_finished_at"]
-        # del new_course['global_id']
-
-        new_course['pk'] = struct['pk']
-
-        passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
-
-        r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
-        prepared = r.prepare()
-        _pretty_print(prepared)
-
-        s = requests.Session()
-        resp = s.send(prepared)
-
-        if resp.status_code == '200':
-            SendedCourse.objects.create(
-                title=course.title,
-                course_json=passport,
-                expertise_json=expertise_json
-            )
-            return JsonResponse(resp.json())
-        else:
-            return JsonResponse({"status": resp.status_code, "data": passport})
 
 
 def TableCourseUpdate(request):

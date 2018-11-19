@@ -592,6 +592,7 @@ def send_course(request, course_id):
                 )
                 if new:
                     course.global_id = resp.json()["course_id"]
+                    course.save()
 
             return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
         except Exception as e:

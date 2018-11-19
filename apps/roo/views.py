@@ -571,7 +571,7 @@ def send_course(request, course_id):
 
             passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-            if new_course.get("id", None):
+            if new_course.get("id", "") != "":
                 new = True
                 r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
             else:

@@ -501,6 +501,8 @@ def course_json(request, course_id):
 
 
 def send_course(request, course_id):
+    passport = ""
+
     def _pretty_print(req):
         print('{}\n{}\n{}\n\n{}'.format(
             '-----------START-----------',
@@ -525,9 +527,6 @@ def send_course(request, course_id):
             new_course = struct['fields']
             new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
             new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
-
-            if new_course['lectures_number']:
-                new_course['lectures'] = int(new_course['lectures_number'])
 
             if new_course['has_sertificate'] == "1":
                 new_course['cert'] = True
@@ -562,8 +561,12 @@ def send_course(request, course_id):
             if "н" in new_course["duration"]:
                 new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
 
-            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+            if new_course['lectures_number']:
+                new_course['lectures'] = int(new_course['lectures_number'])
+            else:
+                new_course['lectures'] = int(new_course["duration"]) if int(new_course["duration"]) < 52 else ""
 
+            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
             new_course['pk'] = struct['pk']
 
             passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
@@ -596,6 +599,8 @@ def send_course(request, course_id):
 
             return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
         except Exception as e:
+            if not passport:
+                passport = ""
             return JsonResponse({"exception": str(e), "status": 206, "data": passport}, status=206)
 
 

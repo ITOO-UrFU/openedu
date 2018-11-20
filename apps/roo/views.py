@@ -501,8 +501,6 @@ def course_json(request, course_id):
 
 
 def send_course(request, course_id):
-    passport = ""
-
     def _pretty_print(req):
         print('{}\n{}\n{}\n\n{}'.format(
             '-----------START-----------',
@@ -602,6 +600,12 @@ def send_course(request, course_id):
             if not passport:
                 passport = ""
             return JsonResponse({"exception": str(e), "status": 206, "data": passport}, status=206)
+
+
+@roo_member_required
+def show_description(request, course_id):
+    course = Course.objects.get(pk=course_id)
+    return render(request, 'roo/description.html', {"course": course})
 
 
 def TableCourseUpdate(request):

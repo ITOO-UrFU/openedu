@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^expertise/(?P<pk>\d+)/$', ExpertiseUpdate.as_view(), name="detail"),
     url(r'course_json/(?P<course_id>\d+)/$', course_json, name='course_json'),
     url(r'send_course/(?P<course_id>\d+)/$', send_course, name='send_course'),
+    url(r'description/(?P<course_id>\d+)/$', show_description, name='show_description'),
     url(r'^merge/(?P<pk_1>\d+)/(?P<pk_2>\d+)/$', merge, name="merge"),
     url(r'data/$', data, name='data'),
     url(r'some_view/', some_view, name='some_view'),
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'update_course/', TableCourseUpdate, name='update_course'),
     url(r'update_expertise/', TableExpertiseUpdate, name='update_expertise'),
     url(r'^close/$', TemplateView.as_view(template_name='roo/close.html')),
+
 
 
 ]

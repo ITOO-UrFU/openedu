@@ -553,7 +553,7 @@ def send_course(request, course_id):
                 if not new_course[d]:
                     del new_course[d]
 
-            if "ру" in new_course["language"]:
+            if "ру" in new_course["language"].lower():
                 new_course["language"] = 'ru'
 
             if "н" in new_course["duration"]:

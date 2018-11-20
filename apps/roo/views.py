@@ -605,7 +605,8 @@ def send_course(request, course_id):
 @roo_member_required
 def show_description(request, course_id):
     course = Course.objects.get(pk=course_id)
-    return render(request, 'roo/description.html', {"course": course})
+    course_labor = int(re.search(r'\d+', course.labor).group()) * 36
+    return render(request, 'roo/description.html', {"course": course, "course_labor": course_labor})
 
 
 def TableCourseUpdate(request):

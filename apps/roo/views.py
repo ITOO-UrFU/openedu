@@ -547,7 +547,6 @@ def send_course(request, course_id):
             new_course['business_version'] = new_course["version"]
 
             del new_course['directions']
-            del new_course['lectures_number']
 
             dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
 

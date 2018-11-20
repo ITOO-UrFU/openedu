@@ -501,6 +501,8 @@ def course_json(request, course_id):
 
 
 def send_course(request, course_id):
+    passport = ""
+
     def _pretty_print(req):
         print('{}\n{}\n{}\n\n{}'.format(
             '-----------START-----------',
@@ -597,8 +599,6 @@ def send_course(request, course_id):
 
             return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
         except Exception as e:
-            if not passport:
-                passport = ""
             return JsonResponse({"exception": str(e), "status": 206, "data": passport}, status=206)
 
 

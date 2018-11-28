@@ -1,0 +1,62 @@
+{% load roo_extras %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.title }}</title>
+</head>
+<body>
+
+<section>
+    <style type="text/css">
+        span.grey {
+            color: grey;
+        }
+
+        p.bigger_grey {
+            font-size: 18px !important;
+            color: grey !important;
+        }
+
+        sp {
+            display: inline-block;
+            height: 20px;
+            width: 100%;
+        }
+
+    </style>
+    <h2> Об этом курсе</h2>
+    <p>{{ course.description }}</p>
+</section>
+<section>
+    <h2>Трудоемкость освоения курса</h2>
+    <p><span class="grey"><em>Длительность курса: </em></span>{{ course.duration }} недель.
+        <br>
+        <em><span class="grey">Общая трудоемкость курса: </span></em>{{ course.labor }} з.е., {{ course_labor }} часов.</p>
+</section>
+<section style="text-justify: inter-word;">
+    <h2>Результаты обучения </h2>
+    {{ course.results }}
+</section>
+<section>
+    <h2>Требования к уровню подготовки </h2>
+    <p>{{ course.requirements }}</p>
+</section>
+
+<section class="course-staff">
+    <h2>Авторы курса</h2>
+    {% for teacher in course.teachers.all %}
+        <article class="teacher">
+            <div class="teacher-image">
+                <img src="{{ teacher.image }}" align="left" style="margin:0 20 px 0" alt="{{ teacher.title }}">
+            </div>
+
+            <h3>{{ teacher.title }}</h3>
+            <p>{{ teacher.description }}</p>
+        </article>
+    {% endfor %}
+</section>
+
+</body>
+</html>

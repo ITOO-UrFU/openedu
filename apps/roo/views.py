@@ -501,6 +501,8 @@ def course_json(request, course_id):
 
 
 def send_course(request, course_id):
+    passport = ""
+
     def _pretty_print(req):
         print('{}\n{}\n{}\n\n{}'.format(
             '-----------START-----------',
@@ -526,9 +528,6 @@ def send_course(request, course_id):
             new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
             new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
 
-            if new_course['lectures_number']:
-                new_course['lectures'] = int(new_course['lectures_number'])
-
             if new_course['has_sertificate'] == "1":
                 new_course['cert'] = True
             else:
@@ -548,7 +547,6 @@ def send_course(request, course_id):
             new_course['business_version'] = new_course["version"]
 
             del new_course['directions']
-            del new_course['lectures_number']
 
             dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
 
@@ -556,14 +554,18 @@ def send_course(request, course_id):
                 if not new_course[d]:
                     del new_course[d]
 
-            if "ру" in new_course["language"]:
+            if "ру" in new_course["language"].lower():
                 new_course["language"] = 'ru'
 
             if "н" in new_course["duration"]:
                 new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
 
-            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+            if new_course['lectures_number']:
+                new_course['lectures'] = int(new_course['lectures_number'])
+            else:
+                new_course['lectures'] = int(new_course["duration"]) if int(new_course["duration"]) < 52 else ""
 
+            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
             new_course['pk'] = struct['pk']
 
             passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
@@ -597,6 +599,13 @@ def send_course(request, course_id):
             return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
         except Exception as e:
             return JsonResponse({"exception": str(e), "status": 206, "data": passport}, status=206)
+
+
+@roo_member_required
+def show_description(request, course_id):
+    course = Course.objects.get(pk=course_id)
+    course_labor = int(re.search(r'\d+', course.labor).group()) * 36
+    return render(request, 'roo/description.html', {"course": course, "course_labor": course_labor})
 
 
 def TableCourseUpdate(request):

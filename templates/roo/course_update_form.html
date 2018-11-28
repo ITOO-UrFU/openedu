@@ -82,7 +82,7 @@
                     success: function (result) {
                         console.log(result);
                         if (result.status.toString() === "200") {
-                            alert("Курс отправлен " + result.course_id);
+                            alert("Курс отправлен: " + result.resp_raw);
                         }
                         else if (result.status.toString() === "206") {
                             alert("Курс не отправлен: \n\n" + result.exception);

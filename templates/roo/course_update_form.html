@@ -80,6 +80,7 @@
                     type: "GET",
                     url: '/roo/send_course/' +{{ course_id }},
                     success: function (result) {
+                        console.log(result);
                         if (result.status.toString() === "200") {
                             alert("Курс отправлен " + result.course_id);
                         }

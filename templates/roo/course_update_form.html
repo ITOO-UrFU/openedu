@@ -87,7 +87,8 @@
                             alert("Курс не отправлен: \n\n" + result.exception);
                         }
                         else {
-                            alert("Ошибка")
+                            alert("Ошибка");
+                            console.log(result);
                         }
                     },
                     error: function (jqXHR) {

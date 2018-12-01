@@ -627,6 +627,7 @@ class Course(models.Model):
                 elif field_name == "credits":
                     return str(a) == str(b)
                 elif field_name == "accreditation":
+                    print(a, '---', b)
                     if not a or a == "":
                         a = None
                     if not b:

@@ -594,7 +594,6 @@ class Course(models.Model):
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
 
-                print(field_name, '---------------', a, b)
                 return set(a) == set(b)
 
             if isinstance(a, str) and isinstance(b, str):
@@ -627,7 +626,7 @@ class Course(models.Model):
                     print(f"-----------{roo_course}-------------")
                     for field in course.keys():
                         if not almost_equal(getattr(roo_course, field), course[field], field):
-                            print(getattr(roo_course, field), course[field])
+                            print(field, '-------', getattr(roo_course, field), course[field])
 
                 # if roo_course:
                 #     if not roo_course.newest:

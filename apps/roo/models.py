@@ -603,8 +603,10 @@ class Course(models.Model):
                         roo_course = None
 
                 if roo_course:
+                    print(f"-----------{roo_course}-------------")
                     for field in cls._meta.fields:
-                        print(getattr(roo_course, field.name))
+                        print(field.name)  # , getattr(roo_course, field.name)
+                        print(course[field.name])
 
                 # if roo_course:
                 #     if not roo_course.newest:

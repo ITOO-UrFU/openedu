@@ -583,10 +583,14 @@ class Course(models.Model):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
 
-        def almost_equal(a, b):
+        def almost_equal(a, b, field_name):
             print(type(a), type(b))
             if 'ManyRelatedManager' in str(type(a)) and isinstance(b, list):
-                a = [item.global_id for item in a.all()]
+                if field_name in ["area"]:
+                    a = [item.global_id for item in a.all()]
+                elif field_name in ["teachers"]:
+                    a = [item.title for item in a.all()]
+
                 print(a, b)
                 return set(a) == set(b)
 
@@ -619,7 +623,7 @@ class Course(models.Model):
                 if roo_course:
                     print(f"-----------{roo_course}-------------")
                     for field in course.keys():
-                        if not almost_equal(getattr(roo_course, field), course[field]):
+                        if not almost_equal(getattr(roo_course, field), course[field], field):
                             print(getattr(roo_course, field), course[field])
 
                 # if roo_course:

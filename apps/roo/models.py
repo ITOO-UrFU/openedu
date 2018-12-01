@@ -584,6 +584,7 @@ class Course(models.Model):
         password = 'ye;yj,jkmitrjlf'
 
         def almost_equal(a, b):
+            print(type(a), type(b))
             a = ''.join(e for e in a if e.isalnum())
             b = ''.join(e for e in b if e.isalnum())
 

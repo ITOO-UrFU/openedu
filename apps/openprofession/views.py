@@ -284,16 +284,17 @@ def handle_report(*args):
                         cohort_name = row["Cohort Name"]
                     except:
                         cohort_name = "Default"
-                    report.entries.add(ReportEntry.objects.create(user_id=row["id"],
-                                                                  email=row["email"],
-                                                                  username=row["username"],
-                                                                  grade=row["grade"],
-                                                                  cohort_name=cohort_name,
-                                                                  enrollment_track=row["Enrollment Track"],
-                                                                  certificate_eligible=True if row[
-                                                                                                   "Certificate Eligible"] == "Y" else False,
-                                                                  certificate_delivered=row["Certificate Delivered"],
-                                                                  raw_data=json.dumps(row)))
+                    if row["Enrollment Status"] != "unenrolled":
+                        report.entries.add(ReportEntry.objects.create(user_id=row["Student ID"],
+                                                                      email=row["Email"],
+                                                                      username=row["Username"],
+                                                                      grade=row["Grade"],
+                                                                      cohort_name=cohort_name,
+                                                                      enrollment_track=row["Enrollment Track"],
+                                                                      certificate_eligible=True if row[
+                                                                                                       "Certificate Eligible"] == "Y" else False,
+                                                                      certificate_delivered=row["Certificate Delivered"],
+                                                                      raw_data=json.dumps(row)))
             report.processed = True
             report.save()
         elif report.report_type == "proctored_exam_results_report":

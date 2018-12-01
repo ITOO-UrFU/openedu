@@ -626,6 +626,12 @@ class Course(models.Model):
                         a = False
                 elif field_name == "credits":
                     return str(a) == str(b)
+                elif field_name == "accreditation":
+                    if not a or a == "":
+                        a = None
+                    if not b:
+                        b = None
+
                 return a == b
 
         def get_courses_from_page(page_url):

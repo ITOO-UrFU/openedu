@@ -586,7 +586,7 @@ class Course(models.Model):
         def almost_equal(a, b, field_name):
             print(type(a), type(b))
             if 'ManyRelatedManager' in str(type(a)) and isinstance(b, list):
-                if field_name in ["area"]:
+                if field_name in ["activities"]:
                     a = [item.global_id for item in a.all()]
                 elif field_name in ["teachers"]:
                     a = [item.title for item in a.all()]

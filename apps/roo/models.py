@@ -604,7 +604,7 @@ class Course(models.Model):
 
                 if roo_course:
                     for field in cls._meta.get_fields():
-                        print(roo_course.get(field, None))
+                        print(getattr(roo_course, field))
 
                 # if roo_course:
                 #     if not roo_course.newest:

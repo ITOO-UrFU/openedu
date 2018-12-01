@@ -602,10 +602,9 @@ class Course(models.Model):
                     except:
                         roo_course = None
 
-                print(roo_course)
-
                 if roo_course:
-                    print(roo_course.keys())
+                    for field in cls._meta.get_fields():
+                        print(roo_course.get(field, None))
 
                 # if roo_course:
                 #     if not roo_course.newest:

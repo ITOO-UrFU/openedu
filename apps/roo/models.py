@@ -585,8 +585,11 @@ class Course(models.Model):
 
         def almost_equal(a, b, field_name):
 
+            if a is None or b is None and a != b:
+                return False
             if a is b is None:
                 return True
+
             if 'ManyRelatedManager' in str(type(a)) and isinstance(b, list):
                 if field_name in ["activities"]:
                     a = [item.global_id for item in a.all()]

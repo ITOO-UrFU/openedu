@@ -603,7 +603,7 @@ class Course(models.Model):
                         roo_course = None
 
                 if roo_course:
-                    for field in cls._meta.get_fields():
+                    for field in cls._meta.fields():
                         print(getattr(roo_course, field.name))
 
                 # if roo_course:

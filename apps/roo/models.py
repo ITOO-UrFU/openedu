@@ -595,7 +595,7 @@ class Course(models.Model):
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
                 elif field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
-                    return str(b) in a.split(' ')
+                    return str(b) in str(a).split(' ')
 
                 return set(a) == set(b)
 
@@ -628,7 +628,8 @@ class Course(models.Model):
                 if roo_course:
                     print(f"-----------{roo_course}-------------")
                     for field in course.keys():
-                        print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
+                        if not almost_equal(getattr(roo_course, field), course[field], field):
+                            print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                         # print(field, '-------', getattr(roo_course, field), course[field])
 
                 # if roo_course:

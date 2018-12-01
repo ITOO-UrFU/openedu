@@ -583,6 +583,12 @@ class Course(models.Model):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
 
+        def almost_equal(a, b):
+            a = ''.join(e for e in a if e.isalnum())
+            b = ''.join(e for e in b if e.isalnum())
+
+            return a == b
+
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
             response = request.json()
@@ -605,8 +611,8 @@ class Course(models.Model):
                 if roo_course:
                     print(f"-----------{roo_course}-------------")
                     for field in course.keys():
-                        if getattr(roo_course, field) != course[field]:
-                            print(set(getattr(roo_course, field)) - set(course[field]))
+                        if not almost_equal(getattr(roo_course, field), course[field]):
+                            print(getattr(roo_course, field), course[field])
 
                 # if roo_course:
                 #     if not roo_course.newest:

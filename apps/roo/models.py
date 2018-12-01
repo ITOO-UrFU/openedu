@@ -603,6 +603,8 @@ class Course(models.Model):
                     except:
                         roo_course = None
 
+                    print(roo_course)
+
                     if roo_course:
                         print(roo_course.keys())
 

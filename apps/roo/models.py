@@ -222,7 +222,7 @@ class Course(models.Model):
         ("2", "Не выдается")
     )
     #  что приходит в api сейчас
-    credits = models.CharField("Массив перезачётов", default = '[]', blank=True, null=True, max_length=512)
+    credits = models.CharField("Массив перезачётов", default='[]', blank=True, null=True, max_length=512)
     record_end_at = models.CharField("Дата окончания записи на курс", blank=True, null=True, max_length=512)
     title = models.CharField("Наименование", blank=True, null=True, max_length=512)
     institution = models.ForeignKey("Owner", verbose_name="Правообладатель", blank=True, null=True)
@@ -590,9 +590,6 @@ class Course(models.Model):
             if b == "None":
                 b = None
 
-            if (a is None or b is None) and a != b:
-                return False
-
             if a is None and b is None:
                 return True
 
@@ -632,6 +629,9 @@ class Course(models.Model):
                         a = None
                     if not b:
                         b = None
+
+                if (a is None or b is None) and a != b:
+                    return False
 
                 return a == b
 

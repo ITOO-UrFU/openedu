@@ -584,6 +584,7 @@ class Course(models.Model):
         password = 'ye;yj,jkmitrjlf'
 
         def almost_equal(a, b, field_name):
+
             if a is b is None:
                 return True
             if 'ManyRelatedManager' in str(type(a)) and isinstance(b, list):
@@ -594,8 +595,9 @@ class Course(models.Model):
                     b = [item["title"] for item in b]
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
-                elif field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
-                    print("------ 598",str(a), str(b))
+            else:
+                if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
+                    print("------ 598", str(a), str(b))
                     return str(b) in str(a).split(' ')
                 elif field_name in ["partner_id", "institution_id"]:
                     print("------ 601", str(a.global_id), str(b))

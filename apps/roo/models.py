@@ -590,7 +590,7 @@ class Course(models.Model):
             if b == "None":
                 b = None
 
-            if a is None or b is None and a != b:
+            if (a is None or b is None) and a != b:
                 return False
 
             if a is None and b is None:

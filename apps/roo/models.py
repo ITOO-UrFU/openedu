@@ -609,8 +609,11 @@ class Course(models.Model):
                 if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
                     print("------ 598", str(a), str(b))
                     return str(b) in str(a).split(' ')
-                elif field_name in ["partner_id", "institution_id"]:
-                    print("------ 601", str(a.global_id), str(b))
+                elif field_name == "partner_id":
+                    a = Platform.objects.get(pk=a)
+                    a = a.global_id
+                elif field_name == "institution_id":
+                    a = Owner.objects.get(pk=a)
                     a = a.global_id
                 elif field_name in ["has_sertificate"]:
                     if a == "1":

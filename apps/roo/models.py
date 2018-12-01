@@ -587,6 +587,7 @@ class Course(models.Model):
 
             if a is None or b is None and a != b:
                 return False
+
             if a is b is None:
                 return True
 
@@ -598,6 +599,12 @@ class Course(models.Model):
                     b = [item["title"] for item in b]
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
+                return set(a) == set(b)
+            elif isinstance(a, str) and isinstance(b, str):
+                a = ''.join(e for e in a if e.isalnum())
+                b = ''.join(e for e in b if e.isalnum())
+
+                return a == b
             else:
                 if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
                     print("------ 598", str(a), str(b))
@@ -605,22 +612,12 @@ class Course(models.Model):
                 elif field_name in ["partner_id", "institution_id"]:
                     print("------ 601", str(a.global_id), str(b))
                     a = a.global_id
-                    return a == b
                 elif field_name in ["has_sertificate"]:
                     if a == "1":
                         a = True
                     else:
                         a = False
-                    return a == b
-
-                return set(a) == set(b)
-
-            if isinstance(a, str) and isinstance(b, str):
-                a = ''.join(e for e in a if e.isalnum())
-                b = ''.join(e for e in b if e.isalnum())
-
                 return a == b
-            return False
 
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)

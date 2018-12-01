@@ -591,6 +591,8 @@ class Course(models.Model):
                 elif field_name in ["teachers"]:
                     a = [item.title for item in a.all()]
                     b = [item["title"] for item in b]
+                elif field_name in ["directions"]:
+                    a = [item.code for item in a.all()]
 
                 print(a, b)
                 return set(a) == set(b)

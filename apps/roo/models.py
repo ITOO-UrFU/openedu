@@ -601,20 +601,20 @@ class Course(models.Model):
                     try:
                         roo_course = cls.objects.filter(in_archive=False, title=course['title'], partner__global_id=course['partner_id'],
                                                         institution__global_id=course['institution_id']).first()
+
                     except:
                         roo_course = None
 
-                    # if len(roo_courses) > 0:
-                    #     roo_course = roo_courses.first()
-                    # else:
+                    if roo_course:
+                        print(roo_course)
 
-                if roo_course:
-                    if not roo_course.newest:
-                        roo_course.update_from_dict(course)
-                else:
-                    roo_course = Course.create_from_dict(course)
-
-                # roo_course.save()
+                # if roo_course:
+                #     if not roo_course.newest:
+                #         roo_course.update_from_dict(course)
+                # else:
+                #     roo_course = Course.create_from_dict(course)
+                #
+                # # roo_course.save()
 
             if response["next"] is not None:
                 get_courses_from_page(response["next"])

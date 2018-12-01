@@ -595,7 +595,17 @@ class Course(models.Model):
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
                 elif field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
+                    print(str(a), str(b))
                     return str(b) in str(a).split(' ')
+                elif field_name in ["partner_id", "institution_id"]:
+                    a = a.global_id
+                    return a == b
+                elif field_name in ["has_sertificate"]:
+                    if a == "1":
+                        a = True
+                    else:
+                        a = False
+                    return a == b
 
                 return set(a) == set(b)
 

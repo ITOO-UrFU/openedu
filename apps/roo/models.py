@@ -594,7 +594,7 @@ class Course(models.Model):
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
 
-                print(a, b)
+                print(field_name, '---------------', a, b)
                 return set(a) == set(b)
 
             if isinstance(a, str) and isinstance(b, str):

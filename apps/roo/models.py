@@ -604,9 +604,15 @@ class Course(models.Model):
 
                 if roo_course:
                     print(f"-----------{roo_course}-------------")
-                    for field in cls._meta.fields:
-                        print(field.name)  # , getattr(roo_course, field.name)
-                        print(course[field.name])
+                    # for field in cls._meta.fields:
+                    #     if field.name not in ["id"]:
+                    #         print(field.name)  # , getattr(roo_course, field.name)
+                    #         print(course.get(field.name))
+
+                    for i in cls._meta.fields:
+                        print(i.name)
+                    for i in course.keys():
+                        print(i)
 
                 # if roo_course:
                 #     if not roo_course.newest:

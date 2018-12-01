@@ -594,7 +594,6 @@ class Course(models.Model):
                 print(course["title"])
                 try:
                     roo_course = cls.objects.filter(global_id=course['global_id']).first()
-                    # if not roo_course
 
                 except cls.DoesNotExist:
 
@@ -606,7 +605,7 @@ class Course(models.Model):
                         roo_course = None
 
                     if roo_course:
-                        print(roo_course)
+                        print(roo_course.keys())
 
                 # if roo_course:
                 #     if not roo_course.newest:

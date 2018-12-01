@@ -611,7 +611,7 @@ class Course(models.Model):
 
                 return a == b
             else:
-                if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
+                if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number", "expert_rating_count"]:
                     return str(b) in str(a).split(' ')
                 elif field_name == "partner_id":
                     a = Platform.objects.get(pk=a)
@@ -624,6 +624,8 @@ class Course(models.Model):
                         a = True
                     else:
                         a = False
+                elif field_name == "credits":
+                    return str(a) == str(b)
                 return a == b
 
         def get_courses_from_page(page_url):

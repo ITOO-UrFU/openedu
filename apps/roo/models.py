@@ -590,6 +590,7 @@ class Course(models.Model):
                     a = [item.global_id for item in a.all()]
                 elif field_name in ["teachers"]:
                     a = [item.title for item in a.all()]
+                    b = [item["title"] for item in b]
 
                 print(a, b)
                 return set(a) == set(b)

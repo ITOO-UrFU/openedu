@@ -3,8 +3,8 @@ var url = "/openprofession/graphql?";
 var fields_update_url = "/openprofession/update/";
 
 var queries = {
-    pdata_query: "{pdata(active:true){id,fio,birthDate,phone,email,quote,job,position,city,program{title, courseId},diplomaScan,claimScan,docForwarding,anotherDoc,programGrade,grades,createdAt,updatedAt,educationLevel,inQuote,paid,documentType,status,allDocs,allScans,allValid,docForwarding,possibleId}}",
-    programs_query: "{programs{title,courseId,active,id,session}}",
+    pdata_query: "{pdata{id,fio,birthDate,phone,email,quote,job,position,city,examGrade,proctoringStatus,program{title,start, courseId},diplomaScan,claimScan,docForwarding,anotherDoc,programGrade,grades,createdAt,updatedAt,educationLevel,inQuote,paid,documentType,status,allDocs,allScans,allValid,docForwarding,possibleId}}",
+    programs_query: "{programs{title,courseId,start,active,id,session}}",
     programs_unique_query: "{uniquePrograms}"
 };
 
@@ -23,14 +23,20 @@ var app = new Vue({
         pdata_for_show: [],
         error: null,
         only_active_programs: true,
+        only_running_programs: true,
         hiddenCols: [],
         sort_list: [],
-        user_filters_options: ["by_program","by_docs", "quote", "inQuote", "paid", "allDocs", "allScans", "allValid"],
+        user_filters_options: ["by_program", "by_start", "by_docs", "quote", "inQuote", "paid", "allDocs", "allScans", "allValid"],
         user_filters: {
             by_program: {
                 show_filter: false,
                 all_programs: [],
                 selected_values: []
+            },
+            by_start: {
+                show_filter: false,
+                all_starts: [1, 2, 3, 4, 5, 6],
+                selected_values: [1, 2, 3, 4, 5, 6]
             },
             by_docs: {
                 show_filter: false,
@@ -99,6 +105,7 @@ var app = new Vue({
                     this.programs = response.body.data.programs;
                     this.programs_for_show = this.programs;
                     this.showActiveOnlyPrograms(this.only_active_programs);
+                    this.showRunningPrograms(this.only_running_programs);
             }
         },
             (response) => {
@@ -125,6 +132,17 @@ var app = new Vue({
             if (item) {
                 this.programs_for_show = this.programs.filter(function (program) {
                     return program.active == true;
+                });
+            }
+            else{
+                this.programs_for_show = this.programs;
+            }
+
+        },
+        showRunningPrograms: function(item) {
+            if (item) {
+                this.programs_for_show = this.programs.filter(function (program) {
+                    return program.start == 4;
                 });
             }
             else{
@@ -238,6 +256,29 @@ var app = new Vue({
                 this.filterUsers();
             },
 
+            setStartFilter: function (start_id) {
+            var index = this.user_filters.by_start.selected_values.indexOf(start_id);
+            console.log(index);
+            if(index != -1){
+                this.user_filters.by_start.selected_values.splice(index, 1);
+
+            }
+            else{
+                this.user_filters.by_start.selected_values.push(start_id);
+            }
+            this.filterUsers();
+            },
+            setStartFilterAll: function () {
+                this.user_filters.by_start.selected_values = JSON.parse(JSON.stringify(this.user_filters.by_start.all_starts));
+                this.filterUsers();
+            },
+
+            setStartFilterNull: function () {
+                this.user_filters.by_start.selected_values = [];
+                this.filterUsers();
+            },
+
+
             setFilter: function (filter_name, value) {
                 var index = this.user_filters[filter_name].selected_values.indexOf(value);
                 if(index != -1){
@@ -263,6 +304,11 @@ var app = new Vue({
                 if (filter_name=='by_program'){
                     return_data = return_data.filter(function (pd) {
                         return selected_values.includes(pd.program.courseId);
+                    });
+                }
+                else if (filter_name=='by_start'){
+                    return_data = return_data.filter(function (pd) {
+                        return selected_values.includes(pd.program.start);
                     });
                 }
                 else if(filter_name=='by_docs'){
@@ -327,4 +373,3 @@ $('#show_column_filters').click(function () {
 
     $('tbody .fixed-cell').css('transform', 'translateX(' + this.scrollLeft + 'px)');
   });
-

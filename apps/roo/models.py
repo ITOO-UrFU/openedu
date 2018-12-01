@@ -590,10 +590,12 @@ class Course(models.Model):
                 print(a, b)
                 return set(a) == set(b)
 
-            a = ''.join(e for e in a if e.isalnum())
-            b = ''.join(e for e in b if e.isalnum())
+            if isinstance(a, str) and isinstance(b, str):
+                a = ''.join(e for e in a if e.isalnum())
+                b = ''.join(e for e in b if e.isalnum())
 
-            return a == b
+                return a == b
+            return False
 
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)

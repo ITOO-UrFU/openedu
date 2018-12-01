@@ -584,7 +584,7 @@ class Course(models.Model):
         password = 'ye;yj,jkmitrjlf'
 
         def almost_equal(a, b, field_name):
-            print(type(a), type(b))
+            # print(type(a), type(b))
             if 'ManyRelatedManager' in str(type(a)) and isinstance(b, list):
                 if field_name in ["activities"]:
                     a = [item.global_id for item in a.all()]
@@ -625,8 +625,8 @@ class Course(models.Model):
                 if roo_course:
                     print(f"-----------{roo_course}-------------")
                     for field in course.keys():
-                        if not almost_equal(getattr(roo_course, field), course[field], field):
-                            print(field, '-------', getattr(roo_course, field), course[field])
+                        print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
+                            # print(field, '-------', getattr(roo_course, field), course[field])
 
                 # if roo_course:
                 #     if not roo_course.newest:

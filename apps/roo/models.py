@@ -585,10 +585,15 @@ class Course(models.Model):
 
         def almost_equal(a, b, field_name):
 
+            if a == "None":
+                a = None
+            if b == "None":
+                b = None
+
             if a is None or b is None and a != b:
                 return False
 
-            if a is b is None:
+            if a is None and b is None:
                 return True
 
             if 'ManyRelatedManager' in str(type(a)) and isinstance(b, list):
@@ -607,7 +612,6 @@ class Course(models.Model):
                 return a == b
             else:
                 if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number"]:
-                    print("------ 598", str(a), str(b))
                     return str(b) in str(a).split(' ')
                 elif field_name == "partner_id":
                     a = Platform.objects.get(pk=a)

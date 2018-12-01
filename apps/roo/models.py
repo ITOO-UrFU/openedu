@@ -611,6 +611,9 @@ class Course(models.Model):
 
                     for i in cls._meta.fields:
                         print(i.name)
+
+                    print("_____________________--")
+
                     for i in course.keys():
                         print(i)
 

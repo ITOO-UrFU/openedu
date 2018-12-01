@@ -649,7 +649,7 @@ class Course(models.Model):
                     print(f"-----------{roo_course}-------------")
                     for field in course.keys():
                         if not almost_equal(getattr(roo_course, field), course[field], field):
-                            print(field, almost_equal(getattr(roo_course, field), course[field], field), type(getattr(roo_course, field)), type(course[field]))
+                            print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                         # print(field, '-------', getattr(roo_course, field), course[field])
 
                 # if roo_course:

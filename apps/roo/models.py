@@ -605,8 +605,8 @@ class Course(models.Model):
                 if roo_course:
                     print(f"-----------{roo_course}-------------")
                     for field in course.keys():
-                        if not getattr(roo_course, field) == course[field]:
-                            print(getattr(roo_course, field), "____________", course[field])
+                        if getattr(roo_course, field) != course[field]:
+                            print(set(getattr(roo_course, field)) - set(course[field]))
 
                 # if roo_course:
                 #     if not roo_course.newest:

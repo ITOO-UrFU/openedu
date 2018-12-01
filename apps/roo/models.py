@@ -599,6 +599,8 @@ class Course(models.Model):
                     try:
                         roo_course = cls.objects.filter(in_archive=False, title=course['title'], partner__global_id=course['partner_id'],
                                                         institution__global_id=course['institution_id']).first()
+                        print(roo_course)
+
 
                     except:
                         roo_course = None

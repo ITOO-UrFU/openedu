@@ -585,6 +585,11 @@ class Course(models.Model):
 
         def almost_equal(a, b):
             print(type(a), type(b))
+            if 'ManyRelatedManager' in type(a) and isinstance(b, list):
+                a = [item.global_id for item in a.all()]
+                print(a. b)
+                return set(a) == set(b)
+
             a = ''.join(e for e in a if e.isalnum())
             b = ''.join(e for e in b if e.isalnum())
 

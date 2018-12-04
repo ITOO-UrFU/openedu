@@ -638,6 +638,9 @@ class Course(models.Model):
                 if (a is None or b is None) and a != b:
                     return False
 
+                if isinstance(a, str) and isinstance(b, str):
+                    return levenshtein_equal(a, b)
+
                 return a == b
 
         def get_courses_from_page(page_url):

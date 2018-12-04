@@ -629,6 +629,7 @@ class Course(models.Model):
                 elif field_name == "credits":
                     return levenshtein_equal(str(a), str(b))
                 elif field_name in ["accreditation", "requirements", "competences", "description"]:
+                    print(field_name, "!!!!!!!!!!!!!!!")
                     if not a or a == "":
                         a = ""
                     if not b or b == "":
@@ -638,9 +639,8 @@ class Course(models.Model):
                 if (a is None or b is None) and a != b:
                     return False
 
-                if isinstance(a, str) and isinstance(b, str):
-                    print(field_name, "!!!!!!!!!!!!!!!")
-                    return levenshtein_equal(a, b)
+                # if isinstance(a, str) and isinstance(b, str):
+                #     return levenshtein_equal(a, b)
 
                 return a == b
 

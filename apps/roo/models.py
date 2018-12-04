@@ -623,7 +623,7 @@ class Course(models.Model):
                         a = False
                 elif field_name == "credits":
                     return str(a) == str(b)
-                elif field_name == "accreditation":
+                elif field_name in ["accreditation", "requirements", "competences"]:
                     if not a or a == "":
                         a = None
                     if not b:

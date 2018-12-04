@@ -639,6 +639,7 @@ class Course(models.Model):
                     return False
 
                 if isinstance(a, str) and isinstance(b, str):
+                    print(field_name, "!!!!!!!!!!!!!!!")
                     return levenshtein_equal(a, b)
 
                 return a == b

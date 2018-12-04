@@ -608,10 +608,10 @@ class Course(models.Model):
                     a = [item.code for item in a.all()]
                 return set(a) == set(b)
             elif isinstance(a, str) and isinstance(b, str):
-                a = ''.join(e for e in a if e.isalnum())
-                b = ''.join(e for e in b if e.isalnum())
+                # a = ''.join(e for e in a if e.isalnum())
+                # b = ''.join(e for e in b if e.isalnum())
+                return levenshtein_equal(a, b)
 
-                return a == b
             else:
                 if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number", "expert_rating_count"]:
                     return str(b) in str(a).split(' ')

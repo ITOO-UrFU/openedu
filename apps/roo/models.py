@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.defaultfilters import truncatewords_html
+from fuzzywuzzy import fuzz
 
 
 # import logging
@@ -583,6 +584,9 @@ class Course(models.Model):
         login = 'vesloguzov@gmail.com'
         password = 'ye;yj,jkmitrjlf'
 
+        def levenshtein_equal(a, b):
+            return True if fuzz.token_sort_ratio(a, b) > 0.95 else False
+
         def almost_equal(a, b, field_name):
 
             if a == "None":
@@ -622,12 +626,13 @@ class Course(models.Model):
                     else:
                         a = False
                 elif field_name == "credits":
-                    return str(a) == str(b)
+                    return levenshtein_equal(str(a), str(b))
                 elif field_name in ["accreditation", "requirements", "competences"]:
                     if not a or a == "":
-                        a = None
-                    if not b:
-                        b = None
+                        a = ""
+                    if not b or b == "":
+                        b = ""
+                    return levenshtein_equal(a, b)
 
                 if (a is None or b is None) and a != b:
                     return False

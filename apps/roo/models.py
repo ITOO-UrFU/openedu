@@ -585,6 +585,7 @@ class Course(models.Model):
         password = 'ye;yj,jkmitrjlf'
 
         def levenshtein_equal(a, b):
+            print(fuzz.token_sort_ratio(a, b))
             return True if fuzz.token_sort_ratio(a, b) > 0.95 else False
 
         def almost_equal(a, b, field_name):

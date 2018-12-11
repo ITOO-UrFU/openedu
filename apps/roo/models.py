@@ -593,7 +593,7 @@ class Course(models.Model):
         password = 'ye;yj,jkmitrjlf'
 
         def levenshtein_equal(a, b):
-            print(fuzz.token_sort_ratio(a, b))
+            # print(fuzz.token_sort_ratio(a, b))
             return True if fuzz.token_sort_ratio(a, b) > 0.95 else False
 
         def almost_equal(a, b, field_name):
@@ -637,7 +637,7 @@ class Course(models.Model):
                 # elif field_name == "credits":
                 #     return levenshtein_equal(str(a), str(b))
                 elif field_name in ["accreditation", "requirements", "competences", "description", "credits"]:
-                    print(field_name, "!!!!!!!!!!!!!!!")
+                    # print(field_name, "!!!!!!!!!!!!!!!")
                     if not a or a == "":
                         a = ""
                     if not b or b == "":
@@ -649,7 +649,7 @@ class Course(models.Model):
 
                 # if isinstance(a, str) and isinstance(b, str):
                 #     return levenshtein_equal(a, b)
-                print(field_name, "END")
+                # print(field_name, "END")
                 return a == b
 
         def get_courses_from_page(page_url):

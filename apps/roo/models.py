@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # from time import gmtime, strftime
 import json
 
@@ -678,7 +679,7 @@ class Course(models.Model):
                             diff[field] = [getattr(roo_course, field), course[field]]
                             print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
-                        course_diff = CourseDiff.objects.create(course=roo_course,diff = json.dumps(diff))
+                        course_diff = CourseDiff.objects.create(course=roo_course, diff = json.dumps(diff, ensure_ascii=True))
                         course_diff.save()
 
                     # print(field, '-------', getattr(roo_course, field), course[field])
@@ -688,7 +689,6 @@ class Course(models.Model):
                 #         roo_course.update_from_dict(course)
                 # else:
                 #     roo_course = Course.create_from_dict(course)
-                #
                 # # roo_course.save()
 
             if response["next"] is not None:

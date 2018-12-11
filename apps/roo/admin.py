@@ -40,7 +40,7 @@ class JSONEditor(Textarea):
         div_attrs = {}
         div_attrs.update(attrs)
         div_attrs.update({'id': (attrs['id'] + '_jsoneditor')})
-        final_attrs = self.build_attrs(div_attrs=div_attrs, extra_attrs={"name": name})
+        final_attrs = self.build_attrs(div_attrs, {"name": name})
         r += '''
         <style type="text/css">
             #id_%(name)s_jsoneditor {

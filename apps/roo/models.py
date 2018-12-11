@@ -680,7 +680,7 @@ class Course(models.Model):
                             diff[field] = [almost_equal_a, almost_equal_b]
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
-                        course_diff = CourseDiff.objects.create(course=roo_course, diff = json.dumps(diff).encode().decode() )
+                        course_diff = CourseDiff.objects.create(course=roo_course, diff = json.dumps(diff))
                         course_diff.save()
 
                     # print(field, '-------', getattr(roo_course, field), course[field])

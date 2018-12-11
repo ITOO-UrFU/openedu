@@ -1,10 +1,69 @@
 from django.contrib import admin
+import json
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
+from django.conf import settings
+from django.utils.safestring import mark_safe
+from django.forms.widgets import Textarea
+try:
+    from django.forms.util import flatatt
+except ImportError:
+    from django.forms.utils import flatatt
 
 from .models import Course, Platform, Expert, Expertise, Owner, Teacher, Area, Direction, Competence, Result, \
     EvaluationTool, ProctoringService, SendedCourse, CourseDiff
+
+
+class JSONEditor(Textarea):
+    class Media:
+        js = (
+            getattr(settings, "JSON_EDITOR_JS", settings.STATIC_URL + 'jsoneditor/jsoneditor.js'),
+        )
+        css = {'all': (getattr(settings, "JSON_EDITOR_CSS", settings.STATIC_URL + 'jsoneditor/jsoneditor.css'),)}
+
+    def render(self, name, value, attrs=None):
+        try:
+            value = json.loads(value)
+        except TypeError:
+            pass
+        input_attrs = {'hidden': True}
+        input_attrs.update(attrs)
+        if 'class' not in input_attrs:
+            input_attrs['class'] = 'for_jsoneditor'
+        else:
+            input_attrs['class'] += ' for_jsoneditor'
+        r = super(JSONEditor, self).render(name, value, input_attrs)
+        div_attrs = {}
+        div_attrs.update(attrs)
+        div_attrs.update({'id': (attrs['id'] + '_jsoneditor')})
+        final_attrs = self.build_attrs(div_attrs=div_attrs, extra_attrs={"name": name})
+        r += '''
+        <style type="text/css">
+            #id_%(name)s_jsoneditor {
+              height: 400px;
+              margin-bottom: 1em;
+            }
+          </style>
+        <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var jsoncontainer = document.getElementById("id_%(name)s_jsoneditor");
+            var options = {
+                mode: 'code',
+                modes: ['code', 'tree'],
+                onChange: function(){document.getElementById("id_%(name)s").value = JSON.stringify(editor.get())}
+            };
+            var editor = new JSONEditor(jsoncontainer, options);
+            editor.set(JSON.parse(document.getElementById("id_%(name)s").value.replace(/'/g, '"')));
+            document.getElementById("id_%(name)s").value = JSON.stringify(editor.get());
+        });
+        </script>
+        <div %(attrs)s></div>
+        ''' % {
+            'attrs': flatatt(final_attrs),
+            'name': name
+        }
+        return mark_safe(r)
 
 
 @admin.register(Competence)
@@ -56,7 +115,8 @@ class CourseResource(resources.ModelResource):
     title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
     institution__title = Field(attribute='institution__title', column_name='Правообладатель')
-    get_required_expertises_links = Field(attribute='get_required_expertises_links', column_name='Ссылки на обязательные эксертизы в базе')
+    get_required_expertises_links = Field(attribute='get_required_expertises_links',
+                                          column_name='Ссылки на обязательные эксертизы в базе')
 
     directions_all = Field(column_name='Массив идентификаторов направлений')
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')
@@ -107,8 +167,10 @@ class CourseResource(resources.ModelResource):
 
     external_url = Field(attribute='external_url', column_name='сылка на онлайн-курс на сайте Платформы')
 
-    platform_responsible_comment = Field(attribute='platform_responsible_comment', column_name='Комментарий ответсвенного за платформу')
-    owner_responsible_comment = Field(attribute='owner_responsible_comment', column_name='Комментарий ответсвенного за правообладателя')
+    platform_responsible_comment = Field(attribute='platform_responsible_comment',
+                                         column_name='Комментарий ответсвенного за платформу')
+    owner_responsible_comment = Field(attribute='owner_responsible_comment',
+                                      column_name='Комментарий ответсвенного за правообладателя')
 
     ###
 
@@ -117,8 +179,11 @@ class CourseResource(resources.ModelResource):
     class Meta:
         model = Course
         fields = (
-        'title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links', 'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible', 'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status',
-        'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state', 'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
+            'title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links',
+            'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible',
+            'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status',
+            'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state',
+            'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
 
     def dehydrate_directions_all(self, course):
         dirs = ""
@@ -165,6 +230,9 @@ class TeacherAdmin(admin.ModelAdmin):
 
 @admin.register(CourseDiff)
 class CourseDiffAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        "diff": {'widget': JSONEditor},
+    }
     list_display = ("course",)
 
 

@@ -273,3 +273,6 @@ SUI_MULTIPLE_DROPDOWN_WRAPPER = (
     "</div>"
     "</div>"
 )
+
+JSON_EDITOR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.5.11/jsoneditor.min.js'
+JSON_EDITOR_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.5.11/jsoneditor.min.css'

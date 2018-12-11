@@ -233,9 +233,9 @@ class TeacherAdmin(admin.ModelAdmin):
 
 @admin.register(CourseDiff)
 class CourseDiffAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': JSONEditor},
-    }
+    # formfield_overrides = {
+    #     models.TextField: {'widget': JSONEditor},
+    # }
     list_display = ("course",)
 
 

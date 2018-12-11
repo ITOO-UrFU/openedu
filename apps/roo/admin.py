@@ -163,6 +163,11 @@ class TeacherAdmin(admin.ModelAdmin):
     search_fields = ("title",)
 
 
+@admin.register(CourseDiff)
+class CourseDiffAdmin(admin.ModelAdmin):
+    list_display = ("course",)
+
+
 @admin.register(Expert)
 class ExpertAdmin(admin.ModelAdmin):
     list_display = ("expert", "login", "contacts")

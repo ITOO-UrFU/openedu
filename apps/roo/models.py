@@ -216,6 +216,12 @@ class OwnerManager(models.Manager):
         return self.get(title=title)
 
 
+class CourseDiff(models.Model):
+    course = models.ForeignKey("Course")
+    diff = models.TextField("json с отличающимися полями", default="{}", blank=True, null=True)
+    date = models.DateTimeField("Дата и время сравнения", auto_now_add=True)
+
+
 class Course(models.Model):
     CERTS = (
         ("0", "Нет данных"),
@@ -283,6 +289,7 @@ class Course(models.Model):
 
     COMMUNICATION_OWNER_STATES = (
         ("0", "Согласование не начато"),
+        ("1", "В процессе согласования"),
         ("1", "В процессе согласования"),
         ("2", "Требуется участие администрации"),
         ("3", "Согласовано"),

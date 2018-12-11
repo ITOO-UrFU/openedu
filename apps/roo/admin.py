@@ -1,7 +1,7 @@
 import json
-from django import models
 from django.conf import settings
 from django.contrib import admin
+from django.db import models
 from django.forms.widgets import Textarea
 from django.utils.safestring import mark_safe
 from import_export import resources

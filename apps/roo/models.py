@@ -645,7 +645,7 @@ class Course(models.Model):
                     return levenshtein_equal(a, b), a, b
 
                 if (a is None or b is None) and a != b:
-                    return False
+                    return False, a, b
 
                 # if isinstance(a, str) and isinstance(b, str):
                 #     return levenshtein_equal(a, b)

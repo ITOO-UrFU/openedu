@@ -1,11 +1,13 @@
-from django.contrib import admin
 import json
+from django import models
+from django.conf import settings
+from django.contrib import admin
+from django.forms.widgets import Textarea
+from django.utils.safestring import mark_safe
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
-from django.conf import settings
-from django.utils.safestring import mark_safe
-from django.forms.widgets import Textarea
+
 try:
     from django.forms.util import flatatt
 except ImportError:
@@ -232,7 +234,7 @@ class TeacherAdmin(admin.ModelAdmin):
 @admin.register(CourseDiff)
 class CourseDiffAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        "diff": {'widget': JSONEditor},
+        models.TextField: {'widget': JSONEditor},
     }
     list_display = ("course",)
 

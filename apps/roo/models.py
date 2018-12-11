@@ -621,7 +621,8 @@ class Course(models.Model):
                 return levenshtein_equal(a, b), a, b
 
             else:
-                if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number", "expert_rating_count"]:
+                if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number",
+                                  "expert_rating_count"]:
                     return str(b) in str(a).split(' '), a, b
                 elif field_name == "partner_id":
                     a = Platform.objects.get(pk=a)
@@ -666,7 +667,8 @@ class Course(models.Model):
                 except cls.DoesNotExist:
 
                     try:
-                        roo_course = cls.objects.filter(in_archive=False, title=course['title'], partner__global_id=course['partner_id'],
+                        roo_course = cls.objects.filter(in_archive=False, title=course['title'],
+                                                        partner__global_id=course['partner_id'],
                                                         institution__global_id=course['institution_id']).first()
                     except:
                         roo_course = None
@@ -675,12 +677,13 @@ class Course(models.Model):
                     print(f"-----------{roo_course}-------------")
                     diff = dict()
                     for field in course.keys():
-                        is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field), course[field], field)
+                        is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field),
+                                                                                       course[field], field)
                         if not is_almost_equal:
                             diff[field] = [almost_equal_a, almost_equal_b]
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
-                        course_diff = CourseDiff.objects.create(course=roo_course, diff = json.dumps(diff))
+                        course_diff = CourseDiff.objects.create(course=roo_course, diff=json.dumps(diff))
                         course_diff.save()
 
                     # print(field, '-------', getattr(roo_course, field), course[field])

@@ -25,11 +25,6 @@ class JSONEditor(Textarea):
         css = {'all': (getattr(settings, "JSON_EDITOR_CSS", settings.STATIC_URL + 'jsoneditor/jsoneditor.css'),)}
 
     def render(self, name, value, attrs=None):
-        print('Я жсонъ!')
-        try:
-            value = json.loads(value)
-        except TypeError:
-            pass
         input_attrs = {'hidden': True}
         input_attrs.update(attrs)
         if 'class' not in input_attrs:

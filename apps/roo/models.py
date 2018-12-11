@@ -672,10 +672,16 @@ class Course(models.Model):
 
                 if roo_course:
                     print(f"-----------{roo_course}-------------")
+                    diff = dict()
                     for field in course.keys():
                         if not almost_equal(getattr(roo_course, field), course[field], field):
+                            diff[field] = [getattr(roo_course, field), course[field]]
                             print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
-                        # print(field, '-------', getattr(roo_course, field), course[field])
+                    if len(diff.keys()) > 0:
+                        course_diff = CourseDiff.objects.create(course=roo_course,diff = json.dumps(diff))
+                        course_diff.save()
+
+                    # print(field, '-------', getattr(roo_course, field), course[field])
 
                 # if roo_course:
                 #     if not roo_course.newest:

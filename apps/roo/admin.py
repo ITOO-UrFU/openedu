@@ -23,6 +23,7 @@ class JSONEditor(Textarea):
         css = {'all': (getattr(settings, "JSON_EDITOR_CSS", settings.STATIC_URL + 'jsoneditor/jsoneditor.css'),)}
 
     def render(self, name, value, attrs=None):
+        print('Я жсонъ!')
         try:
             value = json.loads(value)
         except TypeError:

@@ -604,7 +604,7 @@ class Course(models.Model):
                 b = None
 
             if a is None and b is None:
-                return True
+                return True, a, b
 
             if 'ManyRelatedManager' in str(type(a)) and isinstance(b, list):
                 if field_name in ["activities"]:
@@ -614,15 +614,15 @@ class Course(models.Model):
                     b = [item["title"] for item in b]
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
-                return set(a) == set(b)
+                return set(a) == set(b), a, b
             elif isinstance(a, str) and isinstance(b, str):
                 # a = ''.join(e for e in a if e.isalnum())
                 # b = ''.join(e for e in b if e.isalnum())
-                return levenshtein_equal(a, b)
+                return levenshtein_equal(a, b), a, b
 
             else:
                 if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number", "expert_rating_count"]:
-                    return str(b) in str(a).split(' ')
+                    return str(b) in str(a).split(' '), a, b
                 elif field_name == "partner_id":
                     a = Platform.objects.get(pk=a)
                     a = a.global_id
@@ -642,7 +642,7 @@ class Course(models.Model):
                         a = ""
                     if not b or b == "":
                         b = ""
-                    return levenshtein_equal(a, b)
+                    return levenshtein_equal(a, b), a, b
 
                 if (a is None or b is None) and a != b:
                     return False
@@ -650,7 +650,7 @@ class Course(models.Model):
                 # if isinstance(a, str) and isinstance(b, str):
                 #     return levenshtein_equal(a, b)
                 # print(field_name, "END")
-                return a == b
+                return a == b, a, b
 
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
@@ -675,9 +675,10 @@ class Course(models.Model):
                     print(f"-----------{roo_course}-------------")
                     diff = dict()
                     for field in course.keys():
-                        if not almost_equal(getattr(roo_course, field), course[field], field):
-                            diff[field] = [getattr(roo_course, field), course[field]]
-                            print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
+                        is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field), course[field], field)
+                        if not is_almost_equal:
+                            diff[field] = [almost_equal_a, almost_equal_b]
+                            # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
                         course_diff = CourseDiff.objects.create(course=roo_course, diff = json.dumps(diff, ensure_ascii=True))
                         course_diff.save()

@@ -677,10 +677,10 @@ class Course(models.Model):
                     for field in course.keys():
                         is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field), course[field], field)
                         if not is_almost_equal:
-                            diff[field] = [almost_equal_a.encode().decode(), almost_equal_b.encode().decode()]
+                            diff[field] = [almost_equal_a, almost_equal_b]
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
-                        course_diff = CourseDiff.objects.create(course=roo_course, diff = json.dumps(diff, ensure_ascii=True))
+                        course_diff = CourseDiff.objects.create(course=roo_course, diff = json.dumps(diff, ensure_ascii=True).encode().decode())
                         course_diff.save()
 
                     # print(field, '-------', getattr(roo_course, field), course[field])

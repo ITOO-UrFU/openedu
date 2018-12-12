@@ -683,7 +683,10 @@ class Course(models.Model):
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b}
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
-                        course_diff = CourseDiff.objects.get_or_create(course=roo_course)[0]
+                        try:
+                            course_diff = CourseDiff.objects.filter(course=roo_course).first()
+                        except:
+                            course_diff = CourseDiff.objects.create(course=roo_course)
                         course_diff.diff = json.dumps(diff)
                         # .create(course=roo_course, diff=json.dumps(diff))
                         course_diff.save()

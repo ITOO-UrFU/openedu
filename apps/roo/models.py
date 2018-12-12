@@ -653,6 +653,26 @@ class Course(models.Model):
                 # print(field_name, "END")
                 return a == b, a, b
 
+        def find_actual(fieldname, a,b):
+
+            if a == "":
+                a = None
+            if b == "":
+                b = None
+
+            if a is None and b is not None:
+                return b
+            if b is None and a is not None:
+                return a
+
+            if fieldname in ["activities", "teachers", "directions"]:
+                if len(b) > len(a):
+                    return b
+                else:
+                    return a
+
+            return a
+
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
             response = request.json()
@@ -680,7 +700,7 @@ class Course(models.Model):
                         is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field),
                                                                                        course[field], field)
                         if not is_almost_equal:
-                            diff[field] = {"our": almost_equal_a, "roo": almost_equal_b}
+                            diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a,almost_equal_b)}
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
                         # try:

@@ -666,7 +666,7 @@ class Course(models.Model):
             if a is None and b is not None:
                 return {"value": b, "source": "roo"}
             if b is None and a is not None:
-                return {"value": a, "source": "we"}
+                return {"value": a, "source": "our"}
 
             if fieldname in ["activities", "teachers", "directions"]:
                 # print(a,b)
@@ -674,9 +674,9 @@ class Course(models.Model):
                 if len(b) > a.count():
                     return {"value": b, "source": "roo"}
                 else:
-                    return {"value": a, "source": "we"}
+                    return {"value": a, "source": "our"}
 
-            return {"value": a, "source": "we"}
+            return {"value": a, "source": "our"}
 
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)

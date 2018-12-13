@@ -717,7 +717,7 @@ class Course(models.Model):
                             # if field == "teachers":
                             # print(field, almost_equal_a, almost_equal_b)
                             if field in ["activities", "teachers", "directions"]:
-                                almost_equal_a = [x.to_json() for x in almost_equal_a.all()]
+                                almost_equal_a = [x.get_json() for x in almost_equal_a.all()]
 
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a, almost_equal_b)}
 

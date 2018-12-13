@@ -664,19 +664,19 @@ class Course(models.Model):
                 b = None
 
             if a is None and b is not None:
-                return b
+                return {"value": b, "source": "roo"}
             if b is None and a is not None:
-                return a
+                return {"value": a, "source": "we"}
 
             if fieldname in ["activities", "teachers", "directions"]:
-                print(a,b)
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(b) ,a.count())
+                # print(a,b)
+                # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(b) ,a.count())
                 if len(b) > a.count():
-                    return b
+                    return {"value": b, "source": "roo"}
                 else:
-                    return a
+                    return {"value": a, "source": "we"}
 
-            return a
+            return {"value": a, "source": "we"}
 
         def get_courses_from_page(page_url):
             request = requests.get(page_url, auth=(login, password), verify=False)
@@ -713,7 +713,17 @@ class Course(models.Model):
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
-                        print(type(diff), diff)
+
+
+
+                        # def to_json(diff):
+                        #     _res = ""
+                        #     for k in diff.keys():
+                        #         try:
+                        #             diff["k"]
+
+
+
                         course_diff.diff = json.dumps(diff)
                         course_diff.save()
 

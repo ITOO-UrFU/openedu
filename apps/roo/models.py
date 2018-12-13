@@ -713,6 +713,7 @@ class Course(models.Model):
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
+                        print(type(diff), diff)
                         course_diff.diff = json.dumps(diff)
                         course_diff.save()
 

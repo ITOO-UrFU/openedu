@@ -596,7 +596,10 @@ class Course(models.Model):
             # print(fuzz.token_sort_ratio(a, b))
             return True if fuzz.token_sort_ratio(a, b) > 0.95 else False
 
-        def almost_equal(a, b, field_name):
+        def almost_equal(raw_a, raw_b, field_name):
+
+            a = raw_a
+            b = raw_b
 
             if a == "None":
                 a = None
@@ -614,16 +617,17 @@ class Course(models.Model):
                     b = [item["title"] for item in b]
                 elif field_name in ["directions"]:
                     a = [item.code for item in a.all()]
-                return set(a) == set(b), a, b
+                return set(a) == set(b), raw_a, raw_b
+
             elif isinstance(a, str) and isinstance(b, str):
                 # a = ''.join(e for e in a if e.isalnum())
                 # b = ''.join(e for e in b if e.isalnum())
-                return levenshtein_equal(a, b), a, b
+                return levenshtein_equal(a, b), raw_a, raw_b
 
             else:
                 if field_name in ["visitors_number", "rating", "duration", "visitors_rating_count", "lectures_number",
                                   "expert_rating_count"]:
-                    return str(b) in str(a).split(' '), a, b
+                    return str(b) in str(a).split(' '), raw_a, raw_b
                 elif field_name == "partner_id":
                     a = Platform.objects.get(pk=a)
                     a = a.global_id
@@ -643,18 +647,17 @@ class Course(models.Model):
                         a = ""
                     if not b or b == "":
                         b = ""
-                    return levenshtein_equal(a, b), a, b
+                    return levenshtein_equal(a, b), raw_a, raw_b
 
                 if (a is None or b is None) and a != b:
-                    return False, a, b
+                    return False, raw_a, raw_b
 
                 # if isinstance(a, str) and isinstance(b, str):
                 #     return levenshtein_equal(a, b)
                 # print(field_name, "END")
-                return a == b, a, b
+                return a == b, raw_a, raw_b
 
         def find_actual(fieldname, a,b):
-
             if a == "":
                 a = None
             if b == "":
@@ -700,16 +703,15 @@ class Course(models.Model):
                         is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field),
                                                                                        course[field], field)
                         if not is_almost_equal:
+
+                            # if field == "teachers":
+
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a,almost_equal_b)}
+
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
-                        # try:
-                        #     course_diff = CourseDiff.objects.filter(course=roo_course).first()
-                        # except:
-                        #     course_diff = CourseDiff.objects.create(course=roo_course)
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
                         course_diff.diff = json.dumps(diff)
-                        # .create(course=roo_course, diff=json.dumps(diff))
                         course_diff.save()
 
                     # print(field, '-------', getattr(roo_course, field), course[field])
@@ -717,9 +719,9 @@ class Course(models.Model):
                 # if roo_course:
                 #     if not roo_course.newest:
                 #         roo_course.update_from_dict(course)
-                # else:
-                #     roo_course = Course.create_from_dict(course)
-                # # roo_course.save()
+                else:
+                    roo_course = Course.create_from_dict(course)
+                # roo_course.save()
 
             if response["next"] is not None:
                 get_courses_from_page(response["next"])

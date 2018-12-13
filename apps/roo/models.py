@@ -678,10 +678,11 @@ class Course(models.Model):
             if fieldname in ["activities", "teachers", "directions"]:
                 print(a,b)
                 # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(b) ,a.count())
-                if len(b) > a.count():
+                # if len(b) > a.count():
+                if len(b) > len(a):
                     return {"value": b, "source": "roo"}
                 else:
-                    return {"value": [t.get_json() for t  in a.all()], "source": "our"}
+                    return {"value": a, "source": "our"}
 
             return {"value": a, "source": "our"}
 
@@ -714,7 +715,10 @@ class Course(models.Model):
                         if not is_almost_equal:
 
                             # if field == "teachers":
-                            print(field, almost_equal_a, almost_equal_b)
+                            # print(field, almost_equal_a, almost_equal_b)
+                            if fieldname in ["activities", "teachers", "directions"]:
+                                almost_equal_a = [x.to_json() for x in almost_equal_a.all()]
+
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a, almost_equal_b)}
 
                             # if field in ["teachers", "directions", "activities"] and:

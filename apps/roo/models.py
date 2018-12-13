@@ -669,7 +669,7 @@ class Course(models.Model):
                 return a
 
             if fieldname in ["activities", "teachers", "directions"]:
-                if b.count() > a.count():
+                if b > a:
                     return b
                 else:
                     return a
@@ -705,7 +705,7 @@ class Course(models.Model):
                         if not is_almost_equal:
 
                             # if field == "teachers":
-
+                            print(field, almost_equal_a, almost_equal_b)
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a, almost_equal_b)}
 
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])

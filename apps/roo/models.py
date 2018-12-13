@@ -177,6 +177,13 @@ class Teacher(models.Model):
 
     get_image.allow_tags = True
 
+    def get_json(self):
+        return {
+            "title": self.title,
+            "image": self.image,
+            "description": self.description
+        }
+
     class Meta:
         verbose_name = 'лектор'
         verbose_name_plural = 'лекторы'
@@ -674,7 +681,7 @@ class Course(models.Model):
                 if len(b) > a.count():
                     return {"value": b, "source": "roo"}
                 else:
-                    return {"value": a, "source": "our"}
+                    return {"value": a.get_json(), "source": "our"}
 
             return {"value": a, "source": "our"}
 
@@ -710,6 +717,8 @@ class Course(models.Model):
                             print(field, almost_equal_a, almost_equal_b)
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a, almost_equal_b)}
 
+                            # if field in ["teachers", "directions", "activities"] and:
+
                             # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
@@ -721,8 +730,6 @@ class Course(models.Model):
                         #     for k in diff.keys():
                         #         try:
                         #             diff["k"]
-
-
 
                         course_diff.diff = json.dumps(diff)
                         course_diff.save()
@@ -879,6 +886,12 @@ class Area(Base):
     def __str__(self):
         return self.title
 
+    def get_json(self):
+        return {
+            "title": self.title,
+            "global_id": self.global_id
+        }
+
     class Meta:
         verbose_name = 'область деятельности'
         verbose_name_plural = 'области деятельности'
@@ -898,6 +911,13 @@ class Direction(models.Model):
 
     def __str__(self):
         return f"направление подготовки: {self.title}"
+
+    def get_json(self):
+        return {
+            "title": self.title,
+            "activity": self.activity.get_json(),
+            "code": self.code
+        }
 
     class Meta:
         verbose_name = 'направление подготовки'

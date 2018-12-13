@@ -723,13 +723,7 @@ class Course(models.Model):
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
 
-
-
-                        # def to_json(diff):
-                        #     _res = ""
-                        #     for k in diff.keys():
-                        #         try:
-                        #             diff["k"]
+                        print("diff!!!!!!!!!!!!!!!!!!!", diff)
 
                         course_diff.diff = json.dumps(diff)
                         course_diff.save()

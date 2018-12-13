@@ -670,8 +670,8 @@ class Course(models.Model):
 
             if fieldname in ["activities", "teachers", "directions"]:
                 print(a,b)
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", b.count() ,len(a))
-                if b.count() > len(a):
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(b) ,a.count())
+                if len(b) > a.count():
                     return b
                 else:
                     return a

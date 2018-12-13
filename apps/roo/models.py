@@ -676,7 +676,7 @@ class Course(models.Model):
                 return {"value": a, "source": "our"}
 
             if fieldname in ["activities", "teachers", "directions"]:
-                # print(a,b)
+                print(a,b)
                 # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(b) ,a.count())
                 if len(b) > a.count():
                     return {"value": b, "source": "roo"}

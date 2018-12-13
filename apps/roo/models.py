@@ -681,7 +681,7 @@ class Course(models.Model):
                 if len(b) > a.count():
                     return {"value": b, "source": "roo"}
                 else:
-                    return {"value": [t.get_json() for t  in a], "source": "our"}
+                    return {"value": [t.get_json() for t  in a.all()], "source": "our"}
 
             return {"value": a, "source": "our"}
 

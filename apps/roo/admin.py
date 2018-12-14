@@ -125,7 +125,7 @@ class CourseResource(resources.ModelResource):
     results = Field(attribute="results", column_name="Результаты обучения")
     expertise_status = Field(
         attribute='get_expertise_status_display',
-        column_name='Статус экспертизы'
+        column_name='Статус обязательной экспертизы'
     )
     expert_access = Field(
         attribute='get_expert_access_display',
@@ -161,6 +161,14 @@ class CourseResource(resources.ModelResource):
         attribute='get_passport_responsible_display',
         column_name='Ответсвенный за паспорт'
     )
+    owner_responsible = Field(
+        attribute='get_owner_responsible_display',
+        column_name='Ответсвенный за правообладателя'
+    )
+    platform_responsible = Field(
+        attribute='get_platform_responsible_display',
+        column_name='Ответсвенный за платформу'
+    )
     comment = Field(attribute='comment', column_name='Примечание Шарыпова-Рачёва')
 
     external_url = Field(attribute='external_url', column_name='сылка на онлайн-курс на сайте Платформы')
@@ -178,7 +186,7 @@ class CourseResource(resources.ModelResource):
         model = Course
         fields = (
             'title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links',
-            'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible',
+            'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible', 'owner_responsible', 'platform_responsible'
             'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status',
             'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state',
             'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')

@@ -675,6 +675,9 @@ class Course(models.Model):
             if b is None and a is not None:
                 return {"value": a, "source": "our"}
 
+            if fieldname in ["partner_id"]:
+                return {"value": b, "source": "roo"}
+
             if fieldname in ["activities", "teachers", "directions"]:
                 print(a,b)
                 # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(b) ,a.count())
@@ -710,8 +713,7 @@ class Course(models.Model):
                     print(f"-----------{roo_course}-------------")
                     diff = dict()
                     for field in course.keys():
-                        is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field),
-                                                                                       course[field], field)
+                        is_almost_equal, almost_equal_a, almost_equal_b = almost_equal(getattr(roo_course, field), course[field], field)
                         if not is_almost_equal:
 
                             # if field == "teachers":

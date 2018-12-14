@@ -571,7 +571,7 @@ class Course(models.Model):
                 self.activities.add(activity_object)
         else:
             # try:
-            setattr(self, attr, val)
+            setattr(self, attr, d[attr])
             # except:
             #     pass
 

@@ -756,6 +756,7 @@ class Course(models.Model):
                             if diff[field]['actual']['source'] == "roo":
                                 roo_course = roo_course.update_field_from_dict(course, field)
                                 roo_course.save()
+
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
 

@@ -570,10 +570,10 @@ class Course(models.Model):
                 activity_object = Area.objects.get(global_id=int(activity))
                 self.activities.add(activity_object)
         else:
-            try:
-                setattr(self, attr, val)
-            except:
-                pass
+            # try:
+            setattr(self, attr, val)
+            # except:
+            #     pass
 
         # self.set_identical()  # Надо ли вот
         # self.in_archive = False  # это вот все?
@@ -756,6 +756,7 @@ class Course(models.Model):
                             if diff[field]['actual']['source'] == "roo":
                                 print("Я перезаписываю: ", roo_course.id, diff[field]['actual'])
                                 roo_course = roo_course.update_field_from_dict(course, field)
+                                print(roo_course)
                                 roo_course.save()
 
                     if len(diff.keys()) > 0:

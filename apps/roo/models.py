@@ -754,6 +754,7 @@ class Course(models.Model):
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a, almost_equal_b)}
 
                             if diff[field]['actual']['source'] == "roo":
+                                print("Я перезаписываю: ", roo_course.id, diff[field]['actual'])
                                 roo_course = roo_course.update_field_from_dict(course, field)
                                 roo_course.save()
 

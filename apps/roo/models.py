@@ -553,6 +553,36 @@ class Course(models.Model):
             # self.communication_platform = 5
             self.save()
 
+    def update_field_from_dict(self, d, attr):
+
+        if attr == "teachers":
+            for teacher in d['teachers']:
+                if self.teachers.filter(title=teacher['title']).count() == 0:
+                    t = Teacher(image=teacher['image'], description=teacher['description'], title=teacher['title'])
+                    t.save()
+                    self.teachers.add(t)
+        elif attr == "directions":
+            for direction in d["directions"]:
+                direction_object = Direction.objects.get(code=direction)
+                self.directions.add(direction_object)
+        elif attr == "activities":
+            for activity in d["activities"]:
+                activity_object = Area.objects.get(global_id=int(activity))
+                self.activities.add(activity_object)
+        else:
+            try:
+                setattr(self, attr, val)
+            except:
+                pass
+
+        # self.set_identical()  # Надо ли вот
+        # self.in_archive = False  # это вот все?
+        # self.communication_owner = 5
+        self.roo_status = "3"
+
+        return self
+        # self.save()
+
     @classmethod
     def create_from_dict(cls, d):
         c = cls.objects.create(title=d["title"])
@@ -675,7 +705,7 @@ class Course(models.Model):
             if b is None and a is not None:
                 return {"value": a, "source": "our"}
 
-            if fieldname in ["partner_id"]:
+            if fieldname in ["partner_id", "institution_id"]:
                 return {"value": b, "source": "roo"}
 
             if fieldname in ["activities", "teachers", "directions"]:
@@ -723,9 +753,9 @@ class Course(models.Model):
 
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a, almost_equal_b)}
 
-                            # if field in ["teachers", "directions", "activities"] and:
-
-                            # print(field, almost_equal(getattr(roo_course, field), course[field], field), getattr(roo_course, field), course[field])
+                            if diff[field]['actual']['source'] == "roo":
+                                roo_course = roo_course.update_field_from_dict(course, field)
+                                # roo_course.save()
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
 

@@ -630,7 +630,6 @@ class Course(models.Model):
         password = 'ye;yj,jkmitrjlf'
 
         def levenshtein_equal(a, b):
-            # print(fuzz.token_sort_ratio(a, b))
             return True if fuzz.token_sort_ratio(a, b) > 0.95 else False
 
         def almost_equal(raw_a, raw_b, field_name):
@@ -657,8 +656,6 @@ class Course(models.Model):
                 return set(a) == set(b), raw_a, raw_b
 
             elif isinstance(a, str) and isinstance(b, str):
-                # a = ''.join(e for e in a if e.isalnum())
-                # b = ''.join(e for e in b if e.isalnum())
                 return levenshtein_equal(a, b), raw_a, raw_b
 
             else:
@@ -676,10 +673,7 @@ class Course(models.Model):
                         a = True
                     else:
                         a = False
-                # elif field_name == "credits":
-                #     return levenshtein_equal(str(a), str(b))
                 elif field_name in ["accreditation", "requirements", "competences", "description", "credits"]:
-                    # print(field_name, "!!!!!!!!!!!!!!!")
                     if not a or a == "":
                         a = ""
                     if not b or b == "":
@@ -689,9 +683,6 @@ class Course(models.Model):
                 if (a is None or b is None) and a != b:
                     return False, raw_a, raw_b
 
-                # if isinstance(a, str) and isinstance(b, str):
-                #     return levenshtein_equal(a, b)
-                # print(field_name, "END")
                 return a == b, raw_a, raw_b
 
         def find_actual(fieldname, a,b):
@@ -709,9 +700,6 @@ class Course(models.Model):
                 return {"value": b, "source": "roo"}
 
             if fieldname in ["activities", "teachers", "directions"]:
-                print(a,b)
-                # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", len(b) ,a.count())
-                # if len(b) > a.count():
                 if len(b) > len(a):
                     return {"value": b, "source": "roo"}
                 else:

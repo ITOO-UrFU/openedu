@@ -239,7 +239,7 @@ class CourseDiffAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': JSONEditor},
     }
-    list_display = ("course",)
+    list_display = ("course", "date")
 
 
 @admin.register(Expert)

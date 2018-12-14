@@ -727,8 +727,6 @@ class Course(models.Model):
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)
 
-                        print("diff!!!!!!!!!!!!!!!!!!!", diff)
-
                         course_diff.diff = json.dumps(diff)
                         course_diff.save()
 

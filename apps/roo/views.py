@@ -504,6 +504,7 @@ def expertises_json(request):
     if request.method == "GET":
         exs = Expertise.objects.all()
         data = serialize('json', exs)
+        print(type(data), data)
         return JsonResponse(data, safe=False)
 
 

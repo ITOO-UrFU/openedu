@@ -502,8 +502,8 @@ def course_json(request, course_id):
 
 def expertises_json(request):
     if request.method == "GET":
-        exs = Expertise.objects.first()
-        data = serialize('json', [exs, ])
+        exs = Expertise.objects.all
+        data = serialize('json', exs)
         return JsonResponse(data, safe=False)
 
 

@@ -504,7 +504,7 @@ def expertises_json(request):
     if request.method == "GET":
         exs = Expertise.objects.all()
         data = serialize('json', exs, indent=4,
-                         relations=('object_type', 'individual',))
+                         use_natural_foreign_keys=True, use_natural_primary_keys=True)
 
         response = HttpResponse(data, content_type='application/json')
         response['Content-Length'] = len(data)

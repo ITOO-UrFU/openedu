@@ -503,7 +503,9 @@ def course_json(request, course_id):
 def expertises_json(request):
     if request.method == "GET":
         exs = Expertise.objects.all()
-        data = serialize('json', exs)
+        data = serialize('json', exs, indent=4,
+                         relations=('object_type', 'individual',))
+
         response = HttpResponse(data, content_type='application/json')
         response['Content-Length'] = len(data)
         return response

@@ -505,7 +505,7 @@ def expertises_json(request):
         exs = Expertise.objects.all()
         data = serialize('json', exs)
         print(type(data), data)
-        return JsonResponse(data, safe=False)
+        return HttpResponse(data)
 
 
 def send_course(request, course_id):

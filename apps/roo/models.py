@@ -243,7 +243,7 @@ class Course(models.Model):
     institution = models.ForeignKey("Owner", verbose_name="Правообладатель", blank=True, null=True)
     partner = models.ForeignKey("Platform", verbose_name="Платформа", null=True)
     external_url = models.CharField("Ссылка на онлайн-курс на сайте Платформы", blank=True, null=True, max_length=512)
-    image = models.URLField("Изображение курса", blank=True, null=True)
+    image = models.URLField("Изображение курса", blank=True, null=True, max_length=512)
     global_id = models.CharField("ИД курса на РОО", blank=True, null=True, max_length=512)
     created_at = models.CharField("Дата создания онлайн-курса", blank=True, null=True, max_length=512)
     visitors_rating = models.CharField("Оценка посетителей РОО", blank=True, null=True,

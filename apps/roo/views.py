@@ -500,6 +500,17 @@ def course_json(request, course_id):
         return JsonResponse({"partnerId": new_course['partner'], "package": {"items": [new_course]}})
 
 
+def expertises_json(request):
+    if request.method == "GET":
+        exs = Expertise.objects.all()
+        data = serialize('json', exs, indent=4,
+                         use_natural_foreign_keys=True, use_natural_primary_keys=True)
+
+        response = HttpResponse(data, content_type='application/json')
+        response['Content-Length'] = len(data)
+        return response
+
+
 def send_course(request, course_id):
     passport = ""
 

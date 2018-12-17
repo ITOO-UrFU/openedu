@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'create_teacher/', TeacherCreate.as_view(), name='create_teacher'),
     url(r'create_course/', CourseCreate.as_view(), name='create_course'),
     url(r'update_course/', TableCourseUpdate, name='update_course'),
+    url(r'exs/', expertises_json, name='expertises_json'),
     url(r'update_expertise/', TableExpertiseUpdate, name='update_expertise'),
     url(r'^close/$', TemplateView.as_view(template_name='roo/close.html')),
 

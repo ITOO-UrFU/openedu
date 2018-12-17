@@ -749,7 +749,6 @@ class Course(models.Model):
 
                             if diff[field]['actual']['source'] == "roo":
                                 print("Я перезаписываю: ", roo_course.id, field, diff[field]['actual'])
-                                if field == "global_id" and
                                 roo_course = roo_course.update_field_from_dict(course, field)
                                 print(roo_course)
                                 roo_course.save()

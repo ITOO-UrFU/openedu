@@ -569,6 +569,12 @@ class Course(models.Model):
             for activity in d["activities"]:
                 activity_object = Area.objects.get(global_id=int(activity))
                 self.activities.add(activity_object)
+        elif attr == "institution_id":
+            institution_object = Owner.objects.get(global_id=d["institution_id"])
+            self.institution = institution_object
+        elif attr == "partner_id":
+            partner_object = Platform.objects.get(global_id=d["partner_id"])
+            self.partner = partner_object
         else:
             # try:
             setattr(self, attr, d[attr])
@@ -578,7 +584,7 @@ class Course(models.Model):
         # self.set_identical()  # Надо ли вот
         # self.in_archive = False  # это вот все?
         # self.communication_owner = 5
-        self.roo_status = "3"
+        # self.roo_status = "3"
 
         return self
         # self.save()
@@ -742,7 +748,8 @@ class Course(models.Model):
                             diff[field] = {"our": almost_equal_a, "roo": almost_equal_b, "actual": find_actual(field, almost_equal_a, almost_equal_b)}
 
                             if diff[field]['actual']['source'] == "roo":
-                                print("Я перезаписываю: ", roo_course.id, diff[field]['actual'])
+                                print("Я перезаписываю: ", roo_course.id, field, diff[field]['actual'])
+                                if field == "global_id" and
                                 roo_course = roo_course.update_field_from_dict(course, field)
                                 print(roo_course)
                                 roo_course.save()

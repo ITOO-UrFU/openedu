@@ -598,6 +598,10 @@ def send_course(request, course_id):
         s = requests.Session()
         resp = s.send(prepared)
 
+        if resp.text == "":
+            re_resp = "{}"
+        else:
+            re_resp = resp.json()
         # print(resp.text)
 
         if resp.status_code == 200:
@@ -612,7 +616,7 @@ def send_course(request, course_id):
             course.roo_status = "3"
             course.save()
 
-        return JsonResponse({"status": resp.status_code, "resp_raw": str(resp.json()), "data": passport})
+        return JsonResponse({"status": resp.status_code, "resp_raw": str(re_resp), "data": passport})
         # except Exception as e:
         #     return JsonResponse({"exception": str(e), "status": 206, "data": passport}, status=206)
 

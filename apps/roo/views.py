@@ -598,7 +598,7 @@ def send_course(request, course_id):
         s = requests.Session()
         resp = s.send(prepared)
 
-        print(resp.text)
+        # print(resp.text)
 
         if resp.status_code == 200:
             SendedCourse.objects.create(

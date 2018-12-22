@@ -599,7 +599,7 @@ def send_course(request, course_id):
             resp = s.send(prepared)
 
             if resp.text == "":
-                re_resp = "{}"
+                re_resp = " нормально!"
             else:
                 re_resp = resp.json()
             # print(resp.text)

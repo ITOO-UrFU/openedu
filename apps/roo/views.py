@@ -593,10 +593,12 @@ def send_course(request, course_id):
             r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
 
         prepared = r.prepare()
-        _pretty_print(prepared)
+        # _pretty_print(prepared)
 
         s = requests.Session()
         resp = s.send(prepared)
+
+        print(resp.text)
 
         if resp.status_code == 200:
             SendedCourse.objects.create(

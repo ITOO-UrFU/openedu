@@ -819,7 +819,11 @@ class CourseUpdate(UpdateView):
             for arch_ex in Expertise.objects.filter(course=arch_course):
                 arch_ex.pk = None
                 arch_ex.course = self.get_object()
+                if arch_ex.type == "0" and arch_ex.executed == True:
+                    self.get_object().expertise_status = "3"
+                    self.get_object().save()
                 arch_ex.save()
+
 
             arch_course.in_archive = True
             arch_course.save()

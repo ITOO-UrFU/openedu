@@ -819,7 +819,7 @@ class CourseUpdate(UpdateView):
             for arch_ex in Expertise.objects.filter(course=arch_course):
                 arch_ex.pk = None
                 arch_ex.course = self.get_object()
-                if arch_ex.type == "0" and arch_ex.executed == True:
+                if arch_ex.type == "0" and arch_ex.executed == True:  # если у оставляемого курса есть пройденная обязательная экспертиза, ставим статус курса "Экспертиза пройдена"
                     self.get_object().expertise_status = "3"
                     self.get_object().save()
                 arch_ex.save()

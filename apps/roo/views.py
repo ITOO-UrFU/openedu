@@ -510,8 +510,8 @@ def course_json(request, course_id):
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
         passport = clean_empty(passport)
 
-        if "promo_url" not in passport.keys():
-            passport["promo_url"] = ""
+        if "promo_url" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["promo_url"] = ""
 
         return JsonResponse(passport)
 
@@ -609,8 +609,8 @@ def send_course(request, course_id):
 
             passport = clean_empty(passport)
 
-            if "promo_url" not in passport.keys():
-                passport["promo_url"] = ""
+            if "promo_url" not in passport["package"]["items"][0].keys():
+                passport["package"]["items"][0]["promo_url"] = ""
 
             if new_course.get("global_id", True):
                 print("Обновляем курс", course.global_id is None)

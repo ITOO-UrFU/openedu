@@ -586,11 +586,11 @@ def send_course(request, course_id):
                 new = False
 
                 new_course["id"] = course.global_id
-                r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+                r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k'}, json=passport)  # токен на Никиту
             else:
                 print("Отправляем новый курс", course.global_id)
                 new = True
-                r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic dmVzbG9ndXpvdkBnbWFpbC5jb206eWU7eWosamttaXRyamxm'}, json=passport)
+                r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k'}, json=passport)  # токен на Никиту
 
             prepared = r.prepare()
             # _pretty_print(prepared)

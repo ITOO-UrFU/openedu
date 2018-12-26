@@ -622,6 +622,16 @@ def send_course(request, course_id):
 
             if "promo_url" not in passport["package"]["items"][0].keys():
                 passport["package"]["items"][0]["promo_url"] = ""
+            if "promo_lang" not in passport["package"]["items"][0].keys():
+                passport["package"]["items"][0]["promo_lang"] = passport["package"]["items"][0]["language"]
+            if "subtitles_lang" not in passport["package"]["items"][0].keys():
+                passport["package"]["items"][0]["subtitles_lang"] = ""
+            if "proctoring_service" not in passport["package"]["items"][0].keys():
+                passport["package"]["items"][0]["proctoring_service"] = ""
+            if "sessionid" not in passport["package"]["items"][0].keys():
+                passport["package"]["items"][0]["sessionid"] = ""
+
+            passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
 
             if new_course.get("global_id", True):
                 print("Обновляем курс", course.global_id is None)

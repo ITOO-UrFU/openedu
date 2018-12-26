@@ -512,6 +512,13 @@ def expertises_json(request):
 
 
 def send_course(request, course_id):
+    def clean_empty(d):
+        if not isinstance(d, (dict, list)):
+            return d
+        if isinstance(d, list):
+            return [v for v in (clean_empty(v) for v in d) if v]
+        return {k: v for k, v in ((k, clean_empty(v)) for k, v in d.items()) if v}
+
     passport = ""
 
     def _pretty_print(req):
@@ -580,6 +587,10 @@ def send_course(request, course_id):
             new_course['pk'] = struct['pk']
 
             passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
+
+            # Убираем None
+
+            passport = clean_empty(passport)
 
             if new_course.get("global_id", True):
                 print("Обновляем курс", course.global_id is None)
@@ -823,7 +834,6 @@ class CourseUpdate(UpdateView):
                     self.get_object().expertise_status = "3"
                     self.get_object().save()
                 arch_ex.save()
-
 
             arch_course.in_archive = True
             arch_course.save()

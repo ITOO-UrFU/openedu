@@ -516,6 +516,8 @@ def course_json(request, course_id):
             passport["package"]["items"][0]["promo_lang"] = passport["package"]["items"][0]["language"]
         if "subtitles_lang" not in passport["package"]["items"][0].keys():
             passport["package"]["items"][0]["subtitles_lang"] = ""
+        if "proctoring_service" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["proctoring_service"] = ""
 
         return JsonResponse(passport)
 

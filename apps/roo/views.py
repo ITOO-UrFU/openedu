@@ -466,12 +466,14 @@ def TableExpertiseUpdate(request):
 def course_json(request, course_id):
 
     def clean_empty(d):
+        safe_keys = ["partnerid", "title", "description", "external_url", "direction", "institution", "duration", "cert", "business_version", "promo_url"]
         print(type(d), d)
         if not isinstance(d, (dict, list)):
             return d
         if isinstance(d, list):
             return [v for v in (clean_empty(v) for v in d) if v]
-        return {k: v for k, v in ((k, clean_empty(v)) for k, v in d.items()) if v}
+
+        return {k: v for k, v in ((k, clean_empty(v)) for k, v in d.items()) if v or k in safe_keys}
 
     if request.method == "GET":
         course = Course.objects.get(pk=course_id)

@@ -521,6 +521,8 @@ def course_json(request, course_id):
         if "sessionid" not in passport["package"]["items"][0].keys():
             passport["package"]["items"][0]["sessionid"] = ""
 
+        passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
+
 
         return JsonResponse(passport)
 

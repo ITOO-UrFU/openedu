@@ -540,7 +540,6 @@ def expertises_json(request):
 
 def send_course(request, course_id):
     def clean_empty(d):
-        print(type(d), d)
         if not isinstance(d, (dict, list)):
             return d
         if isinstance(d, list):

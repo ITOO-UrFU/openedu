@@ -472,11 +472,7 @@ def course_json(request, course_id):
         if isinstance(d, list):
             return [v for v in (clean_empty(v) for v in d) if v]
 
-        res = {k: v for k, v in ((k, clean_empty(v)) for k, v in d.items()) if v}
-        if "promo_url" not in res.keys():
-            res["promo_url"] = ""
-
-        return res
+        return {k: v for k, v in ((k, clean_empty(v)) for k, v in d.items()) if v}
 
     if request.method == "GET":
         course = Course.objects.get(pk=course_id)
@@ -513,6 +509,9 @@ def course_json(request, course_id):
 
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
         passport = clean_empty(passport)
+
+        if "promo_url" not in passport.keys():
+            passport["promo_url"] = ""
 
         return JsonResponse(passport)
 
@@ -609,6 +608,9 @@ def send_course(request, course_id):
             # Убираем None
 
             passport = clean_empty(passport)
+
+            if "promo_url" not in passport.keys():
+                passport["promo_url"] = ""
 
             if new_course.get("global_id", True):
                 print("Обновляем курс", course.global_id is None)

@@ -464,6 +464,15 @@ def TableExpertiseUpdate(request):
 
 
 def course_json(request, course_id):
+
+    def clean_empty(d):
+        print(type(d), d)
+        if not isinstance(d, (dict, list)):
+            return d
+        if isinstance(d, list):
+            return [v for v in (clean_empty(v) for v in d) if v]
+        return {k: v for k, v in ((k, clean_empty(v)) for k, v in d.items()) if v}
+
     if request.method == "GET":
         course = Course.objects.get(pk=course_id)
         data = serialize('json', [course, ])
@@ -497,7 +506,10 @@ def course_json(request, course_id):
 
         new_course['pk'] = struct['pk']
 
-        return JsonResponse({"partnerId": new_course['partner'], "package": {"items": [new_course]}})
+        passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
+        passport = clean_empty(passport)
+
+        return JsonResponse(passport)
 
 
 def expertises_json(request):

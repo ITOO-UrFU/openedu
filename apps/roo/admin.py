@@ -264,7 +264,7 @@ class ExpertiseAdmin(admin.ModelAdmin):
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
-    list_display = ("title", "get_image")
+    list_display = ("title", "global_id", "get_image")
 
 
 @admin.register(Area)

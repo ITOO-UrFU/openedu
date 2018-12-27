@@ -635,6 +635,8 @@ def send_course(request, course_id):
         if "sessionid" not in passport["package"]["items"][0].keys():
             passport["package"]["items"][0]["sessionid"] = ""
 
+        if "direction" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["direction"] = ""
 
 
         if new_course.get("global_id", True):

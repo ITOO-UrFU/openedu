@@ -641,11 +641,11 @@ def send_course(request, course_id):
             # print("Обновляем курс", course.global_id is None)
             new = False
             passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
-            r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k='}, json=passport)  # токен на Никиту
+            r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvOl9fX0NhbnRkM3N0cm9Z'}, json=passport)  # токен на Никиту
         else:
             # print("Отправляем новый курс", course.global_id)
             new = True
-            r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k='}, json=passport)  # токен на Никиту
+            r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvOl9fX0NhbnRkM3N0cm9Z'}, json=passport)  # токен на Никиту
 
         prepared = r.prepare()
         # _pretty_print(prepared)

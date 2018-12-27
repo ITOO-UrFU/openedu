@@ -482,7 +482,10 @@ def course_json(request, course_id):
         new_course = struct['fields']
         new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
         new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
-        new_course['lectures'] = int(new_course['lectures_number'])
+        try:
+            new_course['lectures'] = int(new_course['lectures_number'])
+        except:
+            pass
         if new_course['has_sertificate'] == "1":
             new_course['cert'] = True
         else:

@@ -630,11 +630,12 @@ def send_course(request, course_id):
         if "sessionid" not in passport["package"]["items"][0].keys():
             passport["package"]["items"][0]["sessionid"] = ""
 
-        passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
+
 
         if new_course.get("global_id", True):
             # print("Обновляем курс", course.global_id is None)
             new = False
+            passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
             r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k='}, json=passport)  # токен на Никиту
         else:
             # print("Отправляем новый курс", course.global_id)

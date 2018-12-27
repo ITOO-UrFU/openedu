@@ -524,8 +524,10 @@ def course_json(request, course_id):
         if "sessionid" not in passport["package"]["items"][0].keys():
             passport["package"]["items"][0]["sessionid"] = ""
 
-        passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
-
+        try:
+            passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
+        except:
+            pass
 
         return JsonResponse(passport)
 
@@ -560,119 +562,118 @@ def send_course(request, course_id):
         ))
 
     if request.method == "GET":
-        try:
-            if not request.user.is_superuser:
-                return JsonResponse({"status": "Not allowed"}, status=403)
+        # try:
+        if not request.user.is_superuser:
+            return JsonResponse({"status": "Not allowed"}, status=403)
 
-            course = Course.objects.get(pk=course_id)
-            expertises = Expertise.objects.filter(course=course, type="0")
-            expertise_json = serialize('json', expertises)
-            data = serialize('json', [course, ])
-            struct = json.loads(data)[0]
+        course = Course.objects.get(pk=course_id)
+        expertises = Expertise.objects.filter(course=course, type="0")
+        expertise_json = serialize('json', expertises)
+        data = serialize('json', [course, ])
+        struct = json.loads(data)[0]
 
-            new = True
+        new = True
 
-            new_course = struct['fields']
-            new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
-            new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
+        new_course = struct['fields']
+        new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
+        new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
 
-            if new_course['has_sertificate'] == "1":
-                new_course['cert'] = True
-            else:
-                new_course['cert'] = False
+        if new_course['has_sertificate'] == "1":
+            new_course['cert'] = True
+        else:
+            new_course['cert'] = False
 
-            new_course["promo_url"] = ""
-            new_course["promo_lang"] = ""
-            new_course["subtitles_lang"] = ""
-            new_course["proctoring_service"] = ""
-            new_course["sessionid"] = ""
+        new_course["promo_url"] = ""
+        new_course["promo_lang"] = ""
+        new_course["subtitles_lang"] = ""
+        new_course["proctoring_service"] = ""
+        new_course["sessionid"] = ""
 
-            new_course["enrollment_finished_at"] = new_course["record_end_at"]
-            new_course["estimation_tools"] = new_course["evaluation_tools_text"]
+        new_course["enrollment_finished_at"] = new_course["record_end_at"]
+        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
 
-            new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
-            new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
-            new_course['business_version'] = new_course["version"]
+        new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
+        new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
+        new_course['business_version'] = new_course["version"]
 
-            del new_course['directions']
+        del new_course['directions']
 
-            dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
+        dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
 
-            for d in dates:
-                if not new_course[d]:
-                    del new_course[d]
+        for d in dates:
+            if not new_course[d]:
+                del new_course[d]
 
-            if "ру" in new_course["language"].lower():
-                new_course["language"] = 'ru'
+        if "ру" in new_course["language"].lower():
+            new_course["language"] = 'ru'
 
-            if "н" in new_course["duration"]:
-                new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
+        if "н" in new_course["duration"]:
+            new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
 
-            if new_course['lectures_number']:
-                new_course['lectures'] = int(new_course['lectures_number'])
-            else:
-                new_course['lectures'] = int(new_course["duration"]) if int(new_course["duration"]) < 52 else ""
+        if new_course['lectures_number']:
+            new_course['lectures'] = int(new_course['lectures_number'])
+        else:
+            new_course['lectures'] = int(new_course["duration"]) if int(new_course["duration"]) < 52 else ""
 
-            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
-            new_course['pk'] = struct['pk']
+        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        new_course['pk'] = struct['pk']
 
-            passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
+        passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
 
-            # Убираем None
+        # Убираем None
 
-            passport = clean_empty(passport)
+        passport = clean_empty(passport)
 
-            if "promo_url" not in passport["package"]["items"][0].keys():
-                passport["package"]["items"][0]["promo_url"] = ""
-            if "promo_lang" not in passport["package"]["items"][0].keys():
-                passport["package"]["items"][0]["promo_lang"] = passport["package"]["items"][0]["language"]
-            if "subtitles_lang" not in passport["package"]["items"][0].keys():
-                passport["package"]["items"][0]["subtitles_lang"] = ""
-            if "proctoring_service" not in passport["package"]["items"][0].keys():
-                passport["package"]["items"][0]["proctoring_service"] = ""
-            if "sessionid" not in passport["package"]["items"][0].keys():
-                passport["package"]["items"][0]["sessionid"] = ""
+        if "promo_url" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["promo_url"] = ""
+        if "promo_lang" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["promo_lang"] = passport["package"]["items"][0]["language"]
+        if "subtitles_lang" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["subtitles_lang"] = ""
+        if "proctoring_service" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["proctoring_service"] = ""
+        if "sessionid" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["sessionid"] = ""
 
+
+
+        if new_course.get("global_id", True):
+            # print("Обновляем курс", course.global_id is None)
+            new = False
             passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
+            r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k='}, json=passport)  # токен на Никиту
+        else:
+            # print("Отправляем новый курс", course.global_id)
+            new = True
+            r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k='}, json=passport)  # токен на Никиту
 
-            if new_course.get("global_id", True):
-                print("Обновляем курс", course.global_id is None)
-                new = False
+        prepared = r.prepare()
+        # _pretty_print(prepared)
 
-                new_course["id"] = course.global_id
-                r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k='}, json=passport)  # токен на Никиту
-            else:
-                print("Отправляем новый курс", course.global_id)
-                new = True
-                r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvQHVyZnUucnU6X19fQ2FudGQzc3Ryb1k='}, json=passport)  # токен на Никиту
+        s = requests.Session()
+        resp = s.send(prepared)
 
-            prepared = r.prepare()
-            # _pretty_print(prepared)
+        if resp.text == "":
+            re_resp = " нормально!"
+        else:
+            re_resp = resp.json()
+        # print(resp.text)
 
-            s = requests.Session()
-            resp = s.send(prepared)
-
-            if resp.text == "":
-                re_resp = " нормально!"
-            else:
-                re_resp = resp.json()
-            # print(resp.text)
-
-            if resp.status_code == 200:
-                SendedCourse.objects.create(
-                    title=course.title,
-                    course_json=passport,
-                    expertise_json=expertise_json
-                )
-                if new:
-                    course.global_id = resp.json()["course_id"]
-                    course.save()
-                course.roo_status = "3"
+        if resp.status_code == 200:
+            SendedCourse.objects.create(
+                title=course.title,
+                course_json=passport,
+                expertise_json=expertise_json
+            )
+            if new:
+                course.global_id = resp.json()["course_id"]
                 course.save()
+            course.roo_status = "3"
+            course.save()
 
-            return JsonResponse({"status": resp.status_code, "resp_raw": str(re_resp), "data": passport})
-        except Exception as e:
-            return JsonResponse({"exception": str(e), "status": 206, "data": passport}, status=206)
+        return JsonResponse({"status": resp.status_code, "resp_raw": str(re_resp), "data": passport})
+        # except Exception as e:
+        #     return JsonResponse({"exception": str(e), "status": 206, "data": passport}, status=206)
 
 
 @roo_member_required

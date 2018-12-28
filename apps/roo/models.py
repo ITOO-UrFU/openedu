@@ -3,9 +3,11 @@
 import json
 
 import django_tables2 as tables
+import re
 import requests
 # from django.db import models
 from django.contrib.auth.models import User
+from django.core.serializers import serialize
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import post_save
@@ -589,6 +591,122 @@ class Course(models.Model):
         return self
         # self.save()
 
+    def send_to_roo(self):
+        def clean_empty(d):
+            if not isinstance(d, (dict, list)):
+                return d
+            if isinstance(d, list):
+                return [v for v in (clean_empty(v) for v in d) if v]
+            return {k: v for k, v in ((k, clean_empty(v)) for k, v in d.items()) if v}
+
+        passport = ""
+
+        course = self
+        expertises = Expertise.objects.filter(course=course, type="0")
+        expertise_json = serialize('json', expertises)
+        data = serialize('json', [course, ])
+        struct = json.loads(data)[0]
+
+        new = True
+
+        new_course = struct['fields']
+        new_course['institution'] = Owner.objects.get(pk=new_course['institution']).global_id
+        new_course['partner'] = Platform.objects.get(pk=new_course['partner']).global_id
+
+        if new_course['has_sertificate'] == "1":
+            new_course['cert'] = True
+        else:
+            new_course['cert'] = False
+
+        new_course["promo_url"] = ""
+        new_course["promo_lang"] = ""
+        new_course["subtitles_lang"] = ""
+        new_course["proctoring_service"] = ""
+        new_course["sessionid"] = ""
+
+        new_course["enrollment_finished_at"] = new_course["record_end_at"]
+        new_course["estimation_tools"] = new_course["evaluation_tools_text"]
+
+        new_course['teachers'] = [{"image": "" if not x.image else x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
+        new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
+        new_course['business_version'] = new_course["version"]
+
+        del new_course['directions']
+
+        dates = ["started_at", "finished_at", "record_end_at", "created_at", "enrollment_finished_at"]
+
+        for d in dates:
+            if not new_course[d]:
+                del new_course[d]
+
+        if "ру" in new_course["language"].lower():
+            new_course["language"] = 'ru'
+
+        if "н" in new_course["duration"]:
+            new_course["duration"] = int(re.search(r'\d+', new_course["duration"]).group())
+
+        if new_course['lectures_number']:
+            new_course['lectures'] = int(new_course['lectures_number'])
+        else:
+            new_course['lectures'] = int(new_course["duration"]) if int(new_course["duration"]) < 52 else ""
+
+        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        new_course['pk'] = struct['pk']
+
+        passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}
+
+        # Убираем None
+
+        passport = clean_empty(passport)
+
+        if "promo_url" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["promo_url"] = ""
+        if "promo_lang" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["promo_lang"] = passport["package"]["items"][0]["language"]
+        if "subtitles_lang" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["subtitles_lang"] = ""
+        if "proctoring_service" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["proctoring_service"] = ""
+        if "sessionid" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["sessionid"] = ""
+
+        if "direction" not in passport["package"]["items"][0].keys():
+            passport["package"]["items"][0]["direction"] = ""
+
+        if new_course.get("global_id", True):
+            new = False
+            passport["package"]["items"][0]["id"] = passport["package"]["items"][0]["global_id"]
+            r = requests.Request('PUT', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvOl9fX0NhbnRkM3N0cm9Z'}, json=passport)  # токен на Никиту
+        else:
+            new = True
+            r = requests.Request('POST', 'https://online.edu.ru/api/courses/v0/course', headers={'Authorization': 'Basic bi52LmlnbmF0Y2hlbmtvOl9fX0NhbnRkM3N0cm9Z'}, json=passport)  # токен на Никиту
+
+        prepared = r.prepare()
+        # _pretty_print(prepared)
+
+        s = requests.Session()
+        resp = s.send(prepared)
+
+        if resp.text == "":
+            re_resp = " нормально!"
+        else:
+            re_resp = resp.json()
+        # print(resp.text)
+
+        if resp.status_code == 200:
+            SendedCourse.objects.create(
+                title=course.title,
+                course_json=passport,
+                expertise_json=expertise_json
+            )
+            if new:
+                course.global_id = resp.json()["course_id"]
+                course.save()
+            course.roo_status = "3"
+            course.save()
+
+        print(re_resp)
+
     @classmethod
     def create_from_dict(cls, d):
         c = cls.objects.create(title=d["title"])
@@ -691,7 +809,7 @@ class Course(models.Model):
 
                 return a == b, raw_a, raw_b
 
-        def find_actual(fieldname, a,b):
+        def find_actual(fieldname, a, b):
             if a == "":
                 a = None
             if b == "":

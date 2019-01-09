@@ -1,27 +1,23 @@
-from django.http import Http404, JsonResponse
-from django.shortcuts import render_to_response, render, redirect
-from django import forms
-from django.views.decorators.csrf import csrf_exempt
-from django.template.context_processors import csrf
-from django.views.generic.edit import FormView
-from django.conf import settings
-import os
 import csv
-
-import random
-from string import digits, ascii_lowercase
-
-import logging
 import datetime
 import json
-from celery import Celery
-from openedu.celery import app
-from cacheback.decorators import cacheback
+import logging
+from string import digits, ascii_lowercase
 
+import os
+import random
+from django import forms
+from django.conf import settings
+from django.contrib.auth.decorators import user_passes_test
+from django.http import Http404, JsonResponse
+from django.shortcuts import render_to_response, render, redirect
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.edit import FormView
+
+from openedu.celery import app
 from .models import Entry, PersonalData, QuotesAvailable, Program, ReportUploadForm, Report, ReportEntry, \
     CourseUserGrade, PDAvailable, SimulizatorData, ProctoredReportEntry, SeminarData
-
-from django.contrib.auth.decorators import user_passes_test
 
 logger = logging.getLogger(__name__)
 
@@ -217,15 +213,35 @@ def set_program_grade(*args):
             report = user.program.reports.filter(report_type="grade_report").latest("date")
             entry = report.entries.filter(user_id=user.possible_id).first()
             if entry:
+                print(user.program)
                 user.program_grade = entry.grade
                 keys = list(json.loads(entry.raw_data).keys())
-                possible_keys = ["Final Avg", "ИТ", "Final Exam Avg", "Exam Avg", "ИЗ Avg", "ИТ Avg", "Final", "FInal Exam Avg", "ИК", "ИТ Avg"]
+                possible_keys = [
+                    "Final Avg",
+                    "ИТ",
+                    "Final Exam Avg",
+                    "Exam Avg",
+                    "ИЗ Avg",
+                    "ИТ Avg",
+                    "Final",
+                    "FInal Exam Avg",
+                    "ИК",
+                    "ИТ Avg",
+                    "Итоговый тест",
+                    "Final Exam",
+                    "Итоговое задание",
+                    "Итоговое тестирование",
+                    "Итоговое тестирование (Avg)",
+                    "Итоговый контроль (Avg)",
+                    "Final Exam (Avg)",
+                    "Итоговый контроль",
+                ]
                 for pk in possible_keys:
                     if pk in keys:
                         user.exam_name = pk
                         user.exam_grade = json.loads(entry.raw_data)[pk]
+                        print(pk, user.exam_grade)
                         user.save()
-
                 user.save()
             else:
                 user.program_grade = "-1"
@@ -233,7 +249,7 @@ def set_program_grade(*args):
 
 
 @app.task(bind=True)
-def set_proctoring_status(request, *args):
+def set_proctoring_status(*args):
     for user in PersonalData.objects.filter(program__start="6"):
         if user.program and user.program.reports is not None:
             print(user, user.program.reports)
@@ -242,6 +258,7 @@ def set_proctoring_status(request, *args):
                 report = report.latest("date")
                 entry = report.proctored_entries.filter(email=user.email).first()
                 if entry:
+                    print(entry.status)
                     user.proctoring_status = entry.status
                     user.save()
                 else:
@@ -253,12 +270,15 @@ def set_proctoring_status(request, *args):
 def set_course_user_grade(*args):
     for user in PersonalData.objects.filter(program__start="6", possible_id__gt=0):
         for program in Program.objects.exclude(reports=None):
-            report = program.reports.latest("date")
+            report = program.reports.filter(report_type="grade_report").latest("date")
             entry = report.entries.filter(user_id=user.possible_id).first()
             if entry:
+                print(entry, entry.grade)
                 course_user_grade = \
                     CourseUserGrade.objects.get_or_create(user=user, program=program, grade=entry.grade)[0]
                 course_user_grade.save()
+                user.program_grade = entry.grade
+                user.save()
 
 
 @app.task(bind=True)

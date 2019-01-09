@@ -212,7 +212,7 @@ class ReportUploadView(FormView):
 
 @app.task(bind=True)
 def set_program_grade(*args):
-    for user in PersonalData.objects.filter(program__start="5"):
+    for user in PersonalData.objects.filter(program__start="6"):
         if user.program and user.program.reports.count() > 0:
             report = user.program.reports.filter(report_type="grade_report").latest("date")
             entry = report.entries.filter(user_id=user.possible_id).first()

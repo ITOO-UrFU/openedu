@@ -234,7 +234,7 @@ def set_program_grade(*args):
 
 @app.task(bind=True)
 def set_proctoring_status(request, *args):
-    for user in PersonalData.objects.filter(program__start="5"):
+    for user in PersonalData.objects.filter(program__start="6"):
         if user.program and user.program.reports is not None:
             print(user, user.program.reports)
             report = user.program.reports.filter(report_type="proctored_exam_results_report")
@@ -251,7 +251,7 @@ def set_proctoring_status(request, *args):
 
 @app.task(bind=True)
 def set_course_user_grade(*args):
-    for user in PersonalData.objects.filter(program__start="5", possible_id__gt=0):
+    for user in PersonalData.objects.filter(program__start="6", possible_id__gt=0):
         for program in Program.objects.exclude(reports=None):
             report = program.reports.latest("date")
             entry = report.entries.filter(user_id=user.possible_id).first()

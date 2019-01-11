@@ -1,4 +1,3 @@
-import json
 from django.conf import settings
 from django.contrib import admin
 from django.db import models
@@ -187,7 +186,7 @@ class CourseResource(resources.ModelResource):
         fields = (
             'title', 'institution__title', 'partner__title', 'course_link_all', 'get_required_expertises_links',
             'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible', 'owner_responsible', 'platform_responsible'
-            'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status',
+                                                                                                                      'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status',
             'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state',
             'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
 
@@ -221,6 +220,9 @@ class CourseAdmin(ImportExportModelAdmin):
     list_filter = ("partner", "roo_status", "institution")
     filter_horizontal = ("directions", "activities", "teachers")
     search_fields = ("title",)
+
+    def natural_key(self):
+        return (self.title, self.institution, self.partner)
 
 
 @admin.register(Platform)

@@ -454,7 +454,7 @@ class Course(models.Model):
         self.save()
 
     def natural_key(self):
-        return (self.title, self.partner, self.institution)
+        return (self.title, self.partner.title, self.institution.title)
 
     def __str__(self):
         return f"Онлайн-курс: {self.title}"

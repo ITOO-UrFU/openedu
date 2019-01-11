@@ -221,9 +221,6 @@ class CourseAdmin(ImportExportModelAdmin):
     filter_horizontal = ("directions", "activities", "teachers")
     search_fields = ("title",)
 
-    def natural_key(self):
-        return (self.title, self.institution, self.partner)
-
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):

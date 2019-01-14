@@ -213,11 +213,29 @@ class CourseResource(resources.ModelResource):
         return course_link
 
 
+class GIDListFilter(admin.SimpleListFilter):
+    title = 'global_id'
+    parameter_name = 'global_id'
+
+    def lookups(self, request, model_admin):
+
+        return (
+            ('exists', 'Exists'),
+            ('not_exists', 'Not exists'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'exists':
+            return queryset.filter(global_id__isnull=False)
+        if self.value() == 'not_exists':
+            return queryset.filter(global_id__isnull=True)
+
+
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
     resource_class = CourseResource
     list_display = ("title", "get_platform", "institution", "get_description", "global_id")
-    list_filter = ("roo_status", "in_archive", "global_id")
+    list_filter = ("roo_status", "in_archive", "GIDListFilter")
     filter_horizontal = ("roo_status", "in_archive",)
     search_fields = ("title",)
 

@@ -217,8 +217,8 @@ class CourseResource(resources.ModelResource):
 class CourseAdmin(ImportExportModelAdmin):
     resource_class = CourseResource
     list_display = ("title", "get_platform", "institution", "get_description", "global_id")
-    list_filter = ("roo_status", "in_archive", "has_gid")
-    filter_horizontal = ("roo_status", "in_archive", "has_gid")
+    list_filter = ("roo_status", "in_archive", "have_global_id")
+    filter_horizontal = ("roo_status", "in_archive", "have_global_id")
     search_fields = ("title",)
 
 

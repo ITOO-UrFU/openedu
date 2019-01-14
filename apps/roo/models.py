@@ -900,6 +900,11 @@ class Course(models.Model):
         # logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
 
 
+class CourseManager(models.Manager):
+    def have_global_id(self):
+        return Course.objects.filter(global_id__isnull=False)
+
+
 class Platform(Base):
     objects = PlatformManager()
 

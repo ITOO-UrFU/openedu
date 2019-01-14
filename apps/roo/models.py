@@ -469,6 +469,9 @@ class Course(models.Model):
     def get_description(self):
         return truncatewords_html(self.description, 15)
 
+    def has_gid(self):
+        return self.global_id != ""
+
     def get_platform(self):
         if self.partner:
             if self.partner.image:

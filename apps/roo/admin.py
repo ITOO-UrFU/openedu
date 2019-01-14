@@ -236,7 +236,7 @@ class CourseAdmin(ImportExportModelAdmin):
     resource_class = CourseResource
     list_display = ("title", "get_platform", "institution", "get_description", "global_id")
     list_filter = ("roo_status", "in_archive", "GIDListFilter")
-    filter_horizontal = ("roo_status", "in_archive",)
+    # filter_horizontal = ("roo_status", "in_archive",)
     search_fields = ("title",)
 
 

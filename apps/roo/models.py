@@ -409,9 +409,6 @@ class Course(models.Model):
     in_archive = models.BooleanField("Курс находится в архиве", default=False)
     course_item_url = models.CharField("Ссылка на РОО", max_length=512, blank=True, null=True)
 
-    def natural_key(self):
-        return (self.title, self.institution, self.partner)
-
     def get_required_expertises_links(self):
         ex_links = ""
         exs = Expertise.objects.filter(course=self, type="0")
@@ -454,7 +451,7 @@ class Course(models.Model):
         self.save()
 
     def natural_key(self):
-        return (self.title, self.partner.title, self.institution.title)
+        return (self.title, self.partner.title, self.institution.title, self.global_id)
 
     def __str__(self):
         return f"Онлайн-курс: {self.title}"

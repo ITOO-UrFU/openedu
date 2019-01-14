@@ -682,7 +682,7 @@ def expertises_json(request):
                   '5b31fdda2e104e2a829eeacfa18b0479', 'f19e9c0cdb694173a10841726f9c4494', 'f32550ee089c472a9850ff364ecb7f2f', 'a648e8e6da294e31a2627656d93ca549', '634ad70bd8fd44b1b01346fb9ee9f041', '25cb21992ace4874b109789f7c9743df', 'f9c2f4038ccf44b4ba77721709206c15']
 
         exs = []
-        cs = Course.objects.filter(global_id__in=c_gids)
+        cs = Course.objects.filter(global_id__in=c_gids, in_archive=False)
         print(cs.count())
         for c in cs:
             e = Expertise.objects.filter(course=c, type="0")

@@ -684,10 +684,10 @@ def expertises_json(request):
 
         exs = []
         cs = Course.objects.filter(global_id__in=c_gids)
+        print(cs.count())
         for c in cs:
             e = Expertise.objects.filter(course=c, type="0")
-            if e:
-                exs.append(Expertise.objects.filter(course=c, type="0").latest("date"))
+            exs.append(Expertise.objects.filter(course=c, type="0").latest("date"))
         # exs = Expertise.objects.filter(type="0", )
         data = serialize('json', exs, indent=4,
                          use_natural_foreign_keys=True, use_natural_primary_keys=True)

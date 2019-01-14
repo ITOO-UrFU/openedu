@@ -534,7 +534,11 @@ def course_json(request, course_id):
 
 def expertises_json(request):
     if request.method == "GET":
-        exs = Expertise.objects.all()
+        exs = []
+        cs = Course.objects.filter(in_archive=False)
+        for c in cs:
+            exs.append(Expertise.objects.filter(course=c, type="0").latest())
+        # exs = Expertise.objects.filter(type="0", )
         data = serialize('json', exs, indent=4,
                          use_natural_foreign_keys=True, use_natural_primary_keys=True)
 

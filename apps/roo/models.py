@@ -148,6 +148,8 @@ class Expertise(models.Model):
                                           max_length=512)
     additional_info = models.TextField("Дополнительная информация", null=True, blank=True)
 
+    get_latest_by = ["date", "ex_date"]
+
     def get_platform(self):
         return self.course.partner.title
 

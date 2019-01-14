@@ -883,8 +883,9 @@ class Course(models.Model):
                 #     if not roo_course.newest:
                 #         roo_course.update_from_dict(course)
                 else:
-                    roo_course = Course.create_from_dict(course)
-                    roo_course.save()
+                    print(course)
+                    # roo_course = Course.create_from_dict(course)
+                    # roo_course.save()
 
             if response["next"] is not None:
                 get_courses_from_page(response["next"])

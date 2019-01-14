@@ -233,6 +233,8 @@ class GIDListFilter(admin.SimpleListFilter):
 
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
+    actions_on_top = True
+    actions_on_bottom = True
     resource_class = CourseResource
     list_display = ("title", "get_platform", "institution", "get_description", "global_id")
     list_filter = ("roo_status", "in_archive", "GIDListFilter")

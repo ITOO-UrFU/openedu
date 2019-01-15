@@ -887,8 +887,8 @@ class Course(models.Model):
                 #         roo_course.update_from_dict(course)
                 else:
                     print(course)
-                    # roo_course = Course.create_from_dict(course)
-                    # roo_course.save()
+                    roo_course = Course.create_from_dict(course)
+                    roo_course.save()
 
             if response["next"] is not None:
                 get_courses_from_page(response["next"])
@@ -898,11 +898,6 @@ class Course(models.Model):
         get_courses_from_page('https://online.edu.ru/api/courses/v0/course')
 
         # logger.info("Закончили Courses: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
-
-
-class CourseManager(models.Manager):
-    def have_global_id(self):
-        return Course.objects.filter(global_id__isnull=False)
 
 
 class Platform(Base):
@@ -917,16 +912,7 @@ class Platform(Base):
     contacts = models.TextField("Контакты", blank=True, null=True)
 
     def natural_key(self):
-        return (self.title)
-
-    # наши поля
-    # newest = models.BooleanField("Самое новое содержание курса", default=False)
-
-    # person = models.CharField("Данные контактного лица правообладателя телефон, почта", blank=True, null=True,
-    #                           max_length=512)
-    # connection_form = models.CharField("Форма связи с контактным лицом", blank=True, null=True, max_length=512)
-    # connection_date = models.DateField("Дата связи с контактным лицом", blank=True, null=True)
-    # contacts = models.CharField("Контакты института", blank=True, null=True, max_length=512)
+        return self.title
 
     def get_image(self):
         if self.image:
@@ -1052,8 +1038,6 @@ class Area(Base):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/activity', 'title')
 
-        # logger.info("Закончили Areas: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
-
 
 class Direction(models.Model):
     title = models.CharField("Наименование направления", blank=True, null=True, max_length=512, db_index=True)
@@ -1124,8 +1108,6 @@ class Direction(models.Model):
     def get(cls):
         cls.update_base_from_roo('https://online.edu.ru/api/courses/v0/direction')
 
-        # logger.info("Закончили Direction: {0}".format(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
-
 
 class ChoiceColumn(tables.Column):
     def __init__(self, choices, *args, **kwargs):
@@ -1136,10 +1118,7 @@ class ChoiceColumn(tables.Column):
         return self.get_display(value)
 
     def get_display(self, value):
-        # try:
         return self.choices[int(value)][1]
-        # except:
-        # return "Ошибка"
 
 
 class CoursesTable(tables.Table):

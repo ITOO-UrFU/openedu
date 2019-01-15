@@ -873,6 +873,8 @@ class Course(models.Model):
                                 roo_course = roo_course.update_field_from_dict(course, field)
                                 print(roo_course)
                                 roo_course.save()
+                    roo_course.roo_status = 3
+                    roo_course.save()
 
                     if len(diff.keys()) > 0:
                         course_diff, created = CourseDiff.objects.get_or_create(course=roo_course)

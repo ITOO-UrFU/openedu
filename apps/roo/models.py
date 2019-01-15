@@ -653,7 +653,10 @@ class Course(models.Model):
         else:
             new_course['lectures'] = int(new_course["duration"]) if int(new_course["duration"]) < 52 else ""
 
-        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        try:
+            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        except:
+            pass
         new_course['pk'] = struct['pk']
 
         passport = {"partnerId": new_course['partner'], "package": {"items": [new_course]}}

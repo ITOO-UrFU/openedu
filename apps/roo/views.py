@@ -500,7 +500,10 @@ def course_json(request, course_id):
 
         new_course['teachers'] = [{"image": x.image, "display_name": x.title, "description": x.description} for x in Teacher.objects.filter(pk__in=new_course['teachers'])]
 
-        new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        try:
+            new_course['duration'] = {"code": "week", "value": int(new_course["duration"])}
+        except:
+            pass
         new_course['direction'] = [x.code for x in Direction.objects.filter(pk__in=new_course['directions'])]
 
         new_course['business_version'] = new_course["version"]

@@ -539,8 +539,9 @@ def expertises_json(request):
         cs = Course.objects.filter(roo_status="3", in_archive=False)
         print(cs.count())
         for c in cs:
-            # e = Expertise.objects.filter(course=c, type="0")
-            exs.append(Expertise.objects.filter(course=c, type="0").latest("date"))
+            e = Expertise.objects.filter(course=c, type="0")
+            if e:
+                exs.append(e.latest("date"))
         # exs = Expertise.objects.filter(type="0", )
         data = serialize('json', exs, indent=4,
                          use_natural_foreign_keys=True, use_natural_primary_keys=True)

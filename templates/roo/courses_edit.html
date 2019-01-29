@@ -186,6 +186,7 @@
                 {Id: "1", Name: "Выдается"},
                 {Id: "2", Name: "Не выдается"}
             ];
+            var REDACTED =
 
             var courses = [];
             var coursesLoaded = false;
@@ -277,8 +278,7 @@
                                     return item;
                                 }));
                             });
-                        }
-                        else {
+                        } else {
                             result = $.grep(courses, function (item) {
                                 return (!filter.title || (item.title == null ? false : item.title.toLowerCase().indexOf(filter.title.toLowerCase()) > -1))
                                     /*&& (!filter.partner || (item.partner == null ? false : item.partner.toLowerCase().indexOf(filter.partner.toLowerCase()) > -1))*/
@@ -318,6 +318,7 @@
                                     && (!filter.owner_responsible || item.owner_responsible === filter.owner_responsible)
                                     && (!filter.platform_responsible || item.platform_responsible === filter.platform_responsible)
                                     && (!filter.has_sertificate || item.has_sertificate === filter.has_sertificate)
+                                    && (!filter.redacted || item.redacted === filter.redacted)
                             });
                             d.resolve(result)
                         }
@@ -356,7 +357,9 @@
                 },
                 fields: [
                     {
-                        title: "№", name: "num", itemTemplate: function (value, item) { return $("<div style='text-align:center;'> </div").text(value) }, type: "text", filtering: false, editing: false, width: "50"
+                        title: "№", name: "num", itemTemplate: function (value, item) {
+                            return $("<div style='text-align:center;'> </div").text(value)
+                        }, type: "text", filtering: false, editing: false, width: "50"
                         //   visible: false,
                     },
                     {
@@ -418,8 +421,7 @@
                                 });
                                 course_link.attr('target', '_blank');
                                 return course_link;
-                            }
-                            else {
+                            } else {
                                 return "";
                             }
                         }, name: "external_url", filtering: false, editing: false, type: "text",
@@ -456,9 +458,9 @@
                         type: "textarea",
                         filtering: false,
                         {% if  request.user|has_group:"super_roo"  or request.user.is_superuser %}
-                        editing: true
+                            editing: true
                         {% else %}
-                        editing: false
+                            editing: false
                         {% endif %}
                     },
                     {
@@ -491,9 +493,9 @@
                         textField: "Name",
                         validate: "required",
                         {% if  request.user|has_group:"super_roo"  or request.user.is_superuser %}
-                        editing: true
+                            editing: true
                         {% else %}
-                        editing: false
+                            editing: false
                         {% endif %}
                         //   visible: false,
                     },
@@ -602,6 +604,14 @@
                         editing: false,
                         //  visible: false,
                     },
+                    {
+                        title: "Отредактировано",
+                        name: "redacted",
+                        type: "checkbox",
+                        filtering: true,
+                        editing: true
+
+                    },
 
                     {
                         title: "Дубликаты", width: "100", itemTemplate: function (value, item) {
@@ -622,8 +632,7 @@
                                     course_link_wrap.append(course_link);
                                     links.append(course_link_wrap)
                                 });
-                            }
-                            else {
+                            } else {
                                 links.append('<p>Дубликатов не найдено</p>');
                             }
                             return links;
@@ -650,8 +659,7 @@
             $("#show_hide_checkboxes").click(function () {
                 if (this.checked != true) {
                     $("#column_show_checkboxes").css({'display': "none"});
-                }
-                else {
+                } else {
                     $("#column_show_checkboxes").css({'display': "block"});
                 }
             });

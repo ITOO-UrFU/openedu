@@ -737,6 +737,7 @@ def TableCourseUpdate(request):
         course.unforced_ratings_state = request_data['unforced_ratings_state']
         course.comment = request_data['comment']
         course.expert_access = request_data['expert_access']
+        course.redacted = request_data['redacted']
         course.reg_data = request_data['reg_data']
         course.contacts = request_data['contacts']
         course.platform_responsible = request_data['platform_responsible']

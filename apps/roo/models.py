@@ -258,8 +258,7 @@ class Course(models.Model):
     accreditation = models.TextField("Аккредитация", blank=True, null=True, max_length=512)
     description = models.TextField("Описание", blank=True, null=True)
     visitors_number = models.IntegerField("Количество записавшихся на курс", blank=True, null=True)
-    directions = models.ManyToManyField("Direction", verbose_name="Массив идентификаторов направлений", blank=True,
-                                        null=True)  # массив
+    directions = models.ManyToManyField("Direction", verbose_name="Массив идентификаторов направлений", blank=True)  # массив
     expert_rating_count = models.CharField("Количество оценок экспертов", blank=True, null=True,
                                            max_length=512)  # сильно не точно
     has_sertificate = models.CharField("Тип выдаваемого сертификата",
@@ -274,8 +273,7 @@ class Course(models.Model):
 
     lectures_number = models.IntegerField("Количество лекций", blank=True, null=True)
     version = models.IntegerField("Версия курса", default=1)
-    activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности", blank=True,
-                                        null=True)  # массив
+    activities = models.ManyToManyField("Area", verbose_name="Массив идентификаторов областей деятельности", blank=True)  # массив
     visitors_rating_count = models.CharField("Количество пользовательских оценок", blank=True, null=True,
                                              max_length=512)  # наверно
     total_visitors_number = models.CharField("Количество слушателей", blank=True, null=True,

@@ -1,11 +1,11 @@
-from django.db import models
-
-from django import forms
-from multiupload.fields import MultiFileField
+import json
+import time
+import uuid
 
 import os
-import uuid
-import time, json
+from django import forms
+from django.db import models
+from multiupload.fields import MultiFileField
 
 
 def generate_new_filename(instance, filename):
@@ -306,7 +306,7 @@ class EdcrunchPersonalData(models.Model):
     DOCUMENT_TYPES = (('u', 'Удостоверение'), ('s', 'Сертификат'), ('n', 'Неуспеваемость'))
     STATUSES = (('f', 'Физ.лицо'), ('j', 'Физ.лицо по договору с юр.лицом'))
     EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
-    program = models.ForeignKey('Program', blank=False, null=True)
+    # program = models.ForeignKey('Program', blank=False, null=True)
     first_name = models.CharField("Имя", max_length=255, null=False, blank=False)
     last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)
     second_name = models.CharField("Отчество", max_length=255, null=True, blank=True)
@@ -334,12 +334,7 @@ class EdcrunchPersonalData(models.Model):
     diploma_scan = models.FileField("Скан диплома", upload_to=generate_new_filename, null=False, blank=False)
     another_doc = models.FileField("Иной документ", upload_to=generate_new_filename, null=True, blank=True)
 
-    quote = models.BooleanField("Заявка на попадание в квоту", default=False)
-
     agreement = models.BooleanField("Согласие на обработку перс. данных", default=False, blank=False, null=False)
-
-    in_quote = models.BooleanField("Попал в квоту", default=False)
-    paid = models.BooleanField("Оплатил", default=False)
 
     document_type = models.CharField("Тип выдаваемого документа", max_length=1, choices=DOCUMENT_TYPES, null=True,
                                      blank=True)
@@ -357,15 +352,6 @@ class EdcrunchPersonalData(models.Model):
     country = models.CharField("Страна", default='Россия', max_length=255, null=True, blank=True)
     address_living = models.TextField("Адрес проживания", max_length=255, blank=True, null=True)
 
-    possible_id = models.IntegerField(blank=True, default=0)
-    courses = models.ManyToManyField(Program, related_name='%(class)s_requests_created', blank=True)
-    entries = models.ManyToManyField(ReportEntry, related_name='%(class)s_requests_created', blank=True)
-    program_grade = models.CharField("Оценка за выбранный курс", default="-1", max_length=32, blank=True, null=True)
-    exam_name = models.CharField("Название итогового мероприятия", default="", max_length=32, blank=True, null=True)
-    exam_grade = models.CharField("Оценка за экзамен по программе", default="-1", max_length=32, blank=True, null=True)
-    proctoring_status = models.CharField("Статус прокторинга за выбранный курс", default="None", max_length=32,
-                                         blank=True, null=True)
-
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
@@ -377,14 +363,6 @@ class EdcrunchPersonalData(models.Model):
 
     def __str__(self):
         return self.email
-
-    def get_grades(self):
-        result = {}
-        cugs = CourseUserGrade.objects.filter(user=self).order_by("program__course_id", "program__session",
-                                                                  "created_at")
-        for cug in cugs:
-            result[str(cug.program.id)] = float(cug.grade)
-        return json.dumps(result)
 
     class Meta:
         verbose_name = 'слушатель'

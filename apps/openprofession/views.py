@@ -436,7 +436,4 @@ def add_epd(request):
                     print(field, field.errors)
             return render_to_response("openprofession/edcrunch_personaldata_form.html", {"form": form})
     else:
-        QA = QuotesAvailable.objects.first()
-        PDA = PDAvailable.objects.first()
-        programs = Program.objects.filter(active=True).order_by('title')
-        return render(request, "openprofession/edcrunch_personaldata_form.html", {"QA": QA, "PDA": PDA, 'programs': programs})
+        return render(request, "openprofession/edcrunch_personaldata_form.html")

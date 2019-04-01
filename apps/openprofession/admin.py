@@ -118,3 +118,10 @@ class PDAvailableAdmin(admin.ModelAdmin):
 class ProctoredReportEntryAdmin(admin.ModelAdmin):
     list_display = ('email', 'exam_name', 'status')
     list_filter = ('status',)
+
+
+@admin.register(PersonalData)
+class PersonalDataAdmin(AdminAdvancedFiltersMixin, VersionAdmin):
+    list_display = ('fio', 'diploma_scan', 'city', 'created_at', 'updated_at')
+    search_fields = ('last_name', 'first_name', 'second_name', "email")
+    exclude = ("entries", "courses")

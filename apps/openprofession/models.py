@@ -299,3 +299,93 @@ class PDAvailable(models.Model):
 
 class ReportUploadForm(forms.Form):
     report_files = MultiFileField(label="Загрузка отчетов", min_num=1, max_num=100, max_file_size=1024 * 1024 * 50)
+
+
+class EdcrunchPersonalData(models.Model):
+    SEX = (('m', 'мужской'), ('f', 'женский'))
+    DOCUMENT_TYPES = (('u', 'Удостоверение'), ('s', 'Сертификат'), ('n', 'Неуспеваемость'))
+    STATUSES = (('f', 'Физ.лицо'), ('j', 'Физ.лицо по договору с юр.лицом'))
+    EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
+    program = models.ForeignKey('Program', blank=False, null=True)
+    first_name = models.CharField("Имя", max_length=255, null=False, blank=False)
+    last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)
+    second_name = models.CharField("Отчество", max_length=255, null=True, blank=True)
+    sex = models.CharField("Пол", max_length=1, choices=SEX, null=False, blank=False)
+    city = models.CharField("Город", max_length=256, null=True, blank=False)
+
+    birth_date = models.CharField("Дата рождения", max_length=16, null=False, blank=False)
+    phone = models.CharField("Телефон", max_length=255, null=False, blank=False)
+    email = models.EmailField("Email")
+    job = models.CharField("Место работы", max_length=2048, null=True, blank=False)
+    position = models.CharField("Должность", max_length=2048, null=True, blank=False)
+    address_register = models.TextField("Адрес регистрации", blank=True, null=True)
+
+    claim_scan = models.FileField("Скан заявления", upload_to=generate_new_filename)
+
+    series = models.CharField("Серия", max_length=8, null=True, blank=True)
+    number = models.CharField("Номер", max_length=8, null=True, blank=True)
+    issued_by = models.TextField("Кем выдан", null=True, blank=True)
+    unit_code = models.CharField("Код подразделения", max_length=16, null=True, blank=True)
+    issue_date = models.CharField("Дата выдачи", max_length=16, null=True, blank=True)
+    passport_scan = models.FileField("Скан заявления", upload_to=generate_new_filename, null=True, blank=True)
+
+    education_level = models.CharField("Уровень базового образования", max_length=1, choices=EDUCATION_LEVEL,
+                                       null=False, blank=False)
+    diploma_scan = models.FileField("Скан диплома", upload_to=generate_new_filename, null=False, blank=False)
+    another_doc = models.FileField("Иной документ", upload_to=generate_new_filename, null=True, blank=True)
+
+    quote = models.BooleanField("Заявка на попадание в квоту", default=False)
+
+    agreement = models.BooleanField("Согласие на обработку перс. данных", default=False, blank=False, null=False)
+
+    in_quote = models.BooleanField("Попал в квоту", default=False)
+    paid = models.BooleanField("Оплатил", default=False)
+
+    document_type = models.CharField("Тип выдаваемого документа", max_length=1, choices=DOCUMENT_TYPES, null=True,
+                                     blank=True)
+    status = models.CharField("Статус", max_length=1, choices=STATUSES, null=True,
+                              blank=True)
+    all_docs = models.BooleanField("Слушатель прикрепил документы: скан заявления, документ об образовании",
+                                   default=False)
+    all_scans = models.BooleanField("Прикреплены все необоходимые сканы документов", default=False)
+    all_valid = models.BooleanField("Данные в доках слушателя совпадают и корректны", default=False)
+
+    doc_forwarding = models.FileField("Скан заявления о пересылке", upload_to=generate_new_filename, null=True,
+                                      blank=True)
+
+    mail_index = models.CharField("Почтовый индекс", max_length=255, null=True, blank=True)
+    country = models.CharField("Страна", default='Россия', max_length=255, null=True, blank=True)
+    address_living = models.TextField("Адрес проживания", max_length=255, blank=True, null=True)
+
+    possible_id = models.IntegerField(blank=True, default=0)
+    courses = models.ManyToManyField(Program, related_name='%(class)s_requests_created', blank=True)
+    entries = models.ManyToManyField(ReportEntry, related_name='%(class)s_requests_created', blank=True)
+    program_grade = models.CharField("Оценка за выбранный курс", default="-1", max_length=32, blank=True, null=True)
+    exam_name = models.CharField("Название итогового мероприятия", default="", max_length=32, blank=True, null=True)
+    exam_grade = models.CharField("Оценка за экзамен по программе", default="-1", max_length=32, blank=True, null=True)
+    proctoring_status = models.CharField("Статус прокторинга за выбранный курс", default="None", max_length=32,
+                                         blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    def fio(self):
+        if self.second_name:
+            return f"{self.last_name} {self.first_name} {self.second_name}"
+        else:
+            return f"{self.last_name} {self.first_name}"
+
+    def __str__(self):
+        return self.email
+
+    def get_grades(self):
+        result = {}
+        cugs = CourseUserGrade.objects.filter(user=self).order_by("program__course_id", "program__session",
+                                                                  "created_at")
+        for cug in cugs:
+            result[str(cug.program.id)] = float(cug.grade)
+        return json.dumps(result)
+
+    class Meta:
+        verbose_name = 'слушатель'
+        verbose_name_plural = 'слушатели'

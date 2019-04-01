@@ -17,7 +17,7 @@ from django.views.generic.edit import FormView
 
 from openedu.celery import app
 from .models import Entry, PersonalData, QuotesAvailable, Program, ReportUploadForm, Report, ReportEntry, \
-    CourseUserGrade, PDAvailable, SimulizatorData, ProctoredReportEntry, SeminarData
+    CourseUserGrade, PDAvailable, SimulizatorData, ProctoredReportEntry, SeminarData, EdcrunchPersonalData
 
 logger = logging.getLogger(__name__)
 
@@ -410,3 +410,33 @@ def add_sim_data(request):
             return render_to_response("openprofession/sim_personaldata_form.html", {"form": form})
     else:
         return render(request, "openprofession/sim_personaldata_form.html")
+
+
+class EdcrunchPersonalDataForm(forms.ModelForm):
+    class Meta:
+        model = EdcrunchPersonalData
+        fields = '__all__'
+
+        def __init__(self, *args, **kwargs):
+            super(EdcrunchPersonalDataForm, self).__init__(*args, **kwargs)
+
+
+@csrf_exempt
+def add_epd(request):
+    if request.method == 'POST':
+        form = PersonalDataForm(request.POST, request.FILES)
+        if form.is_valid():
+            _pd = form.save(commit=False)
+            _pd.save()
+            return redirect("/openprofession/thanks/")
+
+        else:
+            for field in form:
+                if field.errors:
+                    print(field, field.errors)
+            return render_to_response("openprofession/edcrunch_personaldata_form.html", {"form": form})
+    else:
+        QA = QuotesAvailable.objects.first()
+        PDA = PDAvailable.objects.first()
+        programs = Program.objects.filter(active=True).order_by('title')
+        return render(request, "openprofession/edcrunch_personaldata_form.html", {"QA": QA, "PDA": PDA, 'programs': programs})

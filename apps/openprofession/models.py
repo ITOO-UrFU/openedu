@@ -365,5 +365,5 @@ class EdcrunchPersonalData(models.Model):
         return self.email
 
     class Meta:
-        verbose_name = 'слушатель'
-        verbose_name_plural = 'слушатели'
+        verbose_name = 'слушатель edcrunch'
+        verbose_name_plural = 'слушатели edcrunch'

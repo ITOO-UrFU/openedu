@@ -424,7 +424,7 @@ class EdcrunchPersonalDataForm(forms.ModelForm):
 @csrf_exempt
 def add_epd(request):
     if request.method == 'POST':
-        form = PersonalDataForm(request.POST, request.FILES)
+        form = EdcrunchPersonalDataForm(request.POST, request.FILES)
         if form.is_valid():
             _pd = form.save(commit=False)
             _pd.save()

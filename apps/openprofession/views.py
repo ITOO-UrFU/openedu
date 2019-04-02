@@ -395,6 +395,10 @@ def sim_thanks(request):
     return render(request, "openprofession/sim_thanks.html")
 
 
+def edthanks(request):
+    return render(request, "openprofession/ed_thanks.html")
+
+
 @csrf_exempt
 def add_sim_data(request):
     if request.method == 'POST':

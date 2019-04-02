@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^list/$', personal_data_list, name="personal_data_list"),
     url(r'^update/$', updatePD, name="updatePD"),
     url(r'^thanks/$', thanks, name="thanks"),
+    url(r'^edthanks/$', edthanks, name="edthanks"),
     url(r'^sim_thanks/$', sim_thanks, name="sim_thanks"),
     url(r'^upload/$', ReportUploadView.as_view(), name="upload_reports"),
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),

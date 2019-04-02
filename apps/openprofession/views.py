@@ -432,7 +432,7 @@ def add_epd(request):
         if form.is_valid():
             _pd = form.save(commit=False)
             _pd.save()
-            return redirect("/openprofession/thanks/")
+            return redirect("/openprofession/edthanks/")
 
         else:
             for field in form:

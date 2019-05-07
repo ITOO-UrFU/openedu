@@ -1,7 +1,8 @@
 from django.conf.urls import url
 from graphene_django.views import GraphQLView
+
 from .views import entry, entry_list, add_entry, add_pd, ReportUploadView, personal_data_list, thanks, updatePD, \
-    add_sim_data, sim_thanks, add_seminar_bid, seminar_thanks, add_epd, edthanks, add_opd
+    add_sim_data, sim_thanks, add_seminar_bid, seminar_thanks, add_epd, edthanks, add_opd, orator_thanks
 
 urlpatterns = [
     url(r'^(?P<pk>\d+)$', entry, name="entry"),
@@ -16,6 +17,7 @@ urlpatterns = [
     url(r'^update/$', updatePD, name="updatePD"),
     url(r'^thanks/$', thanks, name="thanks"),
     url(r'^edthanks/$', edthanks, name="edthanks"),
+    url(r'^orator_thanks/$', orator_thanks, name="orator_thanks"),
     url(r'^sim_thanks/$', sim_thanks, name="sim_thanks"),
     url(r'^upload/$', ReportUploadView.as_view(), name="upload_reports"),
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),

@@ -399,6 +399,10 @@ def edthanks(request):
     return render(request, "openprofession/ed_thanks.html")
 
 
+def orator_thanks(request):
+    return render(request, "openprofession/orator_thanks.html")
+
+
 @csrf_exempt
 def add_sim_data(request):
     if request.method == 'POST':
@@ -459,7 +463,7 @@ def add_opd(request):
         if form.is_valid():
             _pd = form.save(commit=False)
             _pd.save()
-            return redirect("/openprofession/thanks/")
+            return redirect("/openprofession/orator_thanks/")
 
         else:
             for field in form:

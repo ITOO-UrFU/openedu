@@ -7,7 +7,7 @@ from django.utils.html import format_html
 from reversion.admin import VersionAdmin
 
 from .models import Entry, PersonalData, Program, QuotesAvailable, Report, ReportEntry, CourseUserGrade, PDAvailable, \
-    SimulizatorData, ProctoredReportEntry, SeminarData, EdcrunchPersonalData
+    SimulizatorData, ProctoredReportEntry, SeminarData, EdcrunchPersonalData, OratorPersonalData
 
 
 @admin.register(Entry)
@@ -122,6 +122,13 @@ class ProctoredReportEntryAdmin(admin.ModelAdmin):
 
 @admin.register(EdcrunchPersonalData)
 class EdcrunchPersonalDataAdmin(AdminAdvancedFiltersMixin, VersionAdmin):
+    list_display = ('fio', 'diploma_scan', 'city', 'created_at', 'updated_at')
+    search_fields = ('last_name', 'first_name', 'second_name', "email")
+    exclude = ("entries", "courses")
+
+
+@admin.register(OratorPersonalData)
+class OratorPersonalDataAdmin(AdminAdvancedFiltersMixin, VersionAdmin):
     list_display = ('fio', 'diploma_scan', 'city', 'created_at', 'updated_at')
     search_fields = ('last_name', 'first_name', 'second_name', "email")
     exclude = ("entries", "courses")

@@ -1,0 +1,327 @@
+{% extends "../base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col container" id="form">
+            <form enctype="multipart/form-data" action="" method="post">
+                {{ form.non_field_errors }}
+                <div class="subsection">
+
+                    <h2>ЗАЯВКА НА ПОВЫШЕНИЕ КВАЛИФИКАЦИИ <br/>
+                        по дополнительной профессиональной программе «Публичные выступления и ораторское мастерство» (36 часов)
+                    </h2>
+
+                </div>
+                <div class="subsection">
+                    <h2>Личные данные:</h2>
+
+
+                    <p><label for="id_last_name">Фамилия<span class="red">*</span>:</label>
+                        {{ form.last_name.errors }}
+                        <input name="last_name" maxlength="255" required=""
+                               id="id_last_name" type="text"></p>
+                    <p><label for="id_first_name">Имя<span class="red">*</span>:</label>
+                        {{ form.first_name.errors }}
+                        <input name="first_name" maxlength="255" required=""
+                               id="id_first_name" type="text"></p>
+
+                    <p><label for="id_second_name">Отчество:</label>
+                        {{ form.second_name.errors }}
+                        <input name="second_name" maxlength="255"
+                               id="id_second_name" type="text"></p>
+
+                    <p><label for="id_sex">Пол<span class="red">*</span>:</label>
+                        {{ form.sex.errors }}
+                        <select name="sex" required="" id="id_sex">
+                            <option value="" selected="">---------</option>
+                            <option value="m">мужской</option>
+                            <option value="f">женский</option>
+                        </select>
+                    </p>
+                    <p><label for="id_birth_date">Дата рождения<span class="red">*</span>:</label>
+                        {{ form.datepicker.errors }}
+                        <input class="datepicker" name="birth_date" required="" id="id_birth_date" placeholder="dd/mm/yyyy"
+                               type="text"></p>
+                    <p><label for="id_phone">Телефон<span class="red">*</span>:</label>
+                        {{ form.phone.errors }}
+                        <input name="phone" required="" id="id_phone" type="tel"></p>
+                    <p><label for="id_email">Email<span class="red">*</span>:</label>
+                        {{ form.email.errors }}
+                        <input name="email" maxlength="254" required="" id="id_email"
+                               type="email"></p>
+
+                    <p><label for="id_city">Город<span class="red">*</span>:</label>
+                        {{ form.job.errors }}
+                        <input name="city" maxlength="2048" required="" id="id_city"
+                               type="text"></p>
+
+                    <p><label for="id_job">Место работы<span class="red">*</span>:</label>
+                        {{ form.job.errors }}
+                        <input name="job" maxlength="2048" required="" id="id_job"
+                               type="text"></p>
+
+                    <p><label for="id_position">Должность<span class="red">*</span>:</label>
+                        {{ form.position.errors }}
+                        <input name="position" maxlength="2048" required="" id="id_position"
+                               type="text"></p>
+                    <!--<p><label for="id_address_register">Адрес регистрации:</label>-->
+                    <!--<textarea name="address_register" cols="40"-->
+                    <!--rows="10" required=""-->
+                    <!--id="id_address_register"></textarea>-->
+                    <!--</p>-->
+                    <!--<p><label for="id_address_living">Адрес проживания:</label>-->
+                    <!--<textarea name="address_living" cols="40"-->
+                    <!--rows="10" required=""-->
+                    <!--id="id_address_living"></textarea></p>-->
+                    <p><label for="id_claim_scan">Скан заявления о зачислении на обучение<span class="red">*</span>:</label>
+                        {{ form.claim_scan.errors }}
+                        <input name="claim_scan" required=""
+                               id="id_claim_scan" type="file"></p>
+                    <p><a href="../../files/openprofession/Заявление на зачисление.docx">Скачать шаблон заявления</a></p>
+                    
+                </div>
+
+                <div class="subsection">
+                <h2>Паспортные данные:</h2>
+                <p><label for="id_series">Серия:</label>
+                <input name="series" maxlength="8" required="" id="id_series"
+                type="text"></p>
+                <p><label for="id_number">Номер:</label>
+                <input name="number" maxlength="8" required="" id="id_number"
+                type="text"></p>
+                <p><label for="id_issued_by">Кем выдан:</label>
+                <textarea name="issued_by" cols="40" rows="10" required=""
+                id="id_issued_by"></textarea></p>
+                <p><label for="id_unit_code">Код подразделения:</label>
+                <input name="unit_code" maxlength="16" required=""
+                id="id_unit_code" type="text"></p>
+                <p><label for="id_issue_date">Дата выдачи:</label>
+                <input class="datepicker" name="issue_date" required="" id="id_issue_date"
+                type="text"></p>
+                <p><label for="id_passport_scan">Скан паспорта:</label>
+                <input name="passport_scan" required=""
+                id="id_passport_scan" type="file"></p>
+                </div>
+
+                <div class="subsection">
+                    <h2>Образование:</h2>
+                    <p><label for="id_education_level">Уровень базового образования<span class="red">*</span>:</label>
+                        {{ form.education_level.errors }}
+                        <select name="education_level"
+                                required=""
+                                id="id_education_level">
+                            <option value="" selected="">---------</option>
+
+                            <option value="M">Среднее профессиональное</option>
+
+                            <option value="H">Высшее</option>
+
+                        </select></p>
+                    <p><label for="id_diploma_scan">Скан диплома<span class="red">*</span>:</label>
+                        {{ form.diploma_scan.errors }}
+                        <input type="file" name="diploma_scan" required="" id="id_diploma_scan">
+                    </p>
+                    <p>ВНИМАНИЕ! В случае, если диплом был выдан не на территории РФ, необходимо предоставить подтверждение пройденной процедуры нострификации,
+                        прикрепив скан соответствующего документа в поле «Скан диплома» <strong>единым документом вместе с дипломом.</strong></p>
+                    <p><label for="id_another_doc">Документ о смене персональных данных:</label>
+                        {{ form.diploma_scan.errors }}
+                        <input type="file" name="another_doc" id="id_another_doc">
+                    </p>
+                    <p>ВНИМАНИЕ! В случае несоответствия персональных данных в дипломе и форме заявки (ФИО) необходимо приложить документ о смене персональных данных, например, свидетельство о заключении брака.</p>
+                </div>
+
+
+                <div class="subsection" style="height: 150px;">
+                    <p><label for="id_agreement">Я ознакомился с <a target="_blank"
+                                                                    href="https://ozi.urfu.ru/fileadmin/user_upload/site_15891/politika_01.pdf">политикой
+                        обработки
+                        персональных данных</a> и <a target="_blank"
+                                                     href="https://openedu.urfu.ru/files/law/agreement.html">согласен на
+                        обработку персональных данных</a><span class="red">*</span></label>
+                        {{ form.agreement.errors }}
+                        <input name="agreement"
+                               id="id_agreement"
+                               required=""
+                               type="checkbox"></p>
+                    <input value="Отправить" type="submit">
+                </div>
+
+                <div class="subsection" style="text-align: center;height: 63px;line-height: 90px;">
+                    <p>По всем вопросам обращаться: +7 992 024-26-58, itoo@urfu.ru</p>
+                </div>
+
+
+            </form>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                altFormat: "dd.mm.yyyy"
+            });
+        });
+    </script>
+
+    <style>
+        input[type=email], input[type=tel], input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        /* Style the label to display next to the inputs */
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        /* Style the submit button */
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        /* Style the container */
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        /* Floating column for labels: 25% width */
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        /* Floating column for inputs: 75% width */
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+
+        .errorlist {
+            color: red;
+            font-size: 75%;
+            list-style: none;
+        }
+
+        .subsection {
+            font-family: "open_sansregular";
+            background: #ffffff;
+            border: 1px #e5e5e5 solid;
+            box-shadow: 0 0 1px #e5e5e5;
+            padding: 12px 15px;
+            margin-bottom: 2em;
+        }
+
+        .subsection:last-child {
+            padding-bottom: 3em;
+        }
+
+        .col#form h2 {
+            text-align: center;
+        }
+
+        .col#form p {
+            width: 810px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .col#form p label {
+            display: inline-block;
+        / / width: 350 px
+        }
+
+        .col#form p input, .col#form p select {
+            display: inline-block;
+            width: 800px;
+        }
+
+        .col#form p input[type="checkbox"] {
+            width: 20px;
+            height: 15px;
+        }
+
+        .col#form p input[type="submit"] {
+            display: block;
+            margin: 20px auto 10px;
+            height: 40px;
+        }
+
+        .col#form p input[type="submit"][disabled] {
+
+        }
+
+        .article ul li {
+            margin-top: 0px;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
+
+{% endblock %}
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter47486308 = new Ya.Metrika2({
+                    id: 47486308,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    webvisor: true,
+                    ut: "noindex"
+                });
+            } catch (e) {
+            }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () {
+                n.parentNode.insertBefore(s, n);
+            };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks2");
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/47486308?ut=noindex" style="position:absolute; left:-9999px;" alt=""/>
+    </div>
+</noscript>
+<!-- /Yandex.Metrika counter -->

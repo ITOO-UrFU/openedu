@@ -17,7 +17,7 @@ from django.views.generic.edit import FormView
 
 from openedu.celery import app
 from .models import Entry, PersonalData, QuotesAvailable, Program, ReportUploadForm, Report, ReportEntry, \
-    CourseUserGrade, PDAvailable, SimulizatorData, ProctoredReportEntry, SeminarData, EdcrunchPersonalData
+    CourseUserGrade, PDAvailable, SimulizatorData, ProctoredReportEntry, SeminarData, EdcrunchPersonalData, OratorPersonalData
 
 logger = logging.getLogger(__name__)
 
@@ -441,3 +441,30 @@ def add_epd(request):
             return render_to_response("openprofession/edcrunch_personaldata_form.html", {"form": form})
     else:
         return render(request, "openprofession/edcrunch_personaldata_form.html")
+
+
+class OratorPersonalDataForm(forms.ModelForm):
+    class Meta:
+        model = OratorPersonalData
+        fields = '__all__'
+
+        def __init__(self, *args, **kwargs):
+            super(OratorPersonalDataForm, self).__init__(*args, **kwargs)
+
+
+@csrf_exempt
+def add_opd(request):
+    if request.method == 'POST':
+        form = OratorPersonalDataForm(request.POST, request.FILES)
+        if form.is_valid():
+            _pd = form.save(commit=False)
+            _pd.save()
+            return redirect("/openprofession/thanks/")
+
+        else:
+            for field in form:
+                if field.errors:
+                    print(field, field.errors)
+            return render_to_response("openprofession/orator_personaldata_form.html", {"form": form})
+    else:
+        return render(request, "openprofession/orator_personaldata_form.html")

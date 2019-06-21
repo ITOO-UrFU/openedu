@@ -7,7 +7,7 @@
                 <div class="subsection">
 
                     <h2>ЗАЯВКА НА ПОВЫШЕНИЕ КВАЛИФИКАЦИИ <br/>
-                        по дополнительной профессиональной программе «Публичные выступления и ораторское мастерство» (36 часов)
+                        по дополнительной профессиональной программе «Публичные выступления и ораторское мастерство»
                     </h2>
 
                 </div>
@@ -63,15 +63,11 @@
                         {{ form.position.errors }}
                         <input name="position" maxlength="2048" required="" id="id_position"
                                type="text"></p>
-                    <!--<p><label for="id_address_register">Адрес регистрации:</label>-->
-                    <!--<textarea name="address_register" cols="40"-->
-                    <!--rows="10" required=""-->
-                    <!--id="id_address_register"></textarea>-->
-                    <!--</p>-->
-                    <!--<p><label for="id_address_living">Адрес проживания:</label>-->
-                    <!--<textarea name="address_living" cols="40"-->
-                    <!--rows="10" required=""-->
-                    <!--id="id_address_living"></textarea></p>-->
+                    <p><label for="id_address_register">Адрес регистрации:</label>-->
+                    <textarea name="address_register" cols="40" rows="10" required="" id="id_address_register"></textarea>
+                    </p>
+
+
                     <p><label for="id_claim_scan">Скан заявления о зачислении на обучение<span class="red">*</span>:</label>
                         {{ form.claim_scan.errors }}
                         <input name="claim_scan" required=""

@@ -221,7 +221,7 @@ class CourseResource(resources.ModelResource):
             'teachers_all'
         )
 
-    def teachers_all(self, course):
+    def dehydrate_teachers_all(self, course):
         teachers = ""
         for teacher in course.teachers.all():
             teacher_desc = ""

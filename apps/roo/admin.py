@@ -232,7 +232,7 @@ class CourseResource(resources.ModelResource):
             #     teachers += teacher.title + teacher_desc + "\n"
             # except:
             #     pass
-            teachers += teacher.title
+            teachers += teacher.title + "\n"
         return teachers
 
     def dehydrate_directions_all(self, course):

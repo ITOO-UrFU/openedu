@@ -109,7 +109,7 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 #    )
 
 class CourseResource(resources.ModelResource):
-    title = Field(attribute='title', column_name='Наименование')
+    title = Field(attribute='title', column_name='Наименование1')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
     institution__title = Field(attribute='institution__title', column_name='Правообладатель')
     get_required_expertises_links = Field(attribute='get_required_expertises_links',

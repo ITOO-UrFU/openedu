@@ -109,11 +109,36 @@ class ProctoringServiceAdmin(admin.ModelAdmin):
 #    )
 
 class CourseResource(resources.ModelResource):
-    title = Field(attribute='title', column_name='Наименование1')
+    title = Field(attribute='title', column_name='Наименование')
     partner__title = Field(attribute='partner__title', column_name='Платформа')
     institution__title = Field(attribute='institution__title', column_name='Правообладатель')
     get_required_expertises_links = Field(attribute='get_required_expertises_links',
                                           column_name='Ссылки на обязательные эксертизы в базе')
+
+    record_end_at = Field(attribute='record_end_at', column_name='Дата окончания записи на курс')
+    global_id = Field(attribute='global_id', column_name='ИД курса на РОО')
+    created_at = Field(attribute='created_at', column_name='Дата создания онлайн-курса')
+    finished_at = Field(attribute='finished_at', column_name='Дата окончания онлайн-курса')
+    started_at = Field(attribute='started_at', column_name='Дата ближайшего запуска')
+    labor = Field(attribute='labor', column_name='Трудоемкость (з.е.)')
+    duration = Field(attribute='duration', column_name='Трудоемкость (з.е.)')
+    description = Field(attribute='description', column_name='Описание')
+    visitors_number = Field(attribute='visitors_number', column_name='Количество записавшихся на курс')
+    language = Field(attribute='language', column_name='Язык контента')
+    content = Field(attribute='content', column_name='Содержание онлайн-курса')
+    lectures_number = Field(attribute='lectures_number', column_name='Количество лекций')
+    requirements = Field(attribute='requirements', column_name='Входные требования')
+    evaluation_tools_text = Field(attribute='evaluation_tools_text', column_name='Оценочные средства')
+    teachers_all = Field(
+        column_name='Список лекторов/авторов'
+    )
+
+    # 'record_end_at','global_id','created_at','finished_at','started_at','labor','duration','description','visitors_number','language','content','lectures_number','requirements','evaluation_tools_text','teachers_all'
+
+    # proctoring_service = models.ForeignKey("ProctoringService", blank=True, null=True)
+    # expert_account = models.TextField("Комментарий эксперта", blank=True, null=True)
+    # credits = models.CharField("Массив перезачётов", default='[]', blank=True, null=True, max_length=512)
+
 
     directions_all = Field(column_name='Массив идентификаторов направлений')
     activities_all = Field(column_name='Массив идентификаторов областей деятельности')
@@ -179,6 +204,8 @@ class CourseResource(resources.ModelResource):
 
     ###
 
+
+
     course_item_url = Field(attribute="course_item_url", column_name="Ссылка на РОО")
 
     class Meta:
@@ -188,7 +215,20 @@ class CourseResource(resources.ModelResource):
             'competences', 'directions_all', 'external_url ', 'comment', 'passport_responsible', 'owner_responsible', 'platform_responsible'
                                                                                                                       'platform_responsible_comment', 'owner_responsible_comment', 'activities_all', 'in_archive', 'roo_status',
             'results', 'expertise_status', 'expert_access', 'unforced_ratings_state', 'required_ratings_state',
-            'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url')
+            'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url',
+            'record_end_at', 'global_id', 'created_at', 'finished_at', 'started_at', 'labor', 'duration', 'description',
+            'visitors_number', 'language', 'content', 'lectures_number', 'requirements', 'evaluation_tools_text',
+            'teachers_all'
+        )
+
+    def teachers_all(self, course):
+        teachers = ""
+        for teacher in course.teachers.all():
+            teacher_desc = ""
+            if len(teacher.description) > 0:
+                teacher_desc = "("+teacher.description+")"
+            teachers += teacher.title + teacher_desc + "\n"
+        return teachers
 
     def dehydrate_directions_all(self, course):
         dirs = ""

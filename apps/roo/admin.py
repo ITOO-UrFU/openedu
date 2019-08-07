@@ -121,7 +121,7 @@ class CourseResource(resources.ModelResource):
     finished_at = Field(attribute='finished_at', column_name='Дата окончания онлайн-курса')
     started_at = Field(attribute='started_at', column_name='Дата ближайшего запуска')
     labor = Field(attribute='labor', column_name='Трудоемкость (з.е.)')
-    duration = Field(attribute='duration', column_name='Трудоемкость (з.е.)')
+    duration = Field(attribute='duration', column_name='Длительность в неделях')
     description = Field(attribute='description', column_name='Описание')
     visitors_number = Field(attribute='visitors_number', column_name='Количество записавшихся на курс')
     language = Field(attribute='language', column_name='Язык контента')

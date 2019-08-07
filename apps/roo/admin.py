@@ -225,10 +225,13 @@ class CourseResource(resources.ModelResource):
         teachers = ""
         for teacher in course.teachers.all():
             teacher_desc = ""
-            if teacher.description is not None:
-                if len(teacher.description) > 0:
-                    teacher_desc = "("+teacher.description+")"
-            teachers += teacher.title + teacher_desc + "\n"
+            try:
+                if teacher.description is not None:
+                    if len(teacher.description) > 0:
+                        teacher_desc = "("+teacher.description+")"
+                teachers += teacher.title + teacher_desc + "\n"
+            except:
+                pass
         return teachers
 
     def dehydrate_directions_all(self, course):

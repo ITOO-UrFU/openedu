@@ -132,6 +132,8 @@ class CourseResource(resources.ModelResource):
     teachers_all = Field(
         column_name='Список лекторов/авторов'
     )
+    version = Field(attribute='version', column_name='Версия курса')
+    verified_cert = Field(attribute='verified_cert', column_name='Возможность получить подтвержденный сертификат')
 
     # 'record_end_at','global_id','created_at','finished_at','started_at','labor','duration','description','visitors_number','language','content','lectures_number','requirements','evaluation_tools_text','teachers_all'
 
@@ -171,6 +173,11 @@ class CourseResource(resources.ModelResource):
         attribute='get_passport_status_display',
         column_name='Статус паспорта'
     )
+    has_sertificate = Field(
+        attribute='get_has_sertificate_display',
+        column_name='Тип выдаваемого сертификата'
+    )
+
     communication_owner = Field(
         attribute='get_communication_owner_display',
         column_name='Статус коммуникации с правообладателем'
@@ -218,7 +225,7 @@ class CourseResource(resources.ModelResource):
             'roo_status', 'passport_status', 'communication_owner', 'communication_platform', 'course_item_url',
             'record_end_at', 'global_id', 'created_at', 'finished_at', 'started_at', 'labor', 'duration', 'description',
             'visitors_number', 'language', 'content', 'lectures_number', 'requirements', 'evaluation_tools_text',
-            'teachers_all'
+            'teachers_all', 'has_sertificate', 'version', 'verified_cert'
         )
 
     def dehydrate_teachers_all(self, course):
